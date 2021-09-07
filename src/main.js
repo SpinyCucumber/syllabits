@@ -4,6 +4,7 @@ import router from './router'
 import Buefy from 'buefy'
 
 import 'buefy/dist/buefy.css'
+import './syllabits.css'
 
 // Buefy bundle size is actually small
 Vue.use(Buefy);
