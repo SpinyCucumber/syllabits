@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import { Splash, Login, Dashboard } from '@/views'
+import { Splash, Login, Dashboard, Play } from '@/views'
 import IdentityManager from '@/services/IdentityManager'
 
 Vue.use(VueRouter)
@@ -33,6 +33,11 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     component: Dashboard,
+  },
+  {
+    path: '/play',
+    name: 'Play',
+    component: Play,
   }
 ]
 
