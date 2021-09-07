@@ -1,7 +1,17 @@
 <template>
     <div>
         <h1>TODO</h1>
-        <block-picker/>
+        <b-dropdown>
+            <template #trigger="{ active }">
+                <b-button
+                    label="Blocks"
+                    type="is-primary"
+                    :icon-right="active ? 'menu-up' : 'menu-down'"/>
+            </template>
+            <b-dropdown-item custom class="syllabits-block-picker-container">
+                <block-picker/>
+            </b-dropdown-item>
+        </b-dropdown>
     </div>
 </template>
 

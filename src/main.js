@@ -5,6 +5,7 @@ import Buefy from 'buefy'
 
 import 'buefy/dist/buefy.css'
 import './syllabits.css'
+import '@mdi/font/css/materialdesignicons.min.css'
 
 // Buefy bundle size is actually small
 Vue.use(Buefy);
