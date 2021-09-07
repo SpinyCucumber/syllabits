@@ -9,7 +9,8 @@
           <b-navbar-item tag="router-link" :to="{ name: 'Dashboard' }">
             Dashboard
           </b-navbar-item>
-          <b-navbar-item tag="router-link" :to="{ name: 'Play', props: { randomPoem: true } }">
+          <!-- TODO -->
+          <b-navbar-item tag="a">
             Random Poem
           </b-navbar-item>
         </template>
