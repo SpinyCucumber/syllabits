@@ -10,7 +10,7 @@ const routes = [
     name: 'Root',
     redirect() {
       // If user is logged in, we redirect them to the dashboard. Otherwise the splash view.
-      if (this.$identityManager.hasIdentity()) {
+      if (Vue.identityManager.hasIdentity()) {
         return { name: 'Dashboard' };
       }
       return { name: 'Splash' };

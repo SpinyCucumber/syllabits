@@ -12,6 +12,6 @@ class IdentityManager {
 
 export default {
     install(Vue) {
-        Vue.prototype.$identityManager = new IdentityManager();
+        Vue.identityManager = new IdentityManager();
     }
 }
