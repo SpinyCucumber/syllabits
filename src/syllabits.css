@@ -2,7 +2,13 @@
     max-width: 5em;
     border-radius: 4px;
     padding: 4px;
-    
+
     letter-spacing: 3pt;
     color: #ffeeff
+}
+
+.syllabits-block-picker {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: repeat(2, 1fr);
 }
