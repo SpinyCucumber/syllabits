@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view v-if="$isTransitory($route)"/>
+    <router-view v-if="$route.meta.transitory"/>
     <div v-else>
       <b-navbar>
 
