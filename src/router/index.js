@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import { Splash, Login, Dashboard } from '@/views'
 
 Vue.use(VueRouter)
 
@@ -18,16 +19,19 @@ const routes = [
   {
     path: '/splash',
     name: 'Splash',
+    component: Splash,
     meta: { transitory: true },
   },
   {
     path: '/login',
     name: 'Login',
+    component: Login,
     meta: { transitory: true },
   },
   {
     path: '/dashboard',
     name: 'Dashboard',
+    component: Dashboard,
   }
 ]
 
