@@ -13,7 +13,10 @@ export default {
         return create(
             'div',
             {
-                class: 'syllabits-block',
+                class: 'syllabits-block-shape syllabits-block',
+                attrs: {
+                    draggable: true
+                },
                 style: {
                     'background-color': this.type.color,
                 }

@@ -1,8 +1,11 @@
-.syllabits-block {
-    max-width: 5em;
+.syllabits-block-shape {
+    width: 80px;
+    height: 50px;
+    line-height: 50px;
     border-radius: 4px;
-    padding: 4px;
+}
 
+.syllabits-block {
     letter-spacing: 3pt;
     color: #ffeeff
 }
@@ -11,4 +14,12 @@
     display: grid;
     gap: 8px;
     grid-template-columns: repeat(2, 1fr);
+}
+
+.syllabits-content {
+    margin: 8px;
+}
+
+.full-height {
+    height: 100%;
 }

@@ -1,6 +1,5 @@
 <template>
-    <div>
-        <h1>TODO</h1>
+    <div class="is-flex is-flex-direction-column">
         <b-dropdown>
             <template #trigger="{ active }">
                 <b-button
@@ -8,7 +7,7 @@
                     type="is-primary"
                     :icon-right="active ? 'menu-up' : 'menu-down'"/>
             </template>
-            <b-dropdown-item custom class="syllabits-block-picker-container">
+            <b-dropdown-item custom>
                 <block-picker/>
             </b-dropdown-item>
         </b-dropdown>
