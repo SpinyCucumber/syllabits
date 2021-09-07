@@ -2,7 +2,7 @@
 // Each block type corresponds to one type of foot.
 // The color of each block type is specified in the config file.
 
-import Config from 'config'
+import Config from '/config'
 
 // An 'ictus' is used to represent a stressed syllable, and a 'breve' is used for an unstressed syllable.
 const STRESSED = '\'', UNSTRESSED = '—'
@@ -21,7 +21,7 @@ class BlockType {
     constructor(name, notation) {
         this.name = name;
         this.notation = notation;
-        values.push(this);
+        BlockType.values.push(this);
     }
 
     toString() {
