@@ -18,9 +18,15 @@ const routes = [
   {
     path: '/splash',
     name: 'Splash',
+    meta: { transitory: true },
   },
   {
-    path: 'dashboard',
+    path: '/login',
+    name: 'Login',
+    meta: { transitory: true },
+  },
+  {
+    path: '/dashboard',
     name: 'Dashboard',
   }
 ]
