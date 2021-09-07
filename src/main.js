@@ -2,11 +2,13 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import Buefy from 'buefy'
+import Transitory from '@/plugins/transitory'
 
 import 'buefy/dist/buefy.css'
 
 // Buefy bundle size is actually small
 Vue.use(Buefy)
+Vue.use(Transitory);
 
 Vue.config.productionTip = false
 
