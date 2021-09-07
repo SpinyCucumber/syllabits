@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "buefy": "^0.9.10",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0"
   },
