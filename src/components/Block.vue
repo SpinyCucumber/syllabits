@@ -13,11 +13,12 @@ export default {
         return create(
             'div',
             {
-                class: 'block',
+                class: 'syllabits-block',
                 style: {
-                    color: this.type.color,
+                    'background-color': this.type.color,
                 }
-            }
+            },
+            this.type.notation
         )
     }
 

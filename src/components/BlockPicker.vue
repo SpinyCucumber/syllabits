@@ -10,7 +10,7 @@ export default {
         return create(
             'div',
             {
-                class: 'block-picker',
+                class: 'syllabits-block-picker',
             },
             BlockType.values.map((type) => create(Block, {
                 props: {
