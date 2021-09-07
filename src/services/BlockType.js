@@ -30,3 +30,5 @@ class BlockType {
     }
 
 }
+
+export default BlockType;
