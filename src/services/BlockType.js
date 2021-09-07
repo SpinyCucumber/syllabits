@@ -9,6 +9,8 @@ const STRESSED = '\'', UNSTRESSED = '—'
 
 class BlockType {
 
+    static values = [];
+
     static Iamb = new BlockType('Iamb', UNSTRESSED + STRESSED);
     static Trochee = new BlockType('Trochee', STRESSED + UNSTRESSED);
     static Dactyl = new BlockType('Dactyl', STRESSED + UNSTRESSED + UNSTRESSED);
@@ -19,6 +21,7 @@ class BlockType {
     constructor(name, notation) {
         this.name = name;
         this.notation = notation;
+        values.push(this);
     }
 
     toString() {
