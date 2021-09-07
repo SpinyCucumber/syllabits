@@ -2,7 +2,24 @@
   <div id="app">
     <router-view v-if="$route.meta.transitory"/>
     <div v-else>
-      <b-navbar>
+      <b-navbar type="is-primary">
+
+        <!-- Items rendered at beginning of navbar -->
+        <template #start>
+          <b-navbar-item tag="router-link" :to="{ name: 'Dashboard' }">
+            Dashboard
+          </b-navbar-item>
+          <b-navbar-item tag="router-link" :to="{ name: 'Play', props: { randomPoem: true } }">
+            Random Poem
+          </b-navbar-item>
+        </template>
+
+        <template #brand>
+          <b-navbar-item>
+            <!-- TODO Replace with logo -->
+            ProtoSyllabits
+          </b-navbar-item>
+        </template>
 
       </b-navbar>
       <router-view/>
