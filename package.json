@@ -13,6 +13,7 @@
     "buefy": "^0.9.10",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
+    "vue-dndrop": "^1.0.2",
     "vue-router": "^3.2.0"
   },
   "devDependencies": {

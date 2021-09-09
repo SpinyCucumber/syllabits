@@ -13,7 +13,7 @@
 .syllabits-block-picker {
     display: grid;
     gap: 8px;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
 }
 
 .syllabits-content {
@@ -22,4 +22,10 @@
 
 .full-height {
     height: 100%;
+}
+
+/* Temporary fix for https://github.com/buefy/buefy/issues/3471 */
+.slide-enter-to, .slide-leave {
+    max-height: 50vh;
+    overflow: hidden;
 }

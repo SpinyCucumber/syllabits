@@ -1,6 +1,6 @@
 <template>
     <div class="is-flex is-flex-direction-column">
-        <b-dropdown>
+        <b-dropdown animation="slide">
             <template #trigger="{ active }">
                 <b-button
                     label="Blocks"
