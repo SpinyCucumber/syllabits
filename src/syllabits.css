@@ -2,12 +2,28 @@
     width: 80px;
     height: 50px;
     line-height: 50px;
-    border-radius: 4px;
+    border-radius: 8px;
 }
 
 .syllabits-block {
     letter-spacing: 3pt;
-    color: #ffeeff
+    font-weight: bold;
+    color: #ffeeff;
+    cursor: move;
+}
+
+.syllabits-block-slot {
+    z-index: -10;
+    fill: none;
+    pointer-events: all;
+    stroke: gray;
+    stroke-dasharray: 10, 10;
+    stroke-width: 2;
+}
+
+.syllabits-block-slot[drop-active=true] {
+    fill: lightgray;
+    animation: ants 3s linear 0s infinite normal forwards;
 }
 
 .syllabits-block-picker {
@@ -28,4 +44,10 @@
 .slide-enter-to, .slide-leave {
     max-height: 50vh;
     overflow: hidden;
+}
+
+@keyframes ants {
+    to {
+        stroke-dashoffset: 150%;
+    }
 }

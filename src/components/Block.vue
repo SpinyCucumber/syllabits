@@ -1,6 +1,5 @@
 <script>
 import BlockType from '@/services/BlockType'
-import { Draggable } from 'vue-dndrop';
 
 export default {
     name: 'Block',
@@ -9,22 +8,29 @@ export default {
         type: BlockType
     },
 
+    methods: {
+        onDragStart(event) {
+            event.dataTransfer.dropEffect = 'move';
+            event.dataTransfer.effectAllowed = 'move';
+            event.dataTransfer.setData('blockTypeId', this.type.name);
+        }
+    },
+
     render(create) {
         // Create block element
         return create(
-            Draggable,
-            {},
-            [create(
-                'div',
-                {
-                    class: 'syllabits-block-shape syllabits-block',
-                    attrs: { key: this.type.name, },
-                    style: {
-                        'background-color': this.type.color,
-                    }
+            'div',
+            {
+                class: 'syllabits-block-shape syllabits-block',
+                attrs: { key: this.type.name, draggable: true, },
+                style: {
+                    'background-color': this.type.color,
                 },
-                this.type.notation
-            )]
+                on: {
+                    dragstart: this.onDragStart,
+                }
+            },
+            this.type.notation
         )
     }
 

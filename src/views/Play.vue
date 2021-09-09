@@ -1,24 +1,32 @@
 <template>
     <div class="is-flex is-flex-direction-column">
-        <b-dropdown animation="slide">
-            <template #trigger="{ active }">
-                <b-button
-                    label="Blocks"
-                    type="is-primary"
-                    :icon-right="active ? 'menu-up' : 'menu-down'"/>
-            </template>
-            <b-dropdown-item custom>
-                <block-picker/>
-            </b-dropdown-item>
-        </b-dropdown>
+
+        <div class="is-flex">
+
+            <b-dropdown animation="slide">
+                <template #trigger="{ active }">
+                    <b-button
+                        label="Blocks"
+                        type="is-primary"
+                        :icon-right="active ? 'menu-up' : 'menu-down'"/>
+                </template>
+                <b-dropdown-item custom>
+                    <block-picker/>
+                </b-dropdown-item>
+            </b-dropdown>
+
+            <block-slot/>
+
+        </div>
+
     </div>
 </template>
 
 <script>
-import { BlockPicker } from '@/components'
+import { BlockPicker, BlockSlot } from '@/components'
 
 export default {
     name: 'Play',
-    components: { BlockPicker }
+    components: { BlockPicker, BlockSlot }
 }
 </script>
