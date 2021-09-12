@@ -25,16 +25,15 @@
 }
 
 .game-slot {
-    z-index: -10;
     fill: none;
     pointer-events: all;
     stroke: gray;
-    stroke-dasharray: 10, 10;
+    stroke-dasharray: 9, 9;
     stroke-width: 2;
 }
 
 .game-slot.drop-active {
-    fill: #eeeeee;
+    fill: #dedede;
     animation: ants 3s linear 0s infinite normal forwards;
 }
 
@@ -60,7 +59,7 @@
 }
 
 .block-dropdown.is-active .button {
-    background-color: #eeeeee;
+    background-color: #dedede;
 }
 
 .navbar {
@@ -82,7 +81,10 @@ h1 {
 }
 
 @keyframes ants {
+    from {
+        stroke-dashoffset: 0%;
+    }
     to {
-        stroke-dashoffset: 150%;
+        stroke-dashoffset: 135%;
     }
 }
