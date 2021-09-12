@@ -1,23 +1,25 @@
-.syllabits-block-shape {
+.syllabits-block {
     width: 80px;
     height: 50px;
     line-height: 50px;
     border-radius: 8px;
-}
-
-.syllabits-block {
     letter-spacing: 3pt;
     font-weight: bold;
     color: #ffeeff;
     cursor: move;
 }
 
-.syllabits-block-ghost {
+.syllabits-block.drop-active {
+    transition: opacity 0.25s ease;
+    opacity: 0%;
+}
+
+.syllabits-block.ghost {
     transition: transform 0.18s ease;
     transform: rotateZ(5deg)
 }
 
-.syllabits-block-ghost-drop {
+.syllabits-block.ghost-drop {
     transition: transform 0.18s ease-in-out;
     transform: rotateZ(0deg)
 }
@@ -31,7 +33,7 @@
     stroke-width: 2;
 }
 
-.syllabits-block-slot[drop-active=true] {
+.syllabits-block-slot.drop-active {
     fill: lightgray;
     animation: ants 3s linear 0s infinite normal forwards;
 }

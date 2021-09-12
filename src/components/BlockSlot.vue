@@ -4,15 +4,14 @@
         <container
             :should-accept-drop="shouldAcceptDrop"
             :get-child-payload="getPayload"
-            drag-class="syllabits-block-ghost"
-            drop-class="syllabits-block-ghost-drop"
+            drag-class="ghost"
+            drop-class="ghost-drop"
             @drag-enter="onDragEnter"
             @drag-leave="onDragLeave"
-            @drag-end="onDragEnd"
             @drop="onDrop"
             style="position: absolute; width: 100%; height: 100%;">
             <draggable v-if="holding">
-                <block :type="holding"/>
+                <block :type="holding" :class="{ 'drop-active': dropActive }"/>
             </draggable>
         </container>
 
@@ -22,8 +21,7 @@
                 x = "2" y="2"
                 width="76" height="46"
                 rx = "8" ry = "8"
-                :drop-active = "String(dropActive)"
-                class="syllabits-block-slot">
+                :class="{ 'syllabits-block-slot': true, 'drop-active': dropActive }">
             </rect>
         </svg>
 
@@ -46,7 +44,6 @@ export default {
     data() {
         return {
             dropActive: false,
-            dragActive: false,
             // The current block type we are holding
             holding: null,
         }
@@ -54,7 +51,7 @@ export default {
 
     methods: {
         shouldAcceptDrop() {
-            return !this.holding || this.dragActive;
+            return true;
         },
         onDragEnter() {
             this.dropActive = true;
@@ -74,13 +71,7 @@ export default {
             }
         },
         getPayload() {
-            this.dragActive = true;
             return this.holding;
-        },
-        onDragEnd(event) {
-            if (event.isSource) {
-                this.dragActive = false;
-            }
         },
     },
 
