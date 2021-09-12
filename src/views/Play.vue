@@ -3,7 +3,10 @@
 
         <div class="is-flex">
 
-            <b-dropdown animation="slide">
+            <b-dropdown
+                animation="slide"
+                :can-close="false"
+                :close-on-click="false">
                 <template #trigger="{ active }">
                     <b-button
                         label="Blocks"
