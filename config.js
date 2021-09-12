@@ -1,10 +1,10 @@
 export default {
     blockColors: {
-        Iamb: 'orange',
-        Trochee: 'blue',
-        Dactyl: 'red',
-        Anapest: 'gray',
-        Spondee: 'black',
-        Pyrrhic: 'green',
+        Iamb: '#E69F00',
+        Trochee: '#0072B2',
+        Dactyl: '#D55E00',
+        Anapest: '#CC79A7',
+        Spondee: '#000000',
+        Pyrrhic: '#009E73',
     }
 }
