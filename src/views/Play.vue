@@ -5,14 +5,14 @@
 
             <b-dropdown
                 animation="slide"
-                class="block-dropdown"
+                class="block-dropdown ml-2"
                 :can-close="false"
                 :close-on-click="false">
-                <template #trigger="{ active }">
-                    <b-button
-                        label="Blocks"
-                        type="is-primary"
-                        :icon-right="active ? 'menu-up' : 'menu-down'"/>
+                <template #trigger>
+                    <b-button>
+                        <img src="blocks.svg"
+                            width="60"/>
+                    </b-button>
                 </template>
                 <b-dropdown-item custom>
                     <block-picker/>
