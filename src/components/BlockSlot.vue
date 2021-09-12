@@ -4,6 +4,7 @@
         <container
             :should-accept-drop="shouldAcceptDrop"
             :get-child-payload="getPayload"
+            :remove-on-drop-out="true"
             drag-class="ghost"
             drop-class="ghost-drop"
             @drag-enter="onDragEnter"
@@ -21,7 +22,7 @@
                 x = "2" y="2"
                 width="76" height="46"
                 rx = "8" ry = "8"
-                :class="{ 'syllabits-block-slot': true, 'drop-active': dropActive }">
+                :class="{ 'game-slot': true, 'drop-active': dropActive }">
             </rect>
         </svg>
 

@@ -5,6 +5,7 @@
 
             <b-dropdown
                 animation="slide"
+                class="block-dropdown"
                 :can-close="false"
                 :close-on-click="false">
                 <template #trigger="{ active }">

@@ -1,4 +1,4 @@
-.syllabits-block {
+.game-block {
     width: 80px;
     height: 50px;
     line-height: 50px;
@@ -9,22 +9,22 @@
     cursor: move;
 }
 
-.syllabits-block.drop-active {
+.game-block.drop-active {
     transition: opacity 0.25s ease;
     opacity: 0%;
 }
 
-.syllabits-block.ghost {
+.game-block.ghost {
     transition: transform 0.18s ease;
     transform: rotateZ(5deg)
 }
 
-.syllabits-block.ghost-drop {
+.game-block.ghost-drop {
     transition: transform 0.18s ease-in-out;
     transform: rotateZ(0deg)
 }
 
-.syllabits-block-slot {
+.game-slot {
     z-index: -10;
     fill: none;
     pointer-events: all;
@@ -33,19 +33,19 @@
     stroke-width: 2;
 }
 
-.syllabits-block-slot.drop-active {
+.game-slot.drop-active {
     fill: lightgray;
     animation: ants 3s linear 0s infinite normal forwards;
 }
 
-.syllabits-block-picker {
+.block-picker {
     display: grid;
     gap: 8px;
     grid-template-columns: repeat(1, 1fr);
 }
 
-.syllabits-content {
-    margin: 8px;
+.block-dropdown .dropdown-menu {
+    min-width: auto;
 }
 
 .full-height {

@@ -23,7 +23,7 @@
         </template>
 
       </b-navbar>
-      <router-view class="is-flex-grow-1 syllabits-content"/>
+      <router-view class="is-flex-grow-1"/>
     </div>
   </div>
 </template>

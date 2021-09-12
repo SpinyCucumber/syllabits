@@ -10,7 +10,7 @@ export default {
         return create(
             'div',
             {
-                class: 'syllabits-block-picker',
+                class: 'block-picker',
             },
             BlockType.values.map((type) => create(BlockSlot, {
                 props: {

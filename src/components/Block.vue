@@ -13,7 +13,7 @@ export default {
         return create(
             'div',
             {
-                class: 'syllabits-block-shape syllabits-block',
+                class: 'game-block',
                 style: {
                     'background-color': this.type.color,
                 },
