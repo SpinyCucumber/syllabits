@@ -12,6 +12,16 @@
     cursor: move;
 }
 
+.syllabits-block-ghost {
+    transition: transform 0.18s ease;
+    transform: rotateZ(5deg)
+}
+
+.syllabits-block-ghost-drop {
+    transition: transform 0.18s ease-in-out;
+    transform: rotateZ(0deg)
+}
+
 .syllabits-block-slot {
     z-index: -10;
     fill: none;

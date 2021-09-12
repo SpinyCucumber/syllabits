@@ -4,6 +4,8 @@
         <container
             :should-accept-drop="shouldAcceptDrop"
             :get-child-payload="getPayload"
+            drag-class="syllabits-block-ghost"
+            drop-class="syllabits-block-ghost-drop"
             @drag-enter="onDragEnter"
             @drag-leave="onDragLeave"
             @drag-end="onDragEnd"
