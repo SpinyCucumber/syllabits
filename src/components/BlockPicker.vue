@@ -14,6 +14,7 @@ export default {
             },
             BlockType.values.map((type) => create(BlockSlot, {
                 props: {
+                    mode: 'bucket',
                     holdingInitial: type
                 }
             }))

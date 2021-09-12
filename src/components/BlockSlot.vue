@@ -30,12 +30,18 @@
 
 <script>
 import Block from './Block'
+import BlockType from '@/services/BlockType'
 import { Draggable, Container } from 'vue-smooth-dnd'
 
 export default {
     name: 'BlockSlot',
     components: { Block, Draggable, Container },
-    props: { holdingInitial: null },
+
+    props: {
+        // Valid modes are 'slot' or 'bucket'
+        mode: { type: String, default: 'slot' },
+        holdingInitial: BlockType,
+    },
 
     created() {
         this.holding = this.holdingInitial;
@@ -51,7 +57,10 @@ export default {
 
     methods: {
         shouldAcceptDrop() {
-            return true;
+            if (this.mode === 'slot') return true;
+            else if (this.mode === 'bucket') return false;
+            // Can add behavior for other modes here
+            return false;
         },
         onDragEnter() {
             this.dropActive = true;
@@ -61,8 +70,9 @@ export default {
         },
         onDrop(dropResult) {
             // If we are the source container
+            // Only clear slot if we are in "slot" mode
             if (dropResult.removedIndex != null) {
-                this.holding = null;
+                if (this.mode === 'slot') this.holding = null;
             }
             // If we are the container being dropped into
             if (dropResult.addedIndex != null) {
