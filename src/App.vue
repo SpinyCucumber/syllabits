@@ -2,7 +2,7 @@
   <div id="app" class="full-height">
     <router-view v-if="$route.meta.transitory"/>
     <div v-else class="is-flex is-flex-direction-column full-height">
-      <b-navbar type="is-primary">
+      <b-navbar>
 
         <!-- Items rendered at beginning of navbar -->
         <template #start>

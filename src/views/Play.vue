@@ -1,5 +1,5 @@
 <template>
-    <div class="is-flex is-flex-direction-column">
+    <div class="has-background-primary is-flex is-flex-direction-column">
 
         <div class="is-flex">
 
