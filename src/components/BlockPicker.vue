@@ -1,6 +1,6 @@
 <script>
 import BlockType from '@/services/BlockType'
-import Block from './Block'
+import BlockSlot from './BlockSlot'
 
 export default {
     name: 'BlockPicker',
@@ -12,9 +12,9 @@ export default {
             {
                 class: 'syllabits-block-picker',
             },
-            BlockType.values.map((type) => create(Block, {
+            BlockType.values.map((type) => create(BlockSlot, {
                 props: {
-                    type: type
+                    holdingInitial: type
                 }
             }))
         )

@@ -14,7 +14,8 @@
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
     "vue-dndrop": "^1.0.2",
-    "vue-router": "^3.2.0"
+    "vue-router": "^3.2.0",
+    "vue-smooth-dnd": "^0.8.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.13",
