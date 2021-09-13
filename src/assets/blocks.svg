@@ -1,10 +1,11 @@
 <?xml version="1.0"?>
-<svg width="640" height="400" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+<svg width="560" height="400" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
  <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit-->
+
  <g class="layer">
   <title>Layer 1</title>
-  <rect fill="#ff0000" height="200.42245" id="svg_2" rx="20" ry="20" stroke="#000000" stroke-width="0" width="274.453536" x="42.935567" y="200.588858"/>
-  <rect fill="#0000ff" height="200.42245" id="svg_6" rx="20" ry="20" stroke="#000000" stroke-width="0" width="274.453536" x="316.935567" y="200.588858"/>
-  <rect fill="#ffa500" height="200.42245" id="svg_7" rx="20" ry="20" stroke="#000000" stroke-width="0" width="274.453536" x="178.935567" y="-0.411142"/>
+  <rect fill="#0072b2" height="200.42245" id="svg_2" rx="20" ry="20" stroke="#000000" stroke-width="0" width="280" x="0" y="200"/>
+  <rect fill="#d55e00" height="200.42245" id="svg_6" rx="20" ry="20" stroke="#000000" stroke-width="0" width="280.28" x="280" y="200"/>
+  <rect fill="#e69f00" height="200.42245" id="svg_7" rx="20" ry="20" stroke="#000000" stroke-width="0" width="280.45354" x="140" y="0"/>
  </g>
 </svg>

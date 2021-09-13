@@ -13,7 +13,7 @@
             :close-on-click="false">
             <template #trigger>
                 <b-button>
-                    <img src="blocks.svg"
+                    <img src="@/assets/blocks.svg"
                         width="60"/>
                 </b-button>
             </template>
