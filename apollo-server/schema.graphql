@@ -1,7 +1,4 @@
-"Included scalars"
-scalar JSON
-scalar Upload
-
+"Light-weight node definition"
 interface Node {
   id: ID!
 }
@@ -12,7 +9,6 @@ type Line {
   text: String!
 }
 
-"TODO Add support for connections"
 type Poem implements Node {
   id: ID!
   name: String!
