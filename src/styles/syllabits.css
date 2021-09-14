@@ -28,7 +28,7 @@
 .game-slot {
     fill: none;
     pointer-events: all;
-    stroke: gray;
+    stroke: lightgray;
     stroke-dasharray: 9, 9;
     stroke-width: 2;
 }
@@ -50,7 +50,7 @@
 
 .block-dropdown .button {
     background-color: white;
-    border: 2px solid gray;
+    border: 2px solid lightgray;
     border-top: none;
     border-radius: 8px;
     border-top-left-radius: 0px;
@@ -67,17 +67,23 @@
     box-shadow: 0px 0px 3px 3px gray;
 }
 
-h1 {
+.poem .title {
     font-size: 200%;
 }
 
-.subtitle {
+.poem .author {
     color: gray;
     font-size: 100%;
 }
 
-.muted {
+.poem .line-number {
     color: gray;
+}
+
+.poem .content {
+    color: #666666;
+    font-size: 100%;
+    font-style: italic;
 }
 
 /* Temporary fix for https://github.com/buefy/buefy/issues/3471 */

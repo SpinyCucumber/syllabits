@@ -24,16 +24,20 @@
 
         <div v-if="poem"
             class="has-background-white poem"
-            style="display: flex; flex-grow: 1; flex-direction: column; align-items: center; padding: 2em;">
-            <div class="title">{{ poem.name }}</div>
-            <div class="author">{{ poem.author }}</div>
+            style="display: flex; flex-grow: 1; flex-direction: column; align-items: center; gap: 4em;
+                padding: 2em 6em 2em 6em;">
+
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <div class="title">{{ poem.name }}</div>
+                <div class="author">{{ poem.author }}</div>
+            </div>
             
             <!-- Poem lines -->
-            <div style="display: flex; flex-grow: 1; flex-direction: column;">
+            <div style="display: flex; flex-grow: 1; flex-direction: column; gap: 2em;">
                  <div
                     v-for="line in poem.lines"
                     :key="line.number"
-                    style="display: flex; align-items: center;">
+                    style="display: flex; align-items: center; gap: 4em;">
                     <!-- Line number -->
                     <div class="line-number">{{ line.number }}</div>
                     <!-- Line component -->
