@@ -1,12 +1,15 @@
-import GraphQLJSON from 'graphql-type-json'
-import config from './config'
-
+import dataManager from './data-manager'
 
 export default {
-  JSON: GraphQLJSON,
+  Node: {
+    __resolveType(node) {
+      return node.nodeType;
+    }
+  },
 
   Query: {
-    randomPoem: () => config.poems[0]
+    randomPoem: () => dataManager.poems[0],
+    node: (obj, args) => dataManager.getNode(args.id),
   },
 
 }
