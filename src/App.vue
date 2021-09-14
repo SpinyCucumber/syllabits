@@ -1,7 +1,7 @@
 <template>
-  <div id="app" class="full-height">
+  <div id="app" style="height: 100%;">
     <router-view v-if="$route.meta.transitory"/>
-    <div v-else class="is-flex is-flex-direction-column full-height">
+    <div v-else style="display: flex; flex-direction: column; height: 100%;">
       <b-navbar>
 
         <!-- Items rendered at beginning of navbar -->
@@ -23,7 +23,7 @@
         </template>
 
       </b-navbar>
-      <router-view class="is-flex-grow-1"/>
+      <router-view style="flex-grow: 1;"/>
     </div>
   </div>
 </template>

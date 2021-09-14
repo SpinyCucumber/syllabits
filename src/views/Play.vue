@@ -22,10 +22,11 @@
             </b-dropdown-item>
         </b-dropdown>
 
-        <div
+        <div v-if="poem"
             class="has-background-white"
             style="display: flex; flex-grow: 1; flex-direction: column; align-items: center; padding: 2em;">
-            <h1>This is a Sonnet</h1>
+            <h1>{{ poem.name }}</h1>
+            <div class="subtitle">{{ poem.author }}</div>
             <block-slot/>
         </div>
 
