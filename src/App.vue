@@ -29,14 +29,14 @@
 </template>
 
 <script>
-import randomPoemId from '@/queries/randomPoemID.gql'
+import randomPoemIdQuery from '@/queries/randomPoemID.gql'
 
 export default {
   name: 'App',
   methods: {
     randomPoem() {
       // Execute query
-      this.$apollo.query({ query: randomPoemId })
+      this.$apollo.query({ query: randomPoemIdQuery })
         .then(result => result.data.randomPoem.id)
         .then(id => {
           // Transition to play page with the new poem ID

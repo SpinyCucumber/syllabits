@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import poemQuery from '@/queries/poem.gql'
 import { BlockPicker, BlockSlot } from '@/components'
 
 export default {
@@ -41,5 +42,14 @@ export default {
     props: {
         id: { required: true, type: String },
     },
+    apollo: {
+        poem: {
+            query: poemQuery,
+            // Reactive query variables
+            variables() {
+                return { id: this.id }
+            },
+        }
+    }
 }
 </script>

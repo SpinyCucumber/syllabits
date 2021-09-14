@@ -1,5 +1,5 @@
 query($id: ID!) {
-    node(id: $id) {
+    poem: node(id: $id) {
         ... on Poem {
             name
             author
