@@ -2,20 +2,19 @@
 scalar JSON
 scalar Upload
 
+type Line {
+  number: Int!
+  stanza: Int
+  text: String!
+}
 
+"TODO Add support for connections"
+type Poem {
+  name: String!
+  author: String
+  lines: [Line]!
+}
 
 type Query {
-  "Test query with a parameter"
-  hello(name: String): String!
-
-}
-
-type Mutation {
-  myMutation: String!
-
-}
-
-type Subscription {
-  mySub: String!
-
+  randomPoem: Poem!
 }
