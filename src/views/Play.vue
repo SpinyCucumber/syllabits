@@ -23,11 +23,24 @@
         </b-dropdown>
 
         <div v-if="poem"
-            class="has-background-white"
+            class="has-background-white poem"
             style="display: flex; flex-grow: 1; flex-direction: column; align-items: center; padding: 2em;">
-            <h1>{{ poem.name }}</h1>
-            <div class="subtitle">{{ poem.author }}</div>
-            <block-slot/>
+            <div class="title">{{ poem.name }}</div>
+            <div class="author">{{ poem.author }}</div>
+            
+            <!-- Poem lines -->
+            <div style="display: flex; flex-grow: 1; flex-direction: column;">
+                 <div
+                    v-for="line in poem.lines"
+                    :key="line.number"
+                    style="display: flex; align-items: center;">
+                    <!-- Line number -->
+                    <div class="line-number">{{ line.number }}</div>
+                    <!-- Line component -->
+                    <poem-line :line="line"/>
+                 </div>
+            </div>
+
         </div>
 
     </div>
@@ -35,11 +48,11 @@
 
 <script>
 import poemQuery from '@/queries/poem.gql'
-import { BlockPicker, BlockSlot } from '@/components'
+import { BlockPicker, PoemLine } from '@/components'
 
 export default {
     name: 'Play',
-    components: { BlockPicker, BlockSlot },
+    components: { BlockPicker, PoemLine },
     props: {
         id: { required: true, type: String },
     },
