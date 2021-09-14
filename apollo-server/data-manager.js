@@ -8,11 +8,9 @@ class DataManager {
         this.poems.forEach(poem => {
             this.nodes[poem.id] = { nodeType: 'Poem', ...poem}
         });
-        console.log(this.nodes);
     }
 
     getNode(id) {
-        console.log(id);
         return this.nodes[id];
     }
 

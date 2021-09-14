@@ -73,6 +73,7 @@ h1 {
 
 .subtitle {
     color: gray;
+    font-size: 100%;
 }
 
 /* Temporary fix for https://github.com/buefy/buefy/issues/3471 */
