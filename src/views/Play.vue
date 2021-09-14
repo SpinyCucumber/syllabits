@@ -37,6 +37,12 @@ import { BlockPicker, BlockSlot } from '@/components'
 
 export default {
     name: 'Play',
-    components: { BlockPicker, BlockSlot }
+    components: { BlockPicker, BlockSlot },
+    props: {
+        id: { required: true, type: String },
+    },
+    created() {
+        console.log(this.id);
+    }
 }
 </script>

@@ -10,7 +10,7 @@
             Dashboard
           </b-navbar-item>
           <!-- TODO -->
-          <b-navbar-item tag="a">
+          <b-navbar-item tag="a" @click="randomPoem">
             Random Poem
           </b-navbar-item>
         </template>
@@ -27,3 +27,22 @@
     </div>
   </div>
 </template>
+
+<script>
+import randomPoemId from '@/queries/randomPoemID.gql'
+
+export default {
+  name: 'App',
+  methods: {
+    randomPoem() {
+      // Execute query
+      this.$apollo.query({ query: randomPoemId })
+        .then(result => result.data.randomPoem.id)
+        .then(id => {
+          // Transition to play page with the new poem ID
+          this.$router.push({ name: 'Play', params: { id: id }});
+        });
+    }
+  }
+}
+</script>

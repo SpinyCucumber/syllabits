@@ -1,0 +1,13 @@
+query($id: ID!) {
+    node(id: $id) {
+        ... on Poem {
+            name
+            author
+            lines {
+                number
+                stanza
+                text
+            }
+        }
+    }
+}

@@ -38,6 +38,7 @@ const routes = [
     path: '/play',
     name: 'Play',
     component: Play,
+    props: true,
   }
 ]
 
