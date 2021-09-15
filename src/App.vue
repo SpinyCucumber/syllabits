@@ -9,7 +9,6 @@
           <b-navbar-item tag="router-link" :to="{ name: 'Dashboard' }">
             Dashboard
           </b-navbar-item>
-          <!-- TODO -->
           <b-navbar-item tag="a" @click="randomPoem">
             Random Poem
           </b-navbar-item>
@@ -17,8 +16,7 @@
 
         <template #brand>
           <b-navbar-item>
-            <!-- TODO Replace with logo -->
-            ProtoSyllabits
+            <img src="@/assets/logo.png"/>
           </b-navbar-item>
         </template>
 

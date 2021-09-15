@@ -91,6 +91,15 @@
     stroke-width: 2px;
 }
 
+body,
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
 /* Temporary fix for https://github.com/buefy/buefy/issues/3471 */
 .slide-enter-to, .slide-leave {
     max-height: 50vh;
