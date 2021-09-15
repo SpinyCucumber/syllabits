@@ -2,8 +2,8 @@
     "poems": [
         {
             "id": "abcdefg",
-            "name": "Definitely Not a Sonnet",
-            "author": "WisconsinHistory.org",
+            "name": "I Write Sins Not Tragedies",
+            "author": "Panic! at the Disco",
             "lines": [
                 { "number": 1, "stanza": 1, "text": "I caught the sound of faintly spoken words" },
                 { "number": 2, "text": "as nervously I paced the church's aisle." },

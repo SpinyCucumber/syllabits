@@ -85,6 +85,12 @@
     font-family: 'shakefest';
 }
 
+.divider {
+    stroke: lightgray;
+    stroke-linecap: round;
+    stroke-width: 2px;
+}
+
 /* Temporary fix for https://github.com/buefy/buefy/issues/3471 */
 .slide-enter-to, .slide-leave {
     max-height: 50vh;

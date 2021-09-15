@@ -32,6 +32,10 @@
                 <div class="author">{{ poem.author }}</div>
             </div>
             
+            <svg width="400" height="8">
+                <line class="divider" x1="4" y1="4" x2="396" y2="4"/>
+            </svg>
+            
             <!-- Poem lines -->
             <div style="display: flex; flex-grow: 1; flex-direction: column; gap: 2em;">
                  <div
