@@ -5,12 +5,16 @@
             "name": "Definitely Not a Sonnet",
             "author": "WisconsinHistory.org",
             "lines": [
-                { "number": 1, "stanza": 1, "text": "Early Wisconsin pioneers built log houses using trees from the surrounding land." },
-                { "number": 2, "text": "The round and sometimes squared logs were laid horizontally." },
-                { "number": 3, "text": "The logs were then connected at the corners with various notching techniques." },
-                { "number": 4, "stanza": 2, "text": "Gaps between the logs were filled with different combinations of mud, clay and straw called daubing." },
-                { "number": 5, "text": "In most cases, owners installed wood siding over the logs within the first few years after a log house was built." },
-                { "number": 6, "text": "It was not considered fashionable to live in an exposed-log house, and the wood siding protected the logs." }
+                { "number": 1, "stanza": 1, "text": "I caught the sound of faintly spoken words" },
+                { "number": 2, "text": "as nervously I paced the church's aisle." },
+                { "number": 3, "text": "It was a bridesmaid that I'd overheard" },
+                { "number": 4, "text": "who said unto the steward something vile." },
+                { "number": 5, "text": "\"How beautif'lly the wedding chapel's wrought!\"" },
+                { "number": 6, "text": "she happy'ly said, ere furtively she bade," },
+                { "number": 7, "text": "\"Though 'tis a pity that it's all for naught," },
+                { "number": 8, "text": "for groom has been by bride a cuckold made!\"" },
+                { "number": 9, "text": "As what does not exist cannot expire," },
+                { "number": 10, "text": "the marriage had by happenstance been sav'd;" }
             ]
         }
     ]
