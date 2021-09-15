@@ -49,6 +49,7 @@
 }
 
 .block-dropdown .button {
+
     background-color: white;
     border: 2px solid lightgray;
     border-top: none;
@@ -91,13 +92,13 @@
     stroke-width: 2px;
 }
 
-body,
-button,
-input,
-optgroup,
-select,
-textarea {
-  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+body {
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+html {
+    -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for firefox */
 }
 
 /* Temporary fix for https://github.com/buefy/buefy/issues/3471 */
