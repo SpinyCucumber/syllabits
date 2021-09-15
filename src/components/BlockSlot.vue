@@ -41,18 +41,12 @@ export default {
     props: {
         // Valid modes are 'slot' or 'bucket'
         mode: { type: String, default: 'slot' },
-        holdingInitial: BlockType,
-    },
-
-    created() {
-        this.holding = this.holdingInitial;
+        holding: BlockType,
     },
 
     data() {
         return {
             dropActive: false,
-            // The current block type we are holding
-            holding: null,
         }
     },
 
@@ -73,12 +67,12 @@ export default {
             // If we are the source container
             // Only clear slot if we are in "slot" mode
             if (dropResult.removedIndex != null) {
-                if (this.mode === 'slot') this.holding = null;
+                if (this.mode === 'slot') this.$emit('update:holding', null);
             }
             // If we are the container being dropped into
             if (dropResult.addedIndex != null) {
                 this.dropActive = false;
-                this.holding = dropResult.payload;
+                this.$emit('update:holding', dropResult.payload);
             }
         },
         getPayload() {

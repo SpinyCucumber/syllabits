@@ -48,15 +48,10 @@
                     
                     <!-- Poem lines -->
                     <div style="display: flex; flex-grow: 1; flex-direction: column; gap: 2em;">
-                        <div
+                        <poem-line
                             v-for="line in poem.lines"
                             :key="line.number"
-                            style="display: flex; align-items: center; gap: 4em;">
-                            <!-- Line number -->
-                            <div class="line-number">{{ line.number }}</div>
-                            <!-- Line component -->
-                            <poem-line :line="line"/>
-                        </div>
+                            :line="line"/>
                     </div>
 
                 </div>
