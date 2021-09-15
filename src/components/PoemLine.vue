@@ -13,8 +13,8 @@
         </div>
 
         <!-- Feedback -->
-        <div style="margin-left: auto;">
-            <b-icon icon="check"/>
+        <div style="margin-left: auto" :class="{ feedback: true, visible: isValidSequence }">
+            <b-button type="is-primary" label="Check!"/>
         </div>
 
     </div>
@@ -22,6 +22,13 @@
 
 <script>
 import BlockSlot from './BlockSlot'
+
+const State = {
+    Unchecked: 'Unchecked',
+    Checking: 'Checking',
+    Correct: 'Correct',
+    Incorrect: 'Incorrect',
+}
 
 export default {
     name: 'PoemLine',
@@ -31,7 +38,13 @@ export default {
     },
     data() {
         return {
-            holdingList: new Array(5).fill(null)
+            holdingList: new Array(5).fill(null),
+            state: State.Unchecked,
+        }
+    },
+    computed: {
+        isValidSequence() {
+            return !this.holdingList.some(holding => holding === null);
         }
     }
 }

@@ -86,13 +86,27 @@
     font-family: 'shakefest';
 }
 
+.poem .feedback {
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.poem .feedback.visible {
+    opacity: 100;
+}
+
 .divider {
     stroke: lightgray;
     stroke-linecap: round;
     stroke-width: 2px;
 }
 
-body {
+body,
+button,
+input,
+optgroup,
+select,
+textarea {
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
