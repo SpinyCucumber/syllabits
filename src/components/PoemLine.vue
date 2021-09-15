@@ -1,5 +1,5 @@
 <template>
-    <div style="display: flex; flex-direction: column; gap: 0.2em;">
+    <div style="display: flex; flex-direction: column; gap: 0.3em;">
         <!-- Block slots -->
         <div style="display: flex; justify-content: space-between;">
             <block-slot v-for="n in 5" :key="n"/>

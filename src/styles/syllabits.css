@@ -77,19 +77,23 @@
 }
 
 .poem .line-number {
-    color: gray;
+    color: lightgray;
 }
 
 .poem .content {
-    color: #666666;
-    font-size: 150%;
-    font-style: italic;
+    font-size: 180%;
+    font-family: 'shakefest';
 }
 
 /* Temporary fix for https://github.com/buefy/buefy/issues/3471 */
 .slide-enter-to, .slide-leave {
     max-height: 50vh;
     overflow: hidden;
+}
+
+@font-face {
+    font-family: shakefest;
+    src: url(shakefest.ttf);
 }
 
 @keyframes ants {
