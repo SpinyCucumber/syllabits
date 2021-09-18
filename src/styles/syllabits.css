@@ -88,7 +88,7 @@
 
 .poem .content {
     font-size: 180%;
-    font-family: 'shakefest';
+    font-family: 'DovesType-Regular';
 }
 
 .poem .feedback {
@@ -124,11 +124,6 @@ html {
 .slide-enter-to, .slide-leave {
     max-height: 50vh;
     overflow: hidden;
-}
-
-@font-face {
-    font-family: shakefest;
-    src: url(shakefest.ttf);
 }
 
 @keyframes ants {
