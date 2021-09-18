@@ -93,7 +93,6 @@
 .poem .content {
     font-size: 180%;
     letter-spacing: 0.03em;
-    font-family: 'DovesType-Regular';
 }
 
 .poem .feedback {
@@ -111,12 +110,14 @@
     stroke-width: 2px;
 }
 
-body,
+body {
+    font-family: 'DovesType-Regular';
+}
+
 button,
 input,
-optgroup,
-select,
-textarea {
+.poem .author,
+.poem .title {
   font-family: 'Open Sans';
 }
 
