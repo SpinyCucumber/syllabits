@@ -32,12 +32,12 @@
                 <div style="display: flex; flex-direction:column; flex-grow: 1;" class="has-background-white">
 
                     <div style="display: flex; justify-content: flex-end; gap: 1em; padding: 1em;">
-                        <b-button type="is-primary is-light" icon-right="help"/>
+                        <b-button type="is-primary is-light" label="?"/>
                     </div>
 
                     <div v-if="poem"
                         class="poem"
-                        style="display: flex; flex-grow: 1; flex-direction: column; align-items: center; gap: 4em;
+                        style="display: flex; flex-grow: 1; flex-direction: column; align-items: center; gap: 2em;
                             padding-left: 4em; padding-right: 4em;">
 
                         <div style="display: flex; flex-direction: column; align-items: center;">
@@ -45,9 +45,7 @@
                             <div class="author">{{ poem.author }}</div>
                         </div>
                         
-                        <svg width="400" height="8">
-                            <line class="divider" x1="4" y1="4" x2="396" y2="4"/>
-                        </svg>
+                        <img src="@/assets/divider.png" class="non-interactive"/>
                         
                         <!-- Poem lines -->
                         <div style="display: flex; flex-grow: 1; flex-direction: column; gap: 2em;">

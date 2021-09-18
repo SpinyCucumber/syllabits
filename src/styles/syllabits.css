@@ -83,14 +83,12 @@
 }
 
 .poem .title {
-    font-family: 'Open Sans';
-    font-size: 200%;
+    font-size: 300%;
 }
 
 .poem .author {
-    font-family: 'Open Sans';
     color: gray;
-    font-size: 100%;
+    font-size: 150%;
 }
 
 .poem .line-number {
@@ -112,19 +110,12 @@
     opacity: 100;
 }
 
-.divider {
-    stroke: lightgray;
-    stroke-linecap: round;
-    stroke-width: 2px;
+.non-interactive {
+    pointer-events: none;
 }
 
-body {
+body, button, input {
     font-family: 'DovesType-Regular';
-}
-
-button,
-input {
-  font-family: 'Open Sans';
 }
 
 html {
