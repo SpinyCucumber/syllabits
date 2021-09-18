@@ -2,6 +2,8 @@
 node_modules
 /dist
 
+# Have to not include dovestype font because of licensing
+fonts
 
 # local env files
 .env.local
