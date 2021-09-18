@@ -1,0 +1,17 @@
+@font-face {
+    font-family: 'DovesType-Regular';
+    src: url('fonts/DovesType-Regular.eot');
+    src: url('fonts/DovesType-Regular.eot') format('embedded-opentype'),
+         url('fonts/DovesType-Regular.woff2') format('woff2'),
+         url('fonts/DovesType-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+p {
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1;
+  font-feature-settings: "lnum" 1;
+  font-kerning: normal;
+}

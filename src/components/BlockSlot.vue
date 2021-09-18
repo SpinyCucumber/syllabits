@@ -31,7 +31,7 @@
 
 <script>
 import Block from './Block'
-import BlockType from '@/services/BlockType'
+import { BlockType } from '@/services/Constants'
 import { Draggable, Container } from 'vue-smooth-dnd'
 
 export default {

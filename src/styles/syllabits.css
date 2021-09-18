@@ -38,6 +38,11 @@
     animation: ants 3s linear 0s infinite normal forwards;
 }
 
+.game-notation {
+    max-height: 20px;
+    max-width: 20px;
+}
+
 .block-picker {
     display: grid;
     gap: 8px;

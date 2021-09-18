@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="79.393448mm"
+   height="102.2396mm"
+   viewBox="0 0 79.393448 102.2396"
+   version="1.1"
+   id="svg1334"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   sodipodi:docname="ictus.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1336"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="true"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.4823793"
+     inkscape:cx="4.3848427"
+     inkscape:cy="115.69239"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer2"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     showguides="false" />
+  <defs
+     id="defs1331">
+    <inkscape:path-effect
+       effect="envelope"
+       id="path-effect3431"
+       is_visible="true"
+       lpeversion="1"
+       yy="true"
+       xx="true"
+       bendpath1="M 77.389969,89.170153 H 140.00563"
+       bendpath2="M 140.00563,89.170153 V 184.2702"
+       bendpath3="M 77.389969,184.2702 H 140.00563"
+       bendpath4="M 77.389969,89.170153 V 184.2702" />
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter2270"
+       x="-0.21002303"
+       y="-0.14878625"
+       width="1.4200461"
+       height="1.2975725">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.5242381"
+         id="feGaussianBlur2272" />
+    </filter>
+  </defs>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Shadow"
+     style="mix-blend-mode:normal;filter:url(#filter2270)">
+    <path
+       style="fill:#333333;stroke:#4b4b4b;stroke-width:16;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 67.735278,12.226263 12.226262,90.581432"
+       id="path1860-3" />
+  </g>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-0.0341354,-0.3457854)">
+    <path
+       style="fill:none;stroke:#ffffff;stroke-width:16;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 63.543151,8.3457854 8.0341354,86.700954"
+       id="path1860" />
+  </g>
+</svg>
