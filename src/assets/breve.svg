@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="126.35661mm"
-   height="42.390404mm"
-   viewBox="0 0 126.35661 42.390404"
+   width="132.10085mm"
+   height="56.599361mm"
+   viewBox="0 0 132.10085 56.599362"
    version="1.1"
    id="svg5"
    inkscape:version="1.1 (c68e22c387, 2021-05-23)"
@@ -24,14 +24,14 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="1.0482005"
-     inkscape:cx="-60.580013"
-     inkscape:cy="99.694667"
+     inkscape:cx="-49.131822"
+     inkscape:cy="59.625997"
      inkscape:window-width="1920"
-     inkscape:window-height="1017"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:window-height="1001"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer3"
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
@@ -42,10 +42,10 @@
        inkscape:collect="always"
        style="color-interpolation-filters:sRGB"
        id="filter3941"
-       x="-0.10956943"
-       y="-0.62852982"
-       width="1.2191389"
-       height="2.2570596">
+       x="-0.13814369"
+       y="-0.46599926"
+       width="1.2762874"
+       height="1.8356092">
       <feGaussianBlur
          inkscape:collect="always"
          stdDeviation="1.2905511"
@@ -56,39 +56,40 @@
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="Shadow"
-     style="mix-blend-mode:normal;filter:url(#filter3941)">
+     style="mix-blend-mode:normal;filter:url(#filter3941)"
+     transform="translate(2.8502075,-10.527876)">
     <path
-       style="fill:none;fill-rule:evenodd;stroke:#4b4b4b;stroke-width:16;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;fill-rule:evenodd;stroke:#4b4b4b;stroke-width:20;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path262-1"
        sodipodi:type="arc"
-       sodipodi:cx="-131.45541"
-       sodipodi:cy="110.03518"
-       sodipodi:rx="35.312"
+       sodipodi:cx="3.7665074"
+       sodipodi:cy="64.618683"
+       sodipodi:rx="60.04884"
        sodipodi:ry="58.474724"
        sodipodi:start="2.0943951"
        sodipodi:end="4.1887902"
        sodipodi:arc-type="arc"
        sodipodi:open="true"
-       transform="rotate(-90,-90.445416,-45.028922)"
-       d="m -149.11141,160.67578 a 35.312,58.474724 0 0 1 -17.656,-50.6406 35.312,58.474724 0 0 1 17.656,-50.640597" />
+       transform="rotate(-90)"
+       d="M -26.257912,115.25928 A 60.04884,58.474724 0 0 1 -56.282332,64.618683 60.04884,58.474724 0 0 1 -26.257913,13.978087" />
   </g>
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-45.416495,-135.47434)">
+     transform="translate(-42.566287,-146.00222)">
     <path
-       style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:16;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:20;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path262"
        sodipodi:type="arc"
        sodipodi:cx="-125.81834"
        sodipodi:cy="104.05709"
-       sodipodi:rx="35.312"
+       sodipodi:rx="62.068172"
        sodipodi:ry="58.474724"
        sodipodi:start="2.0943951"
        sodipodi:end="4.1887902"
        sodipodi:arc-type="arc"
-       d="m -143.47434,154.69769 a 35.312,58.474724 0 0 1 -17.656,-50.6406 35.312,58.474724 0 0 1 17.656,-50.640595"
+       d="m -156.85242,154.69769 a 62.068172,58.474724 0 0 1 -31.03409,-50.6406 62.068172,58.474724 0 0 1 31.03409,-50.640595"
        sodipodi:open="true"
        transform="rotate(-90)" />
   </g>

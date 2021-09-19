@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="79.393448mm"
-   height="102.2396mm"
-   viewBox="0 0 79.393448 102.2396"
+   width="82.545906mm"
+   height="105.39206mm"
+   viewBox="0 0 82.545906 105.39206"
    version="1.1"
    id="svg1334"
    inkscape:version="1.1 (c68e22c387, 2021-05-23)"
@@ -24,12 +24,12 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="1.4823793"
-     inkscape:cx="4.3848427"
-     inkscape:cy="115.69239"
+     inkscape:cx="16.527484"
+     inkscape:cy="127.83503"
      inkscape:window-width="1920"
-     inkscape:window-height="1017"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:window-height="1001"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer2"
      fit-margin-top="0"
@@ -54,10 +54,10 @@
        inkscape:collect="always"
        style="color-interpolation-filters:sRGB"
        id="filter2270"
-       x="-0.21002303"
-       y="-0.14878625"
-       width="1.4200461"
-       height="1.2975725">
+       x="-0.26681479"
+       y="-0.18901914"
+       width="1.5336296"
+       height="1.3780383">
       <feGaussianBlur
          inkscape:collect="always"
          stdDeviation="1.5242381"
@@ -68,19 +68,20 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Shadow"
-     style="mix-blend-mode:normal;filter:url(#filter2270)">
+     style="mix-blend-mode:normal;filter:url(#filter2270)"
+     transform="translate(3.1524549,3.1524549)">
     <path
-       style="fill:#333333;stroke:#4b4b4b;stroke-width:16;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="M 67.735278,12.226263 12.226262,90.581432"
+       style="fill:#333333;stroke:#4b4b4b;stroke-width:16;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 68.092249,12.226263 12.583233,90.581432"
        id="path1860-3" />
   </g>
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-0.0341354,-0.3457854)">
+     transform="translate(3.1183195,2.8066695)">
     <path
-       style="fill:none;stroke:#ffffff;stroke-width:16;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;stroke:#ffffff;stroke-width:16;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 63.543151,8.3457854 8.0341354,86.700954"
        id="path1860" />
   </g>
