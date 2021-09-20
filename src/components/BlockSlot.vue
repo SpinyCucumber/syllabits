@@ -1,5 +1,5 @@
 <template>
-    <div style="position: relative; width: 80px; height: 50px">
+    <div style="position: relative;" class="game-block-shape">
 
         <container
             :should-accept-drop="shouldAcceptDrop"
@@ -17,10 +17,10 @@
         </container>
 
         <svg
-            style="width: 100%; height: 100%;">
+            class="game-block-shape">
             <rect
                 x = "2" y="2"
-                width="76" height="46"
+                width="81" height="46"
                 rx = "8" ry = "8"
                 :class="{ 'game-slot': true, 'drop-active': dropActive }">
             </rect>

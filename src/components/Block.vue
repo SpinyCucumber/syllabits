@@ -1,6 +1,6 @@
 <template>
     <div
-        class="game-block"
+        class="game-block-shape game-block"
         :style="{ 'background-color': this.type.color,
             display: 'flex', 'align-items': 'center', 'justify-content': 'space-around', padding: '0.5em' }">
         <img v-for="(stress, index) in this.type.stresses" :src="stress.icon" :key="index" class="game-notation"/>

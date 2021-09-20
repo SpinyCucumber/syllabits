@@ -14,7 +14,7 @@
 
         <!-- Feedback -->
         <div style="margin-left: auto" :class="{ feedback: true, visible: isValidSequence }">
-            <b-button type="is-primary" label="Check!"/>
+            <b-button label="Check!" type="is-dark" class="check-button"/>
         </div>
 
     </div>
