@@ -1,8 +1,8 @@
 import Service from './Service'
 import { StressType, BlockType, Enum, BlockTypeEnum } from '@/models'
 
-const Unstressed = new StressType('breve.svg');
-const Stressed = new StressType('ictus.svg');
+const Unstressed = new StressType('breve');
+const Stressed = new StressType('ictus');
 
 export default new Service({
 

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import { Splash, Login, Dashboard, Play } from '@/views'
-import IdentityManager from '@/services/IdentityManager'
+import { IdentityService } from '@/services'
 
 Vue.use(VueRouter)
 
@@ -11,7 +11,7 @@ const routes = [
     name: 'Root',
     redirect() {
       // If user is logged in, we redirect them to the dashboard. Otherwise the splash view.
-      if (IdentityManager.hasIdentity()) {
+      if (IdentityService.hasIdentity()) {
         return { name: 'Dashboard' };
       }
       return { name: 'Splash' };
