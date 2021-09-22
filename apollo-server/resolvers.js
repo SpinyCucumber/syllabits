@@ -8,7 +8,9 @@ export default {
   },
 
   Query: {
-    randomPoem: () => dataManager.poems[0],
+    randomPoem: () => {
+      return dataManager.poems[Math.floor(Math.random() * dataManager.poems.length)];
+    },
     node: (obj, args) => dataManager.getNode(args.id),
   },
 
