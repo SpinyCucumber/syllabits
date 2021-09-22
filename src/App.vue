@@ -16,7 +16,7 @@
 
         <template #brand>
           <b-navbar-item>
-            <img src="@/assets/logo.png"/>
+            <img :src="$assets.getIcon('Logo', 'png')"/>
           </b-navbar-item>
         </template>
 

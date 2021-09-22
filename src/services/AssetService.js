@@ -4,6 +4,8 @@ export default new Service({
 
     name: 'assets',
 
-    getIcon()
+    getIcon(iconID, ext) {
+        return require('/src/assets/icons/' + iconID + '.' + (ext || 'svg'));
+    }
 
 });

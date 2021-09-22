@@ -13,7 +13,7 @@
             :close-on-click="false">
             <template #trigger>
                 <b-button>
-                    <img src="@/assets/blocks.svg"
+                    <img :src="$assets.getIcon('Blocks')"
                         width="60"/>
                 </b-button>
             </template>
@@ -45,7 +45,7 @@
                             <div class="author">{{ poem.author }}</div>
                         </div>
                         
-                        <img src="@/assets/divider.png" class="non-interactive"/>
+                        <img :src="$assets.getIcon('Divider', 'png')" class="non-interactive"/>
                         
                         <!-- Poem lines -->
                         <div style="display: flex; flex-grow: 1; flex-direction: column; gap: 2em;">

@@ -11,13 +11,7 @@ class Enum {
 
 }
 
-class StressType {
-
-    constructor(iconID) {
-        this.iconID = iconID;
-    }
-
-}
+class StressType { }
 
 // Describes the different types of blocks players can select.
 // Each block type corresponds to one type of foot.
