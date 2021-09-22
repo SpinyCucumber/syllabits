@@ -1,8 +1,8 @@
 // Handles retrieving nodes by ID
 class DataManager {
 
-    constructor(data) {
-        Object.assign(this, data);
+    constructor(poems) {
+        this.poems = poems;
         // Construct a table mapping IDs to nodes
         this.nodes = {};
         this.poems.forEach(poem => {
@@ -16,6 +16,6 @@ class DataManager {
 
 }
 
-import data from './data.json'
+import poems from './poems/processed.json'
 
-export default new DataManager(data);
+export default new DataManager(poems);

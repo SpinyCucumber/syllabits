@@ -38,8 +38,8 @@ class BlockTypesEnum extends Enum {
         super(members);
         // Create lookup table using code
         this.codeLookup = {};
-        members.forEach(member => {
-            this.codeLookup[member.code] = member;
+        this.values.forEach(blockType => {
+            this.codeLookup[blockType.code] = blockType;
         })
     }
 
