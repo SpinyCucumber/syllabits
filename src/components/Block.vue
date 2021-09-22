@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { BlockType } from '@/services/Constants'
+import { BlockType } from '@/models'
 
 export default {
     name: 'Block',
