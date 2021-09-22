@@ -1,13 +1,14 @@
 <template>
     <div
         class="game-block-shape game-block"
-        :style="{ 'background-color': this.type.color,
+        :style="{ 'background-color': this.$configReader.getBlockTypeColor(this.type),
             display: 'flex', 'align-items': 'center', 'justify-content': 'space-around', padding: '0.5em' }">
         <img v-for="(stress, index) in this.type.stresses" :src="stress.icon" :key="index" class="game-notation"/>
     </div>
 </template>
 
 <script>
+import { ConfigReader } from '@/services'
 import { BlockType } from '@/services/Constants'
 
 export default {
@@ -17,19 +18,11 @@ export default {
         type: BlockType
     },
 
-    render(create) {
-        // Create block element
-        return create(
-            'div',
-            {
-                class: 'game-block',
-                style: {
-                    'background-color': this.type.color,
-                },
-            },
-            this.type.notation
-        )
-    }
+    // Expose config reader to template
+    // TODO Plugin
+    created() {
+        this.$configReader = ConfigReader;
+    },
 
 }
 </script>

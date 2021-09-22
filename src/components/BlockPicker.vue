@@ -1,5 +1,5 @@
 <script>
-import { BlockTypes } from '@/services/Constants'
+import { Constants } from '@/services'
 import BlockSlot from './BlockSlot'
 
 export default {
@@ -12,7 +12,7 @@ export default {
             {
                 class: 'block-picker',
             },
-            BlockTypes.values.map((type) => create(BlockSlot, {
+            Constants.BlockTypes.values.map((type) => create(BlockSlot, {
                 props: {
                     mode: 'bucket',
                     holding: type

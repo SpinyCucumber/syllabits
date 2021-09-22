@@ -22,15 +22,12 @@ export class StressType {
 // Describes the different types of blocks players can select.
 // Each block type corresponds to one type of foot.
 // The color of each block type is specified in the config file.
+// TODO Should most likely move this to another file
 export class BlockType {
 
     constructor(code, stresses) {
         this.code = code;
         this.stresses = stresses;
-    }
-
-    get color() {
-        return Config.blockColors[this.name];
     }
 
 }
@@ -61,9 +58,9 @@ class BlockTypesEnum extends Enum {
 const Unstressed = new StressType('breve.svg');
 const Stressed = new StressType('ictus.svg');
 
-export const StressTypes = new Enum({ Unstressed, Stressed });
+const StressTypes = new Enum({ Unstressed, Stressed });
 
-export const BlockTypes = new BlockTypesEnum({
+const BlockTypes = new BlockTypesEnum({
     Iamb: new BlockType('i', [Unstressed, Stressed]),
     Trochee: new BlockType('t', [Stressed, Unstressed]),
     Dactyl: new BlockType('d', [Stressed, Unstressed, Unstressed]),
@@ -71,3 +68,5 @@ export const BlockTypes = new BlockTypesEnum({
     Spondee: new BlockType('s', [Stressed, Stressed]),
     Pyrrhic: new BlockType('p', [Unstressed, Unstressed]),
 });
+
+export default { BlockTypes, StressTypes };
