@@ -8,12 +8,14 @@ import './styles/syllabits.css'
 import '@mdi/font/css/materialdesignicons.min.css'
 
 import { createProvider } from './vue-apollo'
-import { Constants, ConfigReader } from './services'
+import { Constants, ConfigReader, IdentityManager } from './services'
 
+// Install Vue plugins!
 // Buefy bundle size is actually small
 Vue.use(Buefy);
 Vue.use(Constants);
 Vue.use(ConfigReader);
+Vue.use(IdentityManager);
 
 Vue.config.productionTip = false;
 
