@@ -1,7 +1,8 @@
 <template>
     <div style="display: flex; align-items: center; gap: 4em;">
         <!-- Line number -->
-        <div class="line-number">{{ line.number }}</div>
+        <!-- Add 1 because programmers are weird -->
+        <div class="line-number">{{ line.number + 1 }}</div>
 
         <div style="display: flex; flex-direction: column; gap: 0.5em;">
             <!-- Block slots -->
