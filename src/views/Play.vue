@@ -31,14 +31,12 @@
 
                 <div style="display: flex; flex-direction:column; flex-grow: 1;" class="has-background-white">
 
-                    <div style="display: flex; justify-content: flex-end; gap: 1em; padding: 1em;">
-                        <b-button type="is-primary is-light" label="?"/>
-                    </div>
+                    <!-- TODO Help button -->
 
                     <div v-if="poem"
                         class="poem"
                         style="display: flex; flex-grow: 1; flex-direction: column; align-items: center; gap: 2em;
-                            padding-left: 6em; padding-right: 6em;">
+                            padding-left: 6em; padding-right: 6em; padding-top: 3em;">
 
                         <div style="display: flex; flex-direction: column; align-items: center;">
                             <div class="title">{{ poem.name }}</div>
