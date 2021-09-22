@@ -1,3 +1,5 @@
+import Service from './Service'
+
 class Enum {
 
     constructor(members) {
@@ -58,15 +60,19 @@ class BlockTypesEnum extends Enum {
 const Unstressed = new StressType('breve.svg');
 const Stressed = new StressType('ictus.svg');
 
-const StressTypes = new Enum({ Unstressed, Stressed });
+export default new Service({
 
-const BlockTypes = new BlockTypesEnum({
-    Iamb: new BlockType('i', [Unstressed, Stressed]),
-    Trochee: new BlockType('t', [Stressed, Unstressed]),
-    Dactyl: new BlockType('d', [Stressed, Unstressed, Unstressed]),
-    Anapest: new BlockType('a', [Unstressed, Unstressed, Stressed]),
-    Spondee: new BlockType('s', [Stressed, Stressed]),
-    Pyrrhic: new BlockType('p', [Unstressed, Unstressed]),
+    name: 'constants',
+
+    StressTypes: new Enum({ Unstressed, Stressed }),
+
+    BlockTypes: new BlockTypesEnum({
+        Iamb: new BlockType('i', [Unstressed, Stressed]),
+        Trochee: new BlockType('t', [Stressed, Unstressed]),
+        Dactyl: new BlockType('d', [Stressed, Unstressed, Unstressed]),
+        Anapest: new BlockType('a', [Unstressed, Unstressed, Stressed]),
+        Spondee: new BlockType('s', [Stressed, Stressed]),
+        Pyrrhic: new BlockType('p', [Unstressed, Unstressed]),
+    })
+
 });
-
-export default { BlockTypes, StressTypes };
