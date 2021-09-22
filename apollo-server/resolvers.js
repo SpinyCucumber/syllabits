@@ -8,10 +8,13 @@ export default {
   },
 
   Query: {
+    node: (obj, args) => dataManager.getNode(args.id),
+  },
+
+  Mutation: {
     randomPoem: () => {
       return dataManager.poems[Math.floor(Math.random() * dataManager.poems.length)];
     },
-    node: (obj, args) => dataManager.getNode(args.id),
   },
 
 }

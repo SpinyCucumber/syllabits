@@ -17,6 +17,9 @@ type Poem implements Node {
 }
 
 type Query {
-  randomPoem: Poem!
   node(id: ID!): Node
+}
+
+type Mutation {
+  randomPoem: Poem!
 }

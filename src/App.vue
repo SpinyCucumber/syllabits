@@ -34,7 +34,8 @@ export default {
   methods: {
     randomPoem() {
       // Execute query
-      this.$apollo.query({ query: randomPoemIdQuery })
+      // We have to make sure to not cache the result, since random-poem is 
+      this.$apollo.mutate({ mutation: randomPoemIdQuery })
         .then(result => result.data.randomPoem.id)
         .then(id => {
           // Transition to play page with the new poem ID
