@@ -27,7 +27,7 @@
                 align-items: stretch center; justify-content: middle; overflow-y: scroll;">
             <div
                 class="background"
-                style="display: flex; flex-direction: column; align-items: center;">
+                style="display: flex; flex-grow: 1; flex-direction: column; align-items: center;">
 
                 <div style="display: flex; flex-direction:column; flex-grow: 1;" class="has-background-white">
 
@@ -38,7 +38,7 @@
                     <div v-if="poem"
                         class="poem"
                         style="display: flex; flex-grow: 1; flex-direction: column; align-items: center; gap: 2em;
-                            padding-left: 4em; padding-right: 4em;">
+                            padding-left: 6em; padding-right: 6em;">
 
                         <div style="display: flex; flex-direction: column; align-items: center;">
                             <div class="title">{{ poem.name }}</div>
