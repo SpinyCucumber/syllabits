@@ -1,0 +1,9 @@
+- [ ] Progress bar in play view
+- [ ] Sound effects
+    - [ ] Block "clack" sound
+    - [ ] Answer feedback sounds
+- [ ] Settings
+    - [ ] Ability to toggle DovesType
+- [ ] ANSWER FEEDBACK
+    - [ ] One-off animations
+    - [ ] Some way to communicate correct/incorrect state
