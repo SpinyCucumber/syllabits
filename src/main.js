@@ -7,7 +7,7 @@ import 'buefy/dist/buefy.css'
 import './styles/syllabits.css'
 import '@mdi/font/css/materialdesignicons.min.css'
 
-import { createProvider } from './vue-apollo'
+import { createProvider } from './apollo'
 import { Constants, ConfigReader, IdentityManager } from './services'
 
 // Install Vue plugins!
