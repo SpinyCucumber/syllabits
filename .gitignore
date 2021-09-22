@@ -5,6 +5,9 @@ node_modules
 # Have to not include dovestype font because of licensing
 fonts
 
+# Don't include poems in repository... Don't want to share answers I suppose
+poems
+
 # local env files
 .env.local
 .env.*.local

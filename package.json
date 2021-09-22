@@ -9,7 +9,8 @@
     "apollo": "vue-cli-service apollo:dev --generate-schema",
     "apollo:schema:generate": "vue-cli-service apollo:schema:generate",
     "apollo:schema:publish": "vue-cli-service apollo:schema:publish",
-    "apollo:start": "vue-cli-service apollo:start"
+    "apollo:start": "vue-cli-service apollo:start",
+    "import-poems": "node scripts/import-poems.js"
   },
   "dependencies": {
     "@mdi/font": "^6.1.95",
@@ -21,7 +22,8 @@
     "vue-apollo": "^3.0.0-beta.11",
     "vue-dndrop": "^1.0.2",
     "vue-router": "^3.2.0",
-    "vue-smooth-dnd": "^0.8.1"
+    "vue-smooth-dnd": "^0.8.1",
+    "xlsx": "^0.17.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.13",
