@@ -1,5 +1,6 @@
 const xlsx = require('xlsx');
 const path = require('path');
+const crypto = require("crypto");
 const fs = require('fs');
 
 const POEMS_DIR = 'apollo-server/poems'
@@ -55,6 +56,7 @@ function importPoems(inputPath, author) {
             let poem = parsePoem(workbook.Sheets[name]);
             poem.name = `Sonnet ${name}`;
             poem.author = author;
+            poem.id = crypto.randomBytes(8).toString('hex');
             return poem;
         });
 
