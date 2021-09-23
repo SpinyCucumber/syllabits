@@ -20,6 +20,18 @@ type Query {
   node(id: ID!): Node
 }
 
+input CheckLineInput {
+  poemID: ID!
+  lineNum: Int!
+  answer: String!
+}
+
+type CheckLineOutput {
+  correct: Boolean!
+  hintIndicies: [Int]!
+}
+
 type Mutation {
   randomPoem: Poem!
+  checkLine(input: CheckLineInput!): CheckLineOutput!
 }

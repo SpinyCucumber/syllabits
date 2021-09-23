@@ -14,13 +14,17 @@
         </div>
 
         <!-- Feedback -->
-        <b-button label="Check!" type="is-dark" :class="{ 'check-button': true, visible: isValidSequence }"/>
+        <b-button label="Check!" type="is-dark"
+            @click="checkLine"
+            :class="{ 'check-button': true, visible: isValidSequence }"/>
 
     </div>
 </template>
 
 <script>
 import BlockSlot from './BlockSlot'
+import { Constants } from '@/services'
+import checkLineQuery from '@/queries/checkLine.gql'
 
 const State = {
     Unchecked: 'Unchecked',
@@ -38,12 +42,34 @@ export default {
     data() {
         return {
             holdingList: new Array(5).fill(null),
+            // TODO This will be initialized by the server eventually
             state: State.Unchecked,
         }
     },
     computed: {
         isValidSequence() {
             return !this.holdingList.some(holding => holding === null);
+        }
+    },
+    methods: {
+        /**
+         * Should only be called when the line is in the Unchecked state; transitions to Checking.
+         */
+        checkLine() {
+            // Create a code using the block types the line contains.
+            // This is for representing the sequence of blocks efficiently.
+            const code = Constants.BlockTypes.serializeSequence(this.holdingList);
+            // Change line state and send a request to the server
+            this.state = State.Checking;
+            // We have to construct the input
+            const input = { poemID: this.$parent.id, lineNum: this.line.number, answer: code }
+            this.$apollo.mutate({ mutation: checkLineQuery, variables: { input } })
+                .then(result => result.data.checkLine)
+                .then(result => {
+                    // DEBUG
+                    // TODO Transition state
+                    console.log(result);
+                });
         }
     }
 }
