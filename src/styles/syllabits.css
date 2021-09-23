@@ -130,7 +130,7 @@
 .poem {
     display: flex;
     flex-grow: 1;
-    width: 70em;
+    width: min(70em, 100vw);
     flex-direction: column;
     align-items: center;
     gap: 3em;
