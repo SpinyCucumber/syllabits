@@ -14,9 +14,7 @@
         </div>
 
         <!-- Feedback -->
-        <div :class="{ feedback: true, visible: isValidSequence }">
-            <b-button label="Check!" type="is-dark" class="check-button"/>
-        </div>
+        <b-button label="Check!" type="is-dark" :class="{ 'check-button': true, visible: isValidSequence }"/>
 
     </div>
 </template>

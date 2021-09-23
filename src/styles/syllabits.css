@@ -182,19 +182,17 @@
     letter-spacing: 0.03em;
 }
 
-.poem .line .feedback {
-    justify-self: end;
-    opacity: 0;
-    transition: opacity 0.25s ease;
-}
-
-.poem .line .feedback.visible {
-    opacity: 100;
-}
-
 .poem .line .check-button {
+    justify-self: end;
+    transition: opacity 0.25s ease;
+    opacity: 0;
     font-family: 'Open Sans';
     border-radius: 9999px;
+    animation: pulse 2s infinite;
+}
+
+.poem .line .check-button.visible {
+    opacity: 100;
 }
 
 .poem .body {
@@ -225,10 +223,19 @@ html {
 }
 
 @keyframes ants {
-    from {
+    0% {
         stroke-dashoffset: 0%;
     }
-    to {
+    100% {
         stroke-dashoffset: 135%;
     }
 }
+
+@keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.2);
+    }
+    100% {
+      box-shadow: 0 0 0 20px rgba(0, 0, 0, 0);
+    }
+  }
