@@ -110,7 +110,7 @@
 
 .frame > .inner > * > * {
     display: flex;
-    flex-direction:column;
+    flex-direction: column;
     background-color: white;
 }
 
@@ -130,6 +130,7 @@
 .poem {
     display: flex;
     flex-grow: 1;
+    width: 80em;
     flex-direction: column;
     align-items: center;
     gap: 2em;
@@ -153,35 +154,33 @@
     font-size: 150%;
 }
 
+.poem .line {
+    display: contents;
+}
+
 .poem .line .number {
     font-family: 'Open Sans';
     color: lightgray;
 }
 
-.poem .line {
-    display: flex;
-    align-items: center;
-    gap: 4em;
-}
-
 .poem .line .content {
     display: flex;
     flex-direction: column;
+    width: fit-content;
     gap: 0.5em;
 }
 
-.poem .line .slot-container {
+.poem .line .content .slot-container {
     display: flex;
     justify-content: space-between;
 }
 
-.poem .line .text {
+.poem .line .content .text {
     font-size: 180%;
     letter-spacing: 0.03em;
 }
 
 .poem .line .feedback {
-    margin-left: auto;
     opacity: 0;
     transition: opacity 0.25s ease;
 }
@@ -195,10 +194,10 @@
 }
 
 .poem .body {
-    display: flex;
-    flex-grow: 1;
-    flex-direction: column;
-    gap: 2em;
+    display: grid;
+    align-self: stretch;
+    grid-column-gap: 10em;
+    grid-template-columns: auto 1fr auto;
 }
 
 body, button, input {
