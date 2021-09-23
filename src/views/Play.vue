@@ -6,6 +6,7 @@
             animation="slide"
             class="block-dropdown"
 
+            :mobile-modal="false"
             :can-close="false"
             :close-on-click="false">
             <template #trigger>
