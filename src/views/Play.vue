@@ -1,13 +1,10 @@
 <template>
 
-    <div
-        style="display: flex; flex-direction: column; position: relative;
-            align-items: stretch; min-height: 0;">
+    <div class="frame">
 
         <b-dropdown
             animation="slide"
             class="block-dropdown"
-            style="position: absolute; top: 0em; left: 1em;"
 
             :can-close="false"
             :close-on-click="false">
@@ -22,23 +19,15 @@
             </b-dropdown-item>
         </b-dropdown>
 
-        <div
-            style="display: flex; flex-direction: column; flex-grow: 1; min-height: 0;
-                align-items: stretch center; justify-content: middle; overflow-y: scroll;">
-            <div
-                class="background"
-                style="display: flex; flex-grow: 1; flex-direction: column; align-items: center;">
-
-                <div style="display: flex; flex-direction:column; flex-grow: 1;" class="has-background-white">
+        <div class="inner">
+            <div>
+                <div>
 
                     <!-- TODO Help button -->
 
-                    <div v-if="poem"
-                        class="poem"
-                        style="display: flex; flex-grow: 1; flex-direction: column; align-items: center; gap: 2em;
-                            padding-left: 6em; padding-right: 6em; padding-top: 3em;">
+                    <div v-if="poem" class="poem">
 
-                        <div style="display: flex; flex-direction: column; align-items: center;">
+                        <div class="title-box">
                             <div class="title">{{ poem.name }}</div>
                             <div class="author">{{ poem.author }}</div>
                         </div>
@@ -46,7 +35,7 @@
                         <img :src="$assets.getIcon('Divider', 'png')" class="non-interactive"/>
                         
                         <!-- Poem lines -->
-                        <div style="display: flex; flex-grow: 1; flex-direction: column; gap: 2em;">
+                        <div class="body">
                             <poem-line
                                 v-for="line in poem.lines"
                                 :key="line.number"

@@ -56,6 +56,12 @@
     grid-template-columns: repeat(1, 1fr);
 }
 
+.block-dropdown {
+    position: absolute;
+    top: 0em;
+    left: 1em;
+}
+
 .block-dropdown .dropdown-menu {
     min-width: auto;
 }
@@ -76,13 +82,66 @@
     background-color: #dedede;
 }
 
-.background {
+.frame {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 0;
+    position: relative;
+}
+
+.frame > .inner {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-height: 0;
+    overflow-y: scroll;
+}
+
+.frame > .inner > * {
     background-image: url('textures/paper.png');
     background-repeat: repeat;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+}
+
+.frame > .inner > * > * {
+    display: flex;
+    flex-direction:column;
+    background-color: white;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+}
+
+.main > .inner {
+    flex-grow: 1;
 }
 
 .navbar {
     box-shadow: 0px 0px 3px 3px gray;
+}
+
+.poem {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+    gap: 2em;
+    padding-left: 6em;
+    padding-right: 6em;
+    padding-top: 3em;
+}
+
+.poem .title-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .poem .title {
@@ -94,35 +153,60 @@
     font-size: 150%;
 }
 
-.poem .line-number {
+.poem .line .number {
     font-family: 'Open Sans';
     color: lightgray;
 }
 
-.poem .content {
+.poem .line {
+    display: flex;
+    align-items: center;
+    gap: 4em;
+}
+
+.poem .line .content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.poem .line .slot-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.poem .line .text {
     font-size: 180%;
     letter-spacing: 0.03em;
 }
 
-.poem .feedback {
+.poem .line .feedback {
+    margin-left: auto;
     opacity: 0;
     transition: opacity 0.25s ease;
 }
 
-.poem .check-button {
-    font-family: 'Open Sans';
-}
-
-.poem .feedback.visible {
+.poem .line .feedback.visible {
     opacity: 100;
 }
 
-.non-interactive {
-    pointer-events: none;
+.poem .line .check-button {
+    font-family: 'Open Sans';
+}
+
+.poem .body {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    gap: 2em;
 }
 
 body, button, input {
     font-family: 'DovesType-Regular';
+}
+
+#app, html, body, #app > * {
+    height: 100%;
 }
 
 html {

@@ -1,20 +1,20 @@
 <template>
-    <div style="display: flex; align-items: center; gap: 4em;">
+    <div class="line">
         <!-- Line number -->
         <!-- Add 1 because programmers are weird -->
-        <div class="line-number">{{ line.number + 1 }}</div>
+        <div class="number">{{ line.number + 1 }}</div>
 
-        <div style="display: flex; flex-direction: column; gap: 0.5em;">
+        <div class="content">
             <!-- Block slots -->
-            <div style="display: flex; justify-content: space-between;">
+            <div class="slot-container">
                 <block-slot v-for="n in 5" :key="n" :holding.sync="holdingList[n-1]"/>
             </div>
             <!-- Line text -->
-            <div class="content">{{ line.text }}</div>
+            <div class="text">{{ line.text }}</div>
         </div>
 
         <!-- Feedback -->
-        <div style="margin-left: auto" :class="{ feedback: true, visible: isValidSequence }">
+        <div :class="{ feedback: true, visible: isValidSequence }">
             <b-button label="Check!" type="is-dark" class="check-button"/>
         </div>
 
