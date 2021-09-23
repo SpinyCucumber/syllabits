@@ -133,7 +133,7 @@
     width: 80em;
     flex-direction: column;
     align-items: center;
-    gap: 2em;
+    gap: 3em;
     padding-left: 6em;
     padding-right: 6em;
     padding-top: 3em;
@@ -163,19 +163,19 @@
     color: lightgray;
 }
 
-.poem .line .content {
+.poem .line .text-box {
     display: flex;
     flex-direction: column;
     width: fit-content;
     gap: 0.5em;
 }
 
-.poem .line .content .slot-container {
+.poem .line .text-box .slot-container {
     display: flex;
     justify-content: space-between;
 }
 
-.poem .line .content .text {
+.poem .line .text-box .text {
     font-size: 180%;
     letter-spacing: 0.03em;
 }
@@ -197,6 +197,7 @@
     display: grid;
     align-self: stretch;
     grid-column-gap: 10em;
+    grid-row-gap: 2em;
     grid-template-columns: auto 1fr auto;
 }
 

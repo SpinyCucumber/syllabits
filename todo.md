@@ -7,4 +7,4 @@
 - [ ] ANSWER FEEDBACK
     - [ ] One-off animations
     - [ ] Some way to communicate correct/incorrect state
-- [ ] Rename Content CSS class
+- [x] Rename Content CSS class

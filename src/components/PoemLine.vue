@@ -4,7 +4,7 @@
         <!-- Add 1 because programmers are weird -->
         <div class="number">{{ line.number + 1 }}</div>
 
-        <div class="content">
+        <div class="text-box">
             <!-- Block slots -->
             <div class="slot-container">
                 <block-slot v-for="n in 5" :key="n" :holding.sync="holdingList[n-1]"/>
