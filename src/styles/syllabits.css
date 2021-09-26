@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 @import url('DovesType-Regular.css');
 
-.game-block-shape {
+.game-block-shape, .game-block, .game-slot-container {
     width: 84px;
     height: 50px;
 }

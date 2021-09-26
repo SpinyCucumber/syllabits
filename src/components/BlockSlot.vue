@@ -34,7 +34,7 @@ import Block from './Block'
 import { BlockType } from '@/models'
 import { Draggable, Container } from 'vue-smooth-dnd'
 
-const BASE_CLASSES = { 'game-block-shape': true }
+const BASE_CLASSES = { 'game-slot-container': true }
 
 export default {
     name: 'BlockSlot',
