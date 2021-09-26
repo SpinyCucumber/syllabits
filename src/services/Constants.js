@@ -1,22 +1,21 @@
 import Service from './Service'
-import { StressType, BlockType, Enum, BlockTypeEnum } from '@/models'
+import { Enum, SerializableEnum } from '@/utilities';
 
-const Unstressed = new StressType();
-const Stressed = new StressType();
+const StressTypes = Enum.simple('Unstressed', 'Stressed');
+const U = StressTypes.Unstressed, S = StressTypes.Stressed;
+
+const BlockTypes = new SerializableEnum(BlockType, {
+    Iamb: ['i', [U, S]],
+    Trochee: ['t', [S, U]],
+    Dactyl: ['d', [S, U, U]],
+    Anapest: ['a', [U, U, S]],
+    Spondee: ['s', [S, S]],
+    Pyrrhic: ['p', [U, U]],
+});
+
+const LineStates = Enum.simple('Unchecked', 'Checking', 'Correct', 'Incorrect')
 
 export default new Service({
-
     name: 'constants',
-
-    StressTypes: new Enum({ Unstressed, Stressed }),
-
-    BlockTypes: new BlockTypeEnum({
-        Iamb: new BlockType('i', [Unstressed, Stressed]),
-        Trochee: new BlockType('t', [Stressed, Unstressed]),
-        Dactyl: new BlockType('d', [Stressed, Unstressed, Unstressed]),
-        Anapest: new BlockType('a', [Unstressed, Unstressed, Stressed]),
-        Spondee: new BlockType('s', [Stressed, Stressed]),
-        Pyrrhic: new BlockType('p', [Unstressed, Unstressed]),
-    })
-
+    StressTypes, BlockTypes, LineStates,
 });
