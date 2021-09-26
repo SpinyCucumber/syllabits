@@ -63,9 +63,12 @@ import { BlockPicker, PoemLine } from '@/components'
 export default {
     name: 'Play',
     components: { BlockPicker, PoemLine },
+
     props: {
         id: { required: true, type: String },
     },
+
+    // TODO This will be probably be moved into the instantiation logic
     apollo: {
         poem: {
             query: poemQuery,
@@ -74,6 +77,19 @@ export default {
                 return { id: this.id }
             },
         }
-    }
+    },
+
+    /**
+     * Called when the route changes (including parameters)'
+     * This is where we handle instantiation logic.
+     * If the user has an identity, we set our progress from the server query
+     * If the user has no identity, we simply clear any current progress
+     */
+    beforeRouteUpdate(to, from, next) {
+        // TODO Initialize progress from server query
+        // TODO Initialize empty board
+        next();
+    },
+
 }
 </script>
