@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 @import url('DovesType-Regular.css');
 
-.game-block-shape, .game-block, .game-slot-container {
+.game-block-shape,
+.game-block,
+.game-slot-container {
     width: 84px;
     height: 50px;
 }
@@ -29,6 +31,10 @@
 .game-block.ghost-drop {
     transition: transform 0.18s ease-in-out;
     transform: rotateZ(0deg)
+}
+
+.game-slot-container.incorrect-active {
+    animation: jiggle 1s;
 }
 
 .game-slot {
@@ -91,7 +97,7 @@
     position: relative;
 }
 
-.frame > .inner {
+.frame>.inner {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -99,7 +105,7 @@
     overflow-y: scroll;
 }
 
-.frame > .inner > * {
+.frame>.inner>* {
     background-image: url('textures/paper.png');
     background-repeat: repeat;
     display: flex;
@@ -108,7 +114,7 @@
     align-items: center;
 }
 
-.frame > .inner > * > * {
+.frame>.inner>*>* {
     display: flex;
     flex-direction: column;
     background-color: white;
@@ -119,7 +125,7 @@
     flex-direction: column;
 }
 
-.main > .inner {
+.main>.inner {
     flex-grow: 1;
 }
 
@@ -207,25 +213,34 @@
     grid-template-columns: auto auto auto;
 }
 
-.divider, .non-interactive {
+.divider,
+.non-interactive {
     pointer-events: none;
 }
 
-body, button, input {
+body,
+button,
+input {
     font-family: 'DovesType-Regular';
 }
 
-#app, html, body, #app > * {
+#app,
+html,
+body,
+#app>* {
     height: 100%;
 }
 
 html {
-    -ms-overflow-style: none; /* for Internet Explorer, Edge */
-    scrollbar-width: none; /* for firefox */
+    -ms-overflow-style: none;
+    /* for Internet Explorer, Edge */
+    scrollbar-width: none;
+    /* for firefox */
 }
 
 /* Temporary fix for https://github.com/buefy/buefy/issues/3471 */
-.slide-enter-to, .slide-leave {
+.slide-enter-to,
+.slide-leave {
     max-height: 50vh;
     overflow: hidden;
 }
@@ -234,6 +249,7 @@ html {
     0% {
         stroke-dashoffset: 0%;
     }
+
     100% {
         stroke-dashoffset: 135%;
     }
@@ -241,9 +257,34 @@ html {
 
 @keyframes pulse {
     0% {
-      box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.2);
     }
+
     100% {
-      box-shadow: 0 0 0 20px rgba(0, 0, 0, 0);
+        box-shadow: 0 0 0 20px rgba(0, 0, 0, 0);
     }
-  }
+}
+
+@keyframes jiggle {
+
+    10%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(4px, 0, 0);
+    }
+}
