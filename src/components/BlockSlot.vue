@@ -86,6 +86,8 @@ export default {
         },
         // TODO Could abstract as mixin
         animate(animation) {
+            // DEBUG
+            console.log('Adding animation', animation);
             this.currentAnimation = animation;
         }
     },

@@ -34,7 +34,7 @@
 }
 
 .game-slot-container.incorrect-active {
-    animation: jiggle 1s;
+    animation: jiggle 0.5s;
 }
 
 .game-slot {
@@ -267,24 +267,20 @@ html {
 
 @keyframes jiggle {
 
-    10%,
-    90% {
-        transform: translate3d(-1px, 0, 0);
+    20% {
+        transform: translate3d(8px, 0, 0);
     }
 
-    20%,
-    80% {
-        transform: translate3d(2px, 0, 0);
+    40% {
+        transform: translate3d(-7px, 0, 0);
     }
 
-    30%,
-    50%,
-    70% {
-        transform: translate3d(-4px, 0, 0);
-    }
-
-    40%,
     60% {
-        transform: translate3d(4px, 0, 0);
+        transform: translate3d(6px, 0, 0);
     }
+
+    80% {
+        transform: translate3d(-5px, 0, 0);
+    }
+
 }

@@ -7,7 +7,7 @@
         <div class="text-box">
             <!-- Block slots -->
             <div class="slot-container">
-                <block-slot v-for="n in 5" :key="n" :holding.sync="holdingList[n-1]"/>
+                <block-slot v-for="n in 5" ref="slots" :key="n" :holding.sync="holdingList[n-1]"/>
             </div>
             <!-- Line text -->
             <div class="text">{{ line.text }}</div>
@@ -66,9 +66,13 @@ export default {
             this.$apollo.mutate({ mutation: checkLineQuery, variables: { input } })
                 .then(result => result.data.checkLine)
                 .then(result => {
-                    // DEBUG
                     // TODO Transition state
+                    // DEBUG
                     console.log(result);
+                    // Send animation message to incorrect slots
+                    for (let i of result.hintIndicies) {
+                        this.$refs.slots[i].animate('incorrect');
+                    }
                 });
         }
     }
