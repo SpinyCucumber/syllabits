@@ -46,8 +46,7 @@ export default {
             // Create a code using the block types the line contains.
             // This is for representing the sequence of blocks efficiently.
             const code = Constants.BlockTypes.serializeSequence(this.lineState.holdingList);
-            // Change line state and send a request to the server
-            this.state = State.Checking;
+            // TODO Change state
             // We have to construct the input
             const input = { poemID: this.$parent.id, lineNum: this.line.number, answer: code }
             this.$apollo.mutate({ mutation: checkLineQuery, variables: { input } })

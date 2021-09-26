@@ -8,6 +8,9 @@ class Enum {
         // We also maintain an array to allow users to iterate over all possible values
         this.values = [];
         Object.entries(values).forEach(([name, initArgs]) => {
+            // DEBUG
+            console.log(initArgs);
+            console.log(supplier);
             // Construct value
             let value = supplier(...initArgs);
             this[name] = value;
@@ -24,7 +27,8 @@ class Enum {
         names.forEach(name => {
             values[name] = [];
         })
-        return new Enum(() => {}, values);
+        // Ugly JS syntax.
+        return new Enum(() => { return {}; }, values);
     }
 
 }
@@ -62,4 +66,4 @@ class SerializableEnum extends Enum {
 
 }
 
-export { SimpleEnum, Enum, SerializableEnum };
+export { Enum, SerializableEnum };

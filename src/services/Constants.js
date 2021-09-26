@@ -5,7 +5,7 @@ import { BlockType } from '@/models'
 const StressTypes = Enum.simple('Unstressed', 'Stressed');
 const U = StressTypes.Unstressed, S = StressTypes.Stressed;
 
-const BlockTypes = new SerializableEnum(BlockType, {
+const BlockTypes = new SerializableEnum(BlockType.constructor, {
     Iamb: ['i', [U, S]],
     Trochee: ['t', [S, U]],
     Dactyl: ['d', [S, U, U]],
