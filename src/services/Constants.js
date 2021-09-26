@@ -1,5 +1,6 @@
 import Service from './Service'
-import { Enum, SerializableEnum } from '@/utilities';
+import { Enum, SerializableEnum } from '@/utilities'
+import { BlockType } from '@/models'
 
 const StressTypes = Enum.simple('Unstressed', 'Stressed');
 const U = StressTypes.Unstressed, S = StressTypes.Stressed;

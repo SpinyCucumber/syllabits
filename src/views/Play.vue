@@ -59,6 +59,7 @@
 <script>
 import poemQuery from '@/queries/poem.gql'
 import { BlockPicker, PoemLine } from '@/components'
+import { PlayState } from '@/models'
 
 export default {
     name: 'Play',
@@ -66,6 +67,10 @@ export default {
 
     props: {
         id: { required: true, type: String },
+    },
+
+    date: {
+        state: new PlayState(),
     },
 
     // TODO This will be probably be moved into the instantiation logic
@@ -87,7 +92,8 @@ export default {
      */
     beforeRouteUpdate(to, from, next) {
         // TODO Initialize progress from server query
-        // TODO Initialize empty board
+        // Initialize empty board
+        this.state.initializeEmpty();
         next();
     },
 

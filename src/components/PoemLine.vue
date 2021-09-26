@@ -26,25 +26,12 @@ import BlockSlot from './BlockSlot'
 import { Constants } from '@/services'
 import checkLineQuery from '@/queries/checkLine.gql'
 
-const State = {
-    Unchecked: 'Unchecked',
-    Checking: 'Checking',
-    Correct: 'Correct',
-    Incorrect: 'Incorrect',
-}
-
 export default {
     name: 'PoemLine',
     components: { BlockSlot },
     props: { 
         line: { required: true },
-    },
-    data() {
-        return {
-            holdingList: new Array(5).fill(null),
-            // TODO This will be initialized by the server eventually
-            state: State.Unchecked,
-        }
+        lineState: { required: true },
     },
     computed: {
         isValidSequence() {
@@ -58,7 +45,7 @@ export default {
         checkLine() {
             // Create a code using the block types the line contains.
             // This is for representing the sequence of blocks efficiently.
-            const code = Constants.BlockTypes.serializeSequence(this.holdingList);
+            const code = Constants.BlockTypes.serializeSequence(this.lineState.holdingList);
             // Change line state and send a request to the server
             this.state = State.Checking;
             // We have to construct the input
