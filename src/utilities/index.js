@@ -4,31 +4,29 @@
  */
 class Enum {
 
-    constructor(supplier, values) {
+    constructor(values, initializer) {
         // We also maintain an array to allow users to iterate over all possible values
         this.values = [];
-        Object.entries(values).forEach(([name, initArgs]) => {
-            // DEBUG
-            console.log(initArgs);
-            console.log(supplier);
-            // Construct value
-            let value = supplier(...initArgs);
-            this[name] = value;
-            this.values.push(value);
-            value.name = name;
-        });
-    }
 
-    /**
-     * Shortcut to create an enum with no initialization arguments.
-     */
-    static simple(...names) {
-        let values = {}
-        names.forEach(name => {
-            values[name] = [];
-        })
-        // Ugly JS syntax.
-        return new Enum(() => { return {}; }, values);
+        const isArray = Array.isArray(values);
+        for (let key in values) {
+
+            let name, value;
+            if (isArray) {
+                name = values[key];
+                value = initializer ? initializer() : {};
+            }
+            else {
+                name = key;
+                value = values[name];
+                if (initializer) value = initializer(value);
+            }
+            
+            this.values.push(value);
+            this[name] = value;
+            value.name = name;
+
+        }
     }
 
 }
@@ -41,8 +39,8 @@ class Enum {
  */
 class SerializableEnum extends Enum {
 
-    constructor(supplier, values) {
-        super(supplier, values);
+    constructor(values, initializer) {
+        super(values, initializer);
         // Create lookup table using code
         this.lookup = {};
         this.values.forEach(value => {
