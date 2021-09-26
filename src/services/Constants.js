@@ -4,7 +4,6 @@ import { BlockType } from '@/models'
 
 const StressTypes = new Enum(['Unstressed', 'Stressed']);
 const U = StressTypes.Unstressed, S = StressTypes.Stressed;
-console.log({U, S});
 
 const BlockTypes = new SerializableEnum({
     Iamb: ['i', [U, S]],
