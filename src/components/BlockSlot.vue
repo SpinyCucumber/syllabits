@@ -1,5 +1,5 @@
 <template>
-    <div style="position: relative;" class="game-block-shape">
+    <div style="position: relative;" :class="getClasses" @animationend="onAnimationEnd">
 
         <container
             :should-accept-drop="shouldAcceptDrop"
@@ -34,6 +34,8 @@ import Block from './Block'
 import { BlockType } from '@/models'
 import { Draggable, Container } from 'vue-smooth-dnd'
 
+const BASE_CLASSES = { 'game-block-shape': true }
+
 export default {
     name: 'BlockSlot',
     components: { Block, Draggable, Container },
@@ -47,6 +49,7 @@ export default {
     data() {
         return {
             dropActive: false,
+            currentAnimation: null,
         }
     },
 
@@ -78,7 +81,22 @@ export default {
         getPayload() {
             return this.holding;
         },
+        onAnimationEnd() {
+            this.currentAnimation = null;
+        },
+        // TODO Could abstract as mixin
+        animate(animation) {
+            this.currentAnimation = animation;
+        }
     },
+
+    computed: {
+        getClasses() {
+            let classes = {...BASE_CLASSES};
+            if (this.currentAnimation) classes[this.currentAnimation] = true;
+            return classes;
+        }
+    }
 
 }
 </script>
