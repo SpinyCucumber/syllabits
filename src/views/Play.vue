@@ -33,8 +33,12 @@
                             <div class="author">{{ poem.author }}</div>
                         </div>
                         
+                        <!-- Manuscript Divider
                         <img :src="$assets.getIcon('Divider', 'png')" class="non-interactive"/>
-                        
+                        -->
+
+                        <img :src="$assets.getIcon('Divider')" class="divider"/>
+
                         <!-- Poem lines -->
                         <div class="body">
                             <poem-line

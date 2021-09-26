@@ -154,6 +154,10 @@
     font-size: 150%;
 }
 
+.poem .divider {
+    opacity: 10%;
+}
+
 .poem .line {
     display: contents;
 }
@@ -201,6 +205,10 @@
     align-items: center;
     grid-row-gap: 2em;
     grid-template-columns: auto auto auto;
+}
+
+.divider, .non-interactive {
+    pointer-events: none;
 }
 
 body, button, input {

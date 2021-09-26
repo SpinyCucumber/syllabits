@@ -8,4 +8,4 @@
     - [ ] One-off animations
     - [ ] Some way to communicate correct/incorrect state
 - [x] Rename Content CSS class
-- [ ] SVG Divider?
+- [ ] SVG Divider? (Manuscript)
