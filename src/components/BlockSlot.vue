@@ -93,7 +93,7 @@ export default {
     computed: {
         getClasses() {
             let classes = {...BASE_CLASSES};
-            if (this.currentAnimation) classes[this.currentAnimation] = true;
+            if (this.currentAnimation) classes[`${this.currentAnimation}-active`] = true;
             return classes;
         }
     }
