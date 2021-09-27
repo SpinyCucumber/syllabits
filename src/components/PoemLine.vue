@@ -23,7 +23,6 @@
 
 <script>
 import BlockSlot from './BlockSlot'
-import { Constants } from '@/services'
 import checkLineQuery from '@/queries/checkLine.gql'
 
 export default {
@@ -39,12 +38,13 @@ export default {
         },
         // This allows us to implement line progress in a "lazy" way.
         // If the poem isn't tracking progress for this line yet, we tell it to.
+        // Part of why this works is that computed properties are not recomputed until
+        // the dependent properties change.
         // We could encapsulate this pattern in a directive
-        // TODO Use watchers
         lineProgress() {
             if (this.lineProgressProxy) return this.lineProgressProxy;
             let progress = {
-                state: Constants.LineState.Unchecked,
+                state: this.$constants.LineState.Unchecked,
                 holding: new Array(5).fill(null),
             };
             this.$emit('update:lineProgressProxy', progress);
@@ -58,9 +58,9 @@ export default {
         checkLine() {
             // Create a code using the block types the line contains.
             // This is for representing the sequence of blocks efficiently.
-            const code = Constants.BlockTypes.serializeSequence(this.lineProgress.holding);
+            const code = this.$constants.BlockTypes.serializeSequence(this.lineProgress.holding);
             // Transition state to "checking"
-            this.lineProgress.state = Constants.LineState.Checking;
+            this.lineProgress.state = this.$constants.LineState.Checking;
             // We have to construct the input
             const input = { poemID: this.$parent.id, lineNum: this.line.number, answer: code }
             this.$apollo.mutate({ mutation: checkLineQuery, variables: { input } })
@@ -72,7 +72,7 @@ export default {
                     }
                     // Transition state
                     this.lineProgress.state = output.correct ?
-                        Constants.LineState.Correct : Constants.LineState.Incorrect;
+                        this.$constants.LineState.Correct : this.$constants.LineState.Incorrect;
                 });
         }
     },
