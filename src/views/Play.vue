@@ -45,7 +45,7 @@
                                 v-for="i in poem.lines.length"
                                 :key="i"
                                 :line="poem.lines[i-1]"
-                                :lineState="state.lines[i-1]"/>
+                                :lineProgressProxy.sync="progress.lines[i-1]"/>
                         </div>
 
                     </div>
@@ -60,7 +60,6 @@
 <script>
 import poemQuery from '@/queries/poem.gql'
 import { BlockPicker, PoemLine } from '@/components'
-import { PlayState } from '@/models'
 
 export default {
     name: 'Play',
@@ -72,12 +71,10 @@ export default {
 
     data() {
         return {
-            state: new PlayState(),
+            progress: {
+                lines: [],
+            }
         }
-    },
-
-    created() {
-        this.state.initializeEmpty();
     },
 
     // TODO This will be probably be moved into the instantiation logic
@@ -100,7 +97,6 @@ export default {
     beforeRouteUpdate(to, from, next) {
         // TODO Initialize progress from server query
         // Initialize empty board
-        this.state.initializeEmpty();
         next();
     },
 

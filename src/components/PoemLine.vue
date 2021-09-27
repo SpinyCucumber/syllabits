@@ -7,7 +7,7 @@
         <div class="text-box">
             <!-- Block slots -->
             <div class="slot-container">
-                <block-slot v-for="n in 5" ref="slots" :key="n" :holding.sync="lineState.holding[n-1]"/>
+                <block-slot v-for="n in 5" ref="slots" :key="n" :holding.sync="lineProgress.holding[n-1]"/>
             </div>
             <!-- Line text -->
             <div class="text">{{ line.text }}</div>
@@ -31,12 +31,24 @@ export default {
     components: { BlockSlot },
     props: { 
         line: { required: true },
-        lineState: { required: true },
+        lineProgressProxy: { required: true },
     },
     computed: {
         isValidSequence() {
-            return !this.lineState.holding.some(blockType => blockType === null);
-        }
+            return !this.lineProgress.holding.some(blockType => blockType === null);
+        },
+        // This allows us to implement line progress in a "lazy" way.
+        // If the poem isn't tracking progress for this line yet, we tell it to.
+        // We could encapsulate this pattern in a directive
+        lineProgress() {
+            if (this.lineProgressProxy) return this.lineProgressProxy;
+            let progress = {
+                state: Constants.LineState.Unchecked,
+                holding: new Array(5).fill(null),
+            };
+            this.$emit('update:lineProgressProxy', progress);
+            return progress;
+        },
     },
     methods: {
         /**
@@ -45,22 +57,20 @@ export default {
         checkLine() {
             // Create a code using the block types the line contains.
             // This is for representing the sequence of blocks efficiently.
-            const code = Constants.BlockTypes.serializeSequence(this.lineState.holding);
+            const code = Constants.BlockTypes.serializeSequence(this.lineProgress.holding);
             // TODO Change state
             // We have to construct the input
             const input = { poemID: this.$parent.id, lineNum: this.line.number, answer: code }
             this.$apollo.mutate({ mutation: checkLineQuery, variables: { input } })
                 .then(result => result.data.checkLine)
                 .then(result => {
-                    // TODO Transition state
-                    // DEBUG
-                    console.log(result);
                     // Send animation message to incorrect slots
                     for (let i of result.hintIndicies) {
                         this.$refs.slots[i].animate('incorrect');
                     }
+                    // TODO Transition state
                 });
         }
-    }
+    },
 }
 </script>
