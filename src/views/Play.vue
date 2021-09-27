@@ -71,21 +71,31 @@ export default {
 
     data() {
         return {
-            progress: {
-                lines: [],
-            }
+            poem: null,
+            progress: null,
         }
     },
 
-    // TODO This will be probably be moved into the instantiation logic
-    apollo: {
-        poem: {
-            query: poemQuery,
-            // Reactive query variables
-            variables() {
-                return { id: this.id }
-            },
+    methods: {
+        // Called when the component is first created and whenever the route changes.
+        // Queries the server for poem data.
+        initialize() {
+            // Perform server query
+            this.$apollo.query({ query: poemQuery, variables: { id: this.id } })
+                .then(result => result.data.poem)
+                .then(poem => {
+                    this.poem = poem;
+                    // TODO Set progress from query
+                    this.progress = { lines: [] };
+                });
+        },
+        resetProgress() {
+            this.progress = { lines: [] };
         }
+    },
+
+    created() {
+        this.initialize();
     },
 
     /**
@@ -95,8 +105,7 @@ export default {
      * If the user has no identity, we simply clear any current progress
      */
     beforeRouteUpdate(to, from, next) {
-        // TODO Initialize progress from server query
-        // Initialize empty board
+        this.initialize();
         next();
     },
 
