@@ -171,8 +171,21 @@
 .poem .line .number {
     justify-self: start;
     font-family: 'Open Sans';
-    color: lightgray;
     max-width: 100%;
+    color: lightgray;
+    background-color: whitesmoke;
+    transition: color 0.5s ease;
+    transition: background-color 0.5s ease;
+}
+
+.poem .line.correct .number {
+    color: white;
+    background-color: green;
+}
+
+.poem .line.incorrect .number {
+    color: white;
+    background-color: crimson;
 }
 
 .poem .line .text-box {
