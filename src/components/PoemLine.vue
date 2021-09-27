@@ -40,6 +40,7 @@ export default {
         // This allows us to implement line progress in a "lazy" way.
         // If the poem isn't tracking progress for this line yet, we tell it to.
         // We could encapsulate this pattern in a directive
+        // TODO Use watchers
         lineProgress() {
             if (this.lineProgressProxy) return this.lineProgressProxy;
             let progress = {
@@ -58,17 +59,20 @@ export default {
             // Create a code using the block types the line contains.
             // This is for representing the sequence of blocks efficiently.
             const code = Constants.BlockTypes.serializeSequence(this.lineProgress.holding);
-            // TODO Change state
+            // Transition state to "checking"
+            this.lineProgress.state = Constants.LineState.Checking;
             // We have to construct the input
             const input = { poemID: this.$parent.id, lineNum: this.line.number, answer: code }
             this.$apollo.mutate({ mutation: checkLineQuery, variables: { input } })
                 .then(result => result.data.checkLine)
-                .then(result => {
+                .then(output => {
                     // Send animation message to incorrect slots
-                    for (let i of result.hintIndicies) {
+                    for (let i of output.hintIndicies) {
                         this.$refs.slots[i].animate('incorrect');
                     }
-                    // TODO Transition state
+                    // Transition state
+                    this.lineProgress.state = output.correct ?
+                        Constants.LineState.Correct : Constants.LineState.Incorrect;
                 });
         }
     },
