@@ -37,6 +37,10 @@
     animation: jiggle 0.5s;
 }
 
+.game-slot-container.correct-active {
+    animation: bounce 0.4s;
+}
+
 .game-slot {
     fill: none;
     pointer-events: all;
@@ -296,6 +300,14 @@ html {
 
     80% {
         transform: translate3d(-5px, 0, 0);
+    }
+
+}
+
+@keyframes bounce {
+    
+    50% {
+        transform: translate3d(0, -16px, 0);
     }
 
 }

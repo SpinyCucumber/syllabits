@@ -121,8 +121,20 @@ export default {
                     // Transition state
                     this.lineProgress.state = output.correct ?
                         LineState.Correct : LineState.Incorrect;
+                    // Could abstract this using events
+                    if (output.correct) this.animateCorrect();
                 });
-        }
+        },
+        // Correct animation
+        animateCorrect() {
+            let delay = 0;
+            for(let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    this.$refs.slots[i].animate('correct');
+                }, delay);
+                delay += 100;
+            }
+        },
     },
 
     watch: {
