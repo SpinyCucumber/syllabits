@@ -48,13 +48,22 @@ const CLASS_LOOKUP = new Map([
 ]);
 
 export default {
+
     name: 'PoemLine',
     components: { BlockSlot },
+
     props: { 
         line: { required: true },
         lineProgressProxy: { required: true },
     },
+
     computed: {
+        // An alias for the slot values of the line progress.
+        // This allows us to watch the slots for changes.
+        holding() {
+            return this.lineProgress.holding;
+        },
+        // Whether every slot contains a block type
         isValidSequence() {
             return !this.lineProgress.holding.some(blockType => blockType === null);
         },
@@ -86,6 +95,7 @@ export default {
             return false;
         }
     },
+
     methods: {
         /**
          * Should only be called when the line is in the Unchecked state; transitions to Checking.
@@ -111,5 +121,15 @@ export default {
                 });
         }
     },
+
+    watch: {
+        holding() {
+            // If the slots are modified while the line is incorrect, transition to unchecked
+            if (this.lineProgress.state === LineState.Incorrect) {
+                this.lineProgress.state = LineState.Unchecked;
+            }
+        }
+    },
+
 }
 </script>
