@@ -1,5 +1,5 @@
 <template>
-    <div class="line">
+    <div :class="classes">
         <!-- Line number -->
         <!-- Add 1 because programmers are weird -->
         <div class="number">{{ line.number + 1 }}</div>
@@ -22,6 +22,15 @@
 </template>
 
 <script>
+// Poem Line State
+// 1. Unchecked
+//  Starts in unchecked state. Can transition back to unchecked if slots are changed while incorrect.
+// 2. Checking (i.e. while querying server)
+//  Can enter checking while unchecked and all slots are filled. Transitions to either correct or incorrect.
+// 3. Correct
+//  Can transition back to Unchecked only be resetting poem progress.
+// 4. Incorrect
+//  Can transition to Unchecked by changing slots.
 import BlockSlot from './BlockSlot'
 import checkLineQuery from '@/queries/checkLine.gql'
 
@@ -50,6 +59,14 @@ export default {
             this.$emit('update:lineProgressProxy', progress);
             return progress;
         },
+        // CSS classes
+        classes() {
+            return {
+                line: true,
+                correct: this.lineProgress.state === this.$constants.LineState.Correct,
+                incorrect: this.lineProgress.state === this.$constants.LineState.Incorrect,
+            }
+        }
     },
     methods: {
         /**

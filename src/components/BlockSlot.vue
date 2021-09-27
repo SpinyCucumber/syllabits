@@ -1,5 +1,5 @@
 <template>
-    <div style="position: relative;" :class="getClasses" @animationend="onAnimationEnd">
+    <div style="position: relative;" :class="classes" @animationend="onAnimationEnd">
 
         <container
             :should-accept-drop="shouldAcceptDrop"
@@ -93,7 +93,7 @@ export default {
     },
 
     computed: {
-        getClasses() {
+        classes() {
             let classes = {...BASE_CLASSES};
             if (this.currentAnimation) classes[`${this.currentAnimation}-active`] = true;
             return classes;
