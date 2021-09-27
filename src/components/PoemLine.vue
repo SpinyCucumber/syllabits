@@ -33,6 +33,15 @@
 //  Can transition to Unchecked by changing slots.
 import BlockSlot from './BlockSlot'
 import checkLineQuery from '@/queries/checkLine.gql'
+import { Constants } from '@/services'
+
+const { LineState, BlockTypes } = Constants;
+const CLASS_LOOKUP = new Map([
+    [LineState.Unchecked, 'unchecked'],
+    [LineState.Checking, 'checking'],
+    [LineState.Correct, 'correct'],
+    [LineState.Incorrect, 'incorrect'],    
+]);
 
 export default {
     name: 'PoemLine',
@@ -53,7 +62,7 @@ export default {
         lineProgress() {
             if (this.lineProgressProxy) return this.lineProgressProxy;
             let progress = {
-                state: this.$constants.LineState.Unchecked,
+                state: LineState.Unchecked,
                 holding: new Array(5).fill(null),
             };
             this.$emit('update:lineProgressProxy', progress);
@@ -61,11 +70,9 @@ export default {
         },
         // CSS classes
         classes() {
-            return {
-                line: true,
-                correct: this.lineProgress.state === this.$constants.LineState.Correct,
-                incorrect: this.lineProgress.state === this.$constants.LineState.Incorrect,
-            }
+            let classes = ['line'];
+            classes.push(CLASS_LOOKUP.get(this.lineProgress.state));
+            return classes;
         }
     },
     methods: {
@@ -75,9 +82,9 @@ export default {
         checkLine() {
             // Create a code using the block types the line contains.
             // This is for representing the sequence of blocks efficiently.
-            const code = this.$constants.BlockTypes.serializeSequence(this.lineProgress.holding);
+            const code = BlockTypes.serializeSequence(this.lineProgress.holding);
             // Transition state to "checking"
-            this.lineProgress.state = this.$constants.LineState.Checking;
+            this.lineProgress.state = LineState.Checking;
             // We have to construct the input
             const input = { poemID: this.$parent.id, lineNum: this.line.number, answer: code }
             this.$apollo.mutate({ mutation: checkLineQuery, variables: { input } })
@@ -89,7 +96,7 @@ export default {
                     }
                     // Transition state
                     this.lineProgress.state = output.correct ?
-                        this.$constants.LineState.Correct : this.$constants.LineState.Incorrect;
+                        LineState.Correct : LineState.Incorrect;
                 });
         }
     },
