@@ -35,6 +35,7 @@
 //  Can transition back to Unchecked only be resetting poem progress.
 // 4. Incorrect
 //  Can transition to Unchecked by changing slots.
+// TODO Disable moving blocks while in checking state
 import BlockSlot from './BlockSlot'
 import checkLineQuery from '@/queries/checkLine.gql'
 import { Constants } from '@/services'
@@ -125,9 +126,7 @@ export default {
     watch: {
         holding() {
             // If the slots are modified while the line is incorrect, transition to unchecked
-            if (this.lineProgress.state === LineState.Incorrect) {
-                this.lineProgress.state = LineState.Unchecked;
-            }
+            this.lineProgress.state = LineState.Unchecked;
         }
     },
 
