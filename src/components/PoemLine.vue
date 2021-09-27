@@ -13,10 +13,14 @@
             <div class="text">{{ line.text }}</div>
         </div>
 
-        <!-- Feedback -->
-        <b-button label="Check!" type="is-dark"
-            @click="checkLine"
-            :class="{ 'check-button': true, visible: isValidSequence }"/>
+        <!-- Feedback area -->
+        <!-- Feedback area is a fixed size to accomodate variable-sized contents -->
+        <div class="feedback-area">
+            <b-button label="Check!" type="is-dark"
+                @click="checkLine"
+                class="check-button"
+                v-if="canCheck"/>
+        </div>
 
     </div>
 </template>
@@ -73,6 +77,13 @@ export default {
             let classes = ['line'];
             classes.push(CLASS_LOOKUP.get(this.lineProgress.state));
             return classes;
+        },
+        // Whether the check button is visible
+        canCheck() {
+            if (this.lineProgress.state === LineState.Unchecked) {
+                return this.isValidSequence;
+            }
+            return false;
         }
     },
     methods: {

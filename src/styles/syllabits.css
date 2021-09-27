@@ -180,12 +180,12 @@
 
 .poem .line.correct .number {
     color: white;
-    background-color: green;
+    background-color: #45ba45;
 }
 
 .poem .line.incorrect .number {
     color: white;
-    background-color: crimson;
+    background-color: #ba4545;
 }
 
 .poem .line .text-box {
@@ -205,17 +205,14 @@
     letter-spacing: 0.03em;
 }
 
-.poem .line .check-button {
+.poem .line .feedback-area {
     justify-self: end;
-    transition: opacity 0.25s ease;
-    opacity: 0;
+}
+
+.poem .line .check-button {
     font-family: 'Open Sans';
     border-radius: 9999px;
     animation: pulse 2s infinite;
-}
-
-.poem .line .check-button.visible {
-    opacity: 100;
 }
 
 .poem .body {
