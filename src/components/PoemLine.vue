@@ -7,7 +7,7 @@
         <div class="text-box">
             <!-- Block slots -->
             <div class="slot-container">
-                <block-slot v-for="n in 5" ref="slots" :key="n" :holding.sync="holdingList[n-1]"/>
+                <block-slot v-for="n in 5" ref="slots" :key="n" :holding.sync="lineState.holding[n-1]"/>
             </div>
             <!-- Line text -->
             <div class="text">{{ line.text }}</div>
@@ -35,7 +35,7 @@ export default {
     },
     computed: {
         isValidSequence() {
-            return !this.holdingList.some(holding => holding === null);
+            return !this.lineState.holding.some(blockType => blockType === null);
         }
     },
     methods: {
@@ -45,7 +45,7 @@ export default {
         checkLine() {
             // Create a code using the block types the line contains.
             // This is for representing the sequence of blocks efficiently.
-            const code = Constants.BlockTypes.serializeSequence(this.lineState.holdingList);
+            const code = Constants.BlockTypes.serializeSequence(this.lineState.holding);
             // TODO Change state
             // We have to construct the input
             const input = { poemID: this.$parent.id, lineNum: this.line.number, answer: code }

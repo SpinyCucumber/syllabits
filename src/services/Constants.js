@@ -14,9 +14,9 @@ const BlockTypes = new SerializableEnum({
     Pyrrhic: ['p', [U, U]],
 }, (args) => new BlockType(...args));
 
-const LineStates = new Enum(['Unchecked', 'Checking', 'Correct', 'Incorrect'])
+const LineState = new Enum(['Unchecked', 'Checking', 'Correct', 'Incorrect'])
 
 export default new Service({
     name: 'constants',
-    StressTypes, BlockTypes, LineStates,
+    StressTypes, BlockTypes, LineState,
 });

@@ -42,9 +42,10 @@
                         <!-- Poem lines -->
                         <div class="body">
                             <poem-line
-                                v-for="line in poem.lines"
-                                :key="line.number"
-                                :line="line"/>
+                                v-for="i in poem.lines.length"
+                                :key="i"
+                                :line="poem.lines[i-1]"
+                                :lineState="state.lines[i-1]"/>
                         </div>
 
                     </div>
@@ -69,8 +70,14 @@ export default {
         id: { required: true, type: String },
     },
 
-    date: {
-        state: new PlayState(),
+    data() {
+        return {
+            state: new PlayState(),
+        }
+    },
+
+    created() {
+        this.state.initializeEmpty();
     },
 
     // TODO This will be probably be moved into the instantiation logic

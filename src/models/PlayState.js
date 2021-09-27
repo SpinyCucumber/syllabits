@@ -1,4 +1,5 @@
 import { Constants } from '@/services'
+import Vue from 'vue';
 
 /**
  * Stores information about the state of the game, and exposes convenient ways to modify it.
@@ -9,21 +10,21 @@ export default class PlayState {
     createLine() {
         return {
             state: Constants.LineState.Unchecked,
-            holdingList: new Array(5).fill(null),
+            holding: new Array(5).fill(null),
         }
     }
 
     initializeEmpty() {
-        this.lines = new Map();
+        this.lines = [];
     }
 
     getLine(index) {
-        if (!this.lines.has(index)) {
-            let line = this.createLine();
-            this.lines.set(index, line);
-            return line;
+        if (index in this.lines) {
+            return this.lines[index];
         }
-        return this.lines.get(index);
+        let line = this.createLine();
+        Vue.set(this.lines, index, line);
+        return line;
     }
 
 }
