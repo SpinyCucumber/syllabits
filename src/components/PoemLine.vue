@@ -16,10 +16,12 @@
         <!-- Feedback area -->
         <!-- Feedback area is a fixed size to accomodate variable-sized contents -->
         <div class="feedback-area">
-            <b-button label="Check!" type="is-dark"
-                @click="checkLine"
-                class="check-button"
-                v-if="canCheck"/>
+            <transition name="fade">
+                <b-button label="Check!" type="is-dark"
+                    @click="checkLine"
+                    class="check-button"
+                    v-if="canCheck"/>
+            </transition>
         </div>
 
     </div>
