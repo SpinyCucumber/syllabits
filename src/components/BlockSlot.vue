@@ -34,8 +34,6 @@ import Block from './Block'
 import { BlockType } from '@/models'
 import { Draggable, Container } from 'vue-smooth-dnd'
 
-const BASE_CLASSES = { 'game-slot-container': true }
-
 export default {
     name: 'BlockSlot',
     components: { Block, Draggable, Container },
@@ -94,8 +92,8 @@ export default {
 
     computed: {
         classes() {
-            let classes = {...BASE_CLASSES};
-            if (this.currentAnimation) classes[`${this.currentAnimation}-active`] = true;
+            let classes = ['game-slot-container'];
+            if (this.currentAnimation) classes.push(`${this.currentAnimation}-active`);
             return classes;
         }
     }
