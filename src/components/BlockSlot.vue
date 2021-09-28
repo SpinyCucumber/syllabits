@@ -4,7 +4,7 @@
         <container
             :should-accept-drop="shouldAcceptDrop"
             :get-child-payload="getPayload"
-            :remove-on-drop-out="true"
+            :remove-on-drop-out="removeOnDrop"
             drag-class="ghost"
             drop-class="ghost-drop"
             @drag-enter="onDragEnter"
@@ -39,7 +39,7 @@ export default {
     components: { Block, Draggable, Container },
 
     props: {
-        // Valid modes are 'slot' or 'bucket'
+        // Valid modes are 'slot', 'bucket', or 'locked'
         mode: { type: String, default: 'slot' },
         holding: BlockType,
     },
@@ -54,7 +54,6 @@ export default {
     methods: {
         shouldAcceptDrop() {
             if (this.mode === 'slot') return true;
-            else if (this.mode === 'bucket') return false;
             // Can add behavior for other modes here
             return false;
         },
@@ -95,6 +94,11 @@ export default {
             let classes = ['game-slot-container'];
             if (this.currentAnimation) classes.push(`${this.currentAnimation}-active`);
             return classes;
+        },
+        removeOnDrop() {
+            if (this.mode === 'locked') return false;
+            // Can add behavior for other modes here
+            return true;
         }
     }
 
