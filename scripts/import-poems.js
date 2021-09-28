@@ -21,6 +21,10 @@ const SYMBOL_TABLE = {
     'uu': 'p',
 }
 
+function parseStanzas(stanzaStr) {
+    return stanzaStr.split(',').map(str => parseInt(str));
+}
+
 function parsePoem(worksheet) {
     // Worksheet format:
     // One line of 5 columns, each column describing the stresses of the foot
@@ -46,10 +50,17 @@ function parsePoem(worksheet) {
     return { lines };
 }
 
-function importPoems(inputPath, author) {
+function importPoems(inputPath, author, stanzas) {
 
     // Load workbook from unprocessed poem file
     const workbook = xlsx.readFile(inputPath);
+
+    let stanzaBreaks = [];
+    let line = 0;
+    for (let stanzaSize of stanzas) {
+        stanzaBreaks.push(line);
+        line += stanzaSize;
+    }
 
     const poems = workbook.SheetNames
         .map(name => {
@@ -57,6 +68,13 @@ function importPoems(inputPath, author) {
             poem.name = `Sonnet ${name}`;
             poem.author = author;
             poem.id = crypto.randomBytes(8).toString('hex');
+            // Update stanzas
+            // Don't update if we have an irregular number of lines
+            if (poem.lines.length == line) {
+                for (let i = 0; i < stanzas.length; i++) {
+                    poem.lines[stanzaBreaks[i]].stanza = i; 
+                }
+            }
             return poem;
         });
 
@@ -74,4 +92,5 @@ function importPoems(inputPath, author) {
 let args = process.argv.slice(2);
 let inputPath = path.join(POEMS_DIR, args[0]);
 let author = args[1];
-importPoems(inputPath, author);
+let stanzas = parseStanzas(args[2]);
+importPoems(inputPath, author, stanzas);
