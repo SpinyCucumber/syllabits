@@ -7,7 +7,11 @@
         <div class="text-box">
             <!-- Block slots -->
             <div class="slot-container">
-                <block-slot v-for="n in 5" ref="slots" :key="n" :holding.sync="lineProgress.holding[n-1]"/>
+                <block-slot v-for="n in 5"
+                    ref="slots"
+                    :key="n"
+                    :holding.sync="lineProgress.holding[n-1]"
+                    :mode="slotMode"/>
             </div>
             <!-- Line text -->
             <div class="text">{{ line.text }}</div>
@@ -97,7 +101,12 @@ export default {
                 return this.isValidSequence;
             }
             return false;
-        }
+        },
+        // How the slots should behave
+        slotMode() {
+            if (this.lineProgress.state === LineState.Correct) return 'locked';
+            return 'slot';
+        },
     },
 
     methods: {

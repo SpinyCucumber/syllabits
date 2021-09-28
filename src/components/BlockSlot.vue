@@ -52,31 +52,39 @@ export default {
     },
 
     methods: {
-        shouldAcceptDrop() {
+        shouldAcceptDrop(srcOptions, payload) {
+            // If the slot if locked, only accept drops from ourself
+            if (payload.source.mode === 'locked') {
+                return this === payload.source;
+            }
             if (this.mode === 'slot') return true;
-            // Can add behavior for other modes here
             return false;
         },
         onDragEnter() {
-            this.dropActive = true;
+            if (this.mode === 'slot') this.dropActive = true;
         },
         onDragLeave() {
-            this.dropActive = false;
+            if (this.mode === 'slot') this.dropActive = false;
         },
         onDrop(dropResult) {
-            // If we are the source container
+            const { removedIndex, addedIndex, payload } = dropResult;
+            if (addedIndex === removedIndex) {
+                // If we are dropping into ourselves, we don't need to trigger any update
+            }
             // Only clear slot if we are in "slot" mode
-            if (dropResult.removedIndex != null) {
+            else if (removedIndex != null) {
                 if (this.mode === 'slot') this.$emit('update:holding', null);
             }
+            else {
+                this.$emit('update:holding', payload.source.holding);
+            }
             // If we are the container being dropped into
-            if (dropResult.addedIndex != null) {
+            if (addedIndex != null) {
                 this.dropActive = false;
-                this.$emit('update:holding', dropResult.payload);
             }
         },
         getPayload() {
-            return this.holding;
+            return { source: this }
         },
         onAnimationEnd() {
             this.currentAnimation = null;
