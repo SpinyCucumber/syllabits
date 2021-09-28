@@ -56,8 +56,8 @@ function importPoems(inputPath, author, stanzas) {
     const workbook = xlsx.readFile(inputPath);
 
     let stanzaBreaks = [];
-    let line = 0;
-    for (let stanzaSize of stanzas) {
+    let line = stanzas[0];
+    for (let stanzaSize of stanzas.slice(1)) {
         stanzaBreaks.push(line);
         line += stanzaSize;
     }
@@ -71,8 +71,8 @@ function importPoems(inputPath, author, stanzas) {
             // Update stanzas
             // Don't update if we have an irregular number of lines
             if (poem.lines.length == line) {
-                for (let i = 0; i < stanzas.length; i++) {
-                    poem.lines[stanzaBreaks[i]].stanza = i; 
+                for (let stanzaBreak of stanzaBreaks) {
+                    poem.lines[stanzaBreak].stanzaBreak = true;
                 }
             }
             return poem;
