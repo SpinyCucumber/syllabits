@@ -5,6 +5,6 @@ export default {
         Dactyl: '#D55E00',
         Anapest: '#CC79A7',
         Spondee: '#000000',
-        Pyrrhic: '#009E73',
+        Pyrrhic: '#007555',
     }
 }

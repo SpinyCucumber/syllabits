@@ -6,6 +6,10 @@
     - [ ] Ability to toggle DovesType
 - [ ] ANSWER FEEDBACK
     - [ ] One-off animations
-    - [ ] Some way to communicate correct/incorrect state
+    - [x] Some way to communicate correct/incorrect state
 - [x] Rename Content CSS class
 - [ ] SVG Divider? (Manuscript)
+- [ ] Resolve Dataset issues
+- [ ] Line completion behavior?
+- [ ] Buefy color scheme changes
+- [ ] Stanzas? (related to dataset)
