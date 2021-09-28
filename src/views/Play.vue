@@ -32,10 +32,6 @@
                             <div class="title">{{ poem.name }}</div>
                             <div class="author">{{ poem.author }}</div>
                         </div>
-                        
-                        <!-- Manuscript Divider
-                        <img :src="$assets.getIcon('Divider', 'png')" class="non-interactive"/>
-                        -->
 
                         <img :src="$assets.getIcon('Divider')" class="divider"/>
 

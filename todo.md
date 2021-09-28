@@ -7,9 +7,11 @@
 - [ ] ANSWER FEEDBACK
     - [ ] One-off animations
     - [x] Some way to communicate correct/incorrect state
+- [ ] Reset button
 - [x] Rename Content CSS class
 - [ ] SVG Divider? (Manuscript)
-- [ ] Resolve Dataset issues
+- [x] Resolve Dataset issues
 - [ ] Line completion behavior?
 - [ ] Buefy color scheme changes
 - [ ] Stanzas? (related to dataset)
+    - For W. Shakespeare dataset: 4 - 4 - 4 - 2
