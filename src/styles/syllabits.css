@@ -199,6 +199,10 @@
     gap: 0.5em;
 }
 
+.poem .line.stanza-break .text-box {
+    margin-top: 4em;
+}
+
 .poem .line .text-box .slot-container {
     display: flex;
     justify-content: space-between;

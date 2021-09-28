@@ -88,6 +88,7 @@ export default {
         classes() {
             let classes = ['line'];
             classes.push(CLASS_LOOKUP.get(this.lineProgress.state));
+            if (this.line.stanzaBreak) classes.push('stanza-break');
             return classes;
         },
         // Whether the check button is visible
@@ -100,6 +101,7 @@ export default {
     },
 
     methods: {
+
         /**
          * Should only be called when the line is in the Unchecked state; transitions to Checking.
          */
@@ -125,6 +127,7 @@ export default {
                     if (output.correct) this.animateCorrect();
                 });
         },
+
         // Correct animation
         animateCorrect() {
             let delay = 0;
@@ -135,6 +138,7 @@ export default {
                 delay += 100;
             }
         },
+
     },
 
     watch: {
