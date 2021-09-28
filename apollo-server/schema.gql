@@ -5,7 +5,7 @@ interface Node {
 
 type Line {
   number: Int!
-  stanza: Int
+  stanzaBreak: Boolean
   text: String!
 }
 
