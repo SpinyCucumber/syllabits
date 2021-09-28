@@ -1,0 +1,49 @@
+
+
+@keyframes ants {
+    0% {
+        stroke-dashoffset: 0%;
+    }
+
+    100% {
+        stroke-dashoffset: 135%;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.2);
+    }
+
+    100% {
+        box-shadow: 0 0 0 20px rgba(0, 0, 0, 0);
+    }
+}
+
+@keyframes jiggle {
+
+    20% {
+        transform: translate3d(8px, 0, 0);
+    }
+
+    40% {
+        transform: translate3d(-7px, 0, 0);
+    }
+
+    60% {
+        transform: translate3d(6px, 0, 0);
+    }
+
+    80% {
+        transform: translate3d(-5px, 0, 0);
+    }
+
+}
+
+@keyframes bounce {
+    
+    50% {
+        transform: translate3d(0, -16px, 0);
+    }
+
+}
