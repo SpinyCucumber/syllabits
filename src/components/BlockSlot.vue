@@ -33,15 +33,17 @@
 import Block from './Block'
 import { BlockType } from '@/models'
 import { Draggable, Container } from 'vue-smooth-dnd'
+import { Constants } from '@/services'
+
+const { SlotMode } = Constants;
 
 export default {
     name: 'BlockSlot',
     components: { Block, Draggable, Container },
 
     props: {
-        // Valid modes are 'slot', 'bucket', or 'locked'
-        mode: { type: String, default: 'slot' },
-        holding: BlockType,
+        mode: { default: SlotMode.Slot },
+        holding: BlockType, 
     },
 
     data() {
@@ -54,17 +56,17 @@ export default {
     methods: {
         shouldAcceptDrop(srcOptions, payload) {
             // If the slot if locked, only accept drops from ourself
-            if (payload.source.mode === 'locked') {
+            if (payload.source.mode === SlotMode.Locked) {
                 return this === payload.source;
             }
-            if (this.mode === 'slot') return true;
+            if (this.mode === SlotMode.Slot) return true;
             return false;
         },
         onDragEnter() {
-            if (this.mode === 'slot') this.dropActive = true;
+            this.dropActive = true;
         },
         onDragLeave() {
-            if (this.mode === 'slot') this.dropActive = false;
+            this.dropActive = false;
         },
         onDrop(dropResult) {
             const { removedIndex, addedIndex, payload } = dropResult;
@@ -73,7 +75,7 @@ export default {
             }
             // Only clear slot if we are in "slot" mode
             else if (removedIndex != null) {
-                if (this.mode === 'slot') this.$emit('update:holding', null);
+                if (this.mode === SlotMode.Slot) this.$emit('update:holding', null);
             }
             else {
                 this.$emit('update:holding', payload.source.holding);
@@ -104,7 +106,7 @@ export default {
             return classes;
         },
         removeOnDrop() {
-            if (this.mode === 'locked') return false;
+            if (this.mode === SlotMode.Slot) return false;
             // Can add behavior for other modes here
             return true;
         }

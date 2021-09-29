@@ -46,7 +46,7 @@ import BlockSlot from './BlockSlot'
 import checkLineQuery from '@/queries/checkLine.gql'
 import { Constants } from '@/services'
 
-const { LineState, BlockTypes } = Constants;
+const { LineState, BlockTypes, SlotMode } = Constants;
 const CLASS_LOOKUP = new Map([
     [LineState.Unchecked, 'unchecked'],
     [LineState.Checking, 'checking'],
@@ -104,8 +104,8 @@ export default {
         },
         // How the slots should behave
         slotMode() {
-            if (this.lineProgress.state === LineState.Correct) return 'locked';
-            return 'slot';
+            if (this.lineProgress.state === LineState.Correct) return SlotMode.Locked;
+            return SlotMode.Slot;
         },
     },
 
