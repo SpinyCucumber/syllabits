@@ -35,7 +35,7 @@ const routes = [
     component: Dashboard,
   },
   {
-    path: '/play/:id',
+    path: '/play/:poemID',
     name: 'Play',
     component: Play,
     props: true,

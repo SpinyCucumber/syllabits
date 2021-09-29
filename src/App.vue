@@ -39,7 +39,7 @@ export default {
         .then(result => result.data.randomPoem.id)
         .then(id => {
           // Transition to play page with the new poem ID
-          this.$router.push({ name: 'Play', params: { id: id }});
+          this.$router.push({ name: 'Play', params: { poemID: id }});
         });
     }
   }

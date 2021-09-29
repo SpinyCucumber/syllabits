@@ -40,7 +40,7 @@
                     <poem-line
                         v-for="i in poem.lines.length"
                         :key="i"
-                        :poemID="id"
+                        :poemID="poemID"
                         :line="poem.lines[i-1]"
                         :lineProgressProxy.sync="progress.lines[i-1]"/>
                 </div>
@@ -61,7 +61,7 @@ export default {
     components: { BlockPicker, PoemLine, Reader },
 
     props: {
-        id: { required: true, type: String },
+        poemID: { required: true, type: String },
     },
 
     data() {
@@ -76,7 +76,7 @@ export default {
         // Queries the server for poem data.
         initialize() {
             // Perform server query
-            this.$apollo.query({ query: poemQuery, variables: { id: this.id } })
+            this.$apollo.query({ query: poemQuery, variables: { id: this.poemID } })
                 .then(result => result.data.poem)
                 .then(poem => {
                     this.poem = poem;
