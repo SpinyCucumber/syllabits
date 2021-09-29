@@ -1,65 +1,64 @@
 <template>
 
-    <div class="frame">
+    <reader>
 
-        <b-dropdown
-            animation="slide"
-            class="block-dropdown"
+        <template #static-area>
+            <b-dropdown
+                animation="slide"
+                class="block-dropdown"
 
-            :mobile-modal="false"
-            :can-close="false"
-            :close-on-click="false">
-            <template #trigger>
-                <b-button>
-                    <img :src="$assets.getIcon('Blocks')"
-                        width="60"/>
-                </b-button>
-            </template>
-            <b-dropdown-item custom>
-                <block-picker/>
-            </b-dropdown-item>
-        </b-dropdown>
+                :mobile-modal="false"
+                :can-close="false"
+                :close-on-click="false">
+                <template #trigger>
+                    <b-button>
+                        <img :src="$assets.getIcon('Blocks')"
+                            width="60"/>
+                    </b-button>
+                </template>
+                <b-dropdown-item custom>
+                    <block-picker/>
+                </b-dropdown-item>
+            </b-dropdown>
+        </template>
 
-        <div class="inner">
-            <div>
-                <div>
+        <template #content-area>
 
-                    <!-- TODO Help button -->
+            <!-- TODO Help button -->
 
-                    <div v-if="poem" class="poem">
+            <div v-if="poem" class="poem">
 
-                        <div class="title-box">
-                            <div class="title">{{ poem.name }}</div>
-                            <div class="author">{{ poem.author }}</div>
-                        </div>
-
-                        <img :src="$assets.getIcon('Divider')" class="divider"/>
-
-                        <!-- Poem lines -->
-                        <div class="body">
-                            <poem-line
-                                v-for="i in poem.lines.length"
-                                :key="i"
-                                :line="poem.lines[i-1]"
-                                :lineProgressProxy.sync="progress.lines[i-1]"/>
-                        </div>
-
-                    </div>
-
+                <div class="title-box">
+                    <div class="title">{{ poem.name }}</div>
+                    <div class="author">{{ poem.author }}</div>
                 </div>
-            </div>
-        </div>
 
-    </div>
+                <img :src="$assets.getIcon('Divider')" class="divider"/>
+
+                <!-- Poem lines -->
+                <div class="body">
+                    <poem-line
+                        v-for="i in poem.lines.length"
+                        :key="i"
+                        :poemID="id"
+                        :line="poem.lines[i-1]"
+                        :lineProgressProxy.sync="progress.lines[i-1]"/>
+                </div>
+
+            </div>
+
+        </template>
+
+    </reader>
 </template>
 
 <script>
 import poemQuery from '@/queries/poem.gql'
-import { BlockPicker, PoemLine } from '@/components'
+import { BlockPicker, PoemLine, Reader } from '@/components'
 
 export default {
     name: 'Play',
-    components: { BlockPicker, PoemLine },
+    components: { BlockPicker, PoemLine, Reader },
 
     props: {
         id: { required: true, type: String },

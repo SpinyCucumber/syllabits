@@ -61,6 +61,7 @@ export default {
     components: { BlockSlot },
 
     props: { 
+        poemID: { required: true },
         line: { required: true },
         lineProgressProxy: { required: true },
     },
@@ -122,7 +123,7 @@ export default {
             // Transition state to "checking"
             this.lineProgress.state = LineState.Checking;
             // We have to construct the input
-            const input = { poemID: this.$parent.id, lineNum: this.line.number, answer: code }
+            const input = { poemID: this.poemID, lineNum: this.line.number, answer: code }
             this.$apollo.mutate({ mutation: checkLineQuery, variables: { input } })
                 .then(result => result.data.checkLine)
                 .then(output => {
