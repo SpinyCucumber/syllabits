@@ -1,4 +1,36 @@
 <template>
+    <book-view>
+
+        <template #static>
+            <b-dropdown
+                animation="slide"
+                class="block-dropdown"
+
+                :mobile-modal="false"
+                :can-close="false"
+                :close-on-click="false">
+                <template #trigger>
+                    <b-button>
+                        <img :src="$assets.getIcon('Blocks')"
+                            width="60"/>
+                    </b-button>
+                </template>
+                <b-dropdown-item custom>
+                    <block-picker/>
+                </b-dropdown-item>
+            </b-dropdown>
+        </template>
+
+        <template #foreground>
+
+            <!-- TODO Help button -->
+
+            <div v-if="poem" class="poem">
+
+                <div class="title-box">
+                    <div class="title">{{ poem.name }}</div>
+                    <div class="author">{{ poem.author }}</div>
+                </div>
 
     <reader>
 
