@@ -22,7 +22,7 @@
         <div class="feedback-area">
             <transition name="fade">
                 <b-button label="Check!" type="is-dark"
-                    @click="checkLine"
+                    @click="onCheck"
                     class="check-button"
                     v-if="canCheck"/>
             </transition>
@@ -43,10 +43,9 @@
 //  Can transition to Unchecked by changing slots.
 // TODO Disable moving blocks while in checking state
 import BlockSlot from './BlockSlot'
-import checkLineQuery from '@/queries/checkLine.gql'
 import { Constants } from '@/services'
 
-const { LineState, BlockTypes, SlotMode } = Constants;
+const { LineState, SlotMode } = Constants;
 
 const CLASS_LOOKUP = new Map([
     [LineState.Unchecked, 'unchecked'],
@@ -60,8 +59,7 @@ export default {
     name: 'PoemLine',
     components: { BlockSlot },
 
-    props: { 
-        poemID: { required: true },
+    props: {
         line: { required: true },
         lineProgressProxy: { required: true },
     },
@@ -116,27 +114,23 @@ export default {
         /**
          * Should only be called when the line is in the Unchecked state; transitions to Checking.
          */
-        checkLine() {
-            // Create a code using the block types the line contains.
-            // This is for representing the sequence of blocks efficiently.
-            const code = BlockTypes.serializeSequence(this.lineProgress.holding);
+        onCheck() {
             // Transition state to "checking"
             this.lineProgress.state = LineState.Checking;
-            // We have to construct the input
-            const input = { poemID: this.poemID, lineNum: this.line.number, answer: code }
-            this.$apollo.mutate({ mutation: checkLineQuery, variables: { input } })
-                .then(result => result.data.checkLine)
-                .then(output => {
-                    // Send animation message to incorrect slots
-                    for (let i of output.hintIndicies) {
-                        this.$refs.slots[i].animate('incorrect');
-                    }
-                    // Transition state
-                    this.lineProgress.state = output.correct ?
-                        LineState.Correct : LineState.Incorrect;
-                    // Could abstract this using events
-                    if (output.correct) this.animateCorrect();
-                });
+            // Emit event for component user to handle
+            this.$emit('check', this.lineProgress.holding, this.handleCheck);
+        },
+
+        handleCheck(result) {
+            // Send animation message to incorrect slots
+            for (let i of result.hintIndicies) {
+                this.$refs.slots[i].animate('incorrect');
+            }
+            // Transition state
+            this.lineProgress.state = result.correct ?
+                LineState.Correct : LineState.Incorrect;
+            // Could abstract this using events
+            if (result.correct) this.animateCorrect();
         },
 
         // Correct animation

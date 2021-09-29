@@ -1,36 +1,4 @@
 <template>
-    <book-view>
-
-        <template #static>
-            <b-dropdown
-                animation="slide"
-                class="block-dropdown"
-
-                :mobile-modal="false"
-                :can-close="false"
-                :close-on-click="false">
-                <template #trigger>
-                    <b-button>
-                        <img :src="$assets.getIcon('Blocks')"
-                            width="60"/>
-                    </b-button>
-                </template>
-                <b-dropdown-item custom>
-                    <block-picker/>
-                </b-dropdown-item>
-            </b-dropdown>
-        </template>
-
-        <template #foreground>
-
-            <!-- TODO Help button -->
-
-            <div v-if="poem" class="poem">
-
-                <div class="title-box">
-                    <div class="title">{{ poem.name }}</div>
-                    <div class="author">{{ poem.author }}</div>
-                </div>
 
     <reader>
 
@@ -72,9 +40,9 @@
                     <poem-line
                         v-for="i in poem.lines.length"
                         :key="i"
-                        :poemID="poemID"
                         :line="poem.lines[i-1]"
-                        :lineProgressProxy.sync="progress.lines[i-1]"/>
+                        :lineProgressProxy.sync="progress.lines[i-1]"
+                        @check="checkLine(i-1, ...arguments)"/>
                 </div>
 
             </div>
@@ -86,9 +54,14 @@
 
 <script>
 import poemQuery from '@/queries/poem.gql'
+import checkLineQuery from '@/queries/checkLine.gql'
 import { BlockPicker, PoemLine, Reader } from '@/components'
+import { Constants } from '@/services'
+
+const { BlockTypes } = Constants;
 
 export default {
+
     name: 'Play',
     components: { BlockPicker, PoemLine, Reader },
 
@@ -104,6 +77,7 @@ export default {
     },
 
     methods: {
+
         // Called when the component is first created and whenever the route changes.
         // Queries the server for poem data.
         initialize() {
@@ -116,9 +90,22 @@ export default {
                     this.progress = { lines: [] };
                 });
         },
+
         resetProgress() {
             this.progress = { lines: [] };
-        }
+        },
+
+        checkLine(lineNum, holding, finish) {
+            // Create a code using the block types the line contains.
+            // This is for representing the sequence of blocks efficiently.
+            const code = BlockTypes.serializeSequence(holding);
+            // We have to construct the input
+            const input = { poemID: this.poemID, lineNum, answer: code }
+            this.$apollo.mutate({ mutation: checkLineQuery, variables: { input } })
+                .then(result => result.data.checkLine)
+                .then(finish);
+        },
+
     },
 
     created() {
