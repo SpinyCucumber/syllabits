@@ -49,12 +49,16 @@
     stroke-width: 2;
 }
 
-.game-slot.drop-active .game-blank {
+.game-slot.slot.drop-active .game-blank {
     fill: #dedede;
     animation: ants 3s linear 0s infinite normal forwards;
 }
 
-.game-slot.drop-active .game-block {
+.game-slot:not(.slot) .game-blank {
+    visibility: hidden;
+}
+
+.game-slot.drop-active:not(.drag-active) .game-block {
     transition: opacity 0.25s ease;
     opacity: 0%;
 }
