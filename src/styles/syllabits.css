@@ -4,7 +4,7 @@
 
 .game-block-shape,
 .game-block,
-.game-slot-container {
+.game-slot {
     width: 84px;
     height: 50px;
 }
@@ -19,11 +19,6 @@
     cursor: move;
 }
 
-.game-block.drop-active {
-    transition: opacity 0.25s ease;
-    opacity: 0%;
-}
-
 .game-block.ghost {
     transition: transform 0.18s ease;
     transform: rotateZ(5deg)
@@ -34,15 +29,19 @@
     transform: rotateZ(0deg)
 }
 
-.game-slot-container.incorrect-active {
+.game-slot {
+    position: relative;
+}
+
+.game-slot.incorrect-active {
     animation: jiggle 0.5s;
 }
 
-.game-slot-container.correct-active {
+.game-slot.correct-active {
     animation: bounce 0.4s;
 }
 
-.game-slot {
+.game-slot .game-blank {
     fill: none;
     pointer-events: all;
     stroke: lightgray;
@@ -50,9 +49,14 @@
     stroke-width: 2;
 }
 
-.game-slot.drop-active {
+.game-slot.drop-active .game-blank {
     fill: #dedede;
     animation: ants 3s linear 0s infinite normal forwards;
+}
+
+.game-slot.drop-active .game-block {
+    transition: opacity 0.25s ease;
+    opacity: 0%;
 }
 
 .game-notation {

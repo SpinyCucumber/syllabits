@@ -1,5 +1,5 @@
 <template>
-    <div style="position: relative;" :class="classes" @animationend="onAnimationEnd">
+    <div :class="classes" @animationend="onAnimationEnd">
 
         <container
             :should-accept-drop="shouldAcceptDrop"
@@ -7,12 +7,14 @@
             :remove-on-drop-out="removeOnDrop"
             drag-class="ghost"
             drop-class="ghost-drop"
+            @drag-start="onDragStart"
+            @drag-end="onDragEnd"
             @drag-enter="onDragEnter"
             @drag-leave="onDragLeave"
             @drop="onDrop"
             style="position: absolute; width: 100%; height: 100%;">
             <draggable v-if="holding">
-                <block :type="holding" :class="{ 'drop-active': dropActive }"/>
+                <block :type="holding"/>
             </draggable>
         </container>
 
@@ -22,7 +24,7 @@
                 x = "2" y="2"
                 width="81" height="46"
                 rx = "8" ry = "8"
-                :class="{ 'game-slot': true, 'drop-active': dropActive }">
+                class = "game-blank">
             </rect>
         </svg>
 
@@ -37,6 +39,12 @@ import { Constants } from '@/services'
 
 const { SlotMode } = Constants;
 
+const CLASS_LOOKUP = new Map([
+    [SlotMode.Slot, 'slot'],
+    [SlotMode.Bucket, 'bucket'],
+    [SlotMode.Locked, 'locked'],
+])
+
 export default {
     name: 'BlockSlot',
     components: { Block, Draggable, Container },
@@ -48,12 +56,14 @@ export default {
 
     data() {
         return {
+            dragActive: false,
             dropActive: false,
             currentAnimation: null,
         }
     },
 
     methods: {
+
         shouldAcceptDrop(srcOptions, payload) {
             // If the slot if locked, only accept drops from ourself
             if (payload.source.mode === SlotMode.Locked) {
@@ -62,12 +72,23 @@ export default {
             if (this.mode === SlotMode.Slot) return true;
             return false;
         },
+
+        onDragStart(dragResult) {
+            if (dragResult.isSource) this.dragActive = true;
+        },
+
+        onDragEnd(dragResult) {
+            if (dragResult.isSource) this.dragActive = false;
+        },
+
         onDragEnter() {
             this.dropActive = true;
         },
+
         onDragLeave() {
             this.dropActive = false;
         },
+
         onDrop(dropResult) {
             const { removedIndex, addedIndex, payload } = dropResult;
             if (addedIndex === removedIndex) {
@@ -85,30 +106,36 @@ export default {
                 this.dropActive = false;
             }
         },
+
         getPayload() {
             return { source: this }
         },
+
         onAnimationEnd() {
             this.currentAnimation = null;
         },
+
         // TODO Could abstract as mixin
         animate(animation) {
-            // DEBUG
-            console.log('Adding animation', animation);
             this.currentAnimation = animation;
         }
+
     },
 
     computed: {
         classes() {
-            let classes = ['game-slot-container'];
+            let classes = ['game-slot'];
             if (this.currentAnimation) classes.push(`${this.currentAnimation}-active`);
+            if (this.dropActive) classes.push('drop-active');
+            if (this.dragActive) classes.push('drag-active');
+            // Push mode class
+            classes.push(CLASS_LOOKUP.get(this.mode));
             return classes;
         },
         removeOnDrop() {
-            if (this.mode === SlotMode.Slot) return false;
+            if (this.mode === SlotMode.Slot) return true;
             // Can add behavior for other modes here
-            return true;
+            return false;
         }
     }
 

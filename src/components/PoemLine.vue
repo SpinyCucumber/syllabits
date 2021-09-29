@@ -47,6 +47,7 @@ import checkLineQuery from '@/queries/checkLine.gql'
 import { Constants } from '@/services'
 
 const { LineState, BlockTypes, SlotMode } = Constants;
+
 const CLASS_LOOKUP = new Map([
     [LineState.Unchecked, 'unchecked'],
     [LineState.Checking, 'checking'],

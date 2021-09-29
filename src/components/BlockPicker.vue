@@ -4,7 +4,7 @@
             v-for="type in this.$constants.BlockTypes.values"
             :key="type.name"
             :holding="type"
-            mode="bucket"/>
+            :mode="$constants.SlotMode.Bucket"/>
     </div>
 </template>
 
