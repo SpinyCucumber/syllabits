@@ -101,7 +101,7 @@
     background-color: #dedede;
 }
 
-.frame {
+.book-view {
     display: flex;
     flex-grow: 1;
     flex-direction: column;
@@ -110,7 +110,11 @@
     position: relative;
 }
 
-.frame>.inner {
+.book-view .static {
+    position: relative;
+}
+
+.book-view .scroll-area {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -118,7 +122,7 @@
     overflow-y: scroll;
 }
 
-.frame>.inner>* {
+.book-view .background {
     background-image: url('textures/paper.png');
     background-repeat: repeat;
     display: flex;
@@ -127,7 +131,7 @@
     align-items: center;
 }
 
-.frame>.inner>*>* {
+.book-view .foreground {
     display: flex;
     flex-direction: column;
     background-color: white;

@@ -1,66 +1,62 @@
 <template>
-    <frame>
+    <book-view>
 
-        <template #outer>
-            <div>
-                <b-dropdown
-                    animation="slide"
-                    class="block-dropdown"
+        <template #static>
+            <b-dropdown
+                animation="slide"
+                class="block-dropdown"
 
-                    :mobile-modal="false"
-                    :can-close="false"
-                    :close-on-click="false">
-                    <template #trigger>
-                        <b-button>
-                            <img :src="$assets.getIcon('Blocks')"
-                                width="60"/>
-                        </b-button>
-                    </template>
-                    <b-dropdown-item custom>
-                        <block-picker/>
-                    </b-dropdown-item>
-                </b-dropdown>
-            </div>
+                :mobile-modal="false"
+                :can-close="false"
+                :close-on-click="false">
+                <template #trigger>
+                    <b-button>
+                        <img :src="$assets.getIcon('Blocks')"
+                            width="60"/>
+                    </b-button>
+                </template>
+                <b-dropdown-item custom>
+                    <block-picker/>
+                </b-dropdown-item>
+            </b-dropdown>
         </template>
 
-        <template #inner>
-            <div>
+        <template #foreground>
 
-                <!-- TODO Help button -->
+            <!-- TODO Help button -->
 
-                <div v-if="poem" class="poem">
+            <div v-if="poem" class="poem">
 
-                    <div class="title-box">
-                        <div class="title">{{ poem.name }}</div>
-                        <div class="author">{{ poem.author }}</div>
-                    </div>
+                <div class="title-box">
+                    <div class="title">{{ poem.name }}</div>
+                    <div class="author">{{ poem.author }}</div>
+                </div>
 
-                    <img :src="$assets.getIcon('Divider')" class="divider"/>
+                <img :src="$assets.getIcon('Divider')" class="divider"/>
 
-                    <!-- Poem lines -->
-                    <div class="body">
-                        <poem-line
-                            v-for="i in poem.lines.length"
-                            :key="i"
-                            :line="poem.lines[i-1]"
-                            :lineProgressProxy.sync="progress.lines[i-1]"/>
-                    </div>
-
+                <!-- Poem lines -->
+                <div class="body">
+                    <poem-line
+                        v-for="i in poem.lines.length"
+                        :key="i"
+                        :line="poem.lines[i-1]"
+                        :lineProgressProxy.sync="progress.lines[i-1]"/>
                 </div>
 
             </div>
+
         </template>
 
-    </frame>
+    </book-view>
 </template>
 
 <script>
 import poemQuery from '@/queries/poem.gql'
-import { BlockPicker, PoemLine, Frame } from '@/components'
+import { BlockPicker, PoemLine, BookView } from '@/components'
 
 export default {
     name: 'Play',
-    components: { BlockPicker, PoemLine, Frame },
+    components: { BlockPicker, PoemLine, BookView },
 
     props: {
         id: { required: true, type: String },
