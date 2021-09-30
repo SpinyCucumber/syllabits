@@ -87,7 +87,10 @@ export default {
         },
 
         onDragEnd(dragResult) {
-            if (dragResult.isSource) this.dragActive = false;
+            const { isSource } = dragResult;
+            if (isSource) {
+                this.dragActive = false;
+            }
         },
 
         onDragEnter() {
@@ -103,14 +106,13 @@ export default {
             if (addedIndex === removedIndex) {
                 // If we are dropping into ourselves, we don't need to trigger any update
             }
-            // Only clear slot if we are in "slot" mode
-            else if (removedIndex != null) {
+            else if (removedIndex !== null) {
+                // Only clear slot if we are in "slot" mode
                 if (this.mode === SlotMode.Slot) this.$emit('update:holding', null);
             }
             else {
                 this.$emit('update:holding', payload.source.holding);
                 // Play sound
-                console.log(this.BlockDrop);
                 this.playDrop();
             }
             // If we are the container being dropped into
@@ -145,9 +147,9 @@ export default {
             return classes;
         },
         removeOnDrop() {
-            if (this.mode === SlotMode.Slot) return true;
+            if (this.mode === SlotMode.Locked) return false;
             // Can add behavior for other modes here
-            return false;
+            return true;
         }
     }
 
