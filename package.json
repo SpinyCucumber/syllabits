@@ -23,6 +23,7 @@
     "vue-dndrop": "^1.0.2",
     "vue-router": "^3.2.0",
     "vue-smooth-dnd": "^0.8.1",
+    "vue-use-sound": "^1.1.1",
     "xlsx": "^0.17.2"
   },
   "devDependencies": {

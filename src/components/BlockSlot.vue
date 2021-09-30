@@ -35,7 +35,8 @@
 import Block from './Block'
 import { BlockType } from '@/models'
 import { Draggable, Container } from 'vue-smooth-dnd'
-import { Constants } from '@/services'
+import useSound from 'vue-use-sound'
+import { Constants, AssetService } from '@/services'
 
 const { SlotMode } = Constants;
 
@@ -60,6 +61,14 @@ export default {
             dropActive: false,
             currentAnimation: null,
         }
+    },
+
+    setup() {
+        // Load sounds
+        const [playDrop] = useSound(AssetService.getSound('BlockDrop'));
+        return {
+            playDrop
+        };
     },
 
     methods: {
@@ -100,6 +109,9 @@ export default {
             }
             else {
                 this.$emit('update:holding', payload.source.holding);
+                // Play sound
+                console.log(this.BlockDrop);
+                this.playDrop();
             }
             // If we are the container being dropped into
             if (addedIndex != null) {
