@@ -197,12 +197,7 @@
 
 .poem .line.correct .number {
     color: white;
-    background-color: #45ba45;
-}
-
-.poem .line.incorrect .number {
-    color: white;
-    background-color: #ba4545;
+    background-color: #363636;
 }
 
 .poem .line .text-box {
