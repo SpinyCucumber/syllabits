@@ -1,3 +1,9 @@
 {
-    
+    "navbar": {
+        "dashboard": "Dashboard",
+        "random-poem": "Random Poem"
+    },
+    "play": {
+        "check": "Check!"
+    }
 }

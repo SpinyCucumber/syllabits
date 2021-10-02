@@ -21,10 +21,12 @@
         <!-- Feedback area is a fixed size to accomodate variable-sized contents -->
         <div class="feedback-area">
             <transition name="fade">
-                <b-button label="Check!" type="is-dark"
+                <b-button type="is-dark"
                     @click="onCheck"
                     class="check-button"
-                    v-if="canCheck"/>
+                    v-if="canCheck">
+                    {{ $translation.get("play.check") }}
+                </b-button>
             </transition>
             <feedback ref="feedback"/>
         </div>

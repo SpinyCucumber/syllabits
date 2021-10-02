@@ -7,10 +7,10 @@
         <!-- Items rendered at beginning of navbar -->
         <template #start>
           <b-navbar-item tag="router-link" :to="{ name: 'Dashboard' }">
-            Dashboard
+            {{ $translation.get('navbar.dashboard') }}
           </b-navbar-item>
           <b-navbar-item tag="a" @click="randomPoem">
-            Random Poem
+            {{ $translation.get('navbar.random-poem') }}
           </b-navbar-item>
         </template>
 
