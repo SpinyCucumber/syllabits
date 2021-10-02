@@ -237,9 +237,14 @@
     justify-self: end;
     width: 6em;
     height: 6em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: relative;
+}
+
+.poem .line .feedback-area > * {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .poem .line .check-button {
