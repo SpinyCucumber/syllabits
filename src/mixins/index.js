@@ -1,0 +1,1 @@
+export { default as Animatable } from './Animatable'
