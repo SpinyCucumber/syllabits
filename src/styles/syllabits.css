@@ -66,15 +66,15 @@
 .game-notation {
     max-height: 20px;
     max-width: 20px;
-    pointer-events: none;
 }
 
 .game-feedback {
     font-family: 'Open Sans';
-    font-size: 1.25rem;
     border-radius: 9999px;
-    padding: 0.25rem 0.5rem;
-    height: 2em;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
     color: white;
 }
 
@@ -257,8 +257,12 @@
 }
 
 .divider,
+.game-feedback,
+.number,
+.game-notation,
 .non-interactive {
     pointer-events: none;
+    user-select: none;
 }
 
 body,
