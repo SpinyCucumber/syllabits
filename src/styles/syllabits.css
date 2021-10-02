@@ -69,6 +69,19 @@
     pointer-events: none;
 }
 
+.game-feedback {
+    font-family: 'Open Sans';
+    font-size: 1.25rem;
+    border-radius: 9999px;
+    padding: 0.25rem 0.5rem;
+    height: 2em;
+    color: white;
+}
+
+.game-feedback.perfect {
+    background-color: #45ba45;
+}
+
 .block-picker {
     display: grid;
     gap: 8px;
@@ -188,7 +201,6 @@
 .poem .line .number {
     justify-self: start;
     font-family: 'Open Sans';
-    max-width: 100%;
     color: lightgray;
     background-color: whitesmoke;
     transition: color 0.5s ease;

@@ -3,7 +3,7 @@
         v-if="showing"
         :class="classes"
         @animationend="onAnimationEnd">
-        TEST
+        Perfect!
     </div>
 </template>
 
