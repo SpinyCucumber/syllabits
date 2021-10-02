@@ -1,5 +1,5 @@
 <template>
-    <div :class="classes" @animationend="onAnimationEnd">
+    <div :class="classes">
 
         <container
             :should-accept-drop="shouldAcceptDrop"
@@ -33,6 +33,7 @@
 
 <script>
 import Block from './Block'
+import { Animatable } from '@/mixins'
 import { BlockType } from '@/models'
 import { Draggable, Container } from 'vue-smooth-dnd'
 import useSound from 'vue-use-sound'
@@ -47,8 +48,10 @@ const CLASS_LOOKUP = new Map([
 ])
 
 export default {
+    
     name: 'BlockSlot',
     components: { Block, Draggable, Container },
+    mixins: [Animatable],
 
     props: {
         mode: { default: SlotMode.Slot },
@@ -59,7 +62,6 @@ export default {
         return {
             dragActive: false,
             dropActive: false,
-            currentAnimation: null,
         }
     },
 
@@ -125,21 +127,11 @@ export default {
             return { source: this }
         },
 
-        onAnimationEnd() {
-            this.currentAnimation = null;
-        },
-
-        // TODO Could abstract as mixin
-        animate(animation) {
-            this.currentAnimation = animation;
-        }
-
     },
 
     computed: {
         classes() {
             let classes = ['game-slot'];
-            if (this.currentAnimation) classes.push(`${this.currentAnimation}-active`);
             if (this.dropActive) classes.push('drop-active');
             if (this.dragActive) classes.push('drag-active');
             // Push mode class
