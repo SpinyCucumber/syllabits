@@ -26,6 +26,7 @@
                     class="check-button"
                     v-if="canCheck"/>
             </transition>
+            <feedback ref="feedback"/>
         </div>
 
     </div>
@@ -43,9 +44,10 @@
 //  Can transition to Unchecked by changing slots.
 // TODO Disable moving blocks while in checking state
 import BlockSlot from './BlockSlot'
+import Feedback from './Feedback'
 import { Constants } from '@/services'
 
-const { LineState, SlotMode } = Constants;
+const { LineState, SlotMode, FeedbackType } = Constants;
 
 const CLASS_LOOKUP = new Map([
     [LineState.Unchecked, 'unchecked'],
@@ -57,7 +59,7 @@ const CLASS_LOOKUP = new Map([
 export default {
 
     name: 'PoemLine',
-    components: { BlockSlot },
+    components: { BlockSlot, Feedback },
 
     props: {
         line: { required: true },
@@ -130,7 +132,10 @@ export default {
             this.lineProgress.state = result.correct ?
                 LineState.Correct : LineState.Incorrect;
             // Could abstract this using events
-            if (result.correct) this.animateCorrect();
+            if (result.correct) {
+                this.$refs.feedback.show(FeedbackType.Perfect);
+                this.animateCorrect();
+            }
         },
 
         // Correct animation
