@@ -20,15 +20,17 @@
         <!-- Feedback area -->
         <!-- Feedback area is a fixed size to accomodate variable-sized contents -->
         <div class="feedback-area">
-            <transition name="fade">
-                <b-button type="is-dark"
-                    @click="onCheck"
-                    class="check-button"
-                    v-if="canCheck">
-                    {{ $translation.get("play.check") }}
-                </b-button>
-            </transition>
-            <feedback ref="feedback"/>
+            <div>
+                <transition name="fade">
+                    <b-button type="is-dark"
+                        @click="onCheck"
+                        class="check-button"
+                        v-if="canCheck">
+                        {{ $translation.get("play.check") }}
+                    </b-button>
+                </transition>
+                <feedback ref="feedback"/>
+            </div>
         </div>
 
     </div>
@@ -135,7 +137,6 @@ export default {
                 LineState.Correct : LineState.Incorrect;
             // Could abstract this using events
             if (result.correct) {
-                this.$refs.feedback.show(FeedbackType.Perfect);
                 this.animateCorrect();
             }
         },
@@ -149,6 +150,10 @@ export default {
                 }, delay);
                 delay += 100;
             }
+            // Feedback!
+            setTimeout(() => {
+                this.$refs.feedback.show(FeedbackType.Perfect);
+            }, delay);
         },
 
     },
