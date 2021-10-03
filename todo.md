@@ -1,17 +1,19 @@
 - [ ] Progress bar in play view
 - [ ] Sound effects
-    - [ ] Block "clack" sound
-    - [ ] Answer feedback sounds
+    - [x] Block "clack" sound
+    - [x] Answer feedback sounds
+    - [ ] "Drawer" sounds
 - [ ] Settings
     - [ ] Ability to toggle DovesType
-- [ ] ANSWER FEEDBACK
-    - [ ] One-off animations
+- [x] ANSWER FEEDBACK
+    - [x] One-off animations
     - [x] Some way to communicate correct/incorrect state
 - [ ] Reset button
 - [x] Rename Content CSS class
 - [ ] SVG Divider? (Manuscript)
 - [x] Resolve Dataset issues
-- [ ] Line completion behavior?
+- [x] Line completion behavior?
 - [ ] Buefy color scheme changes
-- [ ] Stanzas? (related to dataset)
+- [x] Stanzas? (related to dataset)
     - For W. Shakespeare dataset: 4 - 4 - 4 - 2
+- [ ] "Drawer" redesign
