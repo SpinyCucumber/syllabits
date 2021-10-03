@@ -10,12 +10,11 @@
 }
 
 .game-block {
-    line-height: 50px;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0.5em;
     border-radius: 8px;
-    letter-spacing: 3pt;
-    font-weight: bold;
-    color: white;
     cursor: move;
 }
 
