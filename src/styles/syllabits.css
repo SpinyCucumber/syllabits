@@ -221,13 +221,18 @@
     font-family: 'Open Sans';
     color: lightgray;
     background-color: whitesmoke;
-    transition: color 2s ease;
-    transition: background-color 2s ease;
+    transition: color 1s ease;
+    transition: background-color 1s ease;
 }
 
 .poem .line.correct .number {
     color: white;
     background-color: #45ba45;
+}
+
+.poem .line.incorrect .number {
+    color: white;
+    background-color: #ba4545;;
 }
 
 .poem .line .text-box {
