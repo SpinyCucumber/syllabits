@@ -61,6 +61,15 @@ const CLASS_LOOKUP = new Map([
     [LineState.Incorrect, 'incorrect'],    
 ]);
 
+// Maps number of attempts to different feedback types.
+// For example, one attempt => perfect, two attempts => great, etc.
+// Four attempts and higher default to "okay"
+const FEEDBACK_LEVELS = [FeedbackType.Perfect, FeedbackType.Great, FeedbackType.Good];
+
+function getFeedbackLevel(attempts) {
+    return FEEDBACK_LEVELS[attempts - 1] || FeedbackType.Okay;
+}
+
 export default {
 
     name: 'PoemLine',
@@ -100,6 +109,7 @@ export default {
             let progress = {
                 state: LineState.Unchecked,
                 holding: new Array(5).fill(null),
+                attempts: 0,
             };
             this.$emit('update:lineProgressProxy', progress);
             return progress;
@@ -133,6 +143,8 @@ export default {
         onCheck() {
             // Transition state to "checking"
             this.lineProgress.state = LineState.Checking;
+            // Increment attempts
+            this.lineProgress.attempts += 1;
             // Emit event for component user to handle
             this.$emit('check', this.lineProgress.holding, this.handleCheck);
         },
@@ -163,8 +175,10 @@ export default {
                 delay += 100;
             }
             // Feedback!
+            // Retrieve feedback level using attempts
+            const feedbackLevel = getFeedbackLevel(this.lineProgress.attempts);
             setTimeout(() => {
-                this.$refs.feedback.show(FeedbackType.Perfect);
+                this.$refs.feedback.show(feedbackLevel);
             }, delay);
         },
 
