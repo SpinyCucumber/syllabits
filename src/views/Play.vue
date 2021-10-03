@@ -78,19 +78,6 @@ export default {
 
     methods: {
 
-        // Called when the component is first created and whenever the route changes.
-        // Queries the server for poem data.
-        initialize() {
-            // Perform server query
-            this.$apollo.query({ query: poemQuery, variables: { id: this.poemID } })
-                .then(result => result.data.poem)
-                .then(poem => {
-                    this.poem = poem;
-                    // TODO Set progress from query
-                    this.progress = { lines: [] };
-                });
-        },
-
         resetProgress() {
             this.progress = { lines: [] };
         },
@@ -108,20 +95,21 @@ export default {
 
     },
 
-    created() {
-        this.initialize();
-    },
-
-    /**
-     * Called when the route changes (including parameters)'
-     * This is where we handle instantiation logic.
-     * If the user has an identity, we set our progress from the server query
-     * If the user has no identity, we simply clear any current progress
-     */
-    beforeRouteUpdate(to, from, next) {
-        this.initialize();
-        next();
-    },
+    watch: {
+        poemID: {
+            handler(newVal) {
+                // Perform server query
+                this.$apollo.query({ query: poemQuery, variables: { id: newVal } })
+                    .then(result => result.data.poem)
+                    .then(poem => {
+                        this.poem = poem;
+                        // TODO Set progress from query
+                        this.progress = { lines: [] };
+                    });
+            },
+            immediate: true,
+        }
+    }
 
 }
 </script>
