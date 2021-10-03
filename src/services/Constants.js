@@ -16,7 +16,7 @@ const BlockTypes = new SerializableEnum({
 
 const LineState = new Enum(['Unchecked', 'Checking', 'Correct', 'Incorrect']);
 const SlotMode = new Enum(['Slot', 'Bucket', 'Locked']);
-const FeedbackType = new Enum(['Perfect', 'Great', 'Good', 'Okay']);
+const FeedbackType = new Enum(['Perfect', 'Great', 'Good', 'Okay', 'Incorrect']);
 
 export default new Service({
     name: 'constants',

@@ -75,12 +75,17 @@
     padding-top: 0.5em;
     padding-bottom: 0.5em;
     color: white;
+    white-space: nowrap;
     animation: spring 5s ease;
     will-change: transform opacity;
 }
 
 .game-feedback.perfect {
     background-color: #45ba45;
+}
+
+.game-feedback.incorrect {
+    background-color: #ba4545;
 }
 
 .block-picker {
@@ -210,7 +215,7 @@
 
 .poem .line.correct .number {
     color: white;
-    background-color: #45ba45;
+    background-color: #363636;
 }
 
 .poem .line .text-box {

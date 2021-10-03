@@ -152,7 +152,9 @@ export default {
 
         // Correct animation
         animateCorrect() {
+            // Sound
             this.playCorrect();
+            // 'Bounce' the slots in order to create a wave
             let delay = 0;
             for(let i = 0; i < 5; i++) {
                 setTimeout(() => {
@@ -167,11 +169,15 @@ export default {
         },
 
         animateIncorrect(hintIndicies) {
+            // Sound
+            this.playIncorrect();
             // Send animation message to incorrect slots
             for (let i of hintIndicies) {
                 this.$refs.slots[i].animate('incorrect');
             }
-            this.playIncorrect();
+            setTimeout(() => {
+                this.$refs.feedback.show(FeedbackType.Incorrect);
+            }, 500);
         }
 
     },

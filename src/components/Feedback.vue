@@ -16,6 +16,7 @@ const KEY_LOOKUP = new Map([
     [FeedbackType.Great, 'great'],
     [FeedbackType.Good, 'good'],
     [FeedbackType.Okay, 'okay'],
+    [FeedbackType.Incorrect, 'incorrect'],
 ]);
 const CLASS_LOOKUP = KEY_LOOKUP;
 
