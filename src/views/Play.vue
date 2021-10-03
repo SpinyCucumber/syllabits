@@ -3,6 +3,7 @@
     <reader>
 
         <template #static-area>
+            <!-- Block picker "drawer" -->
             <b-dropdown
                 animation="slide"
                 class="block-dropdown"
@@ -11,7 +12,7 @@
                 :can-close="false"
                 :close-on-click="false">
                 <template #trigger>
-                    <b-button>
+                    <b-button class="hanging">
                         <img :src="$assets.getIcon('Blocks')"
                             width="60"/>
                     </b-button>
@@ -20,6 +21,7 @@
                     <block-picker/>
                 </b-dropdown-item>
             </b-dropdown>
+            
         </template>
 
         <template #content-area>
