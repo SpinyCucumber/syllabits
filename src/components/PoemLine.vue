@@ -49,7 +49,8 @@
 // TODO Disable moving blocks while in checking state
 import BlockSlot from './BlockSlot'
 import Feedback from './Feedback'
-import { Constants } from '@/services'
+import { Constants, AssetService } from '@/services'
+import useSound from 'vue-use-sound'
 
 const { LineState, SlotMode, FeedbackType } = Constants;
 
@@ -64,6 +65,15 @@ export default {
 
     name: 'PoemLine',
     components: { BlockSlot, Feedback },
+
+    setup() {
+        // Load sounds
+        const [playCorrect] = useSound(AssetService.getSound('Correct'));
+        const [playIncorrect] = useSound(AssetService.getSound('Incorrect'));
+        return {
+            playCorrect, playIncorrect
+        };
+    },
 
     props: {
         line: { required: true },
@@ -128,10 +138,6 @@ export default {
         },
 
         handleCheck(result) {
-            // Send animation message to incorrect slots
-            for (let i of result.hintIndicies) {
-                this.$refs.slots[i].animate('incorrect');
-            }
             // Transition state
             this.lineProgress.state = result.correct ?
                 LineState.Correct : LineState.Incorrect;
@@ -139,10 +145,14 @@ export default {
             if (result.correct) {
                 this.animateCorrect();
             }
+            else {
+                this.animateIncorrect(result.hintIndicies);
+            }
         },
 
         // Correct animation
         animateCorrect() {
+            this.playCorrect();
             let delay = 0;
             for(let i = 0; i < 5; i++) {
                 setTimeout(() => {
@@ -155,6 +165,14 @@ export default {
                 this.$refs.feedback.show(FeedbackType.Perfect);
             }, delay);
         },
+
+        animateIncorrect(hintIndicies) {
+            // Send animation message to incorrect slots
+            for (let i of hintIndicies) {
+                this.$refs.slots[i].animate('incorrect');
+            }
+            this.playIncorrect();
+        }
 
     },
 
