@@ -3,20 +3,21 @@
         v-if="showing"
         :class="classes"
         @animationend="onAnimationEnd">
-        Perfect!
+        {{ display }}
     </div>
 </template>
 
 <script>
-import { Constants } from '@/services'
+import { Constants, TranslationService } from '@/services'
 const { FeedbackType } = Constants;
 
-const CLASS_LOOKUP = new Map([
+const KEY_LOOKUP = new Map([
     [FeedbackType.Perfect, 'perfect'],
     [FeedbackType.Great, 'great'],
     [FeedbackType.Good, 'good'],
     [FeedbackType.Okay, 'okay'],
-])
+]);
+const CLASS_LOOKUP = KEY_LOOKUP;
 
 export default 
 {
@@ -42,7 +43,12 @@ export default
             let classes = ['game-feedback'];
             if (this.showing) classes.push(CLASS_LOOKUP.get(this.showing));
             return classes;
-        }
+        },
+        display() {
+            // Construct translation key using feedback type and lookup string
+            const key = `play.feedback.${KEY_LOOKUP.get(this.showing)}`;
+            return TranslationService.get(key);
+        },
     }
 }
 </script>

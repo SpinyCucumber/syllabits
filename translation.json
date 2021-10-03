@@ -4,6 +4,13 @@
         "random-poem": "Random Poem"
     },
     "play": {
-        "check": "Check!"
+        "check": "Check!",
+        "feedback": {
+            "perfect": "Perfect!",
+            "great": "Great!",
+            "good": "Good!",
+            "okay": "Correct!",
+            "incorrect": ["Try again!", "Not quite!"]
+        }
     }
 }
