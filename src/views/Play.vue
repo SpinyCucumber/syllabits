@@ -1,6 +1,6 @@
 <template>
 
-    <reader>
+    <reader ref="reader">
 
         <template #static-area>
             <!-- Block picker "drawer" -->
@@ -21,14 +21,19 @@
                     <block-picker/>
                 </b-dropdown-item>
             </b-dropdown>
-            
+
+            <game-progress v-if="poem"
+                :max-value="poem.lines.length"
+                :value="progress.numComplete"
+                ref="progress"/>
+
         </template>
 
         <template #content-area>
 
             <!-- TODO Help button -->
 
-            <div v-if="poem" class="poem">
+            <div v-if="poem" class="poem" ref="content">
 
                 <div class="title-box">
                     <div class="title">{{ poem.name }}</div>
@@ -44,7 +49,9 @@
                         :key="i"
                         :line="poem.lines[i-1]"
                         :lineProgressProxy.sync="progress.lines[i-1]"
-                        @check="checkLine(i-1, ...arguments)"/>
+                        @check="checkLine(i-1, ...arguments)"
+                        @correct="onCorrect"
+                        @incorrect="onIncorrect"/>
                 </div>
 
             </div>
@@ -57,7 +64,7 @@
 <script>
 import poemQuery from '@/queries/poem.gql'
 import checkLineQuery from '@/queries/checkLine.gql'
-import { BlockPicker, PoemLine, Reader } from '@/components'
+import { BlockPicker, PoemLine, Reader, GameProgress } from '@/components'
 import { Constants } from '@/services'
 
 const { BlockTypes } = Constants;
@@ -65,7 +72,7 @@ const { BlockTypes } = Constants;
 export default {
 
     name: 'Play',
-    components: { BlockPicker, PoemLine, Reader },
+    components: { BlockPicker, PoemLine, Reader, GameProgress },
 
     props: {
         poemID: { required: true, type: String },
@@ -80,10 +87,6 @@ export default {
 
     methods: {
 
-        resetProgress() {
-            this.progress = { lines: [] };
-        },
-
         checkLine(lineNum, holding, finish) {
             // Create a code using the block types the line contains.
             // This is for representing the sequence of blocks efficiently.
@@ -93,6 +96,32 @@ export default {
             this.$apollo.mutate({ mutation: checkLineQuery, variables: { input } })
                 .then(result => result.data.checkLine)
                 .then(finish);
+        },
+
+        resizeProgressBar() {
+            // Sync width of progress bar and content container
+            // const progressEl = this.$refs.progress;
+            const contentEl = this.$refs.content;
+            const readerEl = this.$refs.reader;
+
+            const contentRect = contentEl.getBoundingClientRect();
+            const readerRect = readerEl.getBoundingClientRect();
+
+            const top = contentRect.top - readerRect.top;
+            const left = contentRect.left - readerRect.left;
+            // DEBUG
+            console.log({ top, left });
+        
+        },
+
+        onCorrect() {
+            // Increment correct line number
+            this.progress.numComplete += 1;
+            // TODO Play sound
+        },
+
+        onIncorrect() {
+            // TODO
         },
 
     },
@@ -106,7 +135,8 @@ export default {
                     .then(poem => {
                         this.poem = poem;
                         // TODO Set progress from query
-                        this.progress = { lines: [] };
+                        this.progress = { lines: [], numComplete: 0 }
+                        this.resizeProgressBar();
                     });
             },
             immediate: true,

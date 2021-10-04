@@ -100,6 +100,20 @@
     background-color: #ba4545;
 }
 
+.game-progress {
+    height: 2em;
+    width: 20em;
+    background-color: lightgray;
+    display: flex;
+    top: 0;
+    left: 50%;
+}
+
+.game-progress .inner {
+    background-color: #363636;
+    transition: width 3s ease;
+}
+
 .block-picker {
     display: grid;
     gap: 8px;
@@ -116,7 +130,6 @@
 }
 
 .block-dropdown {
-    position: absolute;
     top: 0em;
     left: 1em;
 }
@@ -144,6 +157,10 @@
 
 .reader .static-area {
     position: relative;
+}
+
+.reader .static-area > * {
+    position: absolute;
 }
 
 .reader .scroll-area {
