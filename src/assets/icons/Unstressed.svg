@@ -2,13 +2,13 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="132.10085mm"
-   height="56.599361mm"
-   viewBox="0 0 132.10085 56.599362"
+   width="137.5369mm"
+   height="61.564335mm"
+   viewBox="0 0 137.5369 61.564336"
    version="1.1"
    id="svg5"
    inkscape:version="1.1 (c68e22c387, 2021-05-23)"
-   sodipodi:docname="breve.svg"
+   sodipodi:docname="Unstressed.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -24,8 +24,8 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="1.0482005"
-     inkscape:cx="-49.131822"
-     inkscape:cy="59.625997"
+     inkscape:cx="-38.637646"
+     inkscape:cy="70.120173"
      inkscape:window-width="1920"
      inkscape:window-height="1001"
      inkscape:window-x="-9"
@@ -42,10 +42,10 @@
        inkscape:collect="always"
        style="color-interpolation-filters:sRGB"
        id="filter3941"
-       x="-0.13814369"
-       y="-0.46599926"
-       width="1.2762874"
-       height="1.8356092">
+       x="-0.16503426"
+       y="-0.55670905"
+       width="1.3300685"
+       height="1.9929314">
       <feGaussianBlur
          inkscape:collect="always"
          stdDeviation="1.2905511"
@@ -57,7 +57,7 @@
      id="layer3"
      inkscape:label="Shadow"
      style="mix-blend-mode:normal;filter:url(#filter3941)"
-     transform="translate(2.8502075,-10.527876)">
+     transform="translate(5.5627588,-7.8153197)">
     <path
        style="fill:none;fill-rule:evenodd;stroke:#4b4b4b;stroke-width:20;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path262-1"
@@ -77,7 +77,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-42.566287,-146.00222)">
+     transform="translate(-39.853736,-143.28966)">
     <path
        style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:20;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path262"
