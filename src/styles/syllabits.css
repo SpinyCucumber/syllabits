@@ -212,12 +212,24 @@
 }
 
 .reader .background {
-    background-image: url('textures/paper.png');
-    background-repeat: repeat;
     display: flex;
     flex-grow: 1;
     flex-direction: column;
     align-items: center;
+    position: relative;
+}
+
+.reader .background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    filter: saturate(450%) hue-rotate(-15deg) contrast(30%) blur(2px);
+    background-image: url('textures/Paper2.png');
+    background-repeat: repeat;
 }
 
 .reader .content-area {
