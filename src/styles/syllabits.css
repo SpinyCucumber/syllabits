@@ -123,6 +123,7 @@
 }
 
 .hanging {
+    z-index: 10;
     background-color: white;
     box-shadow: 0px 0px 3px 3px lightgray;
     border-top: none;
@@ -205,6 +206,7 @@
 }
 
 .navbar {
+    z-index: 20;
     box-shadow: 0px 0px 3px 3px lightgray;
 }
 
