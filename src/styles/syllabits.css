@@ -123,7 +123,6 @@
 }
 
 .game-dropdown {
-    z-index: 10;
     background-color: white;
     box-shadow: 0px 0px 3px 3px lightgray;
     border-top: none;
@@ -175,6 +174,7 @@
 }
 
 .reader .static-area > * {
+    z-index: 10;
     position: absolute;
 }
 
