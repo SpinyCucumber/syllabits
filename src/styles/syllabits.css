@@ -384,7 +384,6 @@ input {
 }
 
 .line .check-button {
-    z-index: 5;
     font-family: 'Open Sans';
     border-radius: 9999px;
     animation: pulse 2s infinite;
