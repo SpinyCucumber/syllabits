@@ -102,12 +102,20 @@ export default {
             // Increment correct line number
             this.progress.numComplete += 1;
             // Play sound
-            // TODO Optionally play complete sound
             this.sounds.correct();
+            // If all lines have been completed, trigger poem completion
+            if (this.progress.numComplete === this.poem.lines.length) {
+                this.onComplete();
+            }
         },
 
         onIncorrect() {
             this.sounds.incorrect();
+        },
+
+        onComplete() {
+            // Play fun sound!
+            this.sounds.complete();
         },
 
     },

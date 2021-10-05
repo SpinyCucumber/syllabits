@@ -14,6 +14,7 @@
     - [ ] Divider (fancier!)
     - [ ] "Drawer" handle
     - [ ] Progress bar head
+- [ ] IMPROVEMENT "Fun Fact" button in feedback area once line is complete
 - [x] Resolve Dataset issues
 - [x] Line completion behavior?
 - [ ] Buefy color scheme changes
