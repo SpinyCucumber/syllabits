@@ -122,7 +122,7 @@
     grid-template-columns: repeat(1, 1fr);
 }
 
-.hanging {
+.game-dropdown {
     z-index: 10;
     background-color: white;
     box-shadow: 0px 0px 3px 3px lightgray;
@@ -130,6 +130,12 @@
     border-radius: 16px;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
+    padding: 1em;
+    transition: transform 2s ease;
+}
+
+.game-dropdown:not(.open) {
+    transform: translate(0, -80%);
 }
 
 .block-dropdown {
@@ -137,11 +143,10 @@
     left: 1em;
 }
 
-.progress-area {
+.progress-dropdown {
     top: 0em;
     left: 50%;
     transform: translate(-50%, 0);
-    padding: 1em;
 }
 
 .block-dropdown .dropdown-menu {

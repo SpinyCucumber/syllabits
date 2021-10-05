@@ -1,6 +1,6 @@
 <template>
 
-    <reader ref="reader">
+    <reader>
 
         <template #static-area>
             <!-- Block picker "drawer" -->
@@ -22,11 +22,12 @@
                 </b-dropdown-item>
             </b-dropdown>
 
-            <div class="progress-area hanging">
-                <game-progress v-if="poem"
-                    :max-value="poem.lines.length"
-                    :value="progress.numComplete"
-                    ref="progress"/>
+            <div class="progress-dropdown">
+                <game-dropdown v-if="poem" :trigger="progress.numComplete">
+                    <game-progress
+                        :max-value="poem.lines.length"
+                        :value="progress.numComplete"/>
+                </game-dropdown>
             </div>
 
         </template>
@@ -35,7 +36,7 @@
 
             <!-- TODO Help button -->
 
-            <div v-if="poem" class="poem" ref="content">
+            <div v-if="poem" class="poem">
 
                 <div class="title-box">
                     <div class="title">{{ poem.name }}</div>
@@ -66,7 +67,7 @@
 <script>
 import poemQuery from '@/queries/poem.gql'
 import checkLineQuery from '@/queries/checkLine.gql'
-import { BlockPicker, PoemLine, Reader, GameProgress } from '@/components'
+import { BlockPicker, PoemLine, Reader, GameProgress, GameDropdown } from '@/components'
 import { Constants } from '@/services'
 
 const { BlockTypes } = Constants;
@@ -74,7 +75,7 @@ const { BlockTypes } = Constants;
 export default {
 
     name: 'Play',
-    components: { BlockPicker, PoemLine, Reader, GameProgress },
+    components: { BlockPicker, PoemLine, Reader, GameProgress, GameDropdown },
 
     props: {
         poemID: { required: true, type: String },
