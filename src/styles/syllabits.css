@@ -360,6 +360,7 @@ input {
 }
 
 .line .slot-container {
+    min-width: 23vw;
     display: flex;
     justify-content: space-between;
 }
