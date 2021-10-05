@@ -20,9 +20,10 @@
 
         <svg
             class="game-block-shape">
+            <!-- NOTE In SVG 2 (not yet in FF) these properties can be specified in CSS, which would
+                probably be better. Just waiting! -->
             <rect
-                x = "2" y="2"
-                width="81" height="46"
+                x = "2" y = "2"
                 rx = "8" ry = "8"
                 class = "game-blank">
             </rect>

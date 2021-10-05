@@ -13,6 +13,9 @@
     --tc-secondary: #808080;
     --tc-light: #d3d3d3;
     --tc-ghost: #e2e2e2;
+
+    --block-width: 84px;
+    --block-height: 50px;
 }
 
 /*
@@ -141,8 +144,8 @@ input {
 .game-block-shape,
 .game-block,
 .game-slot {
-    width: 84px;
-    height: 50px;
+    width: var(--block-width);
+    height: var(--block-height);
 }
 
 .game-block {
@@ -176,7 +179,11 @@ input {
     animation: bounce 0.4s;
 }
 
-.game-slot .game-blank {
+.game-blank {
+    
+    width: calc(var(--block-width) - 4px);
+    height: calc(var(--block-height) - 4px);
+
     fill: none;
     pointer-events: all;
     stroke: var(--tc-light);
