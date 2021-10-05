@@ -1,4 +1,4 @@
-- [ ] Progress bar in play view
+- [x] Progress bar in play view
 - [ ] Sound effects
     - [x] Block "clack" sound
     - [x] Answer feedback sounds
@@ -10,10 +10,13 @@
     - [x] Some way to communicate correct/incorrect state
 - [ ] Reset button
 - [x] Rename Content CSS class
-- [ ] SVG Divider? (Manuscript)
+- [ ] Visual Element Redesign
+    - [ ] Divider (fancier!)
+    - [ ] "Drawer" handle
+    - [ ] Progress bar head
 - [x] Resolve Dataset issues
 - [x] Line completion behavior?
 - [ ] Buefy color scheme changes
+- [ ] Phase out Buefy?
 - [x] Stanzas? (related to dataset)
     - For W. Shakespeare dataset: 4 - 4 - 4 - 2
-- [ ] "Drawer" redesign
