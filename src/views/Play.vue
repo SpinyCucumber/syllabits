@@ -68,7 +68,8 @@
 import poemQuery from '@/queries/poem.gql'
 import checkLineQuery from '@/queries/checkLine.gql'
 import { BlockPicker, PoemLine, Reader, GameProgress, GameDropdown } from '@/components'
-import { Constants } from '@/services'
+import { Constants, AssetService } from '@/services'
+import useSound from 'vue-use-sound'
 
 const { BlockTypes } = Constants;
 
@@ -79,6 +80,14 @@ export default {
 
     props: {
         poemID: { required: true, type: String },
+    },
+
+    setup() {
+        // Load sounds
+        const [ correct ] = useSound(AssetService.getSound('Correct'));
+        const [ incorrect ] = useSound(AssetService.getSound('Incorrect'));
+        const [ complete ] = useSound(AssetService.getSound('Complete'));
+        return { sounds: { correct, incorrect, complete } };
     },
 
     data() {
@@ -104,11 +113,13 @@ export default {
         onCorrect() {
             // Increment correct line number
             this.progress.numComplete += 1;
-            // TODO Play sound
+            // Play sound
+            // TODO Optionally play complete sound
+            this.sounds.correct();
         },
 
         onIncorrect() {
-            // TODO
+            this.sounds.incorrect();
         },
 
     },

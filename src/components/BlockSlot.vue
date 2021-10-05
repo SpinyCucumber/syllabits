@@ -67,10 +67,8 @@ export default {
 
     setup() {
         // Load sounds
-        const [playDrop] = useSound(AssetService.getSound('BlockDrop'));
-        return {
-            playDrop
-        };
+        const [ drop ] = useSound(AssetService.getSound('BlockDrop'));
+        return { sounds: { drop } };
     },
 
     methods: {
@@ -115,7 +113,7 @@ export default {
             else {
                 this.$emit('update:holding', payload.source.holding);
                 // Play sound
-                this.playDrop();
+                this.sounds.drop();
             }
             // If we are the container being dropped into
             if (addedIndex != null) {
