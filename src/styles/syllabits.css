@@ -102,8 +102,9 @@
 
 .game-progress {
     height: 2em;
-    width: 20em;
+    width: 40em;
     background-color: lightgray;
+    border-radius: 9999px;
     display: flex;
     top: 0;
     left: 50%;
@@ -111,6 +112,7 @@
 
 .game-progress .inner {
     background-color: #363636;
+    border-radius: 9999px;
     transition: width 3s ease;
 }
 
@@ -122,9 +124,9 @@
 
 .hanging {
     background-color: white;
-    border: 2px solid lightgray;
+    box-shadow: 0px 0px 3px 3px lightgray;
     border-top: none;
-    border-radius: 8px;
+    border-radius: 16px;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
 }
@@ -132,6 +134,13 @@
 .block-dropdown {
     top: 0em;
     left: 1em;
+}
+
+.progress-area {
+    top: 0em;
+    left: 50%;
+    transform: translate(-50%, 0);
+    padding: 1em;
 }
 
 .block-dropdown .dropdown-menu {
@@ -196,7 +205,7 @@
 }
 
 .navbar {
-    box-shadow: 0px 0px 3px 3px gray;
+    box-shadow: 0px 0px 3px 3px lightgray;
 }
 
 .poem {

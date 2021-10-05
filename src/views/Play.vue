@@ -22,10 +22,12 @@
                 </b-dropdown-item>
             </b-dropdown>
 
-            <game-progress v-if="poem"
-                :max-value="poem.lines.length"
-                :value="progress.numComplete"
-                ref="progress"/>
+            <div class="progress-area hanging">
+                <game-progress v-if="poem"
+                    :max-value="poem.lines.length"
+                    :value="progress.numComplete"
+                    ref="progress"/>
+            </div>
 
         </template>
 
@@ -98,22 +100,6 @@ export default {
                 .then(finish);
         },
 
-        resizeProgressBar() {
-            // Sync width of progress bar and content container
-            // const progressEl = this.$refs.progress;
-            const contentEl = this.$refs.content;
-            const readerEl = this.$refs.reader;
-
-            const contentRect = contentEl.getBoundingClientRect();
-            const readerRect = readerEl.getBoundingClientRect();
-
-            const top = contentRect.top - readerRect.top;
-            const left = contentRect.left - readerRect.left;
-            // DEBUG
-            console.log({ top, left });
-        
-        },
-
         onCorrect() {
             // Increment correct line number
             this.progress.numComplete += 1;
@@ -136,7 +122,6 @@ export default {
                         this.poem = poem;
                         // TODO Set progress from query
                         this.progress = { lines: [], numComplete: 0 }
-                        this.resizeProgressBar();
                     });
             },
             immediate: true,
