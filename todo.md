@@ -15,6 +15,7 @@
     - [ ] "Drawer" handle
     - [ ] Progress bar head
 - [ ] IMPROVEMENT "Fun Fact" button in feedback area once line is complete
+- [ ] Poem Complete! Dialog
 - [x] Resolve Dataset issues
 - [x] Line completion behavior?
 - [ ] Buefy color scheme changes
