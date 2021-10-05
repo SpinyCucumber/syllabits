@@ -1,6 +1,11 @@
 <template>
     <div :class="classes">
-        <slot/>
+        <div class="inner">
+            <slot/>
+        </div>
+        <button class="handle" v-if="hasHandle" @click="open = !open">
+            <b-icon icon="chevron-down" size="is-large"/>
+        </button>
     </div>
 </template>
 
@@ -12,6 +17,7 @@ export default {
     props: {
         trigger: { required: false },
         timeoutDur: { default: 4000 },
+        hasHandle: { default: false },
     },
 
     data() {
@@ -24,6 +30,7 @@ export default {
         classes() {
             let classes = ['game-dropdown'];
             if (this.open) classes.push('open');
+            if (this.hasHandle) classes.push('has-handle');
             return classes;
         }
     },

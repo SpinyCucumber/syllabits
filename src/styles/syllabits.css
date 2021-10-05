@@ -123,18 +123,43 @@
 }
 
 .game-dropdown {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
     background-color: white;
     box-shadow: 0px 0px 3px 3px lightgray;
     border-top: none;
     border-radius: 16px;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
+    transition: transform 1s ease;
+}
+
+.game-dropdown .inner {
     padding: 1em;
-    transition: transform 2s ease;
+}
+
+.game-dropdown .handle {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    transition: transform 1s ease;
 }
 
 .game-dropdown:not(.open) {
-    transform: translate(0, -80%);
+    transform: translate(0, calc(-100% + 1em));
+}
+
+.game-dropdown:not(.open).has-handle {
+    transform: translate(0, calc(-100% + 3em));
+}
+
+.game-dropdown.open .handle {
+    transform: scale(1,-1);
 }
 
 .block-dropdown {

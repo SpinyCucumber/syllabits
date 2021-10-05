@@ -4,23 +4,11 @@
 
         <template #static-area>
             <!-- Block picker "drawer" -->
-            <b-dropdown
-                animation="slide"
-                class="block-dropdown"
-
-                :mobile-modal="false"
-                :can-close="false"
-                :close-on-click="false">
-                <template #trigger>
-                    <b-button class="hanging">
-                        <img :src="$assets.getIcon('Blocks')"
-                            width="60"/>
-                    </b-button>
-                </template>
-                <b-dropdown-item custom>
+            <div class="block-dropdown">
+                <game-dropdown :has-handle="true">
                     <block-picker/>
-                </b-dropdown-item>
-            </b-dropdown>
+                </game-dropdown>
+            </div>
 
             <div class="progress-dropdown">
                 <game-dropdown v-if="poem" :trigger="progress.numComplete">
