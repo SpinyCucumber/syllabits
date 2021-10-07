@@ -28,7 +28,7 @@
 
                 <div class="title-box">
                     <div class="title">{{ poem.name }}</div>
-                    <div class="author">{{ poem.author }}</div>
+                    <div class="subtitle">{{ poem.author }}</div>
                 </div>
 
                 <img :src="$assets.getIcon('Divider')" class="divider"/>
