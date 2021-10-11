@@ -3,9 +3,7 @@ import App from './App.vue'
 import router from './router'
 import Buefy from 'buefy'
 
-import 'buefy/dist/buefy.css'
 import './styles/syllabits.scss'
-import '@mdi/font/css/materialdesignicons.min.css'
 
 import { createProvider } from './apollo'
 import { Constants, ConfigService, IdentityService, AssetService, TranslationService } from './services'

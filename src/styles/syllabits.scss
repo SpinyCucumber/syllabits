@@ -1,21 +1,13 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
-@import url('dovestype.scss');
-@import url('animations.scss');
-
-/*
- * VARIABLES
- */
-
-$font-primary: 'DovesType-Regular';
-$font-secondary: 'Open Sans';
-
-$block-width: 84px;
-$block-height: 50px;
-
-$light: #d3d3d3;
-$lighter: #e2e2e2;
-$dark: #363636;
-$gray: #808080;
+@import 'variables.scss';
+/* Font faces */
+@import 'https://fonts.googleapis.com/css?family=Open+Sans';
+@import 'dovestype.scss';
+/* Make sure to import buefy/bulma after declaring variables */
+@import '~bulma';
+@import '~buefy/src/scss/buefy';
+@import '~@mdi/font/css/materialdesignicons.min.css';
+/* Animations */
+@import 'animations.scss';
 
 /*
  * TYPOGRAPHY
@@ -30,12 +22,12 @@ body {
 }
 
 .title {
-    font-size: 300%;
+    font-size: $larger;
 }
 
 .subtitle {
     color: $gray;
-    font-size: 150%;
+    font-size: $medium;
 }
 
 /*
@@ -168,6 +160,7 @@ input {
 .game-block {
 
     @extend .game-block-shape;
+
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -190,6 +183,7 @@ input {
 .game-slot {
 
     @extend .game-block-shape;
+
     position: relative;
 
     &.incorrect-active {
@@ -236,7 +230,10 @@ input {
 .game-feedback {
 
     @extend .non-interactive;
+
     font-family: $font-secondary;
+    font-size: $medium;
+
     border-radius: 9999px;
     padding-left: 1em;
     padding-right: 1em;
@@ -244,8 +241,8 @@ input {
     padding-bottom: 0.5em;
     color: white;
     white-space: nowrap;
+
     animation: spring 5s ease;
-    will-change: transform opacity;
 
     &.perfect {
         background-color: #45ba45;
@@ -398,8 +395,8 @@ input {
     }
 
     .text {
-        font-size: 180%;
-        letter-spacing: 0.03em;
+        font-size: $large;
+        letter-spacing: 0.04em;
     }
 
     .feedback-area {
@@ -426,6 +423,7 @@ input {
 .number {
     @extend .non-interactive;
     font-family: $font-secondary;
+    font-size: $medium;
 }
 
 /*
