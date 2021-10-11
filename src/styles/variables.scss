@@ -1,12 +1,48 @@
+// Import utility classes for responsive variables
+@import "~bulma/sass/utilities/_all";
+
 $font-primary: 'DovesType-Regular';
 $font-secondary: 'Open Sans';
 
-$larger: 3em;
-$large: 1.5em;
-$medium: 1em;
+:root {
 
-$block-width: 84px;
-$block-height: 50px;
+    @include mobile {
+        --larger: 1.5em;
+        --large: 1em;
+        --medium: 0.75em;
+        --block-width: 48px;
+        --block-height: 30px;
+        --blank-stroke-dasharray: 5, 5;
+        --blank-stroke-width: 1.2;
+        --feedback-area-size: 3em;
+        --game-notation-size: 12px;
+    }
+
+    @include tablet-only {
+        --larger: 2.25em;
+        --large: 1.125em;
+        --medium: 0.75em;
+        --block-width: 72px;
+        --block-height: 40px;
+        --blank-stroke-dasharray: 7, 7;
+        --blank-stroke-width: 1.5;
+        --feedback-area-size: 4.5em;
+        --game-notation-size: 16px;
+    }
+
+    @include desktop {
+        --larger: 3em;
+        --large: 1.5em;
+        --medium: 1em;
+        --block-width: 84px;
+        --block-height: 50px;
+        --blank-stroke-dasharray: 9, 9;
+        --blank-stroke-width: 2;
+        --feedback-area-size: 6em;
+        --game-notation-size: 20px;
+    }
+
+}
 
 $light: #d3d3d3;
 $lighter: #e2e2e2;

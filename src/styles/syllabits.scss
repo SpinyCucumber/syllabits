@@ -22,12 +22,12 @@ body {
 }
 
 .title {
-    font-size: $larger;
+    font-size: var(--larger);
 }
 
 .subtitle {
     color: $gray;
-    font-size: $medium;
+    font-size: var(--medium);
 }
 
 /*
@@ -119,8 +119,8 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 3em;
-    padding-left: 6em;
-    padding-right: 6em;
+    padding-left: 2vw;
+    padding-right: 2vw;
     padding-top: 3em;
     padding-bottom: 3em;
 
@@ -131,8 +131,8 @@ body {
     }
 
     .body {
+        min-width: 80%;
         display: grid;
-        align-self: stretch;
         align-items: center;
         grid-row-gap: 2em;
         grid-template-columns: auto auto auto;
@@ -153,8 +153,8 @@ input {
 }
 
 .game-block-shape {
-    width: $block-width;
-    height: $block-height;
+    width: var(--block-width);
+    height: var(--block-height);
 }
 
 .game-block {
@@ -211,20 +211,20 @@ input {
 }
 
 .game-blank {
-    width: $block-width - 4px;
-    height: $block-height - 4px;
+    width: calc(var(--block-width) - 4px);
+    height: calc(var(--block-height) - 4px);
 
     fill: none;
     pointer-events: all;
     stroke: $light;
-    stroke-dasharray: 9, 9;
-    stroke-width: 2;
+    stroke-dasharray: var(--blank-stroke-dasharray);
+    stroke-width: var(--blank-stroke-width);
 }
 
 .game-notation {
     @extend .non-interactive;
-    max-height: 20px;
-    max-width: 20px;
+    max-height: var(--game-notation-size);
+    max-width: var(--game-notation-size);
 }
 
 .game-feedback {
@@ -232,7 +232,7 @@ input {
     @extend .non-interactive;
 
     font-family: $font-secondary;
-    font-size: $medium;
+    font-size: var(--medium);
 
     border-radius: 9999px;
     padding-left: 1em;
@@ -395,14 +395,14 @@ input {
     }
 
     .text {
-        font-size: $large;
+        font-size: var(--large);
         letter-spacing: 0.04em;
     }
 
     .feedback-area {
         justify-self: end;
-        width: 6em;
-        height: 6em;
+        width: var(--feedback-area-size);
+        height: var(--feedback-area-size);
         position: relative;
     }
 
@@ -423,7 +423,7 @@ input {
 .number {
     @extend .non-interactive;
     font-family: $font-secondary;
-    font-size: $medium;
+    font-size: var(--medium);
 }
 
 /*
