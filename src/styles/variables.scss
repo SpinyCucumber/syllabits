@@ -1,15 +1,13 @@
 // Import utility classes for responsive variables
 @import "~bulma/sass/utilities/_all";
 
-$font-primary: 'DovesType-Regular';
-$font-secondary: 'Open Sans';
-
+// Responsive variables
 :root {
 
     @include mobile {
         --larger: 1.5em;
-        --large: 1em;
-        --medium: 0.75em;
+        --large: 0.75em;
+        --medium: 0.7em;
         --block-width: 48px;
         --block-height: 30px;
         --blank-stroke-dasharray: 5, 5;
@@ -43,6 +41,10 @@ $font-secondary: 'Open Sans';
     }
 
 }
+
+// SCSS variables
+$font-primary: 'DovesType-Regular';
+$font-secondary: 'Open Sans';
 
 $light: #d3d3d3;
 $lighter: #e2e2e2;
