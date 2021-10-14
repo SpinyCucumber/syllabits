@@ -172,7 +172,7 @@ body {
     align-items: center;
     justify-content: space-around;
     padding: 0.5em;
-    border-radius: 0.6em;
+    border-radius: 0.5em;
     cursor: move;
 
     &.ghost {
@@ -218,8 +218,8 @@ body {
 }
 
 .game-blank {
-    width: calc($block-width - 4px);
-    height: calc($block-height - 4px);
+    width: calc($block-width - 6px);
+    height: calc($block-height - 6px);
 
     fill: none;
     pointer-events: all;
