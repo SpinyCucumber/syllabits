@@ -14,6 +14,7 @@ type Poem implements Node {
   name: String!
   author: String
   lines: [[Line]]!
+  totalLines: Int!
 }
 
 type Query {

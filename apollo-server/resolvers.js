@@ -36,6 +36,9 @@ export default {
       // Push final lines to stanza arary
       stanzaArr.push(lineArr);
       return stanzaArr;
+    },
+    totalLines(obj) {
+      return obj.lines.length;
     }
   },
 

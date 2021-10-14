@@ -13,7 +13,7 @@
             <div class="progress-dropdown">
                 <game-dropdown v-if="poem" :trigger="progress.numComplete">
                     <game-progress
-                        :max-value="poem.lines.length"
+                        :max-value="poem.totalLines"
                         :value="progress.numComplete"/>
                 </game-dropdown>
             </div>
@@ -108,7 +108,7 @@ export default {
             // Play sound
             this.sounds.correct();
             // If all lines have been completed, trigger poem completion
-            if (this.progress.numComplete === this.poem.lines.length) {
+            if (this.progress.numComplete === this.poem.totalLines) {
                 this.onComplete();
             }
         },
