@@ -15,6 +15,7 @@
 
 body {
     font-family: $font-primary;
+    font-size: var(--medium);
 }
 
 .number {
@@ -153,8 +154,8 @@ input {
 }
 
 .game-block-shape {
-    width: var(--block-width);
-    height: var(--block-height);
+    width: $block-width;
+    height: $block-height;
 }
 
 .game-block {
@@ -211,20 +212,20 @@ input {
 }
 
 .game-blank {
-    width: calc(var(--block-width) - 4px);
-    height: calc(var(--block-height) - 4px);
+    width: calc($block-width - 4px);
+    height: calc($block-height - 4px);
 
     fill: none;
     pointer-events: all;
     stroke: $light;
-    stroke-dasharray: var(--blank-stroke-dasharray);
-    stroke-width: var(--blank-stroke-width);
+    stroke-dasharray: $blank-stroke-dasharray;
+    stroke-width: $blank-stroke-width;
 }
 
 .game-notation {
     @extend .non-interactive;
-    max-height: var(--game-notation-size);
-    max-width: var(--game-notation-size);
+    max-height: $notation-size;
+    max-width: $notation-size;
 }
 
 .game-feedback {
@@ -401,8 +402,8 @@ input {
 
     .feedback-area {
         justify-self: end;
-        width: var(--feedback-area-size);
-        height: var(--feedback-area-size);
+        width:  $feedback-area-size;
+        height: $feedback-area-size;
         position: relative;
     }
 

@@ -5,39 +5,21 @@
 :root {
 
     @include mobile {
-        --larger: 1.5em;
-        --large: 0.75em;
-        --medium: 0.7em;
-        --block-width: 48px;
-        --block-height: 30px;
-        --blank-stroke-dasharray: 5, 5;
-        --blank-stroke-width: 1.2;
-        --feedback-area-size: 3em;
-        --game-notation-size: 12px;
+        --larger: 1.5rem;
+        --large: 0.75rem;
+        --medium: 0.7rem;
     }
 
     @include tablet-only {
-        --larger: 2.25em;
-        --large: 1.125em;
-        --medium: 0.75em;
-        --block-width: 72px;
-        --block-height: 40px;
-        --blank-stroke-dasharray: 7, 7;
-        --blank-stroke-width: 1.5;
-        --feedback-area-size: 4.5em;
-        --game-notation-size: 16px;
+        --larger: 2.25rem;
+        --large: 1.125rem;
+        --medium: 0.75rem;
     }
 
     @include desktop {
-        --larger: 3em;
-        --large: 1.5em;
-        --medium: 1em;
-        --block-width: 84px;
-        --block-height: 50px;
-        --blank-stroke-dasharray: 9, 9;
-        --blank-stroke-width: 2;
-        --feedback-area-size: 6em;
-        --game-notation-size: 20px;
+        --larger: 3rem;
+        --large: 1.5rem;
+        --medium: 1rem;
     }
 
 }
@@ -50,3 +32,10 @@ $light: #d3d3d3;
 $lighter: #e2e2e2;
 $dark: #363636;
 $gray: #808080;
+
+$block-height: 3em;
+$block-width: 5em;
+$notation-size: 1.25em;
+$feedback-area-size: 6em;
+$blank-stroke-width: 0.15em;
+$blank-stroke-dasharray: 0.8em, 0.8em;
