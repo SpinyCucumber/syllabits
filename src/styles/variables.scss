@@ -41,5 +41,5 @@ $feedback-area-height: 3em;
 $blank-stroke-width: 3px;
 $blank-stroke-dasharray: 0.65em, 0.65em;
 
-$z-index-progress-dropdown: 10;
-$z-index-block-dropdown: $z-index-progress-dropdown + 1;
+$z-index-block-dropdown: 10;
+$z-index-progress-dropdown: $z-index-block-dropdown + 1;

@@ -275,7 +275,7 @@ button, .button {
 .game-progress {
 
     height: 2em;
-    width: 40em;
+    width: min(40em, 90vw);
     background-color: $light;
     border-radius: 9999px;
     display: flex;
@@ -347,6 +347,7 @@ button, .button {
 }
 
 .progress-dropdown {
+    @extend .non-interactive;
     top: 0em;
     left: 50%;
     transform: translate(-50%, 0);
