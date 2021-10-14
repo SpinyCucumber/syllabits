@@ -56,7 +56,6 @@ body {
         position: relative;
 
         &>* {
-            z-index: 10;
             position: absolute;
         }
 
@@ -149,7 +148,7 @@ body {
  * COMPONENTS
  */
 
-.button {
+button, .button {
     font-size: var(--medium);
     font-family: $font-secondary;
 }
@@ -344,12 +343,14 @@ body {
 .block-dropdown {
     top: 0em;
     left: 1em;
+    z-index: $z-index-block-dropdown;
 }
 
 .progress-dropdown {
     top: 0em;
     left: 50%;
     transform: translate(-50%, 0);
+    z-index: $z-index-progress-dropdown;
 }
 
 .navbar {
