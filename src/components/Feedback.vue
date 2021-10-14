@@ -1,9 +1,11 @@
 <template>
-    <div
-        v-if="showing"
-        :class="classes"
-        @animationend="onAnimationEnd">
-        {{ display }}
+    <!-- Outer div to support transforms -->
+    <div v-if="showing">
+        <div
+            :class="classes"
+            @animationend="onAnimationEnd">
+            {{ display }}
+        </div>
     </div>
 </template>
 

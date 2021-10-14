@@ -149,11 +149,12 @@ body {
  * COMPONENTS
  */
 
-button {
+.button {
+    font-size: var(--medium);
     font-family: $font-secondary;
 }
 
-input {
+.input {
     font-family: $font-secondary;
 }
 
@@ -382,7 +383,9 @@ input {
         background-color: #ba4545;;
     }
 
+    // This element contains the slot container as well as the line text.
     .text-box {
+        font-size: var(--large);
         display: flex;
         width: fit-content;
         flex-direction: column;
@@ -400,7 +403,6 @@ input {
     }
 
     .text {
-        font-size: var(--large);
         letter-spacing: 0.04em;
     }
 
@@ -408,21 +410,32 @@ input {
         justify-self: end;
         width:  $feedback-area-width;
         height: $feedback-area-height;
-        position: relative;
+
         // With smaller screens, we are working with two columns instead of three.
         // We let the feedback occupy the entire next row if screen is small.
+        // When the feedback area is empty on smaller screens, we "hide" it.
+        // When an element appears, we transition the height to make the element "slide in."
         @include mobile {
             height: 0;
             justify-self: center;
             grid-column: 1/3;
+            transition: height 1s ease;
+
+            &:not(:empty) {
+                height: $feedback-area-height;
+            }
         }
 
+        // Since multiple elements can exist in the feedback area simultaneously, we take an
+        // absolute/relative positioning approach. We use the child selector to center the child elements.
+        position: relative;
         &>* {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
+
     }
 
     .check-button {

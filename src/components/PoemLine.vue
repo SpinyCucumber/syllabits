@@ -28,9 +28,7 @@
                     {{ $translation.get("play.check") }}
                 </b-button>
             </transition>
-            <div>
-                <feedback ref="feedback"/>
-            </div>
+            <feedback ref="feedback"/>
         </div>
 
     </div>
