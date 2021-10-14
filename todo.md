@@ -18,6 +18,7 @@
 - [ ] Poem Complete! Dialog
 - [x] Resolve Dataset issues
 - [x] Line completion behavior?
+- [x] Play interface responsiveness
 - [ ] Buefy color scheme changes
 - [ ] Phase out Buefy?
 - [x] Stanzas? (related to dataset)
