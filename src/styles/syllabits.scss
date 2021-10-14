@@ -161,6 +161,7 @@ body {
 .game-block-shape {
     width: $block-width;
     height: $block-height;
+    font-size: var(--large);
 }
 
 .game-block {
@@ -171,7 +172,7 @@ body {
     align-items: center;
     justify-content: space-around;
     padding: 0.5em;
-    border-radius: 8px;
+    border-radius: 0.6em;
     cursor: move;
 
     &.ghost {
@@ -385,7 +386,6 @@ body {
 
     // This element contains the slot container as well as the line text.
     .text-box {
-        font-size: var(--large);
         display: flex;
         width: fit-content;
         flex-direction: column;
@@ -403,6 +403,7 @@ body {
     }
 
     .text {
+        font-size: var(--large);
         letter-spacing: 0.04em;
     }
 
