@@ -13,7 +13,7 @@ type Poem implements Node {
   id: ID!
   name: String!
   author: String
-  lines: [Line]!
+  lines: [[Line]]!
 }
 
 type Query {

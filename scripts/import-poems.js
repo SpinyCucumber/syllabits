@@ -33,7 +33,6 @@ function parsePoem(worksheet) {
     let data = xlsx.utils.sheet_to_json(worksheet, { header: 1 });
 
     let lines = [];
-    let lineNumber = 0;
     for(let i = 0; i < data.length; i += 2) {
         // Skip empty line
         if (data[i].length == 0) continue;
@@ -41,10 +40,8 @@ function parsePoem(worksheet) {
         const lineKey = data[i].map(sym => SYMBOL_TABLE[sym]).join('');
         const lineText = data[i+1].slice(0, lineKey.length).join(' ');
         // Construct line
-        const line = { number: lineNumber, text: lineText, key: lineKey };
+        const line = { text: lineText, key: lineKey };
         lines.push(line);
-
-        lineNumber += 1;
     }
     // Construct poem
     return { lines };

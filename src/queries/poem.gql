@@ -5,7 +5,6 @@ query($id: ID!) {
             author
             lines {
                 number
-                stanzaBreak
                 text
             }
         }
