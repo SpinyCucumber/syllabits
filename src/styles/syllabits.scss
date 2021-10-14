@@ -137,6 +137,10 @@ body {
         align-items: center;
         grid-row-gap: 2em;
         grid-template-columns: auto auto auto;
+        // With small screens, use a grid with only two columns
+        @include mobile {
+            grid-template-columns: auto auto;
+        }
     }
 
 }
@@ -402,16 +406,23 @@ input {
 
     .feedback-area {
         justify-self: end;
-        width:  $feedback-area-size;
-        height: $feedback-area-size;
+        width:  $feedback-area-width;
+        height: $feedback-area-height;
         position: relative;
-    }
+        // With smaller screens, we are working with two columns instead of three.
+        // We let the feedback occupy the entire next row if screen is small.
+        @include mobile {
+            height: 0;
+            justify-self: center;
+            grid-column: 1/3;
+        }
 
-    .feedback-area>* {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        &>* {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
     }
 
     .check-button {
