@@ -165,8 +165,14 @@ button, .button {
     font-family: $font-secondary;
 }
 
-.input {
+input, .input {
     font-family: $font-secondary;
+}
+
+// Select icons
+.mdi {
+    font-size: var(--icon);
+    display: contents;
 }
 
 .game-block-shape {
@@ -334,11 +340,6 @@ button, .button {
         overflow: hidden;
         outline: none;
         transition: transform 1s ease;
-        // Select children (e.g. icons)
-        &>* {
-            font-size: var(--icon);
-            display: contents;
-        }
     }
 
     &.open .handle {
