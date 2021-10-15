@@ -23,7 +23,7 @@
             <!-- NOTE In SVG 2 (not yet in FF) these properties can be specified in CSS, which would
                 probably be better. Just waiting! -->
             <rect
-                x = "3" y = "3"
+                x = "2" y = "2"
                 rx = "0.5em" ry = "0.5em"
                 class = "game-blank">
             </rect>

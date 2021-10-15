@@ -229,8 +229,8 @@ button, .button {
 }
 
 .game-blank {
-    width: calc($block-width - 6px);
-    height: calc($block-height - 6px);
+    width: calc($block-width - (2 * $blank-stroke-width));
+    height: calc($block-height - (2 * $blank-stroke-width));
 
     fill: none;
     pointer-events: all;
@@ -334,6 +334,11 @@ button, .button {
         overflow: hidden;
         outline: none;
         transition: transform 1s ease;
+        // Select children (e.g. icons)
+        &>* {
+            font-size: var(--icon);
+            display: contents;
+        }
     }
 
     &.open .handle {
@@ -345,7 +350,7 @@ button, .button {
         transform: translate(0, calc(-100% - 1em));
 
         &.has-handle {
-            transform: translate(0, calc(-100% + 3em));
+            transform: translate(0, calc(-100% + var(--icon)));
         }
 
     }
@@ -408,7 +413,6 @@ button, .button {
     }
 
     .slot-container {
-        min-width: 23vw;
         display: flex;
         justify-content: space-between;
     }
