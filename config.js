@@ -6,5 +6,6 @@ export default {
         Anapest: '#CC79A7',
         Spondee: '#000000',
         Pyrrhic: '#007555',
-    }
+    },
+    enableCheats: true,
 }

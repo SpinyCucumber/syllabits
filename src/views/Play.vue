@@ -22,7 +22,9 @@
 
         <template #content-area>
 
-            <!-- TODO Help button -->
+            <div class="toolbar">
+                <!-- TODO Help button, "cheat" utils -->
+            </div>
 
             <div v-if="poem" class="poem">
 

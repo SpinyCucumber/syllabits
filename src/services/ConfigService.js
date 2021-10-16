@@ -7,6 +7,10 @@ export default new Service({
 
     getBlockTypeColor(blockType) {
         return config.blockColors[blockType.name];
+    },
+
+    get enableCheats() {
+        return config.enableCheats;
     }
 
 });
