@@ -25,11 +25,21 @@
             <div class="toolbar">
                 <!-- TODO Help button, "cheat" utils -->
                 <!-- "Cheat" utils -->
-                <div v-if="$config.enableCheats" class="grouping">
-                    <b-button
-                        label="Fake Complete"
-                        @click="progress.complete = true"
-                    />
+                <div class="right">
+                    <div v-if="$config.enableCheats" class="grouping">
+                        <b-button
+                            type="is-warning"
+                            size="is-small"
+                            label="Set Complete"
+                            @click="progress.complete = true"
+                        />
+                        <b-button
+                            type="is-warning"
+                            size="is-small"
+                            label="Reset Complete"
+                            @click="progress.complete = false"
+                        />
+                    </div>
                 </div>
             </div>
 

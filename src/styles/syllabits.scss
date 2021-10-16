@@ -372,6 +372,26 @@ input, .input {
     z-index: $z-index-progress-dropdown;
 }
 
+.toolbar {
+
+    padding: 1em;
+    display: flex;
+
+    & > * {
+        display: flex;
+        gap: 1em;
+    }
+
+    .right {
+        margin-left: auto;
+    }
+
+    .left {
+        margin-right: auto;
+    }
+
+}
+
 .navbar {
     @extend .has-shadow;
     z-index: 20;
