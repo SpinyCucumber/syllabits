@@ -24,6 +24,13 @@
 
             <div class="toolbar">
                 <!-- TODO Help button, "cheat" utils -->
+                <!-- "Cheat" utils -->
+                <div v-if="$config.enableCheats" class="grouping">
+                    <b-button
+                        label="Fake Complete"
+                        @click="progress.complete = true"
+                    />
+                </div>
             </div>
 
             <div v-if="poem" class="poem">
@@ -54,8 +61,8 @@
             </div>
 
             <!-- Poem complete dialog -->
-            <b-modal v-model="complete">
-                <div>
+            <b-modal v-model="showComplete">
+                <div class="card">
                     Hi!
                 </div>
             </b-modal>
@@ -95,6 +102,7 @@ export default {
         return {
             poem: null,
             progress: null,
+            showComplete: false,
         }
     },
 
@@ -131,7 +139,7 @@ export default {
     computed: {
         // Provide a reference to completed so we can watch it
         complete() {
-            return this.progress.complete;
+            return this.progress?.complete;
         }
     },
 
@@ -153,6 +161,8 @@ export default {
             if (newVal) {
                 // Play fun sound!
                 this.sounds.complete();
+                // Open dialog
+                this.showComplete = true;
             }
         },
     }
