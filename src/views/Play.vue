@@ -72,8 +72,21 @@
 
             <!-- Poem complete dialog -->
             <b-modal v-model="showComplete">
-                <div class="card">
-                    Hi!
+                <div class="dialog">
+                    <div class="title">{{ $translation.get("play.complete") }}</div>
+                    <!-- TODO Replace this with actual art -->
+                    <img class="divider" :src="$assets.getIcon('Divider')"/>
+                    <div class="completion-feedback">
+                        <!-- TODO -->
+                    </div>
+                    <div class="dialog-footer">
+                        <b-button
+                            type="is-primary"
+                            label="Back to Dashboard"/>
+                        <b-button
+                            type="is-primary"
+                            label="Play a Random Poem"/>
+                    </div>
                 </div>
             </b-modal>
 

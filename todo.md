@@ -14,8 +14,9 @@
     - [ ] Divider (fancier!)
     - [ ] "Drawer" handle
     - [ ] Progress bar head
+    - [ ] Poem completion dialog art
 - [ ] IMPROVEMENT "Fun Fact" button in feedback area once line is complete
-- [ ] Poem Complete! Dialog
+- [x] Poem Complete! Dialog
 - [x] Resolve Dataset issues
 - [x] Line completion behavior?
 - [x] Play interface responsiveness
