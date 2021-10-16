@@ -51,6 +51,13 @@
 
             </div>
 
+            <!-- Poem complete dialog -->
+            <b-modal v-model="complete">
+                <div>
+                    Hi!
+                </div>
+            </b-modal>
+
         </template>
 
     </reader>
@@ -109,7 +116,7 @@ export default {
             this.sounds.correct();
             // If all lines have been completed, trigger poem completion
             if (this.progress.numComplete === this.poem.totalLines) {
-                this.onComplete();
+                this.progress.complete = true;
             }
         },
 
@@ -117,11 +124,13 @@ export default {
             this.sounds.incorrect();
         },
 
-        onComplete() {
-            // Play fun sound!
-            this.sounds.complete();
-        },
+    },
 
+    computed: {
+        // Provide a reference to completed so we can watch it
+        complete() {
+            return this.progress.complete;
+        }
     },
 
     watch: {
@@ -133,11 +142,17 @@ export default {
                     .then(poem => {
                         this.poem = poem;
                         // TODO Set progress from query
-                        this.progress = { lines: [], numComplete: 0 }
+                        this.progress = { lines: [], numComplete: 0, complete: false }
                     });
             },
             immediate: true,
-        }
+        },
+        complete(newVal) {
+            if (newVal) {
+                // Play fun sound!
+                this.sounds.complete();
+            }
+        },
     }
 
 }
