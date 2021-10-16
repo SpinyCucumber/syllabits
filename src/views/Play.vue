@@ -28,16 +28,19 @@
                 <div class="right">
                     <div v-if="$config.enableCheats" class="grouping">
                         <b-button
-                            type="is-warning"
-                            size="is-small"
+                            type="is-warning" size="is-small"
                             label="Set Complete"
                             @click="progress.complete = true"
                         />
                         <b-button
-                            type="is-warning"
-                            size="is-small"
+                            type="is-warning" size="is-small"
                             label="Reset Complete"
                             @click="progress.complete = false"
+                        />
+                        <b-button
+                            type="is-warning" size="is-small"
+                            label="Trigger Correct"
+                            @click="onCorrect"
                         />
                     </div>
                 </div>
@@ -145,11 +148,14 @@ export default {
         onCorrect() {
             // Increment correct line number
             this.progress.numComplete += 1;
-            // Play sound
-            this.sounds.correct();
             // If all lines have been completed, trigger poem completion
+            // Otherwise play the normal correct sound
             if (this.progress.numComplete === this.poem.totalLines) {
                 this.progress.complete = true;
+            }
+            else {
+                // Play sound
+                this.sounds.correct();
             }
         },
 
