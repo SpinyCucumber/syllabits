@@ -11,10 +11,10 @@
             </div>
 
             <div class="progress-dropdown">
-                <game-dropdown v-if="poem" :trigger="progress.numComplete">
+                <game-dropdown :trigger="numCorrect">
                     <game-progress
                         :max-value="poem.totalLines"
-                        :value="progress.numComplete"/>
+                        :value="numCorrect"/>
                 </game-dropdown>
             </div>
 
@@ -29,24 +29,24 @@
                     <div v-if="$config.enableCheats" class="grouping">
                         <b-button
                             type="is-warning" size="is-small"
-                            label="Set Complete"
-                            @click="progress.complete = true"
+                            label="Complete All"
+                            @click="completeAll"
                         />
                         <b-button
                             type="is-warning" size="is-small"
-                            label="Reset Complete"
-                            @click="progress.complete = false"
+                            label="Complete Next"
+                            @click="completeNext"
                         />
                         <b-button
                             type="is-warning" size="is-small"
-                            label="Trigger Correct"
-                            @click="onCorrect"
+                            label="Reset"
+                            @click="reset"
                         />
                     </div>
                 </div>
             </div>
 
-            <div v-if="poem" class="poem">
+            <div v-if="ready" class="poem">
 
                 <div class="title-box">
                     <div class="title">{{ poem.name }}</div>
@@ -105,7 +105,7 @@ import { BlockPicker, PoemLine, Reader, GameProgress, GameDropdown } from '@/com
 import { Constants, AssetService } from '@/services'
 import useSound from 'vue-use-sound'
 
-const { BlockTypes } = Constants;
+const { BlockTypes, LineState } = Constants;
 
 export default {
 
@@ -146,14 +146,7 @@ export default {
         },
 
         onCorrect() {
-            // Increment correct line number
-            this.progress.numComplete += 1;
-            // If all lines have been completed, trigger poem completion
-            // Otherwise play the normal correct sound
-            if (this.progress.numComplete === this.poem.totalLines) {
-                this.progress.complete = true;
-            }
-            else {
+            if (!this.complete) {
                 // Play sound
                 this.sounds.correct();
             }
@@ -163,13 +156,42 @@ export default {
             this.sounds.incorrect();
         },
 
+        completeAll() {
+            // Complete all lines
+            this.progress.lines.forEach(line => {
+                line.state = LineState.Correct;
+            })
+        },
+
+        completeNext() {
+            // Find first line that is not correct and complete it
+            const line = this.progress.lines.find(line => line.state !== LineState.Correct);
+            if (line) line.state = LineState.Correct;
+        },
+
+        reset() {
+            // Reset all progress
+            this.progress = { lines: [] }
+        },
+
     },
 
     computed: {
-        // Provide a reference to completed so we can watch it
+        ready() {
+            return Boolean(this.poem);
+        },
         complete() {
-            return this.progress?.complete;
-        }
+            if (!this.ready) return false;
+            return this.numCorrect === this.poem.totalLines;
+        },
+        numCorrect() {
+            if (!this.ready) return 0;
+            let result = 0;
+            this.progress?.lines.forEach(line => {
+                if (line.state === LineState.Correct) result += 1;
+            });
+            return result;
+        },
     },
 
     watch: {
@@ -181,7 +203,7 @@ export default {
                     .then(poem => {
                         this.poem = poem;
                         // TODO Set progress from query
-                        this.progress = { lines: [], numComplete: 0, complete: false }
+                        this.progress = { lines: [] }
                     });
             },
             immediate: true,
