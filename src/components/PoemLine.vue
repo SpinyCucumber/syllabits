@@ -44,7 +44,6 @@
 //  Can transition back to Unchecked only be resetting poem progress.
 // 4. Incorrect
 //  Can transition to Unchecked by changing slots.
-// TODO Disable moving blocks while in checking state
 import BlockSlot from './BlockSlot'
 import Feedback from './Feedback'
 import { Constants } from '@/services'
@@ -86,6 +85,10 @@ export default {
         // Whether every slot contains a block type
         isValidSequence() {
             return !this.lineProgress.holding.some(blockType => blockType === null);
+        },
+        // Create an alias for lineProgress.state so we can watch it
+        state() {
+            return this.lineProgress.state;
         },
         // This allows us to implement line progress in a "lazy" way.
         // If the poem isn't tracking progress for this line yet, we tell it to.
@@ -140,15 +143,12 @@ export default {
             // Transition state
             this.lineProgress.state = result.correct ?
                 LineState.Correct : LineState.Incorrect;
-            // Call events/issue animations
-            if (result.correct) {
-                this.animateCorrect();
-                this.$emit('correct');
-            }
-            else {
-                this.animateIncorrect(result.hintIndicies);
-                this.$emit('incorrect');
-            }
+            // Trigger animations
+            // Animations are only triggered when we actually get a check result back.
+            // This is because we need the feedback to actually perform the incorrect
+            // animations.
+            if (result.correct) this.animateCorrect();
+            else this.animateIncorrect(result.hintIndicies);
         },
 
         // Correct animation
@@ -185,6 +185,10 @@ export default {
         holding() {
             // If the slots are modified while the line is incorrect, transition to unchecked
             this.lineProgress.state = LineState.Unchecked;
+        },
+        state(newState) {
+            if (newState === LineState.Correct) this.$emit('correct');
+            else if (newState === LineState.Incorrect) this.$emit('incorrect');
         }
     },
 
