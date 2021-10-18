@@ -9,7 +9,7 @@
           <b-navbar-item tag="router-link" :to="{ name: 'Dashboard' }">
             {{ $translation.get('navbar.dashboard') }}
           </b-navbar-item>
-          <b-navbar-item tag="a" @click="randomPoem">
+          <b-navbar-item tag="router-link" :to="{ name: 'RandomPoem' }">
             {{ $translation.get('navbar.random-poem') }}
           </b-navbar-item>
         </template>
@@ -27,21 +27,7 @@
 </template>
 
 <script>
-import randomPoemIdQuery from '@/queries/randomPoemID.gql'
-
 export default {
-  name: 'App',
-  methods: {
-    randomPoem() {
-      // Execute query
-      // We have to make sure to not cache the result, since random-poem is 
-      this.$apollo.mutate({ mutation: randomPoemIdQuery })
-        .then(result => result.data.randomPoem.id)
-        .then(id => {
-          // Transition to play page with the new poem ID
-          this.$router.push({ name: 'Play', params: { poemID: id }});
-        });
-    }
-  }
+  name: 'App'
 }
 </script>
