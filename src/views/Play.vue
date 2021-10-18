@@ -13,6 +13,7 @@
             <div class="progress-dropdown">
                 <game-dropdown :trigger="numCorrect">
                     <game-progress
+                        v-if="ready"
                         :max-value="poem.totalLines"
                         :value="numCorrect"/>
                 </game-dropdown>
