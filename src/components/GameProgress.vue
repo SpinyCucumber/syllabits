@@ -1,8 +1,6 @@
 <template>
-    <div class="game-progress">
-        <div class="inner" :style="{ width: width }">
-
-        </div>
+    <div class="game-progress" :style="{ '--progress': progress }">
+        <div class="inner"/>
     </div>
 </template>
 
@@ -15,9 +13,9 @@ export default {
     },
 
     computed: {
-        width() {
-            return `${(this.value / this.maxValue) * 100}%`;
-        }
+        progress() {
+            return String(this.value / this.maxValue);
+        },
     }
 
 }
