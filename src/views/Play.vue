@@ -24,7 +24,7 @@
         <template #content-area>
 
             <div class="toolbar">
-                <!-- TODO Help button, "cheat" utils -->
+                <!-- TODO Help button -->
                 <!-- "Cheat" utils -->
                 <div class="right">
                     <div v-if="$config.enableCheats" class="grouping">
