@@ -31,18 +31,22 @@ body {
     font-size: var(--medium);
 }
 
+.branding {
+    font-size: var(--largest);
+}
+
 /*
  * LAYOUT
  */
 
- #app,
- html,
- body,
- #app>* {
-     @extend .full-height
- }
+#app,
+html,
+body,
+#app>* {
+    @extend .full-height
+}
 
- .reader {
+.reader {
 
     display: flex;
     flex-grow: 1;
@@ -75,6 +79,7 @@ body {
         flex-grow: 1;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
         position: relative;
 
         &:before {
@@ -98,7 +103,7 @@ body {
         background-color: white;
     }
 
- }
+}
 
 .main {
 
@@ -136,6 +141,7 @@ body {
         align-items: center;
         grid-row-gap: 1.5em;
         grid-template-columns: auto auto auto;
+
         // With small screens, use a grid with only two columns
         @include mobile {
             grid-template-columns: auto auto;
@@ -144,6 +150,7 @@ body {
 
     .stanza {
         @extend .grouping;
+
         // We insert a pseudo-element "spacer" between each stanza
         // to create space.
         &:not(:last-child):after {
@@ -160,18 +167,20 @@ body {
  * COMPONENTS
  */
 
-button, .button {
+button,
+.button {
     font-size: var(--medium);
     font-family: $font-secondary;
 }
 
-input, .input {
+input,
+.input {
     font-family: $font-secondary;
 }
 
 // Select icons
 .mdi {
-    font-size: var(--icon);
+    font-size: var(--largest);
     display: contents;
 }
 
@@ -213,11 +222,11 @@ input, .input {
     &.incorrect-active {
         animation: jiggle 0.5s;
     }
-    
+
     &.correct-active {
         animation: bounce 0.4s;
     }
-    
+
     &.slot.drop-active .game-blank {
         fill: $lighter;
         animation: ants 3s linear 0s infinite normal forwards;
@@ -298,7 +307,9 @@ input, .input {
     border-radius: 9999px;
     position: relative;
 
-    & > * { position: absolute; }
+    &>* {
+        position: absolute;
+    }
 
     .inner {
         width: calc(var(--progress) * 100%);
@@ -308,7 +319,7 @@ input, .input {
         transition: width 3s ease;
     }
 
-} 
+}
 
 .block-picker {
     display: grid;
@@ -322,7 +333,7 @@ input, .input {
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+
     background-color: white;
     border-top: none;
     border-radius: 16px;
@@ -345,7 +356,7 @@ input, .input {
     }
 
     &.open .handle {
-        transform: scale(1,-1);
+        transform: scale(1, -1);
     }
 
     &:not(.open) {
@@ -353,7 +364,7 @@ input, .input {
         transform: translate(0, calc(-100% - 1em));
 
         &.has-handle {
-            transform: translate(0, calc(-100% + var(--icon)));
+            transform: translate(0, calc(-100% + var(--largest)));
         }
 
     }
@@ -379,7 +390,7 @@ input, .input {
     padding: 1em;
     display: flex;
 
-    & > * {
+    &>* {
         display: flex;
         gap: 1em;
     }
@@ -440,7 +451,8 @@ input, .input {
 
     &.incorrect .number {
         color: white;
-        background-color: #ba4545;;
+        background-color: #ba4545;
+        ;
     }
 
     // This element contains the slot container as well as the line text.
@@ -464,7 +476,7 @@ input, .input {
 
     .feedback-area {
         justify-self: end;
-        width:  $feedback-area-width;
+        width: $feedback-area-width;
         height: $feedback-area-height;
 
         // With smaller screens, we are working with two columns instead of three.
@@ -486,6 +498,7 @@ input, .input {
         // Since multiple elements can exist in the feedback area simultaneously, we take an
         // absolute/relative positioning approach. We use the child selector to center the child elements.
         position: relative;
+
         &>* {
             position: absolute;
             top: 50%;

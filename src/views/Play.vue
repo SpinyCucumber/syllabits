@@ -50,7 +50,7 @@
             <div v-if="ready" class="poem">
 
                 <div class="title-box">
-                    <div class="title">{{ poem.name }}</div>
+                    <h1 class="title">{{ poem.name }}</h1>
                     <div class="subtitle">{{ poem.author }}</div>
                 </div>
 

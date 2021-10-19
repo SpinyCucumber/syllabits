@@ -5,21 +5,21 @@
 :root {
 
     @include mobile {
-        --icon: 2.25rem;
+        --largest: 2.25rem;
         --larger: 1.5rem;
         --large: 0.75rem;
         --medium: 0.7rem;
     }
 
     @include tablet-only {
-        --icon: 3rem;
+        --largest: 3rem;
         --larger: 2.25rem;
         --large: 1.125rem;
         --medium: 0.75rem;
     }
 
     @include desktop {
-        --icon: 4.5rem;
+        --largest: 4.5rem;
         --larger: 3rem;
         --large: 1.5rem;
         --medium: 1rem;
