@@ -56,51 +56,54 @@ body,
     position: relative;
 
     .static-area {
-
         position: relative;
-
-        &>* {
-            position: absolute;
-        }
-
+        &>* { position: absolute; }
     }
 
     .scroll-area {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-        min-height: 0;
+        position: relative;
+        min-height: 100%;
         overflow-y: scroll;
     }
 
-    .background {
+    .background-area {
 
-        display: flex;
-        flex-grow: 1;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        position: relative;
+        position: absolute;
+        top: 0; left: 0; bottom: 0; right: 0;
 
-        &:before {
-            content: '';
+        &>* {
             position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
+            top: 0; left: 0; bottom: 0; right: 0;
             z-index: -1;
-            filter: saturate(450%) hue-rotate(-15deg) contrast(30%) blur(2px);
-            background-image: url('textures/Paper2.png');
-            background-repeat: repeat;
         }
 
     }
 
     .content-area {
+        min-height: 100%;
         display: flex;
         flex-direction: column;
-        background-color: white;
+        justify-content: center;
+        align-items: center;
+
+        .inner {
+            @extend .has-shadow;
+            background-color: white;
+            border-radius: 1em;
+            padding: 2em;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+    }
+
+    // Default background element
+    .background {
+        filter: saturate(450%) hue-rotate(-15deg) contrast(30%) blur(2px);
+        background-image: url('textures/Paper2.png');
+        background-repeat: repeat;
     }
 
 }
