@@ -12,14 +12,14 @@
     }
 
     @include tablet-only {
-        --largest: 3rem;
+        --largest: 2.75rem;
         --larger: 2.25rem;
         --large: 1.125rem;
         --medium: 0.75rem;
     }
 
     @include desktop {
-        --largest: 4.5rem;
+        --largest: 4rem;
         --larger: 3rem;
         --large: 1.5rem;
         --medium: 1rem;
