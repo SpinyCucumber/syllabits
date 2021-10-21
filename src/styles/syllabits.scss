@@ -107,7 +107,6 @@ body,
     }
 
     .content-area {
-        border-radius: 1em;
         flex-grow: 0;
     }
 
@@ -466,7 +465,6 @@ input,
     // This element contains the slot container as well as the line text.
     .text-box {
         display: flex;
-        width: fit-content;
         justify-self: start;
         flex-direction: column;
         gap: 0.5em;
