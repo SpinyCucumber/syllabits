@@ -17,7 +17,7 @@ export default {
     components: { Reader, Carousel },
     data() {
         return {
-            images: ['Paper1', 'Paper2', 'Paper3'].map(AssetService.getTexture)
+            images: ['Paper1', 'Paper2', 'Paper3', 'Paper4'].map(AssetService.getTexture)
         }
     }
 }
