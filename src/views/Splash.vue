@@ -3,13 +3,22 @@
         <template #content-area>
             <h1 class="branding">Syllabits</h1>
         </template>
+        <template #background-area>
+            <carousel :imageSrcs="images"/>
+        </template>
     </reader>
 </template>
 
 <script>
-import { Reader } from '@/components'
+import { Reader, Carousel } from '@/components'
+import { AssetService } from '@/services'
 
 export default {
-    components: { Reader }
+    components: { Reader, Carousel },
+    data() {
+        return {
+            images: ['Paper2', 'Paper3'].map(AssetService.getTexture)
+        }
+    }
 }
 </script>

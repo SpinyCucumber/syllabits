@@ -4,7 +4,10 @@
         <div class="scroll-area">
             <div class="background-area">
                 <slot name="background-area">
-                    <img :src="$assets.getTexture('Paper2')">
+                    <!-- Default background -->
+                    <background-image
+                        :src="$assets.getTexture('Paper2')"
+                        class="warm"/>
                 </slot>
             </div>
             <div class="content-area">
@@ -17,7 +20,10 @@
 </template>
 
 <script>
+import BackgroundImage from './BackgroundImage.vue'
+
 export default {
+    components: { BackgroundImage },
     name: 'Reader'
 }
 </script>
