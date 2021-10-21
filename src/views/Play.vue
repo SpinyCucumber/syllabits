@@ -66,7 +66,7 @@
                             :key="line.number"
                             :line="line"
                             :lineProgressProxy.sync="progress.lines[line.number]"
-                            @check="checkLine(line.number, ...arguments)"
+                            :checkHandler="(holding) => checkLine(line.number, holding)"
                             @correct="onCorrect"
                             @incorrect="onIncorrect"/>
                     </div>
@@ -135,15 +135,14 @@ export default {
 
     methods: {
 
-        checkLine(lineNum, holding, finish) {
+        checkLine(lineNum, holding) {
             // Create a code using the block types the line contains.
             // This is for representing the sequence of blocks efficiently.
             const code = BlockTypes.serializeSequence(holding);
-            // We have to construct the input
+            // We have to construct the input to the server
             const input = { poemID: this.poemID, lineNum, answer: code }
-            this.$apollo.mutate({ mutation: checkLineQuery, variables: { input } })
-                .then(result => result.data.checkLine)
-                .then(finish);
+            return this.$apollo.mutate({ mutation: checkLineQuery, variables: { input } })
+                .then(result => result.data.checkLine);
         },
 
         onCorrect() {
