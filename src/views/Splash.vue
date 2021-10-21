@@ -1,5 +1,5 @@
 <template>
-    <reader class="splash">
+    <reader class="splash" :card="true">
         <template #content-area>
             <h1 class="branding">Syllabits</h1>
         </template>
