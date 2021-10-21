@@ -61,9 +61,17 @@ body,
     }
 
     .scroll-area {
-        position: relative;
-        min-height: 100%;
+        flex-grow: 1;
+        min-height: 0;
         overflow-y: scroll;
+
+        .inner {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
     }
 
     .background-area {
@@ -80,23 +88,14 @@ body,
     }
 
     .content-area {
-        min-height: 100%;
+        @extend .has-shadow;
+        background-color: white;
+        border-radius: 1em;
+        padding: 2em;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-
-        .inner {
-            @extend .has-shadow;
-            background-color: white;
-            border-radius: 1em;
-            padding: 2em;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
     }
 
 }
