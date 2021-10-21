@@ -99,13 +99,6 @@ body,
 
     }
 
-    // Default background element
-    .background {
-        filter: saturate(450%) hue-rotate(-15deg) contrast(30%) blur(2px);
-        background-image: url('textures/Paper2.png');
-        background-repeat: repeat;
-    }
-
 }
 
 .main {
@@ -527,6 +520,11 @@ input,
 /*
  * UTILITY
  */
+
+// Filter
+.warm {
+    filter: saturate(450%) hue-rotate(-15deg) contrast(30%) blur(2px);
+}
 
 .has-shadow {
     box-shadow: 0px 0px 3px 3px #36363655;

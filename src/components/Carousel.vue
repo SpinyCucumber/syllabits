@@ -1,5 +1,7 @@
 <template>
-    
+    <transition-group>
+
+    </transition-group>
 </template>
 
 <script>

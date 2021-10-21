@@ -4,7 +4,7 @@
         <div class="scroll-area">
             <div class="background-area">
                 <slot name="background-area">
-                    <div class="background"/>
+                    <img :src="$assets.getTexture('Paper2')">
                 </slot>
             </div>
             <div class="content-area">
