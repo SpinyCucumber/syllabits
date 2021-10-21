@@ -1,14 +1,22 @@
 <template>
     <reader class="splash" :card="true">
         <template #content-area>
-            <div class="title-box">
-                <h1 class="branding">SyllaBits</h1>
-                <img :src="$assets.getIcon('Divider')" class="divider"/>
-                <poem-line
-                    v-for="(line, i) in demoPoem"
-                    :key="i"
-                    :line="line"
-                    :lineProgressProxy="demoProgress[i]"/>
+            <div>
+                <div class="title-box">
+                    <h1 class="branding">SyllaBits</h1>
+                    <img :src="$assets.getIcon('Divider')" class="divider"/>
+                </div>
+                <div class="demo-poem">
+                    <poem-line
+                        v-for="(line, i) in demoPoem"
+                        :has-number="false"
+                        :key="i"
+                        :line="line"
+                        :lineProgressProxy="demoProgress[i]"/>
+                </div>
+            </div>
+            <div class="portal">
+                <img :src="$assets.getTexture('Logo')" class="logo"/>
             </div>
         </template>
         <template #background-area>
@@ -27,8 +35,8 @@ export default {
         return {
             images: ['Paper1', 'Paper2', 'Paper3', 'Paper4'].map(AssetService.getTexture),
             demoPoem: [
-                { text: "With building blocks to practice and refine" },
-                { text: "your scansion skills will grow with every line" },
+                { text: "\"With building blocks to practice and refine" },
+                { text: "your scansion skills will grow with every line\"" },
             ],
             demoProgress: []
         }

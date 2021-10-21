@@ -1,8 +1,8 @@
 <template>
     <div :class="classes">
         <!-- Line number -->
-        <!-- Add 1 because programmers are weird -->
-        <div class="number">{{ line.number + 1 }}</div>
+        <!-- Add 1 because computers are weird -->
+        <div v-if="hasNumber" class="number">{{ line.number + 1 }}</div>
 
         <div class="text-box">
             <!-- Block slots -->
@@ -22,7 +22,7 @@
         <div class="feedback-area">
             <transition name="fade">
                 <b-button type="is-dark"
-                    @click="onCheck"
+                    @click="check"
                     class="check-button"
                     v-if="canCheck">
                     {{ $translation.get("play.check") }}
@@ -75,6 +75,8 @@ export default {
         line: { required: true },
         lineProgressProxy: { required: true },
         checkHandler: { required: true, type: Function },
+        hasNumber: { default: false },
+        automaticFeedback: { default: false },
     },
 
     computed: {
@@ -114,6 +116,7 @@ export default {
         },
         // Whether the check button is visible
         canCheck() {
+            if (this.automaticFeedback) return false;
             if (this.lineProgress.state === LineState.Unchecked) {
                 return this.isValidSequence;
             }
@@ -131,7 +134,7 @@ export default {
         /**
          * Should only be called when the line is in the Unchecked state; transitions to Checking.
          */
-        onCheck() {
+        check() {
             // Transition state to "checking"
             this.lineProgress.state = LineState.Checking;
             // Increment attempts
@@ -189,6 +192,11 @@ export default {
         state(newState) {
             if (newState === LineState.Correct) this.$emit('correct');
             else if (newState === LineState.Incorrect) this.$emit('incorrect');
+        },
+        isValidSequence(newVal) {
+            // If the player completes the line while automatic feedback is enabled,
+            // we automatically check the answer
+            if (newVal) this.check();
         }
     },
 
