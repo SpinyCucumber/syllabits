@@ -1,10 +1,10 @@
 <template>
-    <transition-group tag="div">
+    <transition name="fade-long">
         <background-image
-            v-for="src in toDisplay"
-            :key="src"
-            :src="src"/>
-    </transition-group>
+            class="warm"
+            :key="index"
+            :src="imageSources[index]"/>
+    </transition>
 </template>
 
 <script>
@@ -17,23 +17,23 @@ export default {
 
     props: {
         // Array of strings
-        imageSrcs: { require: true },
-        period: { default: 5 },
+        imageSources: { require: true },
+        period: { default: 8000 },
     },
     data() {
         return {
             index: 0,
         }
     },
-    computed: {
-        toDisplay() {
-            return [this.imageSrcs[this.index]];
-        }
-    },
     methods: {
         advance() {
-
+            this.index = (this.index + 1) % this.imageSources.length;
         },
-    }
+    },
+    created() {
+        // Once component is created, start a recurring task to increment
+        // the index
+        setInterval(this.advance, this.period);
+    },
 }
 </script>

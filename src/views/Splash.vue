@@ -4,7 +4,7 @@
             <h1 class="branding">Syllabits</h1>
         </template>
         <template #background-area>
-            <carousel :imageSrcs="images"/>
+            <carousel :imageSources="images"/>
         </template>
     </reader>
 </template>
@@ -17,7 +17,7 @@ export default {
     components: { Reader, Carousel },
     data() {
         return {
-            images: ['Paper2', 'Paper3'].map(AssetService.getTexture)
+            images: ['Paper1', 'Paper2', 'Paper3'].map(AssetService.getTexture)
         }
     }
 }
