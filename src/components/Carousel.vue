@@ -17,7 +17,7 @@ export default {
 
     props: {
         // Array of strings
-        imageSources: { require: true },
+        imageSources: { required: true },
         period: { default: 8000 },
     },
     data() {

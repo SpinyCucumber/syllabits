@@ -74,6 +74,7 @@ export default {
     props: {
         line: { required: true },
         lineProgressProxy: { required: true },
+        checkHandler: { required: true, type: Function },
     },
 
     computed: {
@@ -135,20 +136,19 @@ export default {
             this.lineProgress.state = LineState.Checking;
             // Increment attempts
             this.lineProgress.attempts += 1;
-            // Emit event for component user to handle
-            this.$emit('check', this.lineProgress.holding, this.handleCheck);
-        },
-
-        handleCheck(result) {
-            // Transition state
-            this.lineProgress.state = result.correct ?
-                LineState.Correct : LineState.Incorrect;
-            // Trigger animations
-            // Animations are only triggered when we actually get a check result back.
-            // This is because we need the feedback to actually perform the incorrect
-            // animations.
-            if (result.correct) this.animateCorrect();
-            else this.animateIncorrect(result.hintIndicies);
+            // Let component user handle check
+            this.checkHandler(this.lineProgress.holding)
+                .then(result => {
+                    // Transition state
+                    this.lineProgress.state = result.correct ?
+                        LineState.Correct : LineState.Incorrect;
+                    // Trigger animations
+                    // Animations are only triggered when we actually get a check result back.
+                    // This is because we need the feedback to actually perform the incorrect
+                    // animations.
+                    if (result.correct) this.animateCorrect();
+                    else this.animateIncorrect(result.hintIndicies);
+                });
         },
 
         // Correct animation
