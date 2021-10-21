@@ -112,6 +112,19 @@ body,
 
 }
 
+.splash {
+
+    .content-area {
+        flex-direction: row;
+    }
+
+    .title-box {
+        display: flex;
+        flex-direction: column;
+    }
+
+}
+
 .main {
 
     display: flex;
@@ -419,7 +432,7 @@ input,
 
 .divider {
     @extend .non-interactive;
-    opacity: 10%;
+    opacity: 15%;
 }
 
 .dialog {
