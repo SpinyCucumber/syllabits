@@ -61,15 +61,17 @@ body,
     }
 
     .scroll-area {
-        flex-grow: 1;
         min-height: 0;
         overflow-y: scroll;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
 
         .inner {
             position: relative;
+            flex-grow: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
         }
     }
@@ -90,13 +92,21 @@ body,
     .content-area {
         @extend .has-shadow;
         background-color: white;
-        border-radius: 1em;
         padding: 2em;
         display: flex;
+        flex-grow: 1;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
     }
+
+}
+
+.reader.card {
+
+    .scroll-area .inner {
+        justify-content: center;
+    }
+
+
 
 }
 

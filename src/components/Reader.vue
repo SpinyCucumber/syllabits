@@ -1,5 +1,5 @@
 <template>
-    <div class="reader">
+    <div :class="classes">
         <div class="static-area"><slot name="static-area"/></div>
         <div class="scroll-area">
             <div class="inner">
@@ -24,6 +24,16 @@ import BackgroundImage from './BackgroundImage.vue'
 
 export default {
     components: { BackgroundImage },
-    name: 'Reader'
+    name: 'Reader',
+    props: {
+        card: { default: false }
+    },
+    computed: {
+        classes() {
+            let classes = ['reader'];
+            if (this.card) classes.push('card');
+            return classes;
+        },
+    }
 }
 </script>
