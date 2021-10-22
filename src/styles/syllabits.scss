@@ -116,6 +116,7 @@ body,
 
     .content-area {
         min-width: 75vw;
+        min-height: 75vh;
         padding: 2em;
         flex-direction: row;
         &>* {
@@ -147,17 +148,24 @@ body,
 
     .portal {
         padding: 2em;
+        justify-content: center;
+        align-items: center;
     }
 
     .button-area {
+        width: min(100vw, 20em);
+        flex-grow: 2;
         display: flex;
         flex-direction: column;
-        gap: 1em;
+        justify-content: center;
+        gap: 2em;
     }
 
     .logo {
         width: 16em;
+        flex-grow: 1;
         align-self: center;
+        object-fit: contain;
     }
 
 }
