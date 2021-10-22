@@ -117,7 +117,7 @@ body,
     .content-area {
         min-width: 75vw;
         min-height: 75vh;
-        padding: 3em;
+        padding: 2em;
         flex-direction: row;
         &>.page {
             flex: 1;
@@ -126,7 +126,7 @@ body,
             gap: 2em;
         }
         &>.divider {
-            height: 70%;
+            max-height: 20em;
             align-self: center;
         }
     }
@@ -172,7 +172,19 @@ body,
         object-fit: contain;
     }
 
+    // With small screens, disable divider and present pages in column orientation
+    @include mobile {
+
+        .content-area {
+            flex-direction: column;
+            &>.divider { display: none; }
+        }
+
+    }
+
 }
+
+
 
 .main {
 
