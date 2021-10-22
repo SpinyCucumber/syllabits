@@ -117,7 +117,7 @@ body,
     .content-area {
         min-width: 75vw;
         min-height: 75vh;
-        padding: 2em;
+        padding: 3em;
         flex-direction: row;
         &>.page {
             flex: 1;
@@ -132,7 +132,7 @@ body,
     }
 
     .title-box {
-        font-family: "Open Sans";
+        font-family: $font-secondary;
         align-self: flex-start;
         display: flex;
         flex-direction: column;
