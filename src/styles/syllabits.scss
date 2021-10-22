@@ -381,6 +381,7 @@ input,
     display: grid;
     gap: 8px;
     grid-template-columns: repeat(1, 1fr);
+    font-size: var(--fs-20);
 }
 
 .game-dropdown {
@@ -516,6 +517,7 @@ input,
         display: flex;
         justify-self: start;
         flex-direction: column;
+        font-size: var(--fs-20);
         gap: 0.5em;
     }
 
