@@ -196,7 +196,7 @@ export default {
         isValidSequence(newVal) {
             // If the player completes the line while automatic feedback is enabled,
             // we automatically check the answer
-            if (newVal) this.check();
+            if (newVal && this.automaticFeedback) this.check();
         }
     },
 

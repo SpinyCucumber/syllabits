@@ -218,6 +218,10 @@ body,
         }
     }
 
+    .line .text-box {
+        font-size: var(--fs-20);
+    }
+
 }
 
 /*
@@ -517,7 +521,6 @@ input,
         display: flex;
         justify-self: start;
         flex-direction: column;
-        font-size: var(--fs-20);
         gap: 0.5em;
     }
 
