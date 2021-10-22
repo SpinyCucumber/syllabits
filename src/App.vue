@@ -10,7 +10,7 @@
             {{ $translation.get('navbar.dashboard') }}
           </b-navbar-item>
           <b-navbar-item tag="router-link" :to="{ name: 'RandomPoem' }">
-            {{ $translation.get('navbar.random-poem') }}
+            {{ $translation.get('navbar.randompoem') }}
           </b-navbar-item>
         </template>
 

@@ -1,7 +1,12 @@
 {
     "navbar": {
         "dashboard": "Dashboard",
-        "random-poem": "Random Poem"
+        "randompoem": "Random Poem"
+    },
+    "button": {
+        "login": "Login",
+        "register": "Register",
+        "randompoem": "Play Random Poem"
     },
     "play": {
         "check": "Check!",
