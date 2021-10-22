@@ -219,9 +219,8 @@ export default {
             if (newVal) {
                 // Play fun sound!
                 this.sounds.complete();
-                // Open dialog
-                this.showComplete = true;
             }
+            this.showComplete = newVal;
         },
     }
 
