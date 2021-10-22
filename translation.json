@@ -6,7 +6,10 @@
     "button": {
         "login": "Login",
         "register": "Register",
-        "randompoem": "Play Random Poem"
+        "randompoem": "Play Random Poem",
+        "completeall": "Complete All",
+        "completenext": "Complete Next",
+        "reset": "Reset"
     },
     "play": {
         "check": "Check!",
