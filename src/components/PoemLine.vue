@@ -75,7 +75,7 @@ export default {
         line: { required: true },
         lineProgressProxy: { required: true },
         checkHandler: { required: true, type: Function },
-        hasNumber: { default: false },
+        hasNumber: { default: true },
         automaticFeedback: { default: false },
     },
 
