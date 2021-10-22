@@ -39,7 +39,7 @@
                                 @click="button.action"
                             />
                         </div>
-                    </div>1
+                    </div>
                 </div>
 
                 <div class="poem">
@@ -80,11 +80,12 @@
                         </div>
                         <div class="dialog-footer">
                             <b-button
+                                v-for="button in completeButtons"
+                                :key="button.key"
+                                tag="router-link"
+                                :to="button.to"
                                 type="is-primary"
-                                label="Back to Dashboard"/>
-                            <b-button
-                                type="is-primary"
-                                label="Play a Random Poem"/>
+                                :label="$translation.get('button.' + button.key)"/>
                         </div>
                     </div>
                 </b-modal>
@@ -132,6 +133,10 @@ export default {
                 { key: 'completenext', action: this.completeNext },
                 { key: 'reset', action: this.reset },
             ],
+            completeButtons: [
+                { key: 'dashboard', to: { name: 'Dashboard' } },
+                { key: 'randompoem', to: { name: 'RandomPoem' } },
+            ]
         }
     },
 

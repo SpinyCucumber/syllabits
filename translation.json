@@ -7,6 +7,7 @@
         "login": "Login",
         "register": "Register",
         "randompoem": "Play Random Poem",
+        "dashboard": "Back to Dashboard",
         "completeall": "Complete All",
         "completenext": "Complete Next",
         "reset": "Reset"
