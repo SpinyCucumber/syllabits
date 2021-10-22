@@ -18,7 +18,13 @@
             <div class="portal">
                 <img :src="$assets.getTexture('Logo')" class="logo"/>
                 <div class="button-area">
-                    
+                    <b-button
+                        v-for="button of buttons"
+                        tag="router-link"
+                        :key="button.key"
+                        :to="button.to"
+                        :label="$translation.get('button.' + button.key)"
+                        type="is-primary"/>
                 </div>
             </div>
         </template>
@@ -37,6 +43,11 @@ export default {
     data() {
         return {
             images: ['Paper1', 'Paper2', 'Paper3', 'Paper4'].map(AssetService.getTexture),
+            buttons: [
+                { key: "login", to: { name: "Login" } },
+                { key: "register", to: { name: "Register" } },
+                { key: "randompoem", to: { name: "RandomPoem" } },
+            ],
             demoPoem: [
                 { text: "\"With building blocks to practice and refine" },
                 { text: "your scansion skills will grow with every line\"" },

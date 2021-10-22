@@ -150,6 +150,12 @@ body,
         align-items: center;
     }
 
+    .button-area {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+    }
+
     .logo {
         width: 16em;
     }
