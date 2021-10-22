@@ -32,22 +32,14 @@
                     <div class="right">
                         <div v-if="$config.enableCheats" class="grouping">
                             <b-button
+                                v-for="button in cheatButtons"
+                                :key="button.key"
                                 type="is-warning" size="is-small"
-                                label="Complete All"
-                                @click="completeAll"
-                            />
-                            <b-button
-                                type="is-warning" size="is-small"
-                                label="Complete Next"
-                                @click="completeNext"
-                            />
-                            <b-button
-                                type="is-warning" size="is-small"
-                                label="Reset"
-                                @click="reset"
+                                :label="$translation.get('button.' + button.key)"
+                                @click="button.action"
                             />
                         </div>
-                    </div>
+                    </div>1
                 </div>
 
                 <div class="poem">
@@ -135,6 +127,11 @@ export default {
             poem: null,
             progress: null,
             showComplete: false,
+            cheatButtons: [
+                { key: 'completeall', action: this.completeAll },
+                { key: 'completenext', action: this.completeNext },
+                { key: 'reset', action: this.reset },
+            ],
         }
     },
 
