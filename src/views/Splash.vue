@@ -17,6 +17,9 @@
             </div>
             <div class="portal">
                 <img :src="$assets.getTexture('Logo')" class="logo"/>
+                <div class="button-area">
+                    
+                </div>
             </div>
         </template>
         <template #background-area>

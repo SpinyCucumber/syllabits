@@ -15,7 +15,7 @@
 
 body {
     font-family: $font-primary;
-    font-size: var(--medium);
+    font-size: var(--fs-10);
 }
 
 .number {
@@ -23,16 +23,16 @@ body {
 }
 
 .title {
-    font-size: var(--larger);
+    font-size: var(--fs-30);
 }
 
 .subtitle {
     color: $gray;
-    font-size: var(--medium);
+    font-size: var(--fs-10);
 }
 
 .branding {
-    font-size: var(--largest);
+    font-size: var(--fs-50);
 }
 
 /*
@@ -127,6 +127,7 @@ body,
     }
 
     .title-box {
+        font-family: "Open Sans";
         align-self: flex-start;
         display: flex;
         flex-direction: column;
@@ -135,6 +136,8 @@ body,
     .demo-poem {
         display: grid;
         grid-template-columns: auto auto;
+        font-size: var(--fs-10);
+        row-gap: 1em;
 
         .line .text {
             font-style: italic;
@@ -217,7 +220,7 @@ body,
 
 button,
 .button {
-    font-size: var(--medium);
+    font-size: var(--fs-10);
     font-family: $font-secondary;
 }
 
@@ -228,14 +231,13 @@ input,
 
 // Select icons
 .mdi {
-    font-size: var(--largest);
+    font-size: var(--fs-40);
     display: contents;
 }
 
 .game-block-shape {
     width: $block-width;
     height: $block-height;
-    font-size: var(--large);
 }
 
 .game-block {
@@ -313,7 +315,7 @@ input,
     @extend .non-interactive;
 
     font-family: $font-secondary;
-    font-size: var(--medium);
+    font-size: var(--fs-10);
 
     border-radius: 9999px;
     padding-left: 1em;
@@ -412,7 +414,7 @@ input,
         transform: translate(0, calc(-100% - 1em));
 
         &.has-handle {
-            transform: translate(0, calc(-100% + var(--largest)));
+            transform: translate(0, calc(-100% + var(--fs-40)));
         }
 
     }
@@ -517,7 +519,6 @@ input,
     }
 
     .text {
-        font-size: var(--large);
         letter-spacing: 0.04em;
     }
 
@@ -565,7 +566,7 @@ input,
 .number {
     @extend .non-interactive;
     font-family: $font-secondary;
-    font-size: var(--medium);
+    font-size: var(--fs-10);
 }
 
 /*
