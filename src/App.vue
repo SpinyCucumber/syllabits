@@ -16,13 +16,15 @@
           </template>
 
           <template #brand>
-            <b-navbar-item>
+            <b-navbar-item tag="router-link" :to="{ name: 'Splash' }">
               <img :src="$assets.getTexture('Logo')"/>
             </b-navbar-item>
           </template>
 
         </b-navbar>
-        <router-view class="inner"/>
+        <transition name="slide-prev">
+          <router-view class="inner"/>
+        </transition>
       </div>
     </transition>
   </div>
