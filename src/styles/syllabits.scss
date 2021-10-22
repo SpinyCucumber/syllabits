@@ -125,6 +125,10 @@ body,
             flex-direction: column;
             gap: 2em;
         }
+        &>.divider {
+            height: 70%;
+            align-self: center;
+        }
     }
 
     .title-box {
