@@ -57,7 +57,7 @@ body,
 
     .static-area {
         position: relative;
-        &>* { position: absolute; }
+        .static-item { position: absolute; }
     }
 
     .scroll-area {
@@ -67,7 +67,7 @@ body,
         display: flex;
         flex-direction: column;
 
-        .inner {
+        &>.inner {
             position: relative;
             flex-grow: 1;
             display: flex;
@@ -102,7 +102,7 @@ body,
 
 .reader.card {
 
-    .scroll-area .inner {
+    .scroll-area>.inner {
         justify-content: center;
     }
 
@@ -173,18 +173,23 @@ body,
 
 }
 
-.poem {
+.play {
 
-    display: flex;
-    flex-grow: 1;
-    width: min(70em, 100vw);
-    flex-direction: column;
-    align-items: center;
-    gap: 3em;
-    padding-left: 2vw;
-    padding-right: 2vw;
-    padding-top: 3em;
-    padding-bottom: 3em;
+    .content-area {
+        width: min(70em, 100vw);
+    }
+
+    .poem {
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column;
+        align-items: center;
+        gap: 3em;
+        padding-left: 2vw;
+        padding-right: 2vw;
+        padding-top: 3em;
+        padding-bottom: 3em;
+    }
 
     .title-box {
         display: flex;
@@ -433,12 +438,14 @@ input,
 }
 
 .block-dropdown {
+    @extend .static-item;
     top: 0em;
     left: 1em;
     z-index: $z-index-block-dropdown;
 }
 
 .progress-dropdown {
+    @extend .static-item;
     @extend .non-interactive;
     top: 0em;
     left: 50%;

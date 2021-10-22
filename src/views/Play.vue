@@ -1,99 +1,104 @@
 <template>
 
-    <reader>
+    <reader class="play">
 
         <template #static-area>
             <!-- Block picker "drawer" -->
-            <div class="block-dropdown">
-                <game-dropdown :has-handle="true">
-                    <block-picker/>
-                </game-dropdown>
-            </div>
+            <div class="grouping" v-if="ready">
+                <div class="block-dropdown">
+                    <game-dropdown :has-handle="true">
+                        <block-picker/>
+                    </game-dropdown>
+                </div>
 
-            <div class="progress-dropdown">
-                <game-dropdown :trigger="numCorrect">
-                    <game-progress
-                        v-if="ready"
-                        :max-value="poem.totalLines"
-                        :value="numCorrect"/>
-                </game-dropdown>
+                <div class="progress-dropdown">
+                    <game-dropdown :trigger="numCorrect">
+                        <game-progress
+                            :max-value="poem.totalLines"
+                            :value="numCorrect"/>
+                    </game-dropdown>
+                </div>
             </div>
 
         </template>
 
         <template #content-area>
+            <transition name="fade">
+            <div v-if="ready">
 
-            <div class="toolbar">
-                <!-- TODO Help button -->
-                <!-- "Cheat" utils -->
-                <div class="right">
-                    <div v-if="$config.enableCheats" class="grouping">
-                        <b-button
-                            type="is-warning" size="is-small"
-                            label="Complete All"
-                            @click="completeAll"
-                        />
-                        <b-button
-                            type="is-warning" size="is-small"
-                            label="Complete Next"
-                            @click="completeNext"
-                        />
-                        <b-button
-                            type="is-warning" size="is-small"
-                            label="Reset"
-                            @click="reset"
-                        />
+                <div class="toolbar">
+                    <!-- TODO Help button -->
+                    <!-- "Cheat" utils -->
+                    <div class="right">
+                        <div v-if="$config.enableCheats" class="grouping">
+                            <b-button
+                                type="is-warning" size="is-small"
+                                label="Complete All"
+                                @click="completeAll"
+                            />
+                            <b-button
+                                type="is-warning" size="is-small"
+                                label="Complete Next"
+                                @click="completeNext"
+                            />
+                            <b-button
+                                type="is-warning" size="is-small"
+                                label="Reset"
+                                @click="reset"
+                            />
+                        </div>
                     </div>
                 </div>
+
+                <div class="poem">
+
+                    <div class="title-box">
+                        <h1 class="title">{{ poem.name }}</h1>
+                        <div class="subtitle">{{ poem.author }}</div>
+                    </div>
+
+                    <img :src="$assets.getIcon('Divider')" class="divider"/>
+
+                    <!-- Poem lines -->
+                    <div class="body">
+                        <div v-for="(stanza, i) in poem.lines"
+                            :key="i"
+                            class="stanza">
+                            <poem-line
+                                v-for="line in stanza"
+                                :key="line.number"
+                                :line="line"
+                                :lineProgressProxy.sync="progress.lines[line.number]"
+                                :checkHandler="(holding) => checkLine(line.number, holding)"
+                                @correct="onCorrect"
+                                @incorrect="onIncorrect"/>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Poem complete dialog -->
+                <b-modal v-model="showComplete">
+                    <div class="dialog">
+                        <div class="title">{{ $translation.get("play.complete") }}</div>
+                        <!-- TODO Replace this with actual art -->
+                        <img class="divider" :src="$assets.getIcon('Divider')"/>
+                        <div class="completion-feedback">
+                            <!-- TODO -->
+                        </div>
+                        <div class="dialog-footer">
+                            <b-button
+                                type="is-primary"
+                                label="Back to Dashboard"/>
+                            <b-button
+                                type="is-primary"
+                                label="Play a Random Poem"/>
+                        </div>
+                    </div>
+                </b-modal>
+
             </div>
-
-            <div v-if="ready" class="poem">
-
-                <div class="title-box">
-                    <h1 class="title">{{ poem.name }}</h1>
-                    <div class="subtitle">{{ poem.author }}</div>
-                </div>
-
-                <img :src="$assets.getIcon('Divider')" class="divider"/>
-
-                <!-- Poem lines -->
-                <div class="body">
-                    <div v-for="(stanza, i) in poem.lines"
-                        :key="i"
-                        class="stanza">
-                        <poem-line
-                            v-for="line in stanza"
-                            :key="line.number"
-                            :line="line"
-                            :lineProgressProxy.sync="progress.lines[line.number]"
-                            :checkHandler="(holding) => checkLine(line.number, holding)"
-                            @correct="onCorrect"
-                            @incorrect="onIncorrect"/>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Poem complete dialog -->
-            <b-modal v-model="showComplete">
-                <div class="dialog">
-                    <div class="title">{{ $translation.get("play.complete") }}</div>
-                    <!-- TODO Replace this with actual art -->
-                    <img class="divider" :src="$assets.getIcon('Divider')"/>
-                    <div class="completion-feedback">
-                        <!-- TODO -->
-                    </div>
-                    <div class="dialog-footer">
-                        <b-button
-                            type="is-primary"
-                            label="Back to Dashboard"/>
-                        <b-button
-                            type="is-primary"
-                            label="Play a Random Poem"/>
-                    </div>
-                </div>
-            </b-modal>
-
+            </transition>
         </template>
 
     </reader>
