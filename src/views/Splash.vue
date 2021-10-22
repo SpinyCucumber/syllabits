@@ -1,7 +1,7 @@
 <template>
     <reader class="splash" :card="true">
         <template #content-area>
-            <div>
+            <div class="page">
                 <div class="title-box">
                     <h1 class="branding">SyllaBits</h1>
                     <img :src="$assets.getIcon('Divider')" class="divider"/>
@@ -15,7 +15,8 @@
                         :lineProgressProxy="demoProgress[i]"/>
                 </div>
             </div>
-            <div class="portal">
+            <img :src="$assets.getIcon('Column')" class="divider"/>
+            <div class="page portal">
                 <img :src="$assets.getTexture('Logo')" class="logo"/>
                 <div class="button-area">
                     <b-button
