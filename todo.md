@@ -22,5 +22,14 @@
 - [x] Play interface responsiveness
 - [ ] Buefy color scheme changes
 - [ ] Phase out Buefy?
+- [ ] Sonnet 20 .-.
+    - [ ] Modify script to show problem poems
 - [x] Stanzas? (related to dataset)
     - For W. Shakespeare dataset: 4 - 4 - 4 - 2
+- [ ] Keep track of copyright usage (Luna)
+- [ ] Poem collections?
+- [ ] Admin view:
+     - [ ] Create, edit collections
+     - [ ] Add poem to collection
+- [ ] Random poem -> next, previous poem
+- [ ] Push to server

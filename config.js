@@ -7,5 +7,5 @@ export default {
         Spondee: '#000000',
         Pyrrhic: '#007555',
     },
-    enableCheats: false,
+    enableCheats: true,
 }

@@ -45,13 +45,13 @@ export default {
         return {
             images: ['Paper1', 'Paper2', 'Paper3', 'Paper4'].map(AssetService.getTexture),
             buttons: [
+                { key: "randompoem", to: { name: "RandomPoem" } },
                 { key: "login", to: { name: "Login" } },
                 { key: "register", to: { name: "Register" } },
-                { key: "randompoem", to: { name: "RandomPoem" } },
             ],
             demoPoem: [
-                { text: "\"With building blocks to practice and refine" },
-                { text: "your scansion skills will grow with every line\"" },
+                { text: "With building blocks to practice and refine" },
+                { text: "your scansion skills will grow with every line" },
             ],
             demoProgress: []
         }

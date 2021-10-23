@@ -123,6 +123,7 @@ body,
             flex: 1;
             display: flex;
             flex-direction: column;
+            justify-content: center;
             gap: 2em;
         }
         &>.divider {
@@ -132,7 +133,6 @@ body,
     }
 
     .title-box {
-        font-family: $font-secondary;
         align-self: flex-start;
         display: flex;
         flex-direction: column;
