@@ -2,21 +2,23 @@
     <reader class="splash" :card="true">
         <template #content-area>
             <div class="page">
-                <div class="title-box">
-                    <h1 class="branding">SyllaBits</h1>
-                    <img :src="$assets.getIcon('Divider')" class="divider"/>
-                </div>
-                <div class="demo-poem">
-                    <poem-line
-                        v-for="(line, i) in demoPoem"
-                        :has-number="false"
-                        :key="i"
-                        :line="line"
-                        :lineProgressProxy="demoProgress[i]"/>
+                <div class="text-area">
+                    <div class="title-box">
+                        <h1 class="branding">SyllaBits</h1>
+                        <img :src="$assets.getIcon('Divider')" class="divider"/>
+                    </div>
+                    <div class="demo-poem">
+                        <poem-line
+                            v-for="(line, i) in demoPoem"
+                            :has-number="false"
+                            :key="i"
+                            :line="line"
+                            :lineProgressProxy="demoProgress[i]"/>
+                    </div>
                 </div>
             </div>
             <img :src="$assets.getIcon('Column')" class="divider"/>
-            <div class="page portal">
+            <div class="page">
                 <img :src="$assets.getTexture('Logo')" class="logo"/>
                 <div class="button-area">
                     <b-button
