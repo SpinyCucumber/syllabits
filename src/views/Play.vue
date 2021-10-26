@@ -209,8 +209,8 @@ export default {
                     .then(result => result.data.poem)
                     .then(poem => {
                         this.poem = poem;
+                        this.reset();
                         // TODO Set progress from query
-                        this.progress = { lines: [] }
                     });
             },
             immediate: true,
