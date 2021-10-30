@@ -2,7 +2,4 @@
 deployment:
       tasks:
         - export DEPLOYPATH=/home/syllabits/public_html
-        - . .venv/bin/activate
-        - npm run build
-        - deactivate_node
-        - /bin/cp -r dist/* $DEPLOYPATH
+        - /bin/echo $DEPLOYPATH
