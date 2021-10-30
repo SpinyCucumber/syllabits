@@ -43,5 +43,6 @@ These are the recommended steps for deploying on CPanel:
     ```
     git config git config receive.denyCurrentBranch updateInstead
     ```
-    * CPanel can be a pain in the ass. An alternative is to use a Git hook.
+    * CPanel can be a pain in the ass; the auto-deploy feature feels almost unusable. An alternative is to use a post-receive Git hook.
+    * Actually deploying the built app simply involves copying all files from dist/ to the public_html folder.
 4. Simply push to the remote repository to deploy changes
