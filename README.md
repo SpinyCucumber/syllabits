@@ -43,4 +43,5 @@ These are the recommended steps for deploying on CPanel:
     ```
     git config git config receive.denyCurrentBranch updateInstead
     ```
+    * Additionally, CPanel can be a pain in the ass. An alternative is to use a Git hook.
 4. Simply push to the remote repository to deploy changes
