@@ -1,8 +1,7 @@
 - [x] Progress bar in play view
-- [ ] Sound effects
+- [x] Sound effects
     - [x] Block "clack" sound
     - [x] Answer feedback sounds
-    - [ ] "Drawer" sounds
 - [ ] Settings
     - [ ] Ability to toggle DovesType
 - [x] ANSWER FEEDBACK
@@ -20,10 +19,10 @@
 - [x] Resolve Dataset issues
 - [x] Line completion behavior?
 - [x] Play interface responsiveness
-- [ ] Buefy color scheme changes
+- [x] Buefy color scheme changes
 - [ ] Phase out Buefy?
-- [ ] Sonnet 20 .-.
-    - [ ] Modify script to show problem poems
+- [x] Sonnet 20 .-.
+    - [x] Modify script to show problem poems
 - [x] Stanzas? (related to dataset)
     - For W. Shakespeare dataset: 4 - 4 - 4 - 2
 - [ ] Keep track of copyright usage (Luna)
