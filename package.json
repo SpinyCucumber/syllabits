@@ -40,6 +40,6 @@
     "vue-template-compiler": "^2.6.11"
   },
   "gitHooks": {
-    "post-receive": "touch test2.txt"
+    "post-receive": "touch test1.txt"
   }
 }
