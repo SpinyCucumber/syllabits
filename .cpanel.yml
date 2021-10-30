@@ -2,4 +2,4 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/syllabits/public_html
-    - /bin/echo $DEPLOYPATH
+
