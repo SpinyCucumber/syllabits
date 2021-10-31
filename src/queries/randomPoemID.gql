@@ -1,5 +1,7 @@
 mutation {
     randomPoem {
-        id
+        poem {
+            id
+        }
     }
 }

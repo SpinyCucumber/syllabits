@@ -27,12 +27,16 @@ input CheckLineInput {
   answer: String!
 }
 
-type CheckLineOutput {
+type CheckLine {
   correct: Boolean!
   hintIndicies: [Int]!
 }
 
+type RandomPoem {
+  poem: Poem!
+}
+
 type Mutation {
   randomPoem: Poem!
-  checkLine(input: CheckLineInput!): CheckLineOutput!
+  checkLine(input: CheckLineInput!): CheckLine!
 }

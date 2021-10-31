@@ -28,7 +28,7 @@ routes: [
       // apollo provider
       router.app.$nextTick(() => {
         router.app.$apollo.mutate({ mutation: randomPoemIdQuery })
-          .then(result => result.data.randomPoem.id)
+          .then(result => result.data.randomPoem.poem.id)
           .then(id => {
             // Transition to play page with the new poem ID
             next({ name: 'Play', params: { poemID: id }});
