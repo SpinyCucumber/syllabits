@@ -14,7 +14,7 @@
                 <div class="progress-dropdown">
                     <game-dropdown :trigger="numCorrect">
                         <game-progress
-                            :max-value="poem.totalLines"
+                            :max-value="poem.lines.length"
                             :value="numCorrect"/>
                     </game-dropdown>
                 </div>
@@ -95,7 +95,7 @@
 
 <script>
 import poemQuery from '@/queries/poem.gql'
-import checkLineQuery from '@/queries/checkLine.gql'
+import submitLineQuery from '@/queries/submitLine.gql'
 import { BlockPicker, PoemLine, Reader, GameProgress, GameDropdown } from '@/components'
 import { Constants, AssetService } from '@/services'
 import useSound from 'vue-use-sound'
@@ -144,8 +144,8 @@ export default {
             const code = BlockTypes.serializeSequence(holding);
             // We have to construct the input to the server
             const input = { poemID: this.poemID, lineNum, answer: code }
-            return this.$apollo.mutate({ mutation: checkLineQuery, variables: { input } })
-                .then(result => result.data.checkLine);
+            return this.$apollo.mutate({ mutation: submitLineQuery, variables: { input } })
+                .then(result => result.data.submitLine);
         },
 
         onCorrect() {
@@ -185,7 +185,7 @@ export default {
         },
         complete() {
             if (!this.ready) return false;
-            return this.numCorrect === this.poem.totalLines;
+            return this.numCorrect === this.poem.lines.length;
         },
         numCorrect() {
             if (!this.ready) return 0;

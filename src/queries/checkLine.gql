@@ -1,6 +1,0 @@
-mutation($input: CheckLineInput!) {
-    checkLine(input: $input) {
-        correct
-        hintIndicies
-    }
-}
