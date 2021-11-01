@@ -112,6 +112,7 @@ export default {
         classes() {
             let classes = ['line'];
             classes.push(CLASS_LOOKUP.get(this.lineProgress.state));
+            if (this.line.stanzaBreak) classes.push('stanza-break');
             return classes;
         },
         // Whether the check button is visible

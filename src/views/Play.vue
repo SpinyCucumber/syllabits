@@ -53,18 +53,14 @@
 
                     <!-- Poem lines -->
                     <div class="body">
-                        <div v-for="(stanza, i) in poem.lines"
-                            :key="i"
-                            class="stanza">
                             <poem-line
-                                v-for="line in stanza"
+                                v-for="line in poem.lines"
                                 :key="line.number"
                                 :line="line"
                                 :lineProgressProxy.sync="progress.lines[line.number]"
                                 :checkHandler="(holding) => checkLine(line.number, holding)"
                                 @correct="onCorrect"
                                 @incorrect="onIncorrect"/>
-                        </div>
                     </div>
 
                 </div>
