@@ -13,7 +13,8 @@
                             :has-number="false"
                             :key="i"
                             :line="line"
-                            :lineProgressProxy="demoProgress[i]"/>
+                            :lineProgressProxy="demoProgress[i]"
+                            :checkHandler="(holding) => checkLine(i, holding)"/>
                     </div>
                 </div>
             </div>
@@ -56,6 +57,12 @@ export default {
                 { text: "your scansion skills will grow with every line" },
             ],
             demoProgress: []
+        }
+    },
+    methods: {
+        checkLine(number, holding) {
+            // TODO
+            console.log({number, holding});
         }
     }
 }
