@@ -166,6 +166,11 @@ export default {
             })
         },
 
+        nextPoem() {
+            // Navigate to the next poem
+            this.$router.push({ name: 'Play', params: { poemID: this.poem.next.id } });
+        },
+
         completeNext() {
             // Find first line that is not correct and complete it
             const line = this.progress.lines.find(line => line.state !== LineState.Correct);
@@ -207,6 +212,14 @@ export default {
                         this.poem = poem;
                         this.reset();
                         // TODO Set progress from query
+                        // Update navigation links
+                        // TODO Do this conditionally
+                        this.$emit('update:additionalLinks', [
+                            {
+                                key: 'next',
+                                onClick: this.nextPoem,
+                            }
+                        ])
                     });
             },
             immediate: true,

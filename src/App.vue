@@ -10,8 +10,11 @@
             <b-navbar-item tag="router-link" :to="{ name: 'Dashboard' }">
               {{ $translation.get('navbar.dashboard') }}
             </b-navbar-item>
-            <b-navbar-item tag="router-link" :to="{ name: 'RandomPoem' }">
-              {{ $translation.get('navbar.randompoem') }}
+            <b-navbar-item
+              v-for="link in additionalLinks"
+              :key="link.key"
+              @click="link.onClick">
+              {{ $translation.get('navbar.' + link.key) }}
             </b-navbar-item>
           </template>
 
@@ -23,7 +26,7 @@
 
         </b-navbar>
         <transition name="slide-prev">
-          <router-view class="inner"/>
+          <router-view class="inner" :additionalLinks.sync="additionalLinks"/>
         </transition>
       </div>
     </transition>
@@ -32,6 +35,11 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  data() {
+    return {
+      additionalLinks: []
+    }
+  },
 }
 </script>

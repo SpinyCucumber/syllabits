@@ -1,7 +1,8 @@
 {
     "navbar": {
         "dashboard": "Dashboard",
-        "randompoem": "Random Poem"
+        "next": "Next Poem",
+        "previous": "Previous Poem"
     },
     "button": {
         "login": "Login",
