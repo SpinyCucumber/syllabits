@@ -45,7 +45,7 @@
                 <div class="poem">
 
                     <div class="title-box">
-                        <h1 class="title">{{ poem.name }}</h1>
+                        <h1 class="title">{{ poem.title }}</h1>
                         <div class="subtitle">{{ poem.author }}</div>
                     </div>
 

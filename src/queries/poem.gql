@@ -4,12 +4,8 @@ query($id: ID!) {
             title
             author
             lines {
-                edges {
-                    node {
-                        number
-                        text
-                    }
-                }
+                number
+                text
             }
         }
     }
