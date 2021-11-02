@@ -9,27 +9,33 @@ type Line {
   text: String!
 }
 
+type Collection implements Node {
+  title: String!
+}
+
 type Poem implements Node {
   id: ID!
   name: String!
   author: String
-  lines: [[Line]]!
-  totalLines: Int!
+  next: Poem
+  prev: Poem
+  index: Int
+  collection: Collection
+  lines: [Line]!
 }
 
 type Query {
   node(id: ID!): Node
 }
 
-input CheckLineInput {
+input SubmitLineInput {
   poemID: ID!
   lineNum: Int!
   answer: String!
 }
 
-type CheckLine {
-  correct: Boolean!
-  hintIndicies: [Int]!
+type SubmitLine {
+  conflicts: [Int]!
 }
 
 type RandomPoem {
@@ -37,6 +43,6 @@ type RandomPoem {
 }
 
 type Mutation {
-  randomPoem: Poem!
-  checkLine(input: CheckLineInput!): CheckLine!
+  randomPoem: RandomPoem!
+  submitLine(input: SubmitLineInput!): SubmitLine!
 }

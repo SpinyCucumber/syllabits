@@ -32,11 +32,12 @@ The app contains a 'dummy' backend which can be ran in lieu of running the actua
 ```
 npm run apollo
 ```
+* Maintaining the dummy backend is (unfortunately) not a priority, so it might be out of date with the actual backend. Always prefer using the actual backend, especially since it has a debug mode.
 
 ### Deploying on CPanel
 These are the recommended steps for deploying on CPanel:
 1. Clone this repository on the CPanel system, and ensure that you are able to push to it.
-2. Set up a build environment in the cloned repository. This involves installing dependencies, generating GraphQL schema, and downloading any licensed assets.
+2. Set up a build environment in the cloned repository. This involves installing dependencies and downloading any licensed assets.
     * If the CPanel system is running an incompatible version of node, you can set up a node virtual environment in the new repository, using a tool like nodeenv. This project is built on Node 14.17.4.
 3. Configure the repository to automatically build and deploy the app when a push is received. This can be accomplished using a .cpanel.yml file.
     * You might need to configure the repository to accept pushes to the current branch: this can be accomplished using
