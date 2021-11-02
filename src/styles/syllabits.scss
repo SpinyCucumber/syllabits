@@ -323,7 +323,7 @@ input,
 
     &.drop-active:not(.drag-active) .game-block {
         transition: opacity 0.25s ease;
-        opacity: 0%;
+        opacity: 0.0;
     }
 
 }
@@ -500,7 +500,7 @@ input,
 
 .divider {
     @extend .non-interactive;
-    opacity: 15%;
+    opacity: 0.15;
 }
 
 .dialog {

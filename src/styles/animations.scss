@@ -49,32 +49,32 @@
 @keyframes spring {
     0.0% {
         transform: translate(0px, 0px) scale(0);
-        opacity: 100%;
+        opacity: 1.0;
     }
 
     100% {
         transform: translate(0px, -64px);
-        opacity: 0%;
+        opacity: 0.0;
     }
 
     14.6% {
         transform: translate(0px, 0px) scale(1.125);
-        opacity: 100%;
+        opacity: 1.0;
     }
 
     19.6% {
         transform: translate(0px, 0px) scale(1);
-        opacity: 100%;
+        opacity: 1.0;
     }
 
     4.7% {
         transform: translate(0px, 0px) scale(1.25);
-        opacity: 100%;
+        opacity: 1.0;
     }
 
     9.8% {
         transform: translate(0px, 0px) scale(0.75);
-        opacity: 100%;
+        opacity: 1.0;
     }
 }
 
