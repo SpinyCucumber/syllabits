@@ -12,6 +12,7 @@ query($id: ID!) {
             lines {
                 number
                 text
+                stanzaBreak
             }
         }
     }
