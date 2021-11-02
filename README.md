@@ -12,10 +12,6 @@ npm install
 ```
 npm run build
 ```
-* You may need to generate the GraphQL schema before you can build the app. To do this, use:
-```
-npm run apollo:schema:generate
-```
 
 ### Compiles and hot-reloads for development
 ```
@@ -44,7 +40,7 @@ These are the recommended steps for deploying on CPanel:
     ```
     git config git config receive.denyCurrentBranch updateInstead
     ```
-    * CPanel can be a pain in the ass; the auto-deploy feature feels almost unusable. An alternative is to use a post-receive Git hook.
+    * CPanel can be a pain in the ass; the auto-deploy feature feels almost unusable. An alternative is to use a post-receive Git hook, which can be a bash script that builds the project and copies files.
     * Another note: The 'yorkie' package made using "updateInstead" painful. It overrides all hooks in a way that breaks updateInstead. Considering the package hasn't been updated in 3 years, I should probably remove it.
     * Actually deploying the built app simply involves copying all files from dist/ to the public_html folder.
 4. Simply push to the remote repository to deploy changes
