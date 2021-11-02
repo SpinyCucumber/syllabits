@@ -2,7 +2,7 @@
     "navbar": {
         "dashboard": "Dashboard",
         "next": "Next Poem",
-        "previous": "Previous Poem"
+        "prev": "Previous Poem"
     },
     "button": {
         "login": "Login",
