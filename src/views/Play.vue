@@ -214,12 +214,16 @@ export default {
                         // TODO Set progress from query
                         // Update navigation links
                         // TODO Do this conditionally
-                        this.$emit('update:additionalLinks', [
-                            {
-                                key: 'next',
-                                onClick: this.nextPoem,
-                            }
-                        ])
+                        let links = [];
+                        if (this.poem.next) links.push({
+                            key: 'next',
+                            to: { name: 'Play', params: { poemID: this.poem.next.id }}
+                        });
+                        if (this.poem.prev) links.push({
+                            key: 'prev',
+                            to: { name: 'Play', params: { poemID: this.poem.prev.id }}
+                        });
+                        this.$emit('update:additionalLinks', links);
                     });
             },
             immediate: true,

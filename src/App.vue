@@ -12,8 +12,9 @@
             </b-navbar-item>
             <b-navbar-item
               v-for="link in additionalLinks"
+              tag="router-link"
               :key="link.key"
-              @click="link.onClick">
+              :to="link.to">
               {{ $translation.get('navbar.' + link.key) }}
             </b-navbar-item>
           </template>
