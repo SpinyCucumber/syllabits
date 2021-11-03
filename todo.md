@@ -7,28 +7,30 @@
 - [x] ANSWER FEEDBACK
     - [x] One-off animations
     - [x] Some way to communicate correct/incorrect state
-- [ ] Reset button
-- [x] Rename Content CSS class
+    
+- [ ] Play view
+    - Controls
+        - [ ] Reset button
+        - [ ] Help Button
+        - [x] Random poem -> next, previous poem
+    - [ ] IMPROVEMENT "Fun Fact" button in feedback area once line is complete
+    - [x] Poem Complete! Dialog
+    - [x] Resolve Dataset issues
+    - [x] Line completion behavior?
+    - [x] Stanzas? (related to dataset)
+        - For W. Shakespeare dataset: 4 - 4 - 4 - 2
 - [ ] Visual Element Redesign
     - [ ] Divider (fancier!)
     - [ ] "Drawer" handle
     - [ ] Progress bar head
     - [ ] Poem completion dialog art
-- [ ] IMPROVEMENT "Fun Fact" button in feedback area once line is complete
-- [x] Poem Complete! Dialog
-- [x] Resolve Dataset issues
-- [x] Line completion behavior?
-- [x] Play interface responsiveness
 - [x] Buefy color scheme changes
 - [ ] Phase out Buefy?
 - [x] Sonnet 20 .-.
     - [x] Modify script to show problem poems
-- [x] Stanzas? (related to dataset)
-    - For W. Shakespeare dataset: 4 - 4 - 4 - 2
 - [ ] Keep track of copyright usage (Luna)
-- [ ] Poem collections?
+- [x] Poem collections?
 - [ ] Admin view:
      - [ ] Create, edit collections
      - [ ] Add poem to collection
-- [ ] Random poem -> next, previous poem
-- [ ] Push to server
+- [x] Push to server
