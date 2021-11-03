@@ -7,7 +7,6 @@
 - [x] ANSWER FEEDBACK
     - [x] One-off animations
     - [x] Some way to communicate correct/incorrect state
-    
 - [ ] Play view
     - Controls
         - [ ] Reset button
