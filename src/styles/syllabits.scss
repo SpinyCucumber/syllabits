@@ -98,19 +98,28 @@ body,
         flex-direction: column;
     }
 
-}
-
-.reader.card {
-
-    .scroll-area>.inner {
-        justify-content: center;
+    // On small screens, disable the reader background and allow the content to take up entire screen
+    @include touch {
+        .background-area { visibility: hidden; }
+        .scroll-area>.inner { align-items: normal; }
+        &.card .content-area { flex-grow: 1 !important; } 
     }
 
-    .content-area {
-        flex-grow: 0;
+    // If "card" is applied to a reader, center the content vertically
+    &.card {
+
+        .scroll-area>.inner {
+            justify-content: center;
+        }
+
+        .content-area {
+            flex-grow: 0;
+        }
+
     }
 
 }
+
 
 .splash {
 
@@ -173,7 +182,7 @@ body,
     }
 
     // With small screens, disable divider and present pages in column orientation
-    @include mobile {
+    @include touch {
 
         .content-area {
             flex-direction: column;
