@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import { Splash, Login, Dashboard, Play } from '@/views'
+import { Splash, Login, Register, Dashboard, Play } from '@/views'
 
 import { randomPoemID as randomPoemIDQuery } from '@/queries/randomPoemID.gql'
 
@@ -46,6 +46,12 @@ routes: [
     path: '/login',
     name: 'Login',
     component: Login,
+    meta: { transitory: true },
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register,
     meta: { transitory: true },
   },
   {
