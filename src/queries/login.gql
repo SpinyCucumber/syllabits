@@ -1,5 +1,6 @@
 mutation($input: LoginInput!) {
     login(input: $input) {
-        token
+        ok
+        result
     }
 }

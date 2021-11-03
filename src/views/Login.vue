@@ -36,7 +36,7 @@ export default {
             this.busy = true;
             // Submit input to server
             this.$apollo.mutate({ mutation: loginQuery, variables: { input: this.input } })
-                .then(result => result.data.login.token)
+                .then(result => result.data.login.result)
                 .then(token => {
                     this.busy = false;
                     // TODO
