@@ -102,11 +102,11 @@ body,
     @include touch {
         .background-area { visibility: hidden; }
         .scroll-area>.inner { align-items: normal; }
-        &.card .content-area { flex-grow: 1 !important; } 
+        &.centered .content-area { flex-grow: 1 !important; } 
     }
 
-    // If "card" is applied to a reader, center the content vertically
-    &.card {
+    // If "centered" is applied to a reader, center the content vertically
+    &.centered {
 
         .scroll-area>.inner {
             justify-content: center;
