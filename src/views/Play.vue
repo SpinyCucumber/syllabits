@@ -91,8 +91,7 @@
 </template>
 
 <script>
-import poemQuery from '@/queries/poem.gql'
-import submitLineQuery from '@/queries/submitLine.gql'
+import { poem as poemQuery, submitLine as submitLineQuery } from '@/queries'
 import { BlockPicker, PoemLine, Reader, GameProgress, GameDropdown } from '@/components'
 import { Constants, AssetService } from '@/services'
 import useSound from 'vue-use-sound'
