@@ -22,6 +22,12 @@ body {
     font-family: $font-secondary;
 }
 
+.label {
+    color: $dark;
+    font-weight: 100;
+    font-size: var(--fs-10);
+}
+
 .title {
     font-size: var(--fs-30);
 }
