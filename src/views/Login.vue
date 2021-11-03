@@ -12,6 +12,8 @@
                 </b-field>
                 <b-button tag="input" type="is-primary" native-type="submit" value="Login"/>
             </form>
+            <!-- Loading overlay -->
+            <b-loading v-model="busy"/>
         </template>
     </reader>
 </template>
