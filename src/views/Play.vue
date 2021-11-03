@@ -213,7 +213,6 @@ export default {
                         this.reset();
                         // TODO Set progress from query
                         // Update navigation links
-                        // TODO Do this conditionally
                         let links = [];
                         if (this.poem.next) links.push({
                             key: 'next',
