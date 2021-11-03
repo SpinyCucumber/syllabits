@@ -26,12 +26,12 @@ export default {
     components: { BackgroundImage },
     name: 'Reader',
     props: {
-        card: { default: false }
+        centered: { default: false }
     },
     computed: {
         classes() {
             let classes = ['reader'];
-            if (this.card) classes.push('card');
+            if (this.centered) classes.push('centered');
             return classes;
         },
     }

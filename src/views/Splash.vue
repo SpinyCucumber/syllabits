@@ -1,5 +1,5 @@
 <template>
-    <reader class="splash" :card="true">
+    <reader class="splash" :centered="true">
         <template #content-area>
             <div class="page">
                 <div class="text-area">
