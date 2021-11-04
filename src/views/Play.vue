@@ -141,7 +141,7 @@ export default {
             // We have to construct the input to the server
             const input = { poemID: this.poemID, lineNum, answer: code }
             return this.$apollo.mutate({ mutation: submitLineQuery, variables: { input } })
-                .then(result => result.data.submitLine);
+                .then(result => result.data.submitLine.feedback);
         },
 
         onCorrect() {

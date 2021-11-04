@@ -1,5 +1,7 @@
 mutation($input: SubmitLineInput!) {
     submitLine(input: $input) {
-        conflicts
+        feedback {
+            conflicts
+        }
     }
 }
