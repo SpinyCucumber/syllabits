@@ -18,6 +18,9 @@ query($id: ID!) {
                 lines {
                     answer
                     number
+                    feedback {
+                        conflicts
+                    }
                 }
             }
         }
