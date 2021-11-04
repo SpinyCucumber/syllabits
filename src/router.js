@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import { Splash, Login, Register, Dashboard, Play } from '@/views'
 
-import { randomPoemID as randomPoemIDQuery } from '@/queries/randomPoemID.gql'
+import { randomPoemID as randomPoemIDQuery } from '@/queries'
 
 Vue.use(VueRouter)
 
