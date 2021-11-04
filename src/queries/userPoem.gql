@@ -1,0 +1,24 @@
+query($id: ID!) {
+    poem: node(id: $id) {
+        ... on Poem {
+            next {
+                id
+            }
+            prev {
+                id
+            }
+            title
+            author
+            lines {
+                number
+                text
+                stanzaBreak
+            }
+            progress {
+                lines {
+                    answer
+                }
+            }
+        }
+    }
+}

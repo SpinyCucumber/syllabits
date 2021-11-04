@@ -91,7 +91,7 @@
 </template>
 
 <script>
-import { poem as poemQuery, submitLine as submitLineQuery } from '@/queries'
+import { poem as poemQuery, userPoem as userPoemQuery, submitLine as submitLineQuery } from '@/queries'
 import { BlockPicker, PoemLine, Reader, GameProgress, GameDropdown } from '@/components'
 import { Constants, AssetService } from '@/services'
 import useSound from 'vue-use-sound'
@@ -202,12 +202,16 @@ export default {
         poemID: {
             handler(newVal) {
                 // Perform server query
-                this.$apollo.query({ query: poemQuery, variables: { id: newVal } })
+                // If there is a user logged in, make sure to query the progress as well
+                const query = this.$identity.hasIdentity() ? userPoemQuery : poemQuery;
+                this.$apollo.query({ query, variables: { id: newVal } })
                     .then(result => result.data.poem)
                     .then(poem => {
                         this.poem = poem;
                         this.reset();
                         // TODO Set progress from query
+                        // TEST
+                        console.log(poem.progress);
                         // Update navigation links
                         let links = [];
                         if (this.poem.next) links.push({
