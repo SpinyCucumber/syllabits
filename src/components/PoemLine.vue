@@ -90,10 +90,6 @@ export default {
         isValidSequence() {
             return !this.lineProgress.holding.some(blockType => blockType === null);
         },
-        // Create an alias for lineProgress.state so we can watch it
-        state() {
-            return this.lineProgress.state;
-        },
         // 'Lazy' progress
         lineProgress() {
             return (this.lineProgressProxy) ? this.lineProgressProxy : this.insertLineProgress();
@@ -148,6 +144,7 @@ export default {
 
         // Correct animation
         animateCorrect() {
+            this.$emit('correct');
             // 'Bounce' the slots in order to create a wave
             let delay = 0;
             for(let i = 0; i < 5; i++) {
@@ -165,6 +162,7 @@ export default {
         },
 
         animateIncorrect(hintIndicies) {
+            this.$emit('incorrect');
             // Send animation message to incorrect slots
             for (let i of hintIndicies) {
                 this.$refs.slots[i].animate('incorrect');
@@ -177,14 +175,6 @@ export default {
     },
 
     watch: {
-        holding() {
-            // If the slots are modified while the line is incorrect, transition to unchecked
-            if (this.state === LineState.Incorrect) this.lineProgress.state = LineState.Unchecked;
-        },
-        state(newState) {
-            if (newState === LineState.Correct) this.$emit('correct');
-            else if (newState === LineState.Incorrect) this.$emit('incorrect');
-        },
         isValidSequence(newVal) {
             // If the player completes the line while automatic feedback is enabled,
             // we automatically check the answer

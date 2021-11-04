@@ -147,17 +147,13 @@ export default {
         },
 
         insertLineProgress(number) {
-            const progress = this.initLineProgress();
-            Vue.set(this.progress.lines, number, progress);
-            return progress;
-        },
-
-        initLineProgress() {
-            return {
+            const progress = {
                 state: LineState.Unchecked,
                 holding: new Array(5).fill(null),
                 attempts: 0,
             };
+            Vue.set(this.progress.lines, number, progress);
+            return progress;
         },
 
         onCorrect() {
@@ -223,6 +219,8 @@ export default {
                         if (this.poem.progress) {
                             const { progress } = this.poem;
                             for (const line of progress.lines) {
+                                // DEBUG
+                                console.log(line);
                                 let localLineProgress = this.progress.lines[line.number];
                                 if (!localLineProgress) localLineProgress = this.insertLineProgress(line.number);
                                 // Update holding and state
