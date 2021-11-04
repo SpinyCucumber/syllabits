@@ -58,8 +58,9 @@
                             v-for="line in poem.lines"
                             :key="line.number"
                             :line="line"
-                            :lineProgressProxy.sync="progress.lines[line.number]"
+                            :lineProgressProxy="progress.lines[line.number]"
                             :checkHandler="(holding) => checkLine(line.number, holding)"
+                            :insertLineProgress="() => insertLineProgress(line.number)"
                             @correct="onCorrect"
                             @incorrect="onIncorrect"/>
                 </div>
@@ -95,6 +96,7 @@ import { poem as poemQuery, submitLine as submitLineQuery } from '@/queries'
 import { BlockPicker, PoemLine, Reader, GameProgress, GameDropdown } from '@/components'
 import { Constants, AssetService } from '@/services'
 import useSound from 'vue-use-sound'
+import Vue from 'vue'
 
 const { BlockTypes, LineState } = Constants;
 
@@ -142,6 +144,20 @@ export default {
             const input = { poemID: this.poemID, lineNum, answer: code }
             return this.$apollo.mutate({ mutation: submitLineQuery, variables: { input } })
                 .then(result => result.data.submitLine.feedback);
+        },
+
+        insertLineProgress(number) {
+            const line = this.initLineProgress();
+            Vue.set(this.progress, number, line);
+            return line;
+        },
+
+        initLineProgress() {
+            return {
+                state: LineState.Unchecked,
+                holding: new Array(5).fill(null),
+                attempts: 0,
+            };
         },
 
         onCorrect() {

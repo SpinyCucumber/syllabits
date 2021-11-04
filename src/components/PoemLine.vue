@@ -74,6 +74,7 @@ export default {
     props: {
         line: { required: true },
         lineProgressProxy: { required: true },
+        insertLineProgress: { required: true },
         checkHandler: { required: true, type: Function },
         hasNumber: { default: true },
         automaticFeedback: { default: false },
@@ -93,20 +94,9 @@ export default {
         state() {
             return this.lineProgress.state;
         },
-        // This allows us to implement line progress in a "lazy" way.
-        // If the poem isn't tracking progress for this line yet, we tell it to.
-        // Part of why this works is that computed properties are not recomputed until
-        // the dependent properties change.
-        // We could encapsulate this pattern in a directive
+        // 'Lazy' progress
         lineProgress() {
-            if (this.lineProgressProxy) return this.lineProgressProxy;
-            let progress = {
-                state: LineState.Unchecked,
-                holding: new Array(5).fill(null),
-                attempts: 0,
-            };
-            this.$emit('update:lineProgressProxy', progress);
-            return progress;
+            return (this.lineProgressProxy) ? this.lineProgressProxy : this.insertLineProgress();
         },
         // CSS classes
         classes() {
