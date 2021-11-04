@@ -14,6 +14,12 @@ query($id: ID!) {
                 text
                 stanzaBreak
             }
+            progress {
+                lines {
+                    answer
+                    number
+                }
+            }
         }
     }
 }
