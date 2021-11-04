@@ -39,8 +39,7 @@ export default {
                 .then(result => result.data.login.result)
                 .then(token => {
                     this.busy = false;
-                    // TODO
-                    console.log(token);
+                    this.$identity.setIdentity(token);
                 });
         }
     }
