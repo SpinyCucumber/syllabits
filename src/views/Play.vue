@@ -59,8 +59,8 @@
                             :key="line.number"
                             :line="line"
                             :lineProgressProxy="progress.lines[line.number]"
-                            :checkHandler="(holding) => checkLine(line.number, holding)"
                             :insertLineProgress="() => insertLineProgress(line.number)"
+                            :checkHandler="(holding) => checkLine(line.number, holding)"
                             @correct="onCorrect"
                             @incorrect="onIncorrect"/>
                 </div>
@@ -147,9 +147,9 @@ export default {
         },
 
         insertLineProgress(number) {
-            const line = this.initLineProgress();
-            Vue.set(this.progress, number, line);
-            return line;
+            const progress = this.initLineProgress();
+            Vue.set(this.progress.lines, number, progress);
+            return progress;
         },
 
         initLineProgress() {
@@ -224,9 +224,19 @@ export default {
                     .then(poem => {
                         this.poem = poem;
                         this.reset();
-                        // TODO Set progress from query
-                        // TEST
-                        console.log(poem.progress);
+                        // If we received progress, load it
+                        if (this.poem.progress) {
+                            const { progress } = this.poem;
+                            for (const line of progress.lines) {
+                                let localLineProgress = this.progress.lines[line.number];
+                                if (!localLineProgress) localLineProgress = this.insertLineProgress(line.number);
+                                // Update holding and state
+                                // Could abstract this
+                                const correct = (line.feedback.conflicts.length == 0)
+                                localLineProgress.holding = this.$constants.BlockTypes.parseSequence(line.answer);
+                                localLineProgress.state = correct ? LineState.Correct : LineState.Incorrect;
+                            }
+                        }
                         // Update navigation links
                         let links = [];
                         if (this.poem.next) links.push({

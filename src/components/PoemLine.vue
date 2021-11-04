@@ -133,7 +133,7 @@ export default {
             // Let component user handle check
             this.checkHandler(this.lineProgress.holding)
                 .then(result => {
-                    let correct = (result.conflicts.length == 0);
+                    const correct = (result.conflicts.length == 0);
                     // Transition state
                     this.lineProgress.state = correct ?
                         LineState.Correct : LineState.Incorrect;
@@ -179,7 +179,7 @@ export default {
     watch: {
         holding() {
             // If the slots are modified while the line is incorrect, transition to unchecked
-            this.lineProgress.state = LineState.Unchecked;
+            if (this.state === LineState.Incorrect) this.lineProgress.state = LineState.Unchecked;
         },
         state(newState) {
             if (newState === LineState.Correct) this.$emit('correct');
