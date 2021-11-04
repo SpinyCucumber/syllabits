@@ -4,6 +4,7 @@
     - [x] Answer feedback sounds
 - [ ] Settings
     - [ ] Ability to toggle DovesType
+    - [ ] Ability to toggle 'hints'
 - [x] ANSWER FEEDBACK
     - [x] One-off animations
     - [x] Some way to communicate correct/incorrect state
@@ -33,3 +34,10 @@
      - [ ] Create, edit collections
      - [ ] Add poem to collection
 - [x] Push to server
+- [ ] Add Poem Interface
+    - [ ] Stanza break switch
+    - [ ] Entering line-by-line
+    - [ ] Field for title + author
+    - [ ] Add to preexisting collection?
+    - [ ] 5 feet, text box under?
+    - [ ] Always 14 lines
