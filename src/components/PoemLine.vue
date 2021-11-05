@@ -11,7 +11,8 @@
                     ref="slots"
                     :key="n"
                     :holding.sync="lineProgress.holding[n-1]"
-                    :mode="slotMode"/>
+                    :mode="slotMode"
+                    @update:holding="onSlotUpdate"/>
             </div>
             <!-- Line text -->
             <div class="text">{{ line.text }}</div>
@@ -160,6 +161,13 @@ export default {
             setTimeout(() => {
                 this.$refs.feedback.show(FeedbackType.Incorrect);
             }, 500);
+        },
+
+        /**
+         * If the slots are changed while in the 'Incorrect' state, transition to Unchecked
+         */
+        onSlotUpdate() {
+            if (this.lineProgress.state === LineState.Incorrect) this.lineProgress.state = LineState.Unchecked;
         }
 
     },
