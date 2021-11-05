@@ -73,26 +73,16 @@ export default {
 
     props: {
         line: { required: true },
-        lineProgressProxy: { required: true },
-        insertLineProgress: { required: true },
+        lineProgress: { required: true },
         checkHandler: { required: true, type: Function },
         hasNumber: { default: true },
         automaticFeedback: { default: false },
     },
 
     computed: {
-        // An alias for the slot values of the line progress.
-        // This allows us to watch the slots for changes.
-        holding() {
-            return this.lineProgress.holding;
-        },
         // Whether every slot contains a block type
-        isValidSequence() {
+        full() {
             return !this.lineProgress.holding.some(blockType => blockType === null);
-        },
-        // 'Lazy' progress
-        lineProgress() {
-            return (this.lineProgressProxy) ? this.lineProgressProxy : this.insertLineProgress();
         },
         // CSS classes
         classes() {
@@ -105,7 +95,7 @@ export default {
         canCheck() {
             if (this.automaticFeedback) return false;
             if (this.lineProgress.state === LineState.Unchecked) {
-                return this.isValidSequence;
+                return this.full;
             }
             return false;
         },
@@ -175,7 +165,7 @@ export default {
     },
 
     watch: {
-        isValidSequence(newVal) {
+        full(newVal) {
             // If the player completes the line while automatic feedback is enabled,
             // we automatically check the answer
             if (newVal && this.automaticFeedback) this.check();

@@ -58,8 +58,7 @@
                             v-for="line in poem.lines"
                             :key="line.number"
                             :line="line"
-                            :lineProgressProxy="progress.lines[line.number]"
-                            :insertLineProgress="() => insertLineProgress(line.number)"
+                            :lineProgress="progress.lines[line.number]"
                             :checkHandler="(holding) => checkLine(line.number, holding)"
                             @correct="onCorrect"
                             @incorrect="onIncorrect"/>
@@ -120,12 +119,12 @@ export default {
     data() {
         return {
             poem: null,
-            progress: null,
+            progress: { lines: [] },
             showComplete: false,
             cheatButtons: [
                 { key: 'completeall', action: this.completeAll },
                 { key: 'completenext', action: this.completeNext },
-                { key: 'reset', action: this.reset },
+                { key: 'reset', action() { this.initializeLines(this.poem.lines.length); } },
             ],
             completeButtons: [
                 { key: 'dashboard', to: { name: 'Dashboard' } },
@@ -145,15 +144,15 @@ export default {
             return this.$apollo.mutate({ mutation: submitLineQuery, variables: { input } })
                 .then(result => result.data.submitLine.feedback);
         },
-
-        insertLineProgress(number) {
-            const progress = {
-                state: LineState.Unchecked,
-                holding: new Array(5).fill(null),
-                attempts: 0,
-            };
-            Vue.set(this.progress.lines, number, progress);
-            return progress;
+        
+        initializeLines(numLines) {
+            for (let i = 0; i < numLines; i++) {
+                Vue.set(this.progress.lines, i, {
+                    state: LineState.Unchecked,
+                    holding: new Array(5).fill(null),
+                    attempts: 0,
+                })
+            }
         },
 
         onCorrect() {
@@ -178,11 +177,6 @@ export default {
             // Find first line that is not correct and complete it
             const line = this.progress.lines.find(line => line.state !== LineState.Correct);
             if (line) line.state = LineState.Correct;
-        },
-
-        reset() {
-            // Reset all progress
-            this.progress = { lines: [] }
         },
 
     },
@@ -213,34 +207,33 @@ export default {
                 this.$apollo.query({ query: poemQuery, variables: { id: newVal }, fetchPolicy: 'network-only'})
                     .then(result => result.data.poem)
                     .then(poem => {
-                        this.poem = poem;
-                        this.reset();
-                        // If we received progress, load it
-                        if (this.poem.progress) {
-                            const { progress } = this.poem;
+                        this.initializeLines(poem.lines.length);
+                        // Update progress from server is applicable
+                        const { progress } = poem;
+                        if (progress) {
                             for (const line of progress.lines) {
                                 // DEBUG
                                 console.log(line);
                                 let localLineProgress = this.progress.lines[line.number];
-                                if (!localLineProgress) localLineProgress = this.insertLineProgress(line.number);
                                 // Update holding and state
-                                // Could abstract this
-                                const correct = (line.feedback.conflicts.length == 0)
+                                const correct = (line.feedback.conflicts.length == 0);
                                 localLineProgress.holding = this.$constants.BlockTypes.parseSequence(line.answer);
                                 localLineProgress.state = correct ? LineState.Correct : LineState.Incorrect;
                             }
                         }
                         // Update navigation links
                         let links = [];
-                        if (this.poem.prev) links.push({
+                        if (poem.prev) links.push({
                             key: 'prev',
-                            to: { name: 'Play', params: { poemID: this.poem.prev.id }}
+                            to: { name: 'Play', params: { poemID: poem.prev.id }}
                         });
-                        if (this.poem.next) links.push({
+                        if (poem.next) links.push({
                             key: 'next',
-                            to: { name: 'Play', params: { poemID: this.poem.next.id }}
+                            to: { name: 'Play', params: { poemID: poem.next.id }}
                         });
                         this.$emit('update:additionalLinks', links);
+                        // Finally set poem
+                        this.poem = poem;
                     });
             },
             immediate: true,
