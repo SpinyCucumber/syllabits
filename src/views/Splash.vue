@@ -18,7 +18,6 @@
                     </div>
                 </div>
             </div>
-            <img :src="$assets.getIcon('Column')" class="divider"/>
             <div class="page">
                 <img :src="$assets.getTexture('Logo')" class="logo"/>
                 <div class="button-area">
