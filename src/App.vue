@@ -7,9 +7,6 @@
 
           <!-- Items rendered at beginning of navbar -->
           <template #start>
-            <b-navbar-item tag="router-link" :to="{ name: 'Dashboard' }">
-              {{ $translation.get('navbar.dashboard') }}
-            </b-navbar-item>
             <b-navbar-item
               v-for="link in additionalLinks"
               tag="router-link"
@@ -20,7 +17,7 @@
           </template>
 
           <template #brand>
-            <b-navbar-item tag="router-link" :to="{ name: 'Splash' }">
+            <b-navbar-item tag="router-link" :to="{ name: identityState.identity ? 'Dashboard' : 'Splash' }">
               <img :src="$assets.getTexture('Logo')"/>
             </b-navbar-item>
           </template>
@@ -35,11 +32,14 @@
 </template>
 
 <script>
+import { IdentityService } from '@/services'
+
 export default {
   name: 'App',
   data() {
     return {
-      additionalLinks: []
+      additionalLinks: [],
+      identityState: IdentityService.state,
     }
   },
 }

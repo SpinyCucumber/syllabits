@@ -7,12 +7,12 @@ const PREEMPT = 10000;
 let refreshTimeout = null;
 
 let state = {
-    token: null
+    identity: null
 }
 
 function refreshIdentity() {
     // TODO
-    state.token = null;
+    state.identity = null;
 }
 
 export default new Service({
@@ -21,12 +21,12 @@ export default new Service({
     state,
 
     hasIdentity() {
-        return Boolean(state.token)
+        return Boolean(state.identity)
     },
 
-    setIdentity(token) {
-        state.token = token
-        const claims = jwt_decode(token);
+    setIdentity(identity) {
+        state.identity = identity
+        const claims = jwt_decode(identity);
         // Schedule token refresh
         // Make sure to cancel previously scheduled refresh if applicable
         const delta = (claims.exp * 1000) - Date.now() - PREEMPT;
