@@ -13,7 +13,7 @@
                             :has-number="false"
                             :key="i"
                             :line="line"
-                            :lineProgressProxy="demoProgress[i]"
+                            :lineProgress="demoProgress[i]"
                             :checkHandler="(holding) => checkLine(i, holding)"/>
                     </div>
                 </div>
@@ -40,7 +40,10 @@
 
 <script>
 import { Reader, Carousel, PoemLine } from '@/components'
-import { AssetService } from '@/services'
+import { AssetService, Constants } from '@/services'
+import Vue from 'vue'
+
+const { LineState } = Constants
 
 export default {
     components: { Reader, Carousel, PoemLine },
@@ -57,6 +60,11 @@ export default {
                 { text: "your scansion skills will grow with every line" },
             ],
             demoProgress: []
+        }
+    },
+    created() {
+        for (let i in this.demoPoem) {
+            Vue.set(this.demoProgress, i, { holding: Array(5).fill(null), state: LineState.Unchecked, attempts: 0 });
         }
     },
     methods: {
