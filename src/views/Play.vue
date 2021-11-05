@@ -243,7 +243,14 @@ export default {
             }
             this.showComplete = newVal;
         },
-    }
+    },
+
+    // Make sure to clean up our navigation links like a good boy
+    // Could abstract this with a mixin if end up using this pattern more
+    beforeRouteLeave(to, from, next) {
+        this.$emit('update:additionalLinks', []);
+        next();
+    },
 
 }
 </script>
