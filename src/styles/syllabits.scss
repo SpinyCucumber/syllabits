@@ -23,6 +23,7 @@ body {
 }
 
 .label {
+    font-family: $font-secondary;
     color: $dark;
     font-weight: 100;
     font-size: var(--fs-10);
