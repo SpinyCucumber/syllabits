@@ -212,8 +212,6 @@ export default {
                         const { progress } = poem;
                         if (progress) {
                             for (const line of progress.lines) {
-                                // DEBUG
-                                console.log(line);
                                 let localLineProgress = this.progress.lines[line.number];
                                 // Update holding and state
                                 const correct = (line.feedback.conflicts.length == 0);
