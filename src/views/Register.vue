@@ -22,6 +22,11 @@
 import { Reader } from '@/components'
 import { register as registerQuery } from '@/queries'
 
+// Register error name -> translation key
+const ERROR_LOOKUP = {
+    USER_EXISTS: 'userexists'
+}
+
 export default {
     name: 'Register',
     components: { Reader },
@@ -36,11 +41,28 @@ export default {
             this.busy = true;
             // Submit input to server
             this.$apollo.mutate({ mutation: registerQuery, variables: { input: this.input } })
-                .then(result => result.data.register.result)
-                .then(token => {
+                .then(result => result.data.register)
+                .then(response => {
                     this.busy = false;
-                    // TODO
-                    console.log(token);
+                    // If the response was OK, we set the identity using the new token
+                    // and navigate to the dashboard (and show a nice message as well.)
+                    // Otherwise, we display an error message.
+                    if (response.ok) {
+                        const token = response.result;
+                        this.$identity.setIdentity(token);
+                        this.$buefy.toast.open({
+                            message: this.$translation.get('message.registersuccess'),
+                            type: 'is-success'
+                        });
+                        this.$router.push({ name: 'Dashboard' });
+                    }
+                    else {
+                        const key = 'message.register' + ERROR_LOOKUP[response.error];
+                        this.$buefy.toast.open({
+                            message: this.$translation.get(key),
+                            type: 'is-danger'
+                        });
+                    }
                 });
         }
     }

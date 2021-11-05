@@ -15,7 +15,9 @@
     },
     "message": {
         "loginsuccess": "Successfully logged in!",
-        "loginfail": "Invalid username/password."
+        "loginfail": "Invalid username/password.",
+        "registersuccess": "Successfully created account!",
+        "registeruserexists": "A user with that email already exists."
     },
     "play": {
         "check": "Check!",
