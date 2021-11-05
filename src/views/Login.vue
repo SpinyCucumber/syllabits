@@ -39,7 +39,22 @@ export default {
                 .then(result => result.data.login.result)
                 .then(token => {
                     this.busy = false;
-                    this.$identity.setIdentity(token);
+                    // If we received a valid token, set the identity and navigate to dashboard
+                    // In either case send the user a nice message
+                    if (token) {
+                        this.$identity.setIdentity(token);
+                        this.$buefy.toast.open({
+                            message: this.$translation.get('message.loginsuccess'),
+                            type: 'is-success'
+                        });
+                        this.$router.push({ name: 'Dashboard' });
+                    }
+                    else {
+                        this.$buefy.toast.open({
+                            message: this.$translation.get('message.loginfail'),
+                            type: 'is-danger'
+                        });
+                    }
                 });
         }
     }

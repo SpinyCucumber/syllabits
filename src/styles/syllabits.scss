@@ -18,11 +18,7 @@ body {
     font-size: var(--fs-10);
 }
 
-.number {
-    font-family: $font-secondary;
-}
-
-.help {
+.number, .help, .toast {
     font-family: $font-secondary;
 }
 
