@@ -32,8 +32,8 @@
 }
 
 // SCSS variables
-$font-primary: 'DovesType-Regular';
-$font-secondary: 'Open Sans';
+$font-primary: "DovesType-Regular";
+$font-secondary: "Open Sans";
 
 $light: #d3d3d3;
 $lighter: #e2e2e2;
@@ -107,6 +107,16 @@ $colors: mergeColorMaps(
         ),
     ),
     $custom-colors
+);
+
+// Color of each block/feet type
+$block-colors: (
+    "Iamb": #E69F00,
+    "Trochee": #0072B2,
+    "Dactyl": #D55E00,
+    "Anapest": #CC79A7,
+    "Spondee": #000000,
+    "Pyrrhic": #007555
 );
 
 $block-height: 2.25em;

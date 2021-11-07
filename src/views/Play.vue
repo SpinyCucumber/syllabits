@@ -29,7 +29,7 @@
                 <!-- "Cheat" utils -->
                 <div class="right">
                     <transition name="fade" mode="out-in">
-                    <div v-if="$config.enableCheats" class="grouping">
+                    <div v-if="showCheats" class="grouping">
                         <b-button
                             v-for="button in cheatButtons"
                             :key="button.key"
@@ -196,6 +196,9 @@ export default {
                 if (line.state === LineState.Correct) result += 1;
             });
             return result;
+        },
+        showCheats() {
+            return process.env.SYLLABITS_CHEATS;
         },
     },
 

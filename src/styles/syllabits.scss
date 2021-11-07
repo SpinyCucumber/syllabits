@@ -317,6 +317,13 @@ input,
 
     @extend .game-block-shape;
 
+    // Color
+    @each $type, $color in $block-colors {
+        &.type-#{$type} {
+            background-color: $color;
+        }
+    }
+
     display: flex;
     align-items: center;
     justify-content: space-around;

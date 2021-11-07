@@ -1,7 +1,6 @@
 <template>
     <div
-        class="game-block"
-        :style="{ 'background-color': this.$config.getBlockTypeColor(this.type) }">
+        :class="['game-block', `type-${type.name}`]">
         <img v-for="(stress, index) in this.type.stresses" :src="$assets.getIcon(stress.name)" :key="index" class="game-notation"/>
     </div>
 </template>

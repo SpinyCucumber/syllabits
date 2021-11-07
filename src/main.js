@@ -6,13 +6,12 @@ import Buefy from 'buefy'
 import './styles/syllabits.scss'
 
 import { createProvider } from './apollo'
-import { Constants, ConfigService, IdentityService, AssetService, TranslationService } from './services'
+import { Constants, IdentityService, AssetService, TranslationService } from './services'
 
 // Install Vue plugins!
 // Buefy bundle size is actually small
 Vue.use(Buefy);
 Vue.use(Constants);
-Vue.use(ConfigService);
 Vue.use(IdentityService);
 Vue.use(AssetService);
 Vue.use(TranslationService);
