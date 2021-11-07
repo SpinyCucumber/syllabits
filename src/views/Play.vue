@@ -198,7 +198,7 @@ export default {
             return result;
         },
         showCheats() {
-            return process.env.SYLLABITS_CHEATS;
+            return process.env.VUE_APP_SYLLABITS_CHEATS;
         },
     },
 
