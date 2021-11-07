@@ -33,7 +33,7 @@
                         <b-button
                             v-for="button in cheatButtons"
                             :key="button.key"
-                            type="is-warning" size="is-small"
+                            type="is-info" size="is-small"
                             :label="$translation.get('button.' + button.key)"
                             @click="button.action"
                         />
@@ -124,7 +124,7 @@ export default {
             cheatButtons: [
                 { key: 'completeall', action: this.completeAll },
                 { key: 'completenext', action: this.completeNext },
-                { key: 'reset', action() { this.initializeLines(this.poem.lines.length); } },
+                { key: 'reset', action: this.reset },
             ],
             completeButtons: [
                 { key: 'dashboard', to: { name: 'Dashboard' } },
@@ -153,6 +153,10 @@ export default {
                     attempts: 0,
                 })
             }
+        },
+
+        reset() {
+            this.initializeLines(this.poem.lines.length);
         },
 
         onCorrect() {
