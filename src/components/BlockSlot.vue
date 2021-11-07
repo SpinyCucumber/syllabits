@@ -130,11 +130,9 @@ export default {
 
     computed: {
         classes() {
-            let classes = ['game-slot'];
+            let classes = ['game-slot', `mode-${CLASS_LOOKUP.get(this.mode)}`];
             if (this.dropActive) classes.push('drop-active');
             if (this.dragActive) classes.push('drag-active');
-            // Push mode class
-            classes.push(CLASS_LOOKUP.get(this.mode));
             return classes;
         },
         removeOnDrop() {

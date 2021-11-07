@@ -357,12 +357,12 @@ input,
         animation: bounce 0.4s;
     }
 
-    &.slot.drop-active .game-blank {
+    &.mode-slot.drop-active .game-blank {
         fill: $lighter;
         animation: ants 3s linear 0s infinite normal forwards;
     }
 
-    &:not(.slot) .game-blank {
+    &:not(.mode-slot) .game-blank {
         visibility: hidden;
     }
 
