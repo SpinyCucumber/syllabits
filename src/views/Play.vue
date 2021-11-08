@@ -142,7 +142,7 @@ export default {
             // We have to construct the input to the server
             const input = { poemID: this.poemID, lineNum, answer: code }
             return this.$apollo.mutate({ mutation: submitLineQuery, variables: { input } })
-                .then(result => result.data.submitLine.feedback);
+                .then(result => result.data.submitLine);
         },
         
         initializeLines(numLines) {
@@ -221,9 +221,8 @@ export default {
                             for (const line of progress.lines) {
                                 let localLineProgress = this.progress.lines[line.number];
                                 // Update holding and state
-                                const correct = (line.feedback.conflicts.length == 0);
                                 localLineProgress.holding = this.$constants.BlockTypes.parseSequence(line.answer);
-                                localLineProgress.state = correct ? LineState.Correct : LineState.Incorrect;
+                                localLineProgress.state = line.correct ? LineState.Correct : LineState.Incorrect;
                             }
                         }
                         // Update navigation links

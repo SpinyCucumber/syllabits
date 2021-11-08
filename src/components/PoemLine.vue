@@ -120,15 +120,14 @@ export default {
             // Let component user handle check
             this.checkHandler(this.lineProgress.holding)
                 .then(result => {
-                    const correct = (result.conflicts.length == 0);
                     // Transition state
-                    this.lineProgress.state = correct ?
+                    this.lineProgress.state = result.correct ?
                         LineState.Correct : LineState.Incorrect;
                     // Trigger animations
                     // Animations are only triggered when we actually get a check result back.
                     // This is because we need the feedback to actually perform the incorrect
                     // animations.
-                    if (correct) this.animateCorrect();
+                    if (result.correct) this.animateCorrect();
                     else this.animateIncorrect(result.conflicts);
                 });
         },
