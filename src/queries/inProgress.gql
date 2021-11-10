@@ -1,0 +1,10 @@
+query {
+    poems: poemsInProgress {
+        edges {
+            node {
+                title
+                author
+            }
+        }
+    }
+}
