@@ -1,6 +1,10 @@
 <template>
     <div class="poem-list">
-        TODO
+        <div
+            v-for="poemEdge in poems.edges"
+            :key="poemEdge.node.id"
+            :label="poemEdge.node.title">
+        </div>
     </div>
 </template>
 

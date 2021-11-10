@@ -2,6 +2,7 @@ query {
     poems: poemsInProgress {
         edges {
             node {
+                id
                 title
                 author
             }
