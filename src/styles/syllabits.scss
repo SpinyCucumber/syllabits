@@ -441,7 +441,6 @@ input,
     height: 2.25em;
     width: min(40em, 90vw);
     background-color: $light;
-    border-radius: 9999px;
     position: relative;
 
     &>* {
@@ -452,8 +451,11 @@ input,
         width: calc(var(--progress) * 100%);
         height: 100%;
         background-color: $dark;
-        border-radius: 9999px;
         transition: width 3s ease;
+    }
+
+    &.rounded, &.rounded .inner {
+        border-radius: 9999px;
     }
 
 }

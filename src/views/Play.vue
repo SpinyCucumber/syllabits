@@ -15,7 +15,8 @@
                     <game-dropdown :trigger="numCorrect">
                         <game-progress
                             :max-value="poem.lines.length"
-                            :value="numCorrect"/>
+                            :value="numCorrect"
+                            :rounded="true"/>
                     </game-dropdown>
                 </div>
             </div>
