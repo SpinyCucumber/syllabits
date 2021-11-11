@@ -7,6 +7,7 @@
             <span>{{ poemEdge.node.title }}</span>
             <span>{{ poemEdge.node.author }}</span>
             <span>{{ Number(poemEdge.node.progress.completion).toLocaleString(undefined, {style: 'percent'}) }}</span>
+            <div class="entry-background"/>
         </div>
     </div>
 </template>

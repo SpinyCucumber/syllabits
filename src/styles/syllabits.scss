@@ -127,6 +127,13 @@ body,
 
 }
 
+.dashboard {
+
+    display: grid;
+    grid-template-columns: auto auto;
+    padding: 1em;
+
+}
 
 .splash {
 
@@ -658,6 +665,8 @@ input,
     grid-template-columns: auto auto auto;
     
     .entry { @extend .grouping }
+    .entry-background { grid-column: 1/-1; }
+
 }
 
 .number {
