@@ -646,6 +646,20 @@ input,
 
 }
 
+.widget {
+    @extend .has-shadow;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+.poem-list {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    
+    .entry { @extend .grouping }
+}
+
 .number {
     @extend .non-interactive;
     font-family: $font-secondary;
