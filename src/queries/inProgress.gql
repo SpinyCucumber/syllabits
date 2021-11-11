@@ -5,6 +5,9 @@ query {
                 id
                 title
                 author
+                progress {
+                    completion
+                }
             }
         }
     }
