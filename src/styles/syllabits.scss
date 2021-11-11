@@ -128,11 +128,9 @@ body,
 }
 
 .dashboard {
-
     display: grid;
     grid-template-columns: repeat(3, auto);
     padding: 1em;
-
 }
 
 .splash {
@@ -666,9 +664,11 @@ input,
 }
 
 .widget {
+    padding: 2em;
     display: flex;
     flex-direction: column;
     gap: 1em;
+    background-color: $white;
     .widget-title {
         font-family: $font-secondary;
         color: $gray;

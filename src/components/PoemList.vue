@@ -12,13 +12,13 @@
             <game-progress
                 type="is-primary is-small"
                 :value="poemEdge.node.progress.numCorrect"
-                :maxValue="poemEdge.node.numLines"/>
+                :max-value="poemEdge.node.numLines"/>
         </div>
     </div>
 </template>
 
 <script>
-import { GameProgress } from '@/components'
+import GameProgress from './GameProgress'
 
 export default {
     name: 'PoemList',
