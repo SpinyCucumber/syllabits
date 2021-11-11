@@ -2,7 +2,9 @@
     <div v-if="poems" class="poem-list">
         <div
             v-for="poemEdge in poems.edges"
-            :key="poemEdge.node.id" class="entry">
+            :key="poemEdge.node.id"
+            @click="$router.push({name: 'Play', params: {poemID: poemEdge.node.id}})"
+            class="entry">
             <div class="entry-content">
                 <p class="title">{{ poemEdge.node.title }}</p>
                 <p class="subtitle">{{ poemEdge.node.author }}</p>
