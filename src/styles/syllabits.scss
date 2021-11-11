@@ -668,6 +668,11 @@ input,
         @extend .has-shadow;
         display: flex;
         flex-direction: column;
+        transition: transform 0.25s, box-shadow 0.25s;
+        &:hover {
+            transform: translate(0, -0.5em);
+            box-shadow: 0px 0px 6px 6px $shadow;
+        }
     }
 
     .entry-content {
@@ -697,7 +702,7 @@ input,
 }
 
 .has-shadow {
-    box-shadow: 0px 0px 3px 3px #36363655;
+    box-shadow: 0px 0px 3px 3px $shadow;
 }
 
 .full-height {
