@@ -4,7 +4,7 @@
             v-for="widget in widgets"
             :key="widget.key"
             class="widget">
-            <h3>{{ $translation.get('widget.' + widget.key) }}</h3>
+            <h3 class="widget-title">{{ $translation.get('widget.' + widget.key) }}</h3>
             <component
                 :is="widget.component"
                 v-bind="widget.props"
