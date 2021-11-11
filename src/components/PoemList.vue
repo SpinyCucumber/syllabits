@@ -2,12 +2,12 @@
     <div v-if="poems" class="poem-list">
         <div
             v-for="poemEdge in poems.edges"
-            :key="poemEdge.node.id"
-            class="entry">
-            <span>{{ poemEdge.node.title }}</span>
-            <span>{{ poemEdge.node.author }}</span>
-            <span>{{ Number(poemEdge.node.progress.completion).toLocaleString(undefined, {style: 'percent'}) }}</span>
-            <div class="entry-background"/>
+            :key="poemEdge.node.id" class="entry">
+            <div class="entry-content">
+                <p class="title">{{ poemEdge.node.title }}</p>
+                <p class="subtitle">{{ poemEdge.node.author }}</p>
+            </div>
+            <div class="entry-banner"/>
         </div>
     </div>
 </template>
