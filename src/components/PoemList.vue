@@ -9,7 +9,10 @@
                 <p class="title">{{ poemEdge.node.title }}</p>
                 <p class="subtitle">{{ poemEdge.node.author }}</p>
             </div>
-            <game-progress type="is-primary is-small"/>
+            <game-progress
+                type="is-primary is-small"
+                :value="poemEdge.node.progress.numCorrect"
+                :maxValue="poemEdge.node.numLines"/>
         </div>
     </div>
 </template>
