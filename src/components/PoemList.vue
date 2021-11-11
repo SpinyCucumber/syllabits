@@ -9,14 +9,17 @@
                 <p class="title">{{ poemEdge.node.title }}</p>
                 <p class="subtitle">{{ poemEdge.node.author }}</p>
             </div>
-            <div class="entry-banner"/>
+            <game-progress type="is-primary is-small"/>
         </div>
     </div>
 </template>
 
 <script>
+import { GameProgress } from '@/components'
+
 export default {
     name: 'PoemList',
+    components: { GameProgress },
     props: {
         query: { required: true },
     },

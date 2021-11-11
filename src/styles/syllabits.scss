@@ -439,12 +439,15 @@ input,
 .game-progress {
 
     height: 2.25em;
-    width: min(40em, 90vw);
     background-color: $light;
     position: relative;
 
     &>* {
         position: absolute;
+    }
+
+    &.is-small {
+        height: 1em;
     }
 
     .inner {
@@ -456,6 +459,13 @@ input,
 
     &.rounded, &.rounded .inner {
         border-radius: 9999px;
+    }
+
+    
+    @each $name, $components in $colors {
+        &.is-#{$name} {
+            .inner { background-color: nth($components, 1); }
+        }
     }
 
 }
