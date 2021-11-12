@@ -98,6 +98,16 @@ body,
     .content-area {
         z-index: 5;
         flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &.is-centered .content-area {
+        justify-content: center;
+    }
+
+    &.is-aligned .content-area {
+        align-items: center;
     }
 
     // On small screens, disable the reader background and allow the content to take up entire screen
@@ -110,25 +120,26 @@ body,
 
 .splash {
 
-    .content-area {
-        min-width: 60vw;
-        min-height: 60vh;
-        padding: 2em;
-        flex-direction: row;
+    min-width: 60vw;
+    min-height: 60vh;
+    padding: 2em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    &>.page {
+        max-height: 50em;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         align-items: center;
-        &>.page {
-            max-height: 50em;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 2em;
-        }
-        &>.divider {
-            max-height: 20em;
-            align-self: center;
-        }
+        gap: 2em;
+    }
+
+    &>.divider {
+        max-height: 20em;
+        align-self: center;
     }
 
     .text-area {

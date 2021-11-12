@@ -1,5 +1,5 @@
 <template>
-    <div :class="classes">
+    <div :class="['reader', type]">
         <div class="static-area"><slot name="static-area"/></div>
         <div class="scroll-area">
             <div class="inner">
@@ -26,14 +26,7 @@ export default {
     components: { BackgroundImage },
     name: 'Reader',
     props: {
-        centered: { default: false }
+        type: { default: '' }
     },
-    computed: {
-        classes() {
-            let classes = ['reader'];
-            if (this.centered) classes.push('centered');
-            return classes;
-        },
-    }
 }
 </script>

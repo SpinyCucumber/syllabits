@@ -1,33 +1,35 @@
 <template>
-    <reader class="splash" :centered="true">
+    <reader type="is-centered is-aligned">
         <template #content-area>
-            <div class="page">
-                <div class="text-area">
-                    <div class="title-box">
-                        <h1 class="branding">SyllaBits</h1>
-                        <img :src="$assets.getIcon('Divider')" class="divider"/>
-                    </div>
-                    <div class="demo-poem">
-                        <poem-line
-                            v-for="(line, i) in demoPoem"
-                            :has-number="false"
-                            :key="i"
-                            :line="line"
-                            :lineProgress="demoProgress[i]"
-                            :checkHandler="(holding) => checkLine(i, holding)"/>
+            <div class="splash">
+                <div class="page">
+                    <div class="text-area">
+                        <div class="title-box">
+                            <h1 class="branding">SyllaBits</h1>
+                            <img :src="$assets.getIcon('Divider')" class="divider"/>
+                        </div>
+                        <div class="demo-poem">
+                            <poem-line
+                                v-for="(line, i) in demoPoem"
+                                :has-number="false"
+                                :key="i"
+                                :line="line"
+                                :lineProgress="demoProgress[i]"
+                                :checkHandler="(holding) => checkLine(i, holding)"/>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="page">
-                <img :src="$assets.getTexture('Logo')" class="logo"/>
-                <div class="button-area">
-                    <b-button
-                        v-for="button of buttons"
-                        tag="router-link"
-                        :key="button.key"
-                        :to="button.to"
-                        :label="$translation.get('button.' + button.key)"
-                        type="is-primary"/>
+                <div class="page">
+                    <img :src="$assets.getTexture('Logo')" class="logo"/>
+                    <div class="button-area">
+                        <b-button
+                            v-for="button of buttons"
+                            tag="router-link"
+                            :key="button.key"
+                            :to="button.to"
+                            :label="$translation.get('button.' + button.key)"
+                            type="is-primary"/>
+                    </div>
                 </div>
             </div>
         </template>
