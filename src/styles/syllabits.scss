@@ -118,7 +118,14 @@ body,
 
 }
 
+.foreground {
+    @extend .has-shadow;
+    background-color: white;
+    padding: 1em;
+}
+
 .splash {
+    @extend .foreground;
 
     min-width: 60vw;
     min-height: 60vh;
@@ -193,12 +200,13 @@ body,
 }
 
 .login, .register {
+    @extend .foreground;
 
-    .content-area {
-        min-width: 30vw;
-        min-height: 50vh;
-        gap: 1em;
-    }
+    display: flex;
+    flex-direction: column;
+    min-width: 30vw;
+    min-height: 50vh;
+    gap: 1em;
 
     .logo {
         width: 16em;
@@ -233,6 +241,7 @@ body,
 }
 
 .play {
+    @extend .foreground;
 
     width: min(70em, 100vw);
 

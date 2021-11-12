@@ -1,19 +1,21 @@
 <template>
-    <reader class="register centered">
+    <reader type="is-aligned is-centered">
         <template #content-area>
-            <!-- TODO Could change logo here (or background) to something more exciting -->
-            <img :src="$assets.getTexture('Logo')" class="logo"/>
-            <form @submit.prevent="submit">
-                <b-field label="Email" label-position="on-border">
-                    <b-input type="email" v-model="input.email"/>
-                </b-field>
-                <b-field label="Password" label-position="on-border">
-                    <b-input type="password" v-model="input.password"/>
-                </b-field>
-                <b-button tag="input" type="is-primary" native-type="submit" value="Register"/>
-            </form>
-            <!-- Loading overlay -->
-            <b-loading v-model="busy"/>
+            <div class="register">
+                <!-- TODO Could change logo here (or background) to something more exciting -->
+                <img :src="$assets.getTexture('Logo')" class="logo"/>
+                <form @submit.prevent="submit">
+                    <b-field label="Email" label-position="on-border">
+                        <b-input type="email" v-model="input.email"/>
+                    </b-field>
+                    <b-field label="Password" label-position="on-border">
+                        <b-input type="password" v-model="input.password"/>
+                    </b-field>
+                    <b-button tag="input" type="is-primary" native-type="submit" value="Register"/>
+                </form>
+                <!-- Loading overlay -->
+                <b-loading v-model="busy"/>
+            </div>
         </template>
     </reader>
 </template>
