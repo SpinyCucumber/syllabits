@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <transition name="slide-prev">
+    <transition name="fade" mode="out-in">
       <router-view v-if="$route.meta.transitory"/>
       <div v-else class="main">
         <b-navbar>
@@ -23,7 +23,7 @@
           </template>
 
         </b-navbar>
-        <transition name="slide-prev">
+        <transition name="fade" mode="out-in">
           <router-view class="inner" :additionalLinks.sync="additionalLinks"/>
         </transition>
       </div>
