@@ -127,12 +127,6 @@ body,
 
 }
 
-.dashboard {
-    display: grid;
-    grid-template-columns: repeat(3, auto);
-    padding: 1em;
-}
-
 .splash {
 
     .content-area {
@@ -716,6 +710,10 @@ input,
 // Filter
 .warm {
     filter: saturate(450%) hue-rotate(-15deg) contrast(30%) blur(2px);
+}
+// Filter
+.muted {
+    filter: contrast(70%) blur(8px);
 }
 
 .has-shadow {
