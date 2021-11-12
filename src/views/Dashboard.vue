@@ -1,15 +1,17 @@
 <template>
-    <reader class="dashboard">
+    <reader>
         <template #content-area>
-            <div
-                v-for="widget in widgets"
-                :key="widget.key"
-                class="widget">
-                <h3 class="widget-title">{{ $translation.get('widget.' + widget.key) }}</h3>
-                <component
-                    :is="widget.component"
-                    v-bind="widget.props"
-                    class="inner"/>
+            <div class="dashboard">
+                <div
+                    v-for="widget in widgets"
+                    :key="widget.key"
+                    class="widget">
+                    <h3 class="widget-title">{{ $translation.get('widget.' + widget.key) }}</h3>
+                    <component
+                        :is="widget.component"
+                        v-bind="widget.props"
+                        class="inner"/>
+                </div>
             </div>
         </template>
         <template #background-area>
