@@ -1,6 +1,6 @@
 <template>
 
-    <reader class="play">
+    <reader type="is-aligned">
 
         <template #static-area>
             <!-- Block picker "drawer" -->
@@ -25,67 +25,68 @@
 
         <template #content-area>
 
-            <div class="toolbar">
-                <!-- TODO Help button -->
-                <!-- "Cheat" utils -->
-                <div class="right">
-                    <transition name="fade" mode="out-in">
-                    <div v-if="showCheats" class="grouping">
-                        <b-button
-                            v-for="button in cheatButtons"
-                            :key="button.key"
-                            type="is-info" size="is-small"
-                            :label="$translation.get('button.' + button.key)"
-                            @click="button.action"
-                        />
-                    </div>
-                    </transition>
-                </div>
-            </div>
-            
-            <transition name="fade" mode="out-in">
-            <div class="poem" v-if="ready" :key="poemID">
-
-                <div class="title-box">
-                    <h1 class="title">{{ poem.title }}</h1>
-                    <div class="subtitle">{{ poem.author }}</div>
-                </div>
-
-                <img :src="$assets.getIcon('Divider')" class="divider"/>
-
-                <!-- Poem lines -->
-                <div class="body">
-                        <poem-line
-                            v-for="line in poem.lines"
-                            :key="line.number"
-                            :line="line"
-                            :lineProgress="progress.lines[line.number]"
-                            :checkHandler="(holding) => checkLine(line.number, holding)"
-                            @correct="onCorrect"
-                            @incorrect="onIncorrect"/>
-                </div>
-
-            </div>
-            </transition>
-
-            <!-- Poem complete dialog -->
-            <b-modal v-model="showComplete">
-                <div class="dialog">
-                    <div class="title">{{ $translation.get("play.complete") }}</div>
-                    <!-- TODO Replace this with actual art -->
-                    <img class="divider" :src="$assets.getIcon('Divider')"/>
-                    <div class="dialog-footer">
-                        <b-button
-                            v-for="button in completeButtons"
-                            :key="button.key"
-                            tag="router-link"
-                            :to="button.to"
-                            type="is-primary"
-                            :label="$translation.get('button.' + button.key)"/>
+            <div class="play">
+                <div class="toolbar">
+                    <!-- TODO Help button -->
+                    <!-- "Cheat" utils -->
+                    <div class="right">
+                        <transition name="fade" mode="out-in">
+                        <div v-if="showCheats" class="grouping">
+                            <b-button
+                                v-for="button in cheatButtons"
+                                :key="button.key"
+                                type="is-info" size="is-small"
+                                :label="$translation.get('button.' + button.key)"
+                                @click="button.action"
+                            />
+                        </div>
+                        </transition>
                     </div>
                 </div>
-            </b-modal>
+                
+                <transition name="fade" mode="out-in">
+                <div class="poem" v-if="ready" :key="poemID">
 
+                    <div class="title-box">
+                        <h1 class="title">{{ poem.title }}</h1>
+                        <div class="subtitle">{{ poem.author }}</div>
+                    </div>
+
+                    <img :src="$assets.getIcon('Divider')" class="divider"/>
+
+                    <!-- Poem lines -->
+                    <div class="body">
+                            <poem-line
+                                v-for="line in poem.lines"
+                                :key="line.number"
+                                :line="line"
+                                :lineProgress="progress.lines[line.number]"
+                                :checkHandler="(holding) => checkLine(line.number, holding)"
+                                @correct="onCorrect"
+                                @incorrect="onIncorrect"/>
+                    </div>
+
+                </div>
+                </transition>
+
+                <!-- Poem complete dialog -->
+                <b-modal v-model="showComplete">
+                    <div class="dialog">
+                        <div class="title">{{ $translation.get("play.complete") }}</div>
+                        <!-- TODO Replace this with actual art -->
+                        <img class="divider" :src="$assets.getIcon('Divider')"/>
+                        <div class="dialog-footer">
+                            <b-button
+                                v-for="button in completeButtons"
+                                :key="button.key"
+                                tag="router-link"
+                                :to="button.to"
+                                type="is-primary"
+                                :label="$translation.get('button.' + button.key)"/>
+                        </div>
+                    </div>
+                </b-modal>
+                </div>
         </template>
 
     </reader>
