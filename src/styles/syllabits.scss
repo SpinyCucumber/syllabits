@@ -486,7 +486,6 @@ input,
     @extend .has-shadow;
     display: flex;
     flex-direction: column;
-    align-items: center;
 
     background-color: white;
     border-top: none;
@@ -502,6 +501,7 @@ input,
     .handle {
         background-color: transparent;
         background-repeat: no-repeat;
+        align-self: center;
         border: none;
         cursor: pointer;
         overflow: hidden;
@@ -538,6 +538,7 @@ input,
     top: 0em;
     left: 50%;
     transform: translate(-50%, 0);
+    width: min(100vw, 40em);
     z-index: $z-index-progress-dropdown;
 }
 
