@@ -20,6 +20,12 @@
 </template>
 
 <script>
+/**
+ * A scene is a general-purpose layout component that creates a "background area",
+ * a "content area" and a "static area" for a single space. The content is rendered
+ * over the background, and they scroll as one unit. The static area is drawn over the
+ * content, supports absolute positioning, and does not scroll.
+ */
 import BackgroundImage from './BackgroundImage.vue'
 
 export default {
