@@ -683,6 +683,10 @@ input,
     display: flex;
     flex-direction: column;
     gap: 1em;
+    .placeholder {
+        align-self: center;
+        font-family: $font-secondary;
+    }
 }
 
 .number {
