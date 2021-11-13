@@ -23,6 +23,10 @@
         "registersuccess": "Successfully created account!",
         "registeruserexists": "A user with that email already exists."
     },
+    "placeholder": {
+        "poemsInProgress": "You haven't played any poems!",
+        "completedPoems": "No completed poems..."
+    },
     "play": {
         "check": "Check!",
         "feedback": {

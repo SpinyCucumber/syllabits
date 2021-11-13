@@ -1,7 +1,7 @@
 <template>
     <div v-if="connection" class="connection">
-        <div v-if="connection.length === 0">
-            <!-- TODO -->
+        <div v-if="connection.edges.length === 0" class="placeholder">
+            <slot name="placeholder"/>
         </div>
         <div v-else class="grouping">
             <component

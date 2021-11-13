@@ -26,6 +26,7 @@
 <script>
 import { Scene, BackgroundImage, Connection, PoemCard } from '@/components'
 import { inProgress as inProgressQuery, completed as completedQuery } from '@/queries'
+import { TranslationService } from '@/services'
 import Vue from 'vue'
 
 // Construct components used by widgets
@@ -37,6 +38,11 @@ const InProgressList = Vue.component('InProgressList', {
                 field: 'poemsInProgress',
                 component: PoemCard,
                 prop: 'poem',
+            },
+            scopedSlots: {
+                placeholder() {
+                    return TranslationService.get('placeholder.poemsInProgress');
+                }
             }
         })
     }
@@ -50,6 +56,11 @@ const CompletedList = Vue.component('CompletedList', {
                 field: 'completedPoems',
                 component: PoemCard,
                 prop: 'poem',
+            },
+            scopedSlots: {
+                placeholder() {
+                    return TranslationService.get('placeholder.completedPoems');
+                }
             }
         })
     }
