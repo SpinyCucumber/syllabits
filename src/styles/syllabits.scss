@@ -461,7 +461,7 @@ input,
         transition: width 3s ease;
     }
 
-    &.rounded, &.rounded .inner {
+    &.is-rounded, &.is-rounded .inner {
         border-radius: 9999px;
     }
 

@@ -1,5 +1,5 @@
 <template>
-    <div :class="classes" :style="{ '--progress': progress }">
+    <div :class="['game-progress', type]" :style="{ '--progress': progress }">
         <div class="inner"/>
     </div>
 </template>
@@ -10,7 +10,6 @@ export default {
     props: {
         maxValue: Number,
         value: Number,
-        rounded: Boolean,
         type: String,
     },
 
@@ -18,11 +17,6 @@ export default {
         progress() {
             return String(this.value / this.maxValue);
         },
-        classes() {
-            let classes = ['game-progress', this.type];
-            if (this.rounded) classes.push('rounded');
-            return classes;
-        }
     }
 
 }

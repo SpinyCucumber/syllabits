@@ -16,7 +16,7 @@
                         <game-progress
                             :max-value="poem.lines.length"
                             :value="numCorrect"
-                            :rounded="true"/>
+                            type="is-rounded"/>
                     </game-dropdown>
                 </div>
             </div>
