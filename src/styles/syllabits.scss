@@ -128,7 +128,7 @@ body,
 .foreground {
     @extend .has-shadow;
     background-color: white;
-    padding: 1em;
+    padding: 2em;
 }
 
 .splash {
@@ -670,11 +670,10 @@ input,
 }
 
 .widget {
-    padding: 2em;
+    @extend .foreground;
     display: flex;
     flex-direction: column;
     gap: 1em;
-    background-color: $white;
     .widget-title {
         font-family: $font-secondary;
         color: $gray;
