@@ -53,7 +53,7 @@ body,
     @extend .full-height
 }
 
-.reader {
+.scene {
 
     display: flex;
     flex-grow: 1;
@@ -73,7 +73,7 @@ body,
         display: flex;
         flex-direction: column;
 
-        &>.inner {
+        &>* {
             position: relative;
             flex-grow: 1;
             display: flex;
@@ -117,22 +117,26 @@ body,
         overflow-y: scroll;
     }
 
-    // On small screens, disable the reader background and allow the content to take up entire screen
+    // On small screens, disable the background and allow the content to take up entire screen
     @include touch {
         .background-area { visibility: hidden; }
-        .scroll-area>.inner { align-items: normal; }
+    }
+
+    // On larger screens, (where the background is enabled), we make sure to apply a "foreground"
+    // effect to the actual content.
+    @include desktop {
+        .scene-content {
+            // Unfortunately cannot use extends here
+            box-shadow: 0px 0px 3px 3px $shadow;
+            background-color: white;
+            padding: 2em;
+        }
     }
 
 }
 
-.foreground {
-    @extend .has-shadow;
-    background-color: white;
-    padding: 2em;
-}
-
 .splash {
-    @extend .foreground;
+    @extend .scene-content;
 
     min-width: 60vw;
     min-height: 60vh;
@@ -202,7 +206,7 @@ body,
 }
 
 .login, .register {
-    @extend .foreground;
+    @extend .scene-content;
 
     display: flex;
     flex-direction: column;
@@ -243,7 +247,7 @@ body,
 }
 
 .play {
-    @extend .foreground;
+    @extend .scene-content;
 
     width: min(70em, 100vw);
 
@@ -660,7 +664,7 @@ input,
 }
 
 .widget {
-    @extend .foreground;
+    @extend .scene-content;
     display: flex;
     flex-direction: column;
     gap: 1em;

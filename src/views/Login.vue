@@ -1,5 +1,5 @@
 <template>
-    <reader type="is-aligned is-centered">
+    <scene type="is-aligned is-centered">
         <template #content-area>
             <div class="login">
                 <!-- TODO Could change logo here (or background) to something more exciting -->
@@ -17,16 +17,16 @@
                 <b-loading v-model="busy"/>
             </div>
         </template>
-    </reader>
+    </scene>
 </template>
 
 <script>
-import { Reader } from '@/components'
+import { Scene } from '@/components'
 import { login as loginQuery } from '@/queries'
 
 export default {
     name: 'Login',
-    components: { Reader },
+    components: { Scene },
     data() {
         return {
             input: {},

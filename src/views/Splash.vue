@@ -1,5 +1,5 @@
 <template>
-    <reader type="is-centered is-aligned">
+    <scene type="is-centered is-aligned">
         <template #content-area>
             <div class="splash">
                 <div class="page">
@@ -36,18 +36,18 @@
         <template #background-area>
             <carousel :image-sources="images" image-type="muted"/>
         </template>
-    </reader>
+    </scene>
 </template>
 
 <script>
-import { Reader, Carousel, PoemLine } from '@/components'
+import { Scene, Carousel, PoemLine } from '@/components'
 import { AssetService, Constants } from '@/services'
 import Vue from 'vue'
 
 const { LineState } = Constants
 
 export default {
-    components: { Reader, Carousel, PoemLine },
+    components: { Scene, Carousel, PoemLine },
     data() {
         return {
             images: ['Paper1', 'Paper2', 'Paper3', 'Paper4'].map(AssetService.getTexture),

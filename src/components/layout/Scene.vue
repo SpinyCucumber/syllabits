@@ -1,5 +1,5 @@
 <template>
-    <div :class="['reader', type]">
+    <div :class="['scene', type]">
         <div class="static-area"><slot name="static-area"/></div>
         <div class="scroll-area">
             <div class="inner">
@@ -24,7 +24,7 @@ import BackgroundImage from './BackgroundImage.vue'
 
 export default {
     components: { BackgroundImage },
-    name: 'Reader',
+    name: 'Scene',
     props: {
         type: { default: '' }
     },

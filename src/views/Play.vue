@@ -1,6 +1,6 @@
 <template>
 
-    <reader type="is-aligned has-scroll">
+    <scene type="is-aligned has-scroll">
 
         <template #static-area>
             <!-- Block picker "drawer" -->
@@ -89,12 +89,12 @@
                 </div>
         </template>
 
-    </reader>
+    </scene>
 </template>
 
 <script>
 import { poem as poemQuery, submitLine as submitLineQuery } from '@/queries'
-import { BlockPicker, PoemLine, Reader, GameProgress, GameDropdown } from '@/components'
+import { BlockPicker, PoemLine, Scene, GameProgress, GameDropdown } from '@/components'
 import { Constants, AssetService } from '@/services'
 import useSound from 'vue-use-sound'
 import Vue from 'vue'
@@ -104,7 +104,7 @@ const { BlockTypes, LineState } = Constants;
 export default {
 
     name: 'Play',
-    components: { BlockPicker, PoemLine, Reader, GameProgress, GameDropdown },
+    components: { BlockPicker, PoemLine, Scene, GameProgress, GameDropdown },
 
     props: {
         poemID: { required: true, type: String },

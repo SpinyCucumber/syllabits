@@ -1,5 +1,5 @@
 <template>
-    <reader>
+    <scene>
         <template #content-area>
             <div class="dashboard">
                 <div
@@ -21,16 +21,16 @@
         <template #background-area>
             <background-image :src="$assets.getTexture('Books')" class="muted"/>
         </template>
-    </reader>
+    </scene>
 </template>
 
 <script>
-import { PoemList, Reader, BackgroundImage } from '@/components'
+import { PoemList, Scene, BackgroundImage } from '@/components'
 import { inProgress as inProgressQuery } from '@/queries'
 
 export default {
     name: 'Dashboard',
-    components: { Reader, BackgroundImage },
+    components: { Scene, BackgroundImage },
 
     data() {
         return {

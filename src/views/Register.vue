@@ -1,5 +1,5 @@
 <template>
-    <reader type="is-aligned is-centered">
+    <scene type="is-aligned is-centered">
         <template #content-area>
             <div class="register">
                 <!-- TODO Could change logo here (or background) to something more exciting -->
@@ -17,11 +17,11 @@
                 <b-loading v-model="busy"/>
             </div>
         </template>
-    </reader>
+    </scene>
 </template>
 
 <script>
-import { Reader } from '@/components'
+import { Scene } from '@/components'
 import { register as registerQuery } from '@/queries'
 
 // Register error name -> translation key
@@ -31,7 +31,7 @@ const ERROR_LOOKUP = {
 
 export default {
     name: 'Register',
-    components: { Reader },
+    components: { Scene },
     data() {
         return {
             input: {},
