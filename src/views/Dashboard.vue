@@ -12,7 +12,6 @@
                         </h3>
                         <component
                             :is="widget.component"
-                            v-bind="widget.props"
                             class="inner"/>
                     </div>
                 </div>
@@ -25,8 +24,7 @@
 </template>
 
 <script>
-import { PoemList, Scene, BackgroundImage } from '@/components'
-import { inProgress as inProgressQuery } from '@/queries'
+import { ResumeList, Scene, BackgroundImage } from '@/components'
 
 export default {
     name: 'Dashboard',
@@ -37,8 +35,7 @@ export default {
             widgets: [
                 {
                     key: 'resume',
-                    component: PoemList,
-                    props: { query: inProgressQuery },
+                    component: ResumeList,
                 },
             ]
         }

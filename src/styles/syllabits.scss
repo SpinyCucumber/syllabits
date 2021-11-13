@@ -678,38 +678,35 @@ input,
     }
 }
 
-.poem-list {
+.connection {
     display: flex;
     flex-direction: column;
     gap: 1em;
-
-    .entry {
-        display: flex;
-        flex-direction: column;
-        transition: transform 0.25s, box-shadow 0.25s;
-        border: 2px solid $light;
-        cursor: pointer;
-        &:hover {
-            @extend .has-shadow;
-            transform: translate(0, -0.5em);
-        }
-    }
-
-    .entry-content {
-        padding: 1em;
-    }
-
-    .entry-banner {
-        height: 1em;
-        object-fit: cover;
-        background-color: $primary;
-    }
 }
 
 .number {
     @extend .non-interactive;
     font-family: $font-secondary;
     font-size: var(--fs-10);
+}
+
+.poem-card {
+    
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s, box-shadow 0.25s;
+    border: 2px solid $light;
+    cursor: pointer;
+
+    .poem-card-content {
+        padding: 1em;
+    }
+
+    &:hover {
+        @extend .has-shadow;
+        transform: translate(0, -0.5em);
+    }
+
 }
 
 /*
