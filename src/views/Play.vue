@@ -1,6 +1,6 @@
 <template>
 
-    <reader type="is-aligned">
+    <reader type="is-aligned has-scroll">
 
         <template #static-area>
             <!-- Block picker "drawer" -->

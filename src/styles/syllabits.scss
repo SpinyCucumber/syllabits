@@ -69,7 +69,6 @@ body,
 
     .scroll-area {
         min-height: 0;
-        overflow-y: auto;
         flex-grow: 1;
         display: flex;
         flex-direction: column;
@@ -112,6 +111,10 @@ body,
 
     &.is-aligned .content-area {
         align-items: center;
+    }
+
+    &.has-scroll .scroll-area {
+        overflow-y: scroll;
     }
 
     // On small screens, disable the reader background and allow the content to take up entire screen
@@ -719,13 +722,13 @@ input,
 // Filter
 .warm {
     filter: saturate(450%) hue-rotate(-15deg) contrast(30%) blur(2px);
-    // We have to scale so we don't get awkward edge blurring
-    transform: scale(1.03);
+    // We have to add margin so we don't get awkward edge blurring
+    margin: -5px;
 }
 // Filter
 .muted {
     filter: contrast(70%) blur(8px);
-    transform: scale(1.03);
+    margin: -20px;
 }
 
 .has-shadow {
