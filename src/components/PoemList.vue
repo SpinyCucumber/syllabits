@@ -6,7 +6,10 @@
             @click="$router.push({name: 'Play', params: {poemID: poemEdge.node.id}})"
             class="entry">
             <div class="entry-content">
-                <p class="title">{{ poemEdge.node.title }}</p>
+                <p class="title">
+                    <span class="mdi mdi-text"/>
+                    {{ poemEdge.node.title }}
+                </p>
                 <p class="subtitle">{{ poemEdge.node.author }}</p>
             </div>
             <game-progress

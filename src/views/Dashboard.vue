@@ -5,12 +5,16 @@
                 <div
                     v-for="widget in widgets"
                     :key="widget.key"
-                    class="widget">
-                    <h3 class="widget-title">{{ $translation.get('widget.' + widget.key) }}</h3>
-                    <component
-                        :is="widget.component"
-                        v-bind="widget.props"
-                        class="inner"/>
+                    class="widget-container">
+                    <div class="widget">
+                        <h3 class="widget-title">
+                            {{ $translation.get('widget.' + widget.key) }}
+                        </h3>
+                        <component
+                            :is="widget.component"
+                            v-bind="widget.props"
+                            class="inner"/>
+                    </div>
                 </div>
             </div>
         </template>
