@@ -7,13 +7,15 @@
 
           <!-- Items rendered at beginning of navbar -->
           <template #start>
-            <b-navbar-item
-              v-for="link in additionalLinks"
-              tag="router-link"
-              :key="link.key"
-              :to="link.to">
-              {{ $translation.get('navbar.' + link.key) }}
-            </b-navbar-item>
+            <transition-group name="fade" tag="div" class="toolbar">
+              <b-navbar-item
+                v-for="link in additionalLinks"
+                tag="router-link"
+                :key="link.key"
+                :to="link.to">
+                {{ $translation.get('navbar.' + link.key) }}
+              </b-navbar-item>
+            </transition-group>
           </template>
 
           <template #brand>

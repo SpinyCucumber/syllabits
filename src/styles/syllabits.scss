@@ -543,13 +543,7 @@ input,
 
 .toolbar {
 
-    padding: 1em;
     display: flex;
-
-    &>* {
-        display: flex;
-        gap: 1em;
-    }
 
     .right {
         margin-left: auto;
