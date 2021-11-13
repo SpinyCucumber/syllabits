@@ -24,7 +24,23 @@
 </template>
 
 <script>
-import { ResumeList, Scene, BackgroundImage } from '@/components'
+import { Scene, BackgroundImage, Connection, PoemCard } from '@/components'
+import { inProgress as inProgressQuery } from '@/queries'
+import Vue from 'vue'
+
+// Construct components used by widgets
+const ResumeList = Vue.component('ResumeList', {
+    render(create) {
+        return create(Connection, {
+            props: {
+                query: inProgressQuery,
+                field: 'poemsInProgress',
+                component: PoemCard,
+                prop: 'poem',
+            }
+        })
+    }
+})
 
 export default {
     name: 'Dashboard',
