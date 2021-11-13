@@ -233,6 +233,10 @@ body,
     display: grid;
     grid-template-columns: repeat(3, auto);
     margin: 1em;
+    // On smaller screens, only use one column
+    @include touch {
+        grid-template-columns: auto;
+    }
 }
 
 .main {
