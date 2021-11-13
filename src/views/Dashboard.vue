@@ -39,7 +39,7 @@ export default {
                     key: 'resume',
                     component: PoemList,
                     props: { query: inProgressQuery },
-                }
+                },
             ]
         }
     }

@@ -194,14 +194,9 @@ body,
         margin-bottom: auto;
     }
 
-    // With small screens, disable divider and present pages in column orientation
+    // With small screens, present pages in column orientation
     @include touch {
-
-        .content-area {
-            flex-direction: column;
-            &>.divider { display: none; }
-        }
-
+        flex-direction: column;
     }
 
 }
