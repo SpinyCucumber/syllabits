@@ -24,7 +24,7 @@
         "registeruserexists": "A user with that email already exists."
     },
     "placeholder": {
-        "poemsInProgress": "You haven't played any poems!",
+        "poemsInProgress": "You haven't played any poems yet!",
         "completedPoems": "No completed poems..."
     },
     "play": {
