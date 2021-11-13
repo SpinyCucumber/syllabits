@@ -1,7 +1,7 @@
 <template>
     <transition name="fade-long">
         <background-image
-            class="warm"
+            :class="imageType"
             :key="index"
             :src="imageSources[index]"/>
     </transition>
@@ -18,6 +18,7 @@ export default {
     props: {
         // Array of strings
         imageSources: { required: true },
+        imageType: { default: '' },
         period: { default: 8000 },
     },
     data() {

@@ -8,7 +8,7 @@
                         <!-- Default background -->
                         <background-image
                             :src="$assets.getTexture('Paper2')"
-                            class="warm"/>
+                            class="muted"/>
                     </slot>
                 </div>
                 <div class="content-area">

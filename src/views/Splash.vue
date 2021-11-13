@@ -34,7 +34,7 @@
             </div>
         </template>
         <template #background-area>
-            <carousel :imageSources="images"/>
+            <carousel :image-sources="images" image-type="muted"/>
         </template>
     </reader>
 </template>
