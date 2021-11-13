@@ -25,16 +25,29 @@
 
 <script>
 import { Scene, BackgroundImage, Connection, PoemCard } from '@/components'
-import { inProgress as inProgressQuery } from '@/queries'
+import { inProgress as inProgressQuery, completed as completedQuery } from '@/queries'
 import Vue from 'vue'
 
 // Construct components used by widgets
-const ResumeList = Vue.component('ResumeList', {
+const InProgressList = Vue.component('InProgressList', {
     render(create) {
         return create(Connection, {
             props: {
                 query: inProgressQuery,
                 field: 'poemsInProgress',
+                component: PoemCard,
+                prop: 'poem',
+            }
+        })
+    }
+})
+
+const CompletedList = Vue.component('CompletedList', {
+    render(create) {
+        return create(Connection, {
+            props: {
+                query: completedQuery,
+                field: 'completedPoems',
                 component: PoemCard,
                 prop: 'poem',
             }
@@ -49,10 +62,8 @@ export default {
     data() {
         return {
             widgets: [
-                {
-                    key: 'resume',
-                    component: ResumeList,
-                },
+                { key: 'resume', component: InProgressList, },
+                { key: 'repeat', component: CompletedList, },
             ]
         }
     }

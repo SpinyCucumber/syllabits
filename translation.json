@@ -14,7 +14,8 @@
         "reset": "Reset"
     },
     "widget": {
-        "resume": "Jump Back In"
+        "resume": "Jump Back In",
+        "repeat": "Practice It Again"
     },
     "message": {
         "loginsuccess": "Successfully logged in!",

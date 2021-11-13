@@ -1,0 +1,15 @@
+query {
+    completedPoems {
+        edges {
+            node {
+                id
+                title
+                author
+                numLines
+                progress {
+                    numCorrect
+                }
+            }
+        }
+    }
+}
