@@ -39,14 +39,14 @@
                             />
                         </div>
                     </div>
-                    <div class="toolbar-end">
+                    <transition-group  name="fade" tag="div" class="toolbar-end">
                         <b-button
                             v-for="button in displayButtons"
                             :key="button.key"
                             :type="button.type"
                             :icon-left="button.icon"
                             @click="button.action"/>
-                    </div>
+                    </transition-group>
                 </div>
                 
                 <transition name="fade" mode="out-in">
@@ -68,8 +68,7 @@
                                 :lineProgress="progress.lines[line.number]"
                                 :checkHandler="(holding) => checkLine(line.number, holding)"
                                 @correct="onCorrect"
-                                @incorrect="onIncorrect"
-                                @slotUpdate="onSlotUpdate"/>
+                                @incorrect="onIncorrect"/>
                     </div>
 
                 </div>
@@ -125,6 +124,7 @@ export default {
     },
 
     data() {
+        // TODO Should simplify progress
         return {
             poem: null,
             progress: null,
@@ -154,6 +154,9 @@ export default {
     methods: {
 
         checkLine(lineNum, holding) {
+            // If the user is logged in, then we can assume that data on the server has changed.
+            // Set hasWork so we can show reset button, etc.
+            if (this.$identity.hasIdentity()) this.hasWork = true;
             // Create a code using the block types the line contains.
             // This is for representing the sequence of blocks efficiently.
             const code = BlockTypes.serializeSequence(holding);
@@ -213,10 +216,6 @@ export default {
 
         onIncorrect() {
             this.sounds.incorrect();
-        },
-
-        onSlotUpdate() {
-            this.hasWork = true;
         },
 
         completeAll() {

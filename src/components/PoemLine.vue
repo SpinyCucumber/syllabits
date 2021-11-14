@@ -167,7 +167,6 @@ export default {
          */
         onSlotUpdate() {
             if (this.lineProgress.state === LineState.Incorrect) this.lineProgress.state = LineState.Unchecked;
-            this.$emit('slotUpdate');
         }
 
     },
