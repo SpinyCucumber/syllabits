@@ -28,7 +28,8 @@
         "loginsuccess": "Successfully logged in!",
         "loginfail": "Invalid username/password.",
         "registersuccess": "Successfully created account!",
-        "registeruserexists": "A user with that email already exists."
+        "registeruserexists": "A user with that email already exists.",
+        "resetsuccess": "Progress reset!"
     },
     "placeholder": {
         "poemsInProgress": "You haven't played any poems yet!",

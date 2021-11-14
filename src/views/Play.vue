@@ -99,7 +99,7 @@
 </template>
 
 <script>
-import { poem as poemQuery, submitLine as submitLineQuery } from '@/queries'
+import { poem as poemQuery, submitLine as submitLineQuery, resetProgress as resetProgressQuery } from '@/queries'
 import { BlockPicker, PoemLine, Scene, GameProgress, GameDropdown } from '@/components'
 import { Constants, AssetService } from '@/services'
 import useSound from 'vue-use-sound'
@@ -180,7 +180,19 @@ export default {
         },
 
         reset() {
-            this.initializeLines(this.poem.lines.length);
+            const input = { poemID: this.poemID };
+            this.$apollo.mutate({ mutation: resetProgressQuery, variables: { input } })
+                .then(result => result.data.resetProgress)
+                .then(result => {
+                    // If we've successfully reset progress, show a nice message and clear the slots
+                    if (result.ok) {
+                        this.$buefy.toast.open({
+                            message: this.$translation.get('message.resetsuccess'),
+                            type: 'is-danger'
+                        });
+                        this.initializeLines(this.poem.lines.length);
+                    }
+                })
         },
 
         onCorrect() {
