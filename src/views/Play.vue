@@ -131,7 +131,7 @@ export default {
             showComplete: false,
             buttons: [
                 { key: 'help', type: 'is-info', icon: 'help', action: this.showHelp },
-                { key: 'reset', type: 'is-danger', icon: 'delete', action: this.reset },
+                { key: 'reset', type: 'is-danger', icon: 'delete', action: this.confirmReset },
             ],
             cheatButtons: [
                 { key: 'completeall', action: this.completeAll },
@@ -171,7 +171,12 @@ export default {
         },
 
         confirmReset() {
-            // TODO
+            this.$buefy.dialog.confirm({
+                ...this.$translation.get('dialog.resetprogress'),
+                type: 'is-danger',
+                hasIcon: true,
+                onConfirm: this.reset,
+            })
         },
 
         reset() {

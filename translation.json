@@ -17,6 +17,13 @@
         "resume": "Jump Back In",
         "repeat": "Practice It Again"
     },
+    "dialog": {
+        "resetprogress": {
+            "title": "Reset Progress",
+            "message": "Are you so you want to reset your progress? You will lose all your work on this poem, but you will get to play it again.",
+            "confirmText": "Reset"
+        }
+    },
     "message": {
         "loginsuccess": "Successfully logged in!",
         "loginfail": "Invalid username/password.",
