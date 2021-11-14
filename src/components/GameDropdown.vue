@@ -16,7 +16,7 @@ export default {
 
     props: {
         trigger: { required: false },
-        timeoutDur: { default: 4000 },
+        timeoutDur: { default: 2000 },
         hasHandle: { default: false },
     },
 
