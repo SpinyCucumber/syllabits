@@ -416,24 +416,10 @@ input,
 
     animation: spring 5s ease;
 
-    &.perfect {
-        background-color: #45ba45;
-    }
-
-    &.great {
-        background-color: #7845ba;
-    }
-
-    &.good {
-        background-color: #c9a919;
-    }
-
-    &.okay {
-        background-color: #2e81e0;
-    }
-
-    &.incorrect {
-        background-color: #ba4545;
+    @each $type, $color in $feedback-colors {
+        &.type-#{$type} {
+            background-color: $color;
+        }
     }
 
 }
@@ -576,13 +562,12 @@ input,
 
     &.correct .number {
         color: white;
-        background-color: #45ba45;
+        background-color: $success;
     }
 
     &.incorrect .number {
         color: white;
-        background-color: #ba4545;
-        ;
+        background-color: $danger;
     }
 
     // This element contains the slot container as well as the line text.

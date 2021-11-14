@@ -44,7 +44,7 @@ export default
     computed: {
         classes() {
             let classes = ['game-feedback'];
-            if (this.showing) classes.push(CLASS_LOOKUP.get(this.showing));
+            if (this.showing) classes.push(`type-${CLASS_LOOKUP.get(this.showing)}`);
             return classes;
         },
         display() {

@@ -121,6 +121,15 @@ $block-colors: (
     "Pyrrhic": #007555
 );
 
+// Color of each feedback type
+$feedback-colors: (
+    "perfect": $success,
+    "great": #7845ba,
+    "good": #c9a919,
+    "okay": #2e81e0,
+    "incorrect": $danger
+);
+
 $block-height: 2.25em;
 $block-width: 3.75em;
 $notation-size: 1em;
