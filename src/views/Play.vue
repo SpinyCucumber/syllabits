@@ -84,7 +84,7 @@
                         </header>
                         <footer class="modal-simple-foot">
                             <b-button
-                                v-for="button in completeButtons"
+                                v-for="button in completionButtons"
                                 :key="button.key"
                                 tag="router-link"
                                 :to="button.to"
@@ -147,7 +147,7 @@ export default {
                 { key: 'completeall', action: this.completeAll },
                 { key: 'completeone', action: this.completeOne },
             ],
-            completeButtons: [
+            completionButtons: [
                 { key: 'dashboard', to: { name: 'Dashboard' } },
                 { key: 'randompoem', to: { name: 'RandomPoem' } },
             ]
