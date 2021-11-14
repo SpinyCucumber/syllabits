@@ -1,0 +1,5 @@
+mutation($input: ResetProgressInput!) {
+    resetProgress(input: $input) {
+        ok
+    }
+}
