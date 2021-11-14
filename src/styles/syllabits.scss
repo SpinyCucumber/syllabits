@@ -562,23 +562,6 @@ input,
     opacity: 0.15;
 }
 
-.dialog {
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1em;
-    background-color: white;
-    padding: 2em;
-    border-radius: 1em;
-
-    .dialog-footer {
-        display: flex;
-        gap: 4em;
-    }
-}
-
 .line {
 
     @extend .grouping;
