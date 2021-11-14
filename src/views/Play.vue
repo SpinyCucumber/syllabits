@@ -33,7 +33,7 @@
                             <b-button
                                 v-for="button in cheatButtons"
                                 :key="button.key"
-                                type="is-info" size="is-small"
+                                type="is-info"
                                 :label="$translation.get('button.' + button.key)"
                                 @click="button.action"
                             />
@@ -44,7 +44,7 @@
                         <b-button
                             v-for="button in buttons"
                             :key="button.key"
-                            :type="button.type" size="is-small"
+                            :type="button.type"
                             :icon-left="button.icon"
                             @click="button.action"/>
                     </div>
@@ -130,7 +130,8 @@ export default {
             progress: { lines: [] },
             showComplete: false,
             buttons: [
-                { key: 'reset', type: 'is-danger', icon: 'content-save', action: this.reset }
+                { key: 'help', type: 'is-info', icon: 'help', action: this.showHelp },
+                { key: 'reset', type: 'is-danger', icon: 'delete', action: this.reset },
             ],
             cheatButtons: [
                 { key: 'completeall', action: this.completeAll },
@@ -163,6 +164,14 @@ export default {
                     attempts: 0,
                 })
             }
+        },
+
+        showHelp() {
+            // TODO
+        },
+
+        confirmReset() {
+            // TODO
         },
 
         reset() {
