@@ -128,7 +128,7 @@ body,
         .scene-content {
             // Unfortunately cannot use extends here
             box-shadow: 0px 0px 3px 3px $shadow;
-            background-color: white;
+            background-color: $white;
             padding: 2em;
         }
     }
@@ -411,7 +411,7 @@ input,
     padding-right: 1em;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
-    color: white;
+    color: $white;
     white-space: nowrap;
 
     animation: spring 5s ease;
@@ -471,7 +471,7 @@ input,
     display: flex;
     flex-direction: column;
 
-    background-color: white;
+    background-color: $white;
     border-top: none;
     border-radius: 16px;
     border-top-left-radius: 0px;
@@ -561,13 +561,13 @@ input,
     }
 
     &.correct .number {
-        color: white;
         background-color: $success;
+        color: $success-invert;
     }
 
     &.incorrect .number {
-        color: white;
         background-color: $danger;
+        color: $danger-invert;
     }
 
     // This element contains the slot container as well as the line text.
