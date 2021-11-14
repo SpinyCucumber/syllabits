@@ -39,7 +39,7 @@
                             />
                         </div>
                     </div>
-                    <transition-group  name="fade" tag="div" class="toolbar-end">
+                    <transition-group name="list" tag="div" class="toolbar-end">
                         <b-button
                             v-for="button in displayButtons"
                             :key="button.key"
