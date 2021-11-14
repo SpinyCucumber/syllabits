@@ -143,7 +143,7 @@ export default {
             ],
             cheatButtons: [
                 { key: 'completeall', action: this.completeAll },
-                { key: 'completenext', action: this.completeNext },
+                { key: 'completeone', action: this.completeOne },
             ],
             completeButtons: [
                 { key: 'dashboard', to: { name: 'Dashboard' } },
@@ -229,7 +229,7 @@ export default {
             // TODO
         },
 
-        completeNext() {
+        completeOne() {
             // TODO
         },
 

@@ -10,7 +10,7 @@
         "randompoem": "Play a Poem",
         "dashboard": "Back to Dashboard",
         "completeall": "Complete All",
-        "completenext": "Complete Next",
+        "completeone": "Complete One",
         "reset": "Reset"
     },
     "widget": {
