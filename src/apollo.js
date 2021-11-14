@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueApollo from 'vue-apollo'
 import { createApolloClient, restartWebsockets } from 'vue-cli-plugin-apollo/graphql-client'
-import { IdentityService } from '@/services'
+import store from '@/store'
 
 // Install the vue plugin
 Vue.use(VueApollo)
@@ -37,7 +37,7 @@ const defaultOptions = {
 
   // Override the way the Authorization header is set
   // getAuth: (tokenName) => ...
-  getAuth: () => IdentityService.state.identity
+  getAuth: () => store.state.token
 
   // Additional ApolloClient options
   // apollo: { ... }
