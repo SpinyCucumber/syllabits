@@ -18,6 +18,22 @@
             </transition-group>
           </template>
 
+          <template #end>
+            <b-navbar-dropdown arrowless right boxed
+              v-if="$store.getters.hasIdentity">
+              <template #label><b-icon icon="account"/></template>
+              <b-navbar-item>
+                TODO
+              </b-navbar-item>
+            </b-navbar-dropdown>
+            <b-navbar-dropdown arrowless right boxed>
+              <template #label><b-icon icon="cog"/></template>
+              <b-navbar-item>
+                TODO
+              </b-navbar-item>
+            </b-navbar-dropdown>
+          </template>
+
           <template #brand>
             <b-navbar-item tag="router-link" :to="{ name: $store.getters.hasIdentity ? 'Dashboard' : 'Splash' }">
               <img :src="$assets.getTexture('Logo')"/>
