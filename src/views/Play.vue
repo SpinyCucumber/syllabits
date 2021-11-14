@@ -213,12 +213,12 @@ export default {
         },
 
         onCorrect() {
+            // Update numCorrect
+            this.numCorrect += 1;
             if (!this.complete) {
                 // Play sound
                 this.sounds.correct();
             }
-            // Update numCorrect
-            this.numCorrect += 1;
         },
 
         onIncorrect() {
