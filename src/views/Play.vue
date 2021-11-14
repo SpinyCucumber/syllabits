@@ -39,10 +39,9 @@
                             />
                         </div>
                     </div>
-                    <!-- TODO Help button -->
                     <div class="toolbar-end">
                         <b-button
-                            v-for="button in buttons"
+                            v-for="button in displayButtons"
                             :key="button.key"
                             :type="button.type"
                             :icon-left="button.icon"
@@ -69,7 +68,8 @@
                                 :lineProgress="progress.lines[line.number]"
                                 :checkHandler="(holding) => checkLine(line.number, holding)"
                                 @correct="onCorrect"
-                                @incorrect="onIncorrect"/>
+                                @incorrect="onIncorrect"
+                                @slotUpdate="onSlotUpdate"/>
                     </div>
 
                 </div>
@@ -127,11 +127,18 @@ export default {
     data() {
         return {
             poem: null,
-            progress: { lines: [] },
+            progress: null,
             showComplete: false,
+            hasWork: false,
             buttons: [
-                { key: 'help', type: 'is-info', icon: 'help', action: this.showHelp },
-                { key: 'reset', type: 'is-danger', icon: 'delete', action: this.confirmReset },
+                { key: 'help', type: 'is-info', icon: 'help', action: this.showHelp, shouldShow: () => true },
+                {
+                    key: 'reset',
+                    type: 'is-danger',
+                    icon: 'delete',
+                    action: this.confirmReset,
+                    shouldShow: () => this.hasWork,
+                },
             ],
             cheatButtons: [
                 { key: 'completeall', action: this.completeAll },
@@ -156,7 +163,9 @@ export default {
                 .then(result => result.data.submitLine);
         },
         
-        initializeLines(numLines) {
+        initializeProgress(numLines) {
+            this.hasWork = false;
+            this.progress = { lines: [] }
             for (let i = 0; i < numLines; i++) {
                 Vue.set(this.progress.lines, i, {
                     state: LineState.Unchecked,
@@ -190,7 +199,7 @@ export default {
                             message: this.$translation.get('message.resetsuccess'),
                             type: 'is-danger'
                         });
-                        this.initializeLines(this.poem.lines.length);
+                        this.initializeProgress(this.poem.lines.length);
                     }
                 })
         },
@@ -204,6 +213,10 @@ export default {
 
         onIncorrect() {
             this.sounds.incorrect();
+        },
+
+        onSlotUpdate() {
+            this.hasWork = true;
         },
 
         completeAll() {
@@ -240,6 +253,9 @@ export default {
         showCheats() {
             return process.env.VUE_APP_SYLLABITS_CHEATS;
         },
+        displayButtons() {
+            return this.buttons.filter(button => button.shouldShow())
+        },
     },
 
     watch: {
@@ -250,10 +266,11 @@ export default {
                 this.$apollo.query({ query: poemQuery, variables: { id: newVal }, fetchPolicy: 'network-only'})
                     .then(result => result.data.poem)
                     .then(poem => {
-                        this.initializeLines(poem.lines.length);
-                        // Update progress from server is applicable
+                        this.initializeProgress(poem.lines.length);
+                        // Update progress from server if applicable
                         const { progress } = poem;
                         if (progress) {
+                            this.hasWork = true;
                             for (const line of progress.lines) {
                                 let localLineProgress = this.progress.lines[line.number];
                                 // Update holding and state
