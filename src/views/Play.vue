@@ -29,7 +29,7 @@
                 <div class="toolbar">
                     <!-- TODO Help button -->
                     <!-- "Cheat" utils -->
-                    <div class="right">
+                    <div class="left">
                         <transition name="fade" mode="out-in">
                         <div v-if="showCheats" class="grouping">
                             <b-button
