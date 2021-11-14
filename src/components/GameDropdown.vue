@@ -4,7 +4,7 @@
             <slot/>
         </div>
         <button class="handle" v-if="hasHandle" @click="open = !open">
-            <div class="mdi mdi-chevron-down"/>
+            <div class="mdi mdi-chevron-down handle-icon"/>
         </button>
     </div>
 </template>

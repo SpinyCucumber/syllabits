@@ -498,13 +498,15 @@ input,
 
     .handle {
         background-color: transparent;
-        background-repeat: no-repeat;
         align-self: center;
         border: none;
         cursor: pointer;
-        overflow: hidden;
-        outline: none;
         transition: transform 1s ease;
+    }
+
+    .handle-icon {
+        font-size: var(--fs-40);
+        display: inline-flex;
     }
 
     &.open .handle {
