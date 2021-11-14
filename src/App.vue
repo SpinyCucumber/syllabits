@@ -7,7 +7,7 @@
 
           <!-- Items rendered at beginning of navbar -->
           <template #start>
-            <transition-group name="fade" tag="div" class="is-flex">
+            <transition-group name="list" tag="div" class="is-flex">
               <b-navbar-item
                 v-for="link in additionalLinks"
                 tag="router-link"
