@@ -226,11 +226,11 @@ export default {
         },
 
         completeAll() {
-            // TODO
+            this.numCorrect = this.poem.lines.length;
         },
 
         completeOne() {
-            // TODO
+            this.onCorrect();
         },
 
     },
