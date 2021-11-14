@@ -547,17 +547,13 @@ input,
 }
 
 .toolbar {
-
     display: flex;
-
-    .right {
-        margin-left: auto;
+    .right { margin-left: auto; }
+    .left { margin-right: auto; }
+    &>* {
+        display: flex;
+        gap: 1em;
     }
-
-    .left {
-        margin-right: auto;
-    }
-
 }
 
 .navbar {

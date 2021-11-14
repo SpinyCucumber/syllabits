@@ -29,8 +29,7 @@
                 <div class="toolbar">
                     <!-- TODO Help button -->
                     <!-- "Cheat" utils -->
-                    <div class="left">
-                        <transition name="fade" mode="out-in">
+                    <div class="toolbar-end">
                         <div v-if="showCheats" class="grouping">
                             <b-button
                                 v-for="button in cheatButtons"
@@ -40,7 +39,6 @@
                                 @click="button.action"
                             />
                         </div>
-                        </transition>
                     </div>
                 </div>
                 
