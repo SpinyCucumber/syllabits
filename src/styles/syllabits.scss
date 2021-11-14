@@ -317,12 +317,6 @@ input,
     font-family: $font-secondary;
 }
 
-// Select icons
-.mdi {
-    font-size: var(--fs-40);
-    display: contents;
-}
-
 .game-block-shape {
     width: $block-width;
     height: $block-height;
