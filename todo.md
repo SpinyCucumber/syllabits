@@ -1,3 +1,5 @@
+- Navigation, etc.
+    - [ ] Account submenu
 - [x] Progress bar in play view
 - [x] Sound effects
     - [x] Block "clack" sound
