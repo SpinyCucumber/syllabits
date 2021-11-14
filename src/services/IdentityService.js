@@ -5,42 +5,36 @@ import jwt_decode from 'jwt-decode'
 
 const PREEMPT = 10000;
 
+let refreshTimeout = null;
+
 const module = {
     state() {
         return {
             token: null,
-            claims: null,
-            refreshTimeout: null,
         }
     },
     mutations: {
         setToken(state, token) {
             state.token = token;
         },
-        setClaims(state, claims) {
-            state.claims = claims;
+    },
+    getters: {
+        claims(state) {
+            return jwt_decode(state.token);
         },
-        setRefreshTimeout(state, refreshTimeout) {
-            state.refreshTimeout = refreshTimeout;
-        }
+        hasIdentity(state) {
+            return state.token !== null;
+        },
     },
     actions: {
-        load({state, commit, dispatch}, token) {
-            const claims = jwt_decode(token);
+        load({commit, getters}, token) {
+            commit('setToken', token);
             // Schedule token refresh
             // Make sure to cancel previously scheduled refresh if applicable
-            const delta = (claims.exp * 1000) - Date.now() - PREEMPT;
-            if (state.refreshTimeout) clearTimeout(state.refreshTimeout);
-            const refreshTimeout = setTimeout(() => dispatch('refreshIdentity'), delta);
-            // Commit mutations
-            commit('setToken', token);
-            commit('setClaims', claims);
-            commit('setRefreshTimeout', refreshTimeout);
+            const delta = (getters.claims.exp * 1000) - Date.now() - PREEMPT;
+            if (refreshTimeout) clearTimeout(refreshTimeout);
+            refreshTimeout = setTimeout(() => {}, delta);
         },
-        refreshIdentity() {
-            // TODO
-            commit('setToken', null);
-        }
     }
 }
 
