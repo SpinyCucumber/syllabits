@@ -14,16 +14,11 @@
  */
 
 body {
-    font-family: $font-primary;
+    font-family: $font-secondary;
     font-size: var(--fs-10);
 }
 
-.number, .help, .toast {
-    font-family: $font-secondary;
-}
-
 .label {
-    font-family: $font-secondary;
     color: $dark;
     font-weight: 100;
     font-size: var(--fs-10);
@@ -167,6 +162,7 @@ body,
     }
 
     .title-box {
+        font-family: $font-primary;
         display: flex;
         flex-direction: column;
     }
@@ -269,6 +265,7 @@ body,
     }
 
     .title-box {
+        font-family: $font-primary;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -309,12 +306,6 @@ body,
 button,
 .button {
     font-size: var(--fs-10);
-    font-family: $font-secondary;
-}
-
-input,
-.input {
-    font-family: $font-secondary;
 }
 
 .game-block-shape {
@@ -403,9 +394,7 @@ input,
 
     @extend .non-interactive;
 
-    font-family: $font-secondary;
     font-size: var(--fs-10);
-
     border-radius: 9999px;
     padding-left: 1em;
     padding-right: 1em;
@@ -541,6 +530,9 @@ input,
 .navbar {
     @extend .has-shadow;
     z-index: 20;
+    .navbar-item {
+        font-family: $font-primary;
+    }
 }
 
 .divider {
@@ -584,6 +576,7 @@ input,
     }
 
     .text {
+        font-family: $font-primary;
         letter-spacing: 0.04em;
     }
 
@@ -634,7 +627,6 @@ input,
     flex-direction: column;
     gap: 1em;
     .widget-title {
-        font-family: $font-secondary;
         color: $gray;
     }
 }
@@ -642,7 +634,6 @@ input,
 .connection {
     .placeholder {
         align-self: center;
-        font-family: $font-secondary;
     }
     .connection-list {
         display: flex;
@@ -653,7 +644,6 @@ input,
 
 .number {
     @extend .non-interactive;
-    font-family: $font-secondary;
     font-size: var(--fs-10);
 }
 
@@ -664,6 +654,7 @@ input,
     transition: transform 0.25s, box-shadow 0.25s;
     box-shadow: 0px 0px 1px 1px $shadow;
     cursor: pointer;
+    font-family: $font-primary;
 
     .poem-card-content {
         padding: 1em;
