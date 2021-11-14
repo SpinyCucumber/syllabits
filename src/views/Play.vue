@@ -154,16 +154,19 @@ export default {
     methods: {
 
         checkLine(lineNum, holding) {
-            // If the user is logged in, then we can assume that data on the server has changed.
-            // Set hasWork so we can show reset button, etc.
-            if (this.$identity.hasIdentity()) this.hasWork = true;
             // Create a code using the block types the line contains.
             // This is for representing the sequence of blocks efficiently.
             const code = BlockTypes.serializeSequence(holding);
             // We have to construct the input to the server
             const input = { poemID: this.poemID, lineNum, answer: code }
             return this.$apollo.mutate({ mutation: submitLineQuery, variables: { input } })
-                .then(result => result.data.submitLine);
+                .then(result => result.data.submitLine)
+                .then(result => {
+                    // If the user is logged in, then we can assume that data on the server has changed.
+                    // Set hasWork so we can show reset button, etc.
+                    if (this.$identity.hasIdentity()) this.hasWork = true;
+                    return result;
+                });
         },
         
         initializeProgress(numLines) {
