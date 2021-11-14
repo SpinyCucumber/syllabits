@@ -51,7 +51,7 @@ export default {
                     // Otherwise, we display an error message.
                     if (response.ok) {
                         const token = response.result;
-                        this.$identity.setIdentity(token);
+                        this.$store.dispatch('loadIdentity', token);
                         this.$buefy.toast.open({
                             message: this.$translation.get('message.registersuccess'),
                             type: 'is-success'

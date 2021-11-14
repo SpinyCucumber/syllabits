@@ -27,7 +27,7 @@ const module = {
         },
     },
     actions: {
-        load({commit, getters}, token) {
+        loadIdentity({commit, getters}, token) {
             commit('setToken', token);
             // Schedule token refresh
             // Make sure to cancel previously scheduled refresh if applicable
