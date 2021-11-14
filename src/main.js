@@ -7,6 +7,7 @@ import './styles/syllabits.scss'
 
 import { createProvider } from './apollo'
 import { Constants, IdentityService, AssetService, TranslationService } from './services'
+import store from './store'
 
 // Install Vue plugins!
 // Buefy bundle size is actually small
@@ -21,5 +22,6 @@ Vue.config.productionTip = false;
 new Vue({
   router,
   apolloProvider: createProvider(),
+  store,
   render: function (h) { return h(App) }
 }).$mount('#app')
