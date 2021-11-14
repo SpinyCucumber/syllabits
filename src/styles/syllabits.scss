@@ -548,8 +548,8 @@ input,
 
 .toolbar {
     display: flex;
-    .right { margin-left: auto; }
-    .left { margin-right: auto; }
+    .toolbar-start { margin-right: auto; }
+    .toolbar-end { margin-left: auto; }
     &>* {
         display: flex;
         gap: 1em;

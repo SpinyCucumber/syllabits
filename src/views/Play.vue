@@ -27,9 +27,8 @@
 
             <div class="play">
                 <div class="toolbar">
-                    <!-- TODO Help button -->
                     <!-- "Cheat" utils -->
-                    <div class="toolbar-end">
+                    <div class="toolbar-start">
                         <div v-if="showCheats" class="grouping">
                             <b-button
                                 v-for="button in cheatButtons"
@@ -39,6 +38,15 @@
                                 @click="button.action"
                             />
                         </div>
+                    </div>
+                    <!-- TODO Help button -->
+                    <div class="toolbar-end">
+                        <b-button
+                            v-for="button in buttons"
+                            :key="button.key"
+                            :type="button.type" size="is-small"
+                            :icon-left="button.icon"
+                            @click="button.action"/>
                     </div>
                 </div>
                 
@@ -121,10 +129,12 @@ export default {
             poem: null,
             progress: { lines: [] },
             showComplete: false,
+            buttons: [
+                { key: 'reset', type: 'is-danger', icon: 'content-save', action: this.reset }
+            ],
             cheatButtons: [
                 { key: 'completeall', action: this.completeAll },
                 { key: 'completenext', action: this.completeNext },
-                { key: 'reset', action: this.reset },
             ],
             completeButtons: [
                 { key: 'dashboard', to: { name: 'Dashboard' } },
