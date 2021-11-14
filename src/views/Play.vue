@@ -75,12 +75,14 @@
                 </transition>
 
                 <!-- Poem complete dialog -->
-                <b-modal v-model="showComplete">
-                    <div class="dialog">
-                        <div class="title">{{ $translation.get("play.complete") }}</div>
-                        <!-- TODO Replace this with actual art -->
-                        <img class="divider" :src="$assets.getIcon('Divider')"/>
-                        <div class="dialog-footer">
+                <b-modal
+                    v-model="showComplete"
+                    has-modal-card>
+                    <div class="modal-simple">
+                        <header class="modal-simple-head">
+                            <p class="modal-simple-title">{{ $translation.get("play.complete") }}</p>
+                        </header>
+                        <footer class="modal-simple-foot">
                             <b-button
                                 v-for="button in completeButtons"
                                 :key="button.key"
@@ -88,7 +90,7 @@
                                 :to="button.to"
                                 type="is-primary"
                                 :label="$translation.get('button.' + button.key)"/>
-                        </div>
+                        </footer>
                     </div>
                 </b-modal>
                 </div>

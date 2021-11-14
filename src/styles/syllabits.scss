@@ -667,6 +667,33 @@ button,
 
 }
 
+.modal-simple {
+
+    @extend .has-shadow;
+    background-color: $white;
+    padding: 2em;
+    position: relative;
+    min-width: 30vw;
+    min-height: 30vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2em;
+
+    .modal-simple-title {
+        font-size: var(--fs-40);
+        font-family: $font-primary;
+    }
+
+    .modal-simple-foot {
+        display: flex;
+        gap: 1em;
+    }
+
+}
+
 /*
  * UTILITY
  */
