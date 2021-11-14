@@ -65,7 +65,7 @@
                                 v-for="line in poem.lines"
                                 :key="line.number"
                                 :line="line"
-                                :lineProgress="progress.lines[line.number]"
+                                :lineProgress="lines[line.number]"
                                 :checkHandler="(holding) => checkLine(line.number, holding)"
                                 @correct="onCorrect"
                                 @incorrect="onIncorrect"/>
@@ -127,7 +127,8 @@ export default {
         // TODO Should simplify progress
         return {
             poem: null,
-            progress: null,
+            lines: null,
+            numCorrect: 0,
             showComplete: false,
             hasWork: false,
             buttons: [
@@ -169,11 +170,12 @@ export default {
                 });
         },
         
-        initializeProgress(numLines) {
+        initialize(numLines) {
             this.hasWork = false;
-            this.progress = { lines: [] }
+            this.lines = [];
+            this.numCorrect = 0;
             for (let i = 0; i < numLines; i++) {
-                Vue.set(this.progress.lines, i, {
+                Vue.set(this.lines, i, {
                     state: LineState.Unchecked,
                     holding: new Array(5).fill(null),
                     attempts: 0,
@@ -205,7 +207,7 @@ export default {
                             message: this.$translation.get('message.resetsuccess'),
                             type: 'is-danger'
                         });
-                        this.initializeProgress(this.poem.lines.length);
+                        this.initialize(this.poem.lines.length);
                     }
                 })
         },
@@ -215,6 +217,8 @@ export default {
                 // Play sound
                 this.sounds.correct();
             }
+            // Update numCorrect
+            this.numCorrect += 1;
         },
 
         onIncorrect() {
@@ -222,16 +226,11 @@ export default {
         },
 
         completeAll() {
-            // Complete all lines
-            this.progress.lines.forEach(line => {
-                line.state = LineState.Correct;
-            })
+            // TODO
         },
 
         completeNext() {
-            // Find first line that is not correct and complete it
-            const line = this.progress.lines.find(line => line.state !== LineState.Correct);
-            if (line) line.state = LineState.Correct;
+            // TODO
         },
 
     },
@@ -243,14 +242,6 @@ export default {
         complete() {
             if (!this.ready) return false;
             return this.numCorrect === this.poem.lines.length;
-        },
-        numCorrect() {
-            if (!this.ready) return 0;
-            let result = 0;
-            this.progress?.lines.forEach(line => {
-                if (line.state === LineState.Correct) result += 1;
-            });
-            return result;
         },
         showCheats() {
             return process.env.VUE_APP_SYLLABITS_CHEATS;
@@ -268,16 +259,17 @@ export default {
                 this.$apollo.query({ query: poemQuery, variables: { id: newVal }, fetchPolicy: 'network-only'})
                     .then(result => result.data.poem)
                     .then(poem => {
-                        this.initializeProgress(poem.lines.length);
+                        this.initialize(poem.lines.length);
                         // Update progress from server if applicable
                         const { progress } = poem;
                         if (progress) {
                             this.hasWork = true;
+                            this.numCorrect = progress.numCorrect;
                             for (const line of progress.lines) {
-                                let localLineProgress = this.progress.lines[line.number];
+                                let localLine = this.lines[line.number];
                                 // Update holding and state
-                                localLineProgress.holding = this.$constants.BlockTypes.parseSequence(line.answer);
-                                localLineProgress.state = line.correct ? LineState.Correct : LineState.Incorrect;
+                                localLine.holding = this.$constants.BlockTypes.parseSequence(line.answer);
+                                localLine.state = line.correct ? LineState.Correct : LineState.Incorrect;
                             }
                         }
                         // Update navigation links
