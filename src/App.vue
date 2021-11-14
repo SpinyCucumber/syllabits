@@ -19,7 +19,7 @@
           </template>
 
           <template #brand>
-            <b-navbar-item tag="router-link" :to="{ name: identityState.identity ? 'Dashboard' : 'Splash' }">
+            <b-navbar-item tag="router-link" :to="{ name: $store.getters.hasIdentity ? 'Dashboard' : 'Splash' }">
               <img :src="$assets.getTexture('Logo')"/>
             </b-navbar-item>
           </template>
@@ -34,14 +34,12 @@
 </template>
 
 <script>
-import { IdentityService } from '@/services'
 
 export default {
   name: 'App',
   data() {
     return {
       additionalLinks: [],
-      identityState: IdentityService.state,
     }
   },
 }
