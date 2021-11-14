@@ -20,8 +20,12 @@
     "dialog": {
         "resetprogress": {
             "title": "Reset Progress",
-            "message": "Are you so you want to reset your progress? You will lose all your work on this poem, but you will get to play it again.",
+            "message": "Are you sure you want to reset your progress? You will lose all your work on this poem, but you will get to play it again.",
             "confirmText": "Reset"
+        },
+        "help": {
+            "title": "Help",
+            "message": "<p>Poems are made of lines</p><p>Lines are made of words</p>"
         }
     },
     "message": {

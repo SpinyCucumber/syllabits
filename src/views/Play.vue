@@ -126,7 +126,6 @@ export default {
     },
 
     data() {
-        // TODO Should simplify progress
         return {
             poem: null,
             lines: null,
@@ -186,7 +185,7 @@ export default {
         },
 
         showHelp() {
-            // TODO
+            this.$buefy.dialog.alert(this.$translation.get('dialog.help'));
         },
 
         confirmReset() {
