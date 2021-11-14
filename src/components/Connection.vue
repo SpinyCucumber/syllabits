@@ -3,13 +3,13 @@
         <div v-if="connection.edges.length === 0" class="placeholder">
             <slot name="placeholder"/>
         </div>
-        <div v-else class="grouping">
+        <transition-group v-else tag="div" name="list" class="connection-list">
             <component
                 v-for="edge in connection.edges"
                 :is="component"
                 :[prop]="edge.node"
                 :key="edge.node.id"/>
-        </div>
+        </transition-group>
     </div>
 </template>
 
