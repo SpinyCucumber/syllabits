@@ -530,9 +530,6 @@ button,
 .navbar {
     @extend .has-shadow;
     z-index: 20;
-    .navbar-item {
-        font-family: $font-primary;
-    }
 }
 
 .divider {
