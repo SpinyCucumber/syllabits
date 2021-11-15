@@ -7,7 +7,7 @@
     "button": {
         "login": "Login",
         "register": "Register",
-        "randompoem": "Play a Poem",
+        "randompoem": "Play Another Poem",
         "dashboard": "Back to Dashboard",
         "completeall": "Complete All",
         "completeone": "Complete One",
