@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '@/store'
 import { Splash, Login, Register, Dashboard, Play } from '@/views'
-
 import { randomPoemID as randomPoemIDQuery } from '@/queries'
 
 Vue.use(VueRouter)
@@ -13,7 +13,7 @@ routes: [
     name: 'Root',
     redirect() {
       // If user is logged in, we redirect them to the dashboard. Otherwise the splash view.
-      if (router.app.$identity.hasIdentity()) {
+      if (store.getters.hasIdentity) {
         return { name: 'Dashboard' };
       }
       return { name: 'Splash' };
