@@ -70,7 +70,8 @@ export default {
     },
     logout() {
       this.$store.dispatch('clearIdentity');
-      // TODO
+      // Navigate back to splash
+      this.$router.push({name: 'Splash'});
     },
   }
 }

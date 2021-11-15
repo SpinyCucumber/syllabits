@@ -35,6 +35,11 @@ const module = {
             if (refreshTimeout) clearTimeout(refreshTimeout);
             refreshTimeout = setTimeout(() => {}, delta);
         },
+        clearIdentity({commit}) {
+            commit('setToken', null);
+            // Cancel refresh if applicable
+            if (refreshTimeout) clearTimeout(refreshTimeout);
+        },
     }
 }
 
