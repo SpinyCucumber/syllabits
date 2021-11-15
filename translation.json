@@ -27,6 +27,10 @@
         "help": {
             "title": "Help",
             "message": "<p>Poems are made of lines</p><p>Lines are made of words</p>"
+        },
+        "logout": {
+            "title": "Logout",
+            "message": "Are you sure you want to logout?"
         }
     },
     "message": {

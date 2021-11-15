@@ -25,7 +25,7 @@
               <b-navbar-item tag="div" class="submenu">
                 <b-icon icon="account-circle" size="is-large"/>
                 <p class="subtitle">{{ $store.getters.claims.email }}</p>
-                <b-button type="is-danger" :label="$translation.get('button.logout')"/>
+                <b-button type="is-danger" :label="$translation.get('button.logout')" @click="confirmLogout"/>
               </b-navbar-item>
             </b-navbar-dropdown>
             <b-navbar-dropdown arrowless right boxed>
@@ -60,5 +60,18 @@ export default {
       additionalLinks: [],
     }
   },
+  methods: {
+    confirmLogout() {
+      this.$buefy.dialog.confirm({
+        ...this.$translation.get('dialog.logout'),
+        type: 'is-danger',
+        onConfirm: this.logout,
+      });
+    },
+    logout() {
+      this.$store.dispatch('clearIdentity');
+      // TODO
+    },
+  }
 }
 </script>
