@@ -84,7 +84,7 @@
                         </header>
                         <footer class="modal-simple-foot">
                             <b-button
-                                v-for="button in completionButtons"
+                                v-for="button in displayCompletionButtons"
                                 :key="button.key"
                                 tag="router-link"
                                 :to="button.to"
@@ -103,6 +103,7 @@
 import { poem as poemQuery, submitLine as submitLineQuery, resetProgress as resetProgressQuery } from '@/queries'
 import { BlockPicker, PoemLine, Scene, GameProgress, GameDropdown } from '@/components'
 import { Constants, AssetService } from '@/services'
+import store from '@/store'
 import useSound from 'vue-use-sound'
 import Vue from 'vue'
 
@@ -133,13 +134,13 @@ export default {
             showComplete: false,
             hasWork: false,
             buttons: [
-                { key: 'help', type: 'is-info', icon: 'help', action: this.showHelp, shouldShow: () => true },
+                { key: 'help', type: 'is-info', icon: 'help', action: this.showHelp, },
                 {
                     key: 'reset',
                     type: 'is-danger',
                     icon: 'delete',
                     action: this.confirmReset,
-                    shouldShow: () => this.hasWork,
+                    shouldShow() { return this.hasWork },
                 },
             ],
             cheatButtons: [
@@ -147,7 +148,11 @@ export default {
                 { key: 'completeone', action: this.completeOne },
             ],
             completionButtons: [
-                { key: 'dashboard', to: { name: 'Dashboard' } },
+                {
+                    key: 'dashboard',
+                    to: { name: 'Dashboard' },
+                    shouldShow() { return store.getters.hasIdentity }
+                },
                 { key: 'anotherpoem', to: { name: 'RandomPoem' } },
             ]
         }
@@ -166,7 +171,7 @@ export default {
                 .then(result => {
                     // If the user is logged in, then we can assume that data on the server has changed.
                     // Set hasWork so we can show reset button, etc.
-                    if (this.$store.getters.hasIdentity) this.hasWork = true;
+                    if (store.getters.hasIdentity) this.hasWork = true;
                     return result;
                 });
         },
@@ -248,8 +253,11 @@ export default {
             return process.env.VUE_APP_SYLLABITS_CHEATS;
         },
         displayButtons() {
-            return this.buttons.filter(button => button.shouldShow())
+            return this.buttons.filter(button => button.shouldShow ? button.shouldShow() : true);
         },
+        displayCompletionButtons() {
+            return this.completionButtons.filter(button => button.shouldShow ? button.shouldShow() : true)
+        }
     },
 
     watch: {
