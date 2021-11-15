@@ -694,6 +694,17 @@ button,
 
 }
 
+.submenu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    align-items: center;
+    .submenu-title {
+        font-size: var(--fs-20);
+        font-family: $font-primary;
+    }
+}
+
 /*
  * UTILITY
  */

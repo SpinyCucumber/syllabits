@@ -6,6 +6,7 @@
     },
     "button": {
         "login": "Login",
+        "logout": "Logout",
         "register": "Register",
         "randompoem": "Play Another Poem",
         "dashboard": "Back to Dashboard",
