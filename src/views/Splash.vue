@@ -52,7 +52,7 @@ export default {
         return {
             images: ['Paper1', 'Paper2', 'Paper3', 'Paper4'].map(AssetService.getTexture),
             buttons: [
-                { key: "randompoem", to: { name: "RandomPoem" } },
+                { key: "jumpin", to: { name: "RandomPoem" } },
                 { key: "login", to: { name: "Login" } },
                 { key: "register", to: { name: "Register" } },
             ],

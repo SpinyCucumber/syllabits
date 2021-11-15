@@ -148,7 +148,7 @@ export default {
             ],
             completionButtons: [
                 { key: 'dashboard', to: { name: 'Dashboard' } },
-                { key: 'randompoem', to: { name: 'RandomPoem' } },
+                { key: 'anotherpoem', to: { name: 'RandomPoem' } },
             ]
         }
     },
