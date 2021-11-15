@@ -140,7 +140,7 @@ export default {
                     type: 'is-danger',
                     icon: 'delete',
                     action: this.confirmReset,
-                    shouldShow() { return this.hasWork },
+                    shouldShow: () => this.hasWork,
                 },
             ],
             cheatButtons: [
@@ -148,11 +148,7 @@ export default {
                 { key: 'completeone', action: this.completeOne },
             ],
             completionButtons: [
-                {
-                    key: 'dashboard',
-                    to: { name: 'Dashboard' },
-                    shouldShow() { return store.getters.hasIdentity }
-                },
+                { key: 'dashboard', to: { name: 'Dashboard' }, shouldShow: () => store.getters.hasIdentity },
                 { key: 'anotherpoem', to: { name: 'RandomPoem' } },
             ]
         }
