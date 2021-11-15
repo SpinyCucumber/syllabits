@@ -166,7 +166,7 @@ export default {
                 .then(result => {
                     // If the user is logged in, then we can assume that data on the server has changed.
                     // Set hasWork so we can show reset button, etc.
-                    if (this.$identity.hasIdentity()) this.hasWork = true;
+                    if (this.$store.getters.hasIdentity) this.hasWork = true;
                     return result;
                 });
         },
