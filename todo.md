@@ -12,8 +12,8 @@
     - [x] Some way to communicate correct/incorrect state
 - [ ] Play view
     - Controls
-        - [ ] Reset button
-        - [ ] Help Button
+        - [x] Reset button
+        - [x] Help Button
         - [x] Random poem -> next, previous poem
     - [ ] IMPROVEMENT "Fun Fact" button in feedback area once line is complete
     - [x] Poem Complete! Dialog
@@ -32,9 +32,15 @@
     - [x] Modify script to show problem poems
 - [ ] Keep track of copyright usage (Luna)
 - [x] Poem collections?
+- [ ] Browse view
+    - [ ] Ability to browse by collection
+- Other navbar options
+    - [ ] Help page (Tutorial?)
 - [ ] Admin view:
-     - [ ] Create, edit collections
-     - [ ] Add poem to collection
+    - [ ] Create, edit collections
+    - [ ] Add poem to collection
+- [ ] Message for guest players
+    - Appears when playing poem for first time in session
 - [x] Push to server
 - [ ] Add Poem Interface
     - [ ] Stanza break switch

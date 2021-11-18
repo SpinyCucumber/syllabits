@@ -54,6 +54,6 @@
             "okay": "Correct!",
             "incorrect": ["Try again!", "Not quite!"]
         },
-        "complete": "Excellent!"
+        "complete": "Huzzah!"
     }
 }
