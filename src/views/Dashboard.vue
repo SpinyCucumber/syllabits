@@ -35,7 +35,7 @@ const InProgressList = Vue.component('InProgressList', {
         return create(Connection, {
             props: {
                 query: inProgressQuery,
-                field: 'poemsInProgress',
+                field: 'inProgress',
                 component: PoemCard,
                 prop: 'poem',
             },
@@ -53,7 +53,7 @@ const CompletedList = Vue.component('CompletedList', {
         return create(Connection, {
             props: {
                 query: completedQuery,
-                field: 'completedPoems',
+                field: 'completed',
                 component: PoemCard,
                 prop: 'poem',
             },

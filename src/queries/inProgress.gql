@@ -1,5 +1,5 @@
 query {
-    poemsInProgress {
+    inProgress {
         edges {
             node {
                 id
