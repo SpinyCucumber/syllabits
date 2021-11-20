@@ -74,6 +74,9 @@ export default {
       // Navigate back to splash
       this.$router.push({name: 'Splash'});
     },
+    refresh() {
+      
+    },
   },
   computed: {
     showCheats() {

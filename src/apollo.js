@@ -4,7 +4,7 @@ import { createApolloClient } from 'vue-cli-plugin-apollo/graphql-client'
 import store from '@/store'
 
 // Install the vue plugin
-Vue.use(VueApollo)
+Vue.use(VueApollo);
 
 // Http endpoint
 const httpEndpoint = process.env.VUE_APP_GRAPHQL_HTTP;
@@ -47,8 +47,10 @@ const options = {
   // clientState: { resolvers: { ... }, defaults: { ... } }
 }
 
-const apolloClient = createApolloClient(options).apolloClient;
+// Create apollo client
+const { apolloClient } = createApolloClient(options);
 
+// Create vue apollo provider
 const apolloProvider = new VueApollo({
   defaultClient: apolloClient,
   defaultOptions: {
@@ -60,6 +62,6 @@ const apolloProvider = new VueApollo({
     // TODO
     console.log('%cError', 'background: red; color: white; padding: 2px 4px; border-radius: 3px; font-weight: bold;', error.message)
   },
-})
+});
 
 export { apolloClient, apolloProvider }
