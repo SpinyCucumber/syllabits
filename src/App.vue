@@ -26,6 +26,7 @@
                 <b-icon icon="account-circle" size="is-large"/>
                 <p class="subtitle">{{ $store.getters.claims.email }}</p>
                 <b-button type="is-danger" :label="$translation.get('button.logout')" @click="confirmLogout"/>
+                <b-button type="is-info" v-if="showCheats" :label="$translation.get('button.refresh')" @click="refresh"/>
               </b-navbar-item>
             </b-navbar-dropdown>
             <b-navbar-dropdown arrowless right boxed>
@@ -72,6 +73,11 @@ export default {
       this.$store.dispatch('clearIdentity');
       // Navigate back to splash
       this.$router.push({name: 'Splash'});
+    },
+  },
+  computed: {
+    showCheats() {
+      return process.env.VUE_APP_SYLLABITS_CHEATS;
     },
   }
 }
