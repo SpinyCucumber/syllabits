@@ -5,4 +5,6 @@ module.exports = {
       lintGQL: false,
     }
   },
+  // Have to explicitly transpile vue-cli-plugin-apollo
+  transpileDependencies: ['vue-cli-plugin-apollo']
 }
