@@ -1,0 +1,6 @@
+mutation {
+    refresh {
+        ok
+        result
+    }
+}
