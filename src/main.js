@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 import Buefy from 'buefy'
 
-import { createProvider } from './apollo'
+import { apolloProvider } from './apollo'
 import { Constants, IdentityService, AssetService, TranslationService } from './services'
 
 import './styles/syllabits.scss'
@@ -21,7 +21,7 @@ Vue.config.productionTip = false;
 
 new Vue({
   router,
-  apolloProvider: createProvider(),
+  apolloProvider,
   store,
   render: function (h) { return h(App) }
 }).$mount('#app')
