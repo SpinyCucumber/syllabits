@@ -12,7 +12,11 @@ let refreshTimeout = null;
 const module = {
     state() {
         return {
-            token: null,
+            // Token has three possible values, each of which correspond to a different state
+            // Can be undefined, which means user's identity is YET to be determined (in an unknown state)
+            // Can be null, which means user is not logged in/no identity
+            // Can be an actual access token which corresponds to a user account (has an identity)
+            token: undefined,
         }
     },
     mutations: {
@@ -27,6 +31,9 @@ const module = {
         hasIdentity(state) {
             return state.token !== null;
         },
+        determined(state) {
+            return state.token !== undefined;
+        }
     },
     actions: {
         // Attempts to obtain a new access token by querying the server.
@@ -34,8 +41,8 @@ const module = {
         refreshIdentity({dispatch}) {
             apolloClient.mutate({ mutation: refreshQuery })
                 .then(result => result.data.refresh)
-                .then(({ok, result}) => {
-                    if (ok) dispatch('loadIdentity', result);
+                .then(({result}) => {
+                    dispatch('loadIdentity', result);
                 });
         },
         loadIdentity({commit, getters}, token) {

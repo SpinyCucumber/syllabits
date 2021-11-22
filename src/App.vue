@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" v-if="$store.getters.determined">
     <transition name="fade" mode="out-in">
       <router-view v-if="$route.meta.transitory"/>
       <div v-else class="main">
