@@ -40,12 +40,16 @@ body {
 /*
  * LAYOUT
  */
-
-#app,
 html,
-body,
-#app>* {
+body {
     @extend .full-height
+}
+
+.full-screen {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .scene {
@@ -236,15 +240,20 @@ body,
     }
 }
 
-.main {
+#app {
+    @extend .full-height;
 
-    display: flex;
-    flex-direction: column;
+    .main {
 
-    &>.inner {
-        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+
+        &>.inner {
+            flex-grow: 1;
+        }
+
     }
-
+    &>* { @extend .full-height }
 }
 
 .play {

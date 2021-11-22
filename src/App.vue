@@ -1,7 +1,10 @@
 <template>
-  <div id="app" v-if="$store.getters.determined">
-    <transition name="fade" mode="out-in">
-      <router-view v-if="$route.meta.transitory"/>
+  <div id="app">
+    <transition name="fade-long" mode="out-in">
+      <div v-if="!$store.getters.determined" class="full-screen">
+        <!-- TODO -->
+      </div>
+      <router-view v-else-if="$route.meta.transitory"/>
       <div v-else class="main">
         <b-navbar>
 
