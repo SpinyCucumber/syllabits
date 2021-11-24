@@ -24,11 +24,13 @@
                 <b-navbar-dropdown arrowless right boxed
                   v-if="$store.getters.hasIdentity">
                   <template #label><b-icon icon="account"/></template>
-                  <b-navbar-item tag="div" class="submenu is-centered">
-                    <b-icon icon="account-circle" size="is-large"/>
-                    <p class="subtitle">{{ $store.getters.claims.email }}</p>
-                    <b-button type="is-danger" :label="$translation.get('button.logout')" @click="confirmLogout"/>
-                    <b-button type="is-info" v-if="showCheats" :label="$translation.get('button.refresh')" @click="refresh"/>
+                  <b-navbar-item tag="div">
+                    <div class="submenu is-centered">
+                      <b-icon icon="account-circle" size="is-large"/>
+                      <p class="subtitle">{{ $store.getters.claims.email }}</p>
+                      <b-button type="is-danger" :label="$translation.get('button.logout')" @click="confirmLogout"/>
+                      <b-button type="is-info" v-if="showCheats" :label="$translation.get('button.refresh')" @click="refresh"/>
+                    </div>
                   </b-navbar-item>
                 </b-navbar-dropdown>
                 <b-navbar-dropdown arrowless right boxed>

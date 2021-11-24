@@ -4,7 +4,7 @@
         :key="control.key"
         :is="control.component"
         v-model="settings[control.key]">
-        {{ $translation.get(control.key) }}
+        {{ $translation.get('setting.' + control.key) }}
     </component>
   </div>
 </template>

@@ -4,6 +4,10 @@
         "next": "Next Poem",
         "prev": "Previous Poem"
     },
+    "setting": {
+        "hints": "Enable Hints",
+        "readability": "Readable Text"
+    },
     "button": {
         "login": "Login",
         "logout": "Logout",
