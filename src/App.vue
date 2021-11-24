@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" :style="rootStyle">
     <transition name="fade" mode="out-in">
       <div v-if="$store.getters.determined" class="full-height" key="determined">
         <transition name="fade" mode="out-in">
@@ -93,6 +93,14 @@ export default {
     showCheats() {
       return process.env.VUE_APP_SYLLABITS_CHEATS;
     },
+    rootStyle() {
+      let styles = {};
+      // If readability mode is active, unset stylized text
+      if (this.$store.state.settings.settings.readability) {
+        styles['--font-stylized'] = 'initial';
+      }
+      return styles;
+    }
   }
 }
 </script>
