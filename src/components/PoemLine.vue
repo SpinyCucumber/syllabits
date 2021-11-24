@@ -152,13 +152,17 @@ export default {
 
         handleIncorrect(hintIndicies) {
             this.$emit('incorrect');
-            // Send animation message to incorrect slots
-            for (let i of hintIndicies) {
-                this.$refs.slots[i].animate('incorrect');
+            let delay = 0;
+            // If hints are enabled, send animation message to incorrect slots
+            if (this.$store.state.settings.settings.hints) {
+                delay = 500;
+                for (let i of hintIndicies) {
+                    this.$refs.slots[i].animate('incorrect');
+                }
             }
             setTimeout(() => {
                 this.$refs.feedback.show(FeedbackType.Incorrect);
-            }, 500);
+            }, delay);
         },
 
         /**
