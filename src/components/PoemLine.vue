@@ -127,13 +127,12 @@ export default {
                     // Animations are only triggered when we actually get a check result back.
                     // This is because we need the feedback to actually perform the incorrect
                     // animations.
-                    if (result.correct) this.animateCorrect();
-                    else this.animateIncorrect(result.conflicts);
+                    if (result.correct) this.handleCorrect();
+                    else this.handleIncorrect(result.conflicts);
                 });
         },
 
-        // Correct animation
-        animateCorrect() {
+        handleCorrect() {
             this.$emit('correct');
             // 'Bounce' the slots in order to create a wave
             let delay = 0;
@@ -151,7 +150,7 @@ export default {
             }, delay);
         },
 
-        animateIncorrect(hintIndicies) {
+        handleIncorrect(hintIndicies) {
             this.$emit('incorrect');
             // Send animation message to incorrect slots
             for (let i of hintIndicies) {
