@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <transition name="fade" mode="out-in">
-      <div v-if="!$store.getters.determined" class="full-screen" key="loading">
-        <!-- TODO -->
+      <div v-if="!$store.getters.determined" class="loading-overlay is-full-page is-active" key="loading">
+        <div class="loading-icon"/>
       </div>
       <router-view v-else-if="$route.meta.transitory" key="transitory"/>
       <div v-else class="main" key="main">
