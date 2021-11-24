@@ -235,18 +235,12 @@ body {
 
 #app {
     @extend .full-height;
-
-    .main {
-
+    .main-view {
         display: flex;
         flex-direction: column;
-
-        &>.inner {
-            flex-grow: 1;
-        }
-
+        &>.inner { flex-grow: 1; }
     }
-    &>* { @extend .full-height }
+    .app-view { @extend .full-height }
 }
 
 .play {
