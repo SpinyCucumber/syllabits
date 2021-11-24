@@ -1,12 +1,12 @@
 - Navigation, etc.
-    - [ ] Account submenu
+    - [x] Account submenu
 - [x] Progress bar in play view
 - [x] Sound effects
     - [x] Block "clack" sound
     - [x] Answer feedback sounds
-- [ ] Settings
-    - [ ] Ability to toggle DovesType
-    - [ ] Ability to toggle 'hints'
+- [x] Settings
+    - [x] Ability to toggle DovesType
+    - [x] Ability to toggle 'hints'
 - [x] ANSWER FEEDBACK
     - [x] One-off animations
     - [x] Some way to communicate correct/incorrect state
@@ -21,6 +21,8 @@
     - [x] Line completion behavior?
     - [x] Stanzas? (related to dataset)
         - For W. Shakespeare dataset: 4 - 4 - 4 - 2
+- [ ] Register view
+    - [ ] Confirm password
 - [ ] Visual Element Redesign
     - [ ] Divider (fancier!)
     - [ ] "Drawer" handle
