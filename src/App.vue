@@ -24,7 +24,7 @@
                 <b-navbar-dropdown arrowless right boxed
                   v-if="$store.getters.hasIdentity">
                   <template #label><b-icon icon="account"/></template>
-                  <b-navbar-item tag="div" class="submenu">
+                  <b-navbar-item tag="div" class="submenu is-centered">
                     <b-icon icon="account-circle" size="is-large"/>
                     <p class="subtitle">{{ $store.getters.claims.email }}</p>
                     <b-button type="is-danger" :label="$translation.get('button.logout')" @click="confirmLogout"/>
@@ -33,8 +33,8 @@
                 </b-navbar-dropdown>
                 <b-navbar-dropdown arrowless right boxed>
                   <template #label><b-icon icon="cog"/></template>
-                  <b-navbar-item>
-                    TODO
+                  <b-navbar-item tag="div">
+                    <settings/>
                   </b-navbar-item>
                 </b-navbar-dropdown>
               </template>
@@ -60,9 +60,11 @@
 </template>
 
 <script>
+import { Settings } from '@/components'
 
 export default {
   name: 'App',
+  components: { Settings },
   data() {
     return {
       additionalLinks: [],

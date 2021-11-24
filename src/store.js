@@ -8,8 +8,10 @@ Vue.use(Vuex)
 const settings = {
     state() {
         return {
-            hints: true,
-            readable: false,
+            settings: {
+                hints: true,
+                readability: false,
+            }
         }
     },
     getters: { getField },
