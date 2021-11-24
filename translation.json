@@ -11,7 +11,6 @@
     "button": {
         "login": "Login",
         "logout": "Logout",
-        "refresh": "Refresh Identity",
         "register": "Register",
         "jumpin": "Play a Poem",
         "anotherpoem": "Play Another Poem",
