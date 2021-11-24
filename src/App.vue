@@ -92,7 +92,7 @@ export default {
     rootStyle() {
       let styles = {};
       // If readability mode is active, unset stylized text
-      if (this.$store.state.settings.settings.readability) {
+      if (this.$store.state.settings.readability) {
         styles['--font-stylized'] = 'initial';
       }
       return styles;

@@ -154,7 +154,7 @@ export default {
             this.$emit('incorrect');
             let delay = 0;
             // If hints are enabled, send animation message to incorrect slots
-            if (this.$store.state.settings.settings.hints) {
+            if (this.$store.state.settings.hints) {
                 delay = 500;
                 for (let i of hintIndicies) {
                     this.$refs.slots[i].animate('incorrect');
