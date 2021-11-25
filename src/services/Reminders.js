@@ -1,6 +1,6 @@
 import Service from './Service'
 
-let shown = Set()
+let shown = new Set();
 
 function display(key) {
     this.$buefy.toast.open({
