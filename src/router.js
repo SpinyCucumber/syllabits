@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import store from '@/store'
 import { Splash, Login, Register, Dashboard, Play } from '@/views'
 import { randomPoemID as randomPoemIDQuery } from '@/queries'
+import { ReminderService } from '@/services'
 import { apolloClient } from '@/apollo'
 
 Vue.use(VueRouter)
@@ -61,6 +62,13 @@ routes: [
     name: 'Play',
     component: Play,
     props: true,
+    beforeEnter(to, from, next) {
+      // If user is not logged in (playing as guest), we send them a polite reminder
+      if (!store.getters.hasIdentity) {
+        ReminderService.show('playingasguest');
+      }
+      next();
+    },
   }
 ]});
 
