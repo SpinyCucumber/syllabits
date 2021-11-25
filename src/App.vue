@@ -62,6 +62,7 @@
 
 <script>
 import { Settings } from '@/components'
+import { logout as logoutQuery } from '@/queries'
 
 export default {
   name: 'App',
@@ -80,9 +81,15 @@ export default {
       });
     },
     logout() {
-      this.$store.dispatch('clearIdentity');
-      // Navigate back to splash
-      this.$router.push({name: 'Splash'});
+      this.$apollo.mutate({ mutation: logoutQuery })
+        .then(result => result.data.logout)
+        .then(({ok}) => {
+          if (ok) {
+            this.$store.dispatch('clearIdentity');
+            // Navigate back to splash
+            this.$router.push({name: 'Splash'});
+          }
+        });
     },
   },
   computed: {
