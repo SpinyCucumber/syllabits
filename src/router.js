@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import store from '@/store'
 import { Splash, Login, Register, Dashboard, Play } from '@/views'
 import { randomPoemID as randomPoemIDQuery } from '@/queries'
+import { apolloClient } from '@/apollo'
 
 Vue.use(VueRouter)
 
@@ -24,15 +25,11 @@ routes: [
     name: 'RandomPoem',
     beforeEnter(to, from, next) {
       // Execute server query
-      // Make sure to wait until component is instantiated so we can access
-      // apollo provider
-      router.app.$nextTick(() => {
-        router.app.$apollo.mutate({ mutation: randomPoemIDQuery })
-          .then(result => result.data.randomPoem.poem.id)
-          .then(id => {
-            // Transition to play page with the new poem ID
-            next({ name: 'Play', params: { poemID: id }});
-          });
+      apolloClient.mutate({ mutation: randomPoemIDQuery })
+        .then(result => result.data.randomPoem.poem.id)
+        .then(id => {
+          // Transition to play page with the new poem ID
+          next({ name: 'Play', params: { poemID: id }});
         });
     },
   },
