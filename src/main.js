@@ -5,7 +5,7 @@ import store from './store'
 import Buefy from 'buefy'
 
 import { apolloProvider } from './apollo'
-import { Constants, IdentityService, AssetService, TranslationService } from './services'
+import { Constants, IdentityService, AssetService, TranslationService, ReminderService } from './services'
 
 import './styles/syllabits.scss'
 
@@ -16,6 +16,7 @@ Vue.use(Constants);
 Vue.use(IdentityService, {store});
 Vue.use(AssetService);
 Vue.use(TranslationService);
+Vue.use(ReminderService);
 
 Vue.config.productionTip = false;
 
