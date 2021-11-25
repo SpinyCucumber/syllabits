@@ -47,12 +47,14 @@ const module = {
         },
         loadIdentity({commit, getters}, token) {
             commit('setToken', token);
-            // Schedule token refresh
+            // If token is valid, schedule token refresh
             // Make sure to cancel previously scheduled refresh if applicable
-            const delta = (getters.claims.exp * 1000) - Date.now() - PREEMPT;
-            if (refreshTimeout) clearTimeout(refreshTimeout);
-            // TODO
-            refreshTimeout = setTimeout(() => {}, delta);
+            if (token !== null) {
+                const delta = (getters.claims.exp * 1000) - Date.now() - PREEMPT;
+                if (refreshTimeout) clearTimeout(refreshTimeout);
+                // TODO
+                refreshTimeout = setTimeout(() => {}, delta);
+            }
         },
         clearIdentity({commit}) {
             commit('setToken', null);
