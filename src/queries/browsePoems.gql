@@ -1,4 +1,4 @@
-query($after: ID, $first: Int) {
+query($after: String, $first: Int) {
     allPoems(after: $after, first: $first) {
         edges {
             node {
