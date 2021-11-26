@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '@/store'
-import { Splash, Login, Register, Dashboard, Play } from '@/views'
+import { Splash, Login, Register, Dashboard, Play, Browse } from '@/views'
 import { randomPoemID as randomPoemIDQuery } from '@/queries'
 import { ReminderService } from '@/services'
 import { apolloClient } from '@/apollo'
@@ -69,7 +69,12 @@ routes: [
       }
       next();
     },
-  }
+  },
+  {
+    path: '/browse',
+    name: 'Browse',
+    component: Browse,
+  },
 ]});
 
 export default router

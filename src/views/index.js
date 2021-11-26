@@ -1,5 +1,6 @@
-export { default as Splash } from "./Splash";
-export { default as Login } from "./Login";
-export { default as Register } from "./Register";
-export { default as Dashboard } from "./Dashboard";
-export { default as Play } from "./Play";
+export { default as Splash } from "./Splash"
+export { default as Login } from "./Login"
+export { default as Register } from "./Register"
+export { default as Dashboard } from "./Dashboard"
+export { default as Play } from "./Play"
+export { default as Browse } from "./Browse"

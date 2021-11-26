@@ -31,7 +31,7 @@ import Vue from 'vue'
 
 const inProgressPlaceholder = [
     { to: {name: 'RandomPoem'}, key: 'jumpin'},
-    { to: {name: 'BrowsePoems'}, key: 'browsepoems'},
+    { to: {name: 'Browse'}, key: 'browsepoems'},
 ]
 
 // Construct components used by widgets
