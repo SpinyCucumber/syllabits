@@ -632,6 +632,15 @@ button,
     }
 }
 
+.poem-entry-list {
+    tr {
+        border-bottom: 2px solid $light;
+    }
+    td {
+        padding: 0.5em;
+    }
+}
+
 .number {
     @extend .non-interactive;
     font-size: var(--fs-10);

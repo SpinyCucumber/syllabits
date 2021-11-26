@@ -1,13 +1,17 @@
 <template>
-  <scene>
+  <scene type="is-aligned">
     <template #content-area>
         <!-- Testing -->
-        <connection
-            :query="browsePoemsQuery"
-            :component="PoemEntry"
-            field="allPoems"
-            prop="poem"
-            :perPage="10"/>
+        <div class="scene-content">
+            <connection
+                :query="browsePoemsQuery"
+                :component="PoemEntry"
+                :map="(data) => data.allPoems"
+                prop="poem"
+                tag="table"
+                class="poem-entry-list"
+                :perPage="10"/>
+        </div>
     </template>
     <template #background-area>
         <background-image :src="$assets.getTexture('Books')" class="muted"/>
@@ -27,6 +31,7 @@ const PoemEntry = Vue.component('PoemEntry', {
         return (
             <tr>
                 <td>{this.poem.title}</td>
+                <td>{this.poem.author}</td>
             </tr>
         )
     }
