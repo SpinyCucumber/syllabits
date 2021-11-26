@@ -24,10 +24,14 @@ export default {
         field: String,
         component: { required: true },
         prop: String,
+        perPage: Number,
     },
     apollo: {
         connection: {
             query() { return this.query; },
+            variables() {
+                return { first: this.perPage };
+            },
             update(data) {
                 if (this.field) return data[this.field]
             },
