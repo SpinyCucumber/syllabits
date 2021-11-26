@@ -1,0 +1,11 @@
+query($after: ID, $first: Int) {
+    allPoems(after: $after, first: $first) {
+        edges {
+            node {
+                title
+                author
+                id
+            }
+        }
+    }
+}
