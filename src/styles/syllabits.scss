@@ -18,6 +18,10 @@ body {
     font-size: var(--fs-10);
 }
 
+p:not(:last-child) {
+    margin-bottom: 1em;
+}
+
 .label {
     color: $dark;
     font-weight: 100;
@@ -700,7 +704,7 @@ button,
     }
     .submenu-footer {
         display: flex;
-        gap: 1em;
+        gap: 2em;
     }
 }
 
