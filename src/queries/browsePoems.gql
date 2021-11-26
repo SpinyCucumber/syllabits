@@ -1,5 +1,5 @@
 query($after: String, $first: Int) {
-    poems: allPoems(after: $after, first: $first) {
+    allPoems(after: $after, first: $first) {
         edges {
             node {
                 title

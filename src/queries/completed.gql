@@ -1,6 +1,6 @@
 query {
     me {
-        poems: completed {
+        completed {
             edges {
                 node {
                     id

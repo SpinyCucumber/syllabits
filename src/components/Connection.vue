@@ -21,7 +21,7 @@ export default {
     name: 'Connection',
     props: {
         query: { required: true },
-        field: String,
+        map: Function,
         component: { required: true },
         prop: String,
         perPage: Number,
@@ -33,7 +33,7 @@ export default {
                 return { first: this.perPage };
             },
             update(data) {
-                if (this.field) return data[this.field]
+                if (this.map) return this.map(data);
             },
             fetchPolicy: 'cache-and-network',
         }
