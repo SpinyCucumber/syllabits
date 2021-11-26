@@ -10,7 +10,7 @@
 - [x] ANSWER FEEDBACK
     - [x] One-off animations
     - [x] Some way to communicate correct/incorrect state
-- [ ] Play view
+- [x] Play view
     - Controls
         - [x] Reset button
         - [x] Help Button
@@ -41,7 +41,7 @@
 - [ ] Admin view:
     - [ ] Create, edit collections
     - [ ] Add poem to collection
-- [ ] Message for guest players
+- [x] Message for guest players
     - Appears when playing poem for first time in session
 - [x] Push to server
 - [ ] Add Poem Interface
