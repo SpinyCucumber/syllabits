@@ -42,7 +42,8 @@ const InProgressList = Vue.component('InProgressList', {
                 query={inProgressQuery}
                 component={PoemCard}
                 map={(data) => data.me.inProgress}
-                prop="poem">
+                prop="poem"
+                class="poem-card-list">
                 <div slot="placeholder" class="submenu is-centered">
                     <p>{TranslationService.get('placeholder.inprogress')}</p>
                     <footer class="submenu-footer">
@@ -68,7 +69,8 @@ const CompletedList = Vue.component('CompletedList', {
                 query={completedQuery}
                 component={PoemCard}
                 map={(data) => data.me.completed}
-                prop="poem">
+                prop="poem"
+                class="poem-card-list">
                 <div slot="placeholder" class="submenu is-centered">
                     <p>{TranslationService.get('placeholder.completed')}</p>
                 </div>

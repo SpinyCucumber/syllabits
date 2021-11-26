@@ -3,7 +3,7 @@
         <div v-if="connection.edges.length === 0" class="placeholder">
             <slot name="placeholder"/>
         </div>
-        <transition-group v-else tag="div" name="list" class="connection-list">
+        <transition-group v-else :tag="tag" name="list" class="connection-list">
             <component
                 v-for="edge in connection.edges"
                 :is="component"
@@ -25,6 +25,7 @@ export default {
         component: { required: true },
         prop: String,
         perPage: Number,
+        tag: { default: 'div' }
     },
     apollo: {
         connection: {
