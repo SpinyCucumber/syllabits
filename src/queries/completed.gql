@@ -1,13 +1,15 @@
 query {
-    completed {
-        edges {
-            node {
-                id
-                title
-                author
-                numLines
-                progress {
-                    numCorrect
+    me {
+        poems: completed {
+            edges {
+                node {
+                    id
+                    title
+                    author
+                    numLines
+                    progress {
+                        numCorrect
+                    }
                 }
             }
         }

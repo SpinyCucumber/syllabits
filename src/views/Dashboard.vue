@@ -41,7 +41,7 @@ const InProgressList = Vue.component('InProgressList', {
             <Connection
                 query={inProgressQuery}
                 component={PoemCard}
-                field="inProgress"
+                field="poems"
                 prop="poem">
                 <div slot="placeholder" class="submenu is-centered">
                     <p>{TranslationService.get('placeholder.inprogress')}</p>
@@ -67,7 +67,7 @@ const CompletedList = Vue.component('CompletedList', {
             <Connection
                 query={completedQuery}
                 component={PoemCard}
-                field="completed"
+                field="poems"
                 prop="poem">
                 <div slot="placeholder" class="submenu is-centered">
                     <p>{TranslationService.get('placeholder.completed')}</p>
