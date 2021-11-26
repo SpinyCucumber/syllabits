@@ -29,40 +29,51 @@ import { inProgress as inProgressQuery, completed as completedQuery } from '@/qu
 import { TranslationService } from '@/services'
 import Vue from 'vue'
 
+const inProgressPlaceholder = [
+    { to: {name: 'RandomPoem'}, key: 'jumpin'},
+    { to: {name: 'BrowsePoems'}, key: 'browsepoems'},
+]
+
 // Construct components used by widgets
 const InProgressList = Vue.component('InProgressList', {
-    render(create) {
-        return create(Connection, {
-            props: {
-                query: inProgressQuery,
-                field: 'inProgress',
-                component: PoemCard,
-                prop: 'poem',
-            },
-            scopedSlots: {
-                placeholder() {
-                    return TranslationService.get('placeholder.poemsInProgress');
-                }
-            }
-        })
+    render() {
+        return (
+            <Connection
+                query={inProgressQuery}
+                component={PoemCard}
+                field="inProgress"
+                prop="poem">
+                <div slot="placeholder" class="submenu is-centered">
+                    <p>{TranslationService.get('placeholder.inprogress')}</p>
+                    <footer class="submenu-footer">
+                        {inProgressPlaceholder.map(button => (
+                            <b-button
+                                type="is-primary"
+                                tag="router-link"
+                                to={button.to}
+                                label={TranslationService.get('button.' + button.key)}
+                            />
+                        ))}
+                    </footer>
+                </div>
+            </Connection>
+        )
     }
 })
 
 const CompletedList = Vue.component('CompletedList', {
-    render(create) {
-        return create(Connection, {
-            props: {
-                query: completedQuery,
-                field: 'completed',
-                component: PoemCard,
-                prop: 'poem',
-            },
-            scopedSlots: {
-                placeholder() {
-                    return TranslationService.get('placeholder.completedPoems');
-                }
-            }
-        })
+    render() {
+        return (
+            <Connection
+                query={completedQuery}
+                component={PoemCard}
+                field="completed"
+                prop="poem">
+                <div slot="placeholder" class="submenu is-centered">
+                    <p>{TranslationService.get('placeholder.completed')}</p>
+                </div>
+            </Connection>
+        )
     }
 })
 
