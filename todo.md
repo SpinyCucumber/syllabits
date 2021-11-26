@@ -1,5 +1,4 @@
-- Navigation, etc.
-    - [x] Account submenu
+- [x] Account submenu
 - [x] Progress bar in play view
 - [x] Sound effects
     - [x] Block "clack" sound
@@ -29,15 +28,15 @@
     - [ ] Progress bar head
     - [ ] Poem completion dialog art
 - [x] Buefy color scheme changes
-- [ ] Phase out Buefy?
+- [ ] Help page (Tutorial?)
 - [x] Sonnet 20 .-.
     - [x] Modify script to show problem poems
 - [ ] Keep track of copyright usage (Luna)
 - [x] Poem collections?
 - [ ] Browse view
+    - "Poems" or "Collections" toggle would be useful
+    - [ ] Ability to search
     - [ ] Ability to browse by collection
-- Other navbar options
-    - [ ] Help page (Tutorial?)
 - [ ] Admin view:
     - [ ] Create, edit collections
     - [ ] Add poem to collection
@@ -51,3 +50,4 @@
     - [ ] Add to preexisting collection?
     - [ ] 5 feet, text box under?
     - [ ] Always 14 lines
+- [ ] IMPROVEMENT Phase out vue-smooth-dnd... It is abysmal for performance  
