@@ -10,10 +10,8 @@ Vue.use(Vuex)
 const settings = {
     state() {
         return {
-            settings: {
-                hints: true,
-                readability: false,
-            }
+            hints: true,
+            readability: false,
         }
     },
     mutations: {
