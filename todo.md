@@ -44,10 +44,12 @@
     - Appears when playing poem for first time in session
 - [x] Push to server
 - [ ] Add Poem Interface
-    - [ ] Stanza break switch
-    - [ ] Entering line-by-line
+    - [ ] Initial screen to upload text, enter author, title
+        - Stanza information also comes from here
+    - [ ] Stanza break switch?
     - [ ] Field for title + author
-    - [ ] Add to preexisting collection?
     - [ ] 5 feet, text box under?
     - [ ] Always 14 lines
-- [ ] IMPROVEMENT Phase out vue-smooth-dnd... It is abysmal for performance  
+- [ ] Edit button in the game interface as well
+- [ ] IMPROVEMENT Phase out vue-smooth-dnd... It is abysmal for performance 
+- [ ] Scratch pad?
