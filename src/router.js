@@ -30,7 +30,7 @@ routes: [
         .then(result => result.data.randomPoem.poem.id)
         .then(id => {
           // Transition to play page with the new poem ID
-          next({ name: 'Play', params: { poemID: id }});
+          next({ name: 'Play', params: {location: `{"type": "direct", "poemID": "${id}"}`}});
         });
     },
   },
