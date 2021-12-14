@@ -50,7 +50,7 @@
                 </div>
                 
                 <transition name="fade" mode="out-in">
-                <div class="poem" v-if="ready" :key="poemID">
+                <div class="poem" v-if="ready" :key="poem.id">
 
                     <div class="title-box">
                         <h1 class="title">{{ poem.title }}</h1>
@@ -199,7 +199,7 @@ export default {
         },
 
         reset() {
-            const input = { poemID: this.poemID };
+            const input = { poemID: this.poem.id };
             this.$apollo.mutate({ mutation: resetProgressQuery, variables: { input } })
                 .then(result => result.data.resetProgress)
                 .then(result => {
@@ -276,16 +276,8 @@ export default {
                                 localLine.state = line.correct ? LineState.Correct : LineState.Incorrect;
                             }
                         }
-                        // Update navigation links
+                        // TODO Update navigation links
                         let links = [];
-                        if (poem.prev) links.push({
-                            key: 'prev',
-                            to: { name: 'Play', params: { poemID: poem.prev.id }}
-                        });
-                        if (poem.next) links.push({
-                            key: 'next',
-                            to: { name: 'Play', params: { poemID: poem.next.id }}
-                        });
                         this.$emit('update:additionalLinks', links);
                         // Finally set poem
                         this.poem = poem;
