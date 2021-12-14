@@ -161,7 +161,7 @@ export default {
             // This is for representing the sequence of blocks efficiently.
             const code = BlockTypes.serializeSequence(holding);
             // We have to construct the input to the server
-            const input = { poemID: this.poemID, lineNum, answer: code }
+            const input = { poemID: this.poem.id, lineNum, answer: code }
             return this.$apollo.mutate({ mutation: submitLineQuery, variables: { input } })
                 .then(result => result.data.submitLine)
                 .then(result => {

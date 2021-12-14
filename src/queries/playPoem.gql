@@ -1,6 +1,7 @@
 mutation($location: JSONString!) {
     playPoem(location: $location) {
         poem {
+            id
             title
             author
             lines {
