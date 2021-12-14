@@ -100,7 +100,7 @@
 </template>
 
 <script>
-import { poem as poemQuery, submitLine as submitLineQuery, resetProgress as resetProgressQuery } from '@/queries'
+import { playPoem as playPoemQuery, submitLine as submitLineQuery, resetProgress as resetProgressQuery } from '@/queries'
 import { BlockPicker, PoemLine, Scene, GameProgress, GameDropdown } from '@/components'
 import { Constants, AssetService } from '@/services'
 import store from '@/store'
@@ -115,7 +115,7 @@ export default {
     components: { BlockPicker, PoemLine, Scene, GameProgress, GameDropdown },
 
     props: {
-        poemID: { required: true, type: String },
+        location: { required: true, type: Object },
     },
 
     setup() {
@@ -257,12 +257,11 @@ export default {
     },
 
     watch: {
-        poemID: {
-            handler(newVal) {
+        location: {
+            handler(location) {
                 // Perform server query
-                // If there is a user logged in, make sure to query the progress as well
-                this.$apollo.query({ query: poemQuery, variables: { id: newVal }, fetchPolicy: 'network-only'})
-                    .then(result => result.data.poem)
+                this.$apollo.mutate({mutation: playPoemQuery, variables: { location }})
+                    .then(result => result.data.playPoem.poem)
                     .then(poem => {
                         this.initialize(poem.lines.length);
                         // Update progress from server if applicable
