@@ -115,7 +115,7 @@ export default {
     components: { BlockPicker, PoemLine, Scene, GameProgress, GameDropdown },
 
     props: {
-        location: { required: true, type: Object },
+        location: { required: true, type: String },
     },
 
     setup() {
