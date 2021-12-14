@@ -1,12 +1,6 @@
-query($id: ID!) {
-    poem: node(id: $id) {
-        ... on Poem {
-            next {
-                id
-            }
-            prev {
-                id
-            }
+mutation($location: JSONString!) {
+    playPoem(location: $location) {
+        poem {
             title
             author
             lines {
