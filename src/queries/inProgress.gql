@@ -3,7 +3,7 @@ query {
         inProgress {
             edges {
                 node {
-                    id
+                    location
                     title
                     author
                     numLines
