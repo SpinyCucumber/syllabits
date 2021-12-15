@@ -1,4 +1,4 @@
-mutation($location: JSONString!) {
+mutation($location: String!) {
     playPoem(location: $location) {
         poem {
             id
