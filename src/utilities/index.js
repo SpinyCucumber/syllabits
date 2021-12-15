@@ -1,3 +1,26 @@
+import BSON from 'bson'
+
+/**
+ * Handles encoding/decoding poem locations
+ * Poem locations are BSON-encoded strings that identify a poem in a context
+ * I.e. can be a "direct location" or identify a poem using a collection and an index
+ */
+class PoemLocation {
+
+    constructor(fields) {
+        Object.assign(this, fields);
+    }
+
+    encode() {
+        return BSON.serialize(this);
+    }
+
+    static decode(encoded) {
+        return new PoemLocation(BSON.deserialize(encoded));
+    }
+    
+}
+
 /**
  * Constructed using an object where the keys are the name of the value,
  * and the values are the args used to initiate the value.
