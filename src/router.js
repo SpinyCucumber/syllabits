@@ -30,7 +30,7 @@ routes: [
         .then(result => result.data.randomPoem.poem.id)
         .then(id => {
           // Transition to play page with the new poem ID
-          next({ name: 'Play', params: {location: `{"type": "direct", "poemID": "${id}"}`}});
+          next({ name: 'Play', params: {location: `poem/${id}`}});
         });
     },
   },
@@ -58,10 +58,11 @@ routes: [
     component: Dashboard,
   },
   {
-    path: '/play/:poemID',
+    path: '/play/:location',
     name: 'Play',
     component: Play,
     props: true,
+    // TODO Move to play component
     beforeEnter(to, from, next) {
       // If user is not logged in (playing as guest), we send them a polite reminder
       if (!store.getters.hasIdentity) {
