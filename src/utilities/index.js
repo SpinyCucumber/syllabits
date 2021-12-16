@@ -80,18 +80,11 @@ class SerializableEnum extends Enum {
         })
     }
 
-    /** 
-     * Parses a string into a sequence of values using the values' code
-     */
-    parseSequence(string) {
-        return [...string].map(char => this.lookup[char]);
-    }
-
     /**
-     * Serializes a sequence of values into a string using the values' code
+     * Finds the enum value corresponding to code
      */
-    serializeSequence(sequence) {
-        return sequence.map(value => value.code).join('');
+    forCode(code) {
+        return this.lookup[code];
     }
 
 }

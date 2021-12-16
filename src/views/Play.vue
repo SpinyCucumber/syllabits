@@ -159,9 +159,9 @@ export default {
         checkLine(lineNum, holding) {
             // Create a code using the block types the line contains.
             // This is for representing the sequence of blocks efficiently.
-            const code = BlockTypes.serializeSequence(holding);
+            const answer = holding.map(block => block.code).join('');
             // We have to construct the input to the server
-            const input = { poemID: this.poem.id, lineNum, answer: code }
+            const input = { poemID: this.poem.id, lineNum, answer }
             return this.$apollo.mutate({ mutation: submitLineQuery, variables: { input } })
                 .then(result => result.data.submitLine)
                 .then(result => {
@@ -272,7 +272,7 @@ export default {
                             for (const line of progress.lines) {
                                 let localLine = this.lines[line.number];
                                 // Update holding and state
-                                localLine.holding = this.$constants.BlockTypes.parseSequence(line.answer);
+                                localLine.holding = Array.from(line.answer).map(code => BlockTypes.forCode(code));
                                 localLine.state = line.correct ? LineState.Correct : LineState.Incorrect;
                             }
                         }
