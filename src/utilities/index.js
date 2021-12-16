@@ -101,4 +101,4 @@ class SerializableEnum extends Enum {
 
 }
 
-export { Enum, SerializableEnum };
+export { PoemLocation, BlockType, Enum, SerializableEnum };
