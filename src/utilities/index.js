@@ -11,7 +11,6 @@ class PoemLocation {
 
     encode() {
         const json = JSON.stringify(this);
-        console.log(json);
         return Buffer.from(json).toString("base64");
     }
     
