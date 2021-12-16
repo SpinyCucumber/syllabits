@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { BlockType } from '@/models'
+import { BlockType } from '@/utilities'
 
 export default {
     name: 'Block',
