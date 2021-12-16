@@ -1,4 +1,4 @@
-import { Base64 } from 'js-base64'
+import { fromByteArray } from 'base64-js'
 
 /**
  * Handles encoding/decoding poem locations
@@ -12,11 +12,7 @@ class PoemLocation {
     }
 
     encode() {
-        return Base64.encode(JSON.stringify(this));
-    }
-
-    static decode(encoded) {
-        return new PoemLocation(JSON.parse(Base64.decode(encoded)));
+        return fromByteArray(JSON.stringify(this));
     }
     
 }
