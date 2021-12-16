@@ -33,7 +33,7 @@ routes: [
         .then(result => result.data.randomPoem.poem.id)
         .then(id => {
           // Transition to play page with the new poem ID
-          const location = new PoemLocation({t: LocationType.DIRECT, pid: id}).encode();
+          const location = new PoemLocation({t: LocationType.DIRECT, p: id}).encode();
           next({ name: 'Play', params: {location}});
         });
     },
