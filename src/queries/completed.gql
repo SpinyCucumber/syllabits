@@ -3,6 +3,7 @@ query {
         completed {
             edges {
                 node {
+                    id
                     location
                     title
                     author
