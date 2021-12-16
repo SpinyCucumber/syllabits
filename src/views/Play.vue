@@ -261,8 +261,8 @@ export default {
             handler(location) {
                 // Perform server query
                 this.$apollo.mutate({mutation: playPoemQuery, variables: { location }})
-                    .then(result => result.data.playPoem.poem)
-                    .then(poem => {
+                    .then(result => result.data.playPoem)
+                    .then(({poem, next, previous}) => {
                         this.initialize(poem.lines.length);
                         // Update progress from server if applicable
                         const { progress } = poem;
@@ -276,8 +276,10 @@ export default {
                                 localLine.state = line.correct ? LineState.Correct : LineState.Incorrect;
                             }
                         }
-                        // TODO Update navigation links
+                        // Update navigation links
                         let links = [];
+                        if (next) links.push({key: 'next', to: {name: 'Play', params: {location: next}}})
+                        if (previous) links.push({key: 'previous', to: {name: 'Play', params: {location: previous}}})
                         this.$emit('update:additionalLinks', links);
                         // Finally set poem
                         this.poem = poem;

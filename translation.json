@@ -2,7 +2,7 @@
     "navbar": {
         "dashboard": "Dashboard",
         "next": "Next Poem",
-        "prev": "Previous Poem"
+        "previous": "Previous Poem"
     },
     "setting": {
         "hints": "Enable Hints",
