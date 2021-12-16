@@ -102,7 +102,7 @@
 <script>
 import { playPoem as playPoemQuery, submitLine as submitLineQuery, resetProgress as resetProgressQuery } from '@/queries'
 import { BlockPicker, PoemLine, Scene, GameProgress, GameDropdown } from '@/components'
-import { Constants, AssetService } from '@/services'
+import { Constants, AssetService, ReminderService } from '@/services'
 import store from '@/store'
 import useSound from 'vue-use-sound'
 import Vue from 'vue'
@@ -294,6 +294,12 @@ export default {
             }
             this.showComplete = newVal;
         },
+    },
+
+    beforeRouteEnter(to, from, next) {
+        // If user is not logged in (playing as guest), we send them a polite reminder
+        if (!store.getters.hasIdentity) ReminderService.show('playingasguest');
+        next();
     },
 
     // Make sure to clean up our navigation links like a good boy
