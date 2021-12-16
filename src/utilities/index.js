@@ -22,6 +22,20 @@ class PoemLocation {
 }
 
 /**
+ * Models a block type
+ * Each block type has a single-character code to identify it,
+ * and a stress pattern defined by a sequence of StressTypes
+ */
+class BlockType {
+
+    constructor(code, stresses) {
+        this.code = code;
+        this.stresses = stresses;
+    }
+
+}
+
+/**
  * Constructed using an object where the keys are the name of the value,
  * and the values are the args used to initiate the value.
  */
