@@ -1,4 +1,4 @@
-import BSON from 'bson'
+import { Base64 } from 'js-base64'
 
 /**
  * Handles encoding/decoding poem locations
@@ -12,11 +12,11 @@ class PoemLocation {
     }
 
     encode() {
-        return BSON.serialize(this);
+        return Base64.encode(JSON.stringify(this));
     }
 
     static decode(encoded) {
-        return new PoemLocation(BSON.deserialize(encoded));
+        return new PoemLocation(JSON.parse(Base64.decode(encoded)));
     }
     
 }
