@@ -1,5 +1,3 @@
-import { fromByteArray } from 'base64-js'
-
 /**
  * Handles encoding/decoding poem locations
  * Poem locations are BSON-encoded strings that identify a poem in a context
@@ -12,7 +10,9 @@ class PoemLocation {
     }
 
     encode() {
-        return fromByteArray(JSON.stringify(this));
+        const json = JSON.stringify(this);
+        console.log(json);
+        return Buffer.from(json).toString("base64");
     }
     
 }
