@@ -9,6 +9,9 @@
 
               <!-- Items rendered at beginning of navbar -->
               <template #start>
+                <b-navbar-item tag="router-link" :to="{name: 'Browse'}">
+                  {{ $translation.get('navbar.browse') }}
+                </b-navbar-item>
                 <transition-group name="list" tag="div" class="is-flex">
                   <b-navbar-item
                     v-for="link in additionalLinks"

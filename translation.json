@@ -1,6 +1,6 @@
 {
     "navbar": {
-        "dashboard": "Dashboard",
+        "browse": "Browse",
         "next": "Next Poem",
         "previous": "Previous Poem"
     },
