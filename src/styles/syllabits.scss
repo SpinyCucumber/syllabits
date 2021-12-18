@@ -45,6 +45,10 @@ body {
     @extend .full-height
 }
 
+.table {
+    td { vertical-align: middle; }
+}
+
 .scene {
 
     display: flex;
@@ -118,8 +122,7 @@ body {
     // effect to the actual content.
     @include desktop {
         .scene-content {
-            // Unfortunately cannot use extends here
-            box-shadow: 0px 0px 3px 3px $shadow;
+            box-shadow: $heavy-shadow;
             background-color: $white;
             padding: 2em;
         }
@@ -454,9 +457,13 @@ button,
     font-size: var(--fs-20);
 }
 
+.dropdown-content {
+    box-shadow: 0 .5em 1em -.125em hsla(0,0%,4%,.1),0 0 0 1px hsla(0,0%,4%,.02);
+}
+
 .game-dropdown {
 
-    @extend .has-shadow;
+    box-shadow: $heavy-shadow;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -520,7 +527,7 @@ button,
 }
 
 .navbar {
-    @extend .has-shadow;
+    box-shadow: $heavy-shadow;
     z-index: 20;
 }
 
@@ -636,7 +643,7 @@ button,
     display: flex;
     flex-direction: column;
     transition: transform 0.25s, box-shadow 0.25s;
-    box-shadow: 0px 0px 1px 1px $shadow;
+    box-shadow: $shadow;
     cursor: pointer;
     font-family: var(--font-stylized);
 
@@ -645,7 +652,7 @@ button,
     }
 
     &:hover {
-        @extend .has-shadow;
+        box-shadow: $heavy-shadow;
         transform: translate(0, -0.5em);
     }
 
@@ -653,7 +660,7 @@ button,
 
 .modal-simple {
 
-    @extend .has-shadow;
+    box-shadow: $heavy-shadow;
     background-color: $white;
     padding: 2em;
     position: relative;
@@ -710,10 +717,6 @@ button,
 .muted {
     filter: contrast(70%) blur(6px);
     margin: -15px;
-}
-
-.has-shadow {
-    box-shadow: 0px 0px 3px 3px $shadow;
 }
 
 .full-height {

@@ -1,14 +1,16 @@
 <template>
-    <div class="container">
-        <table>
+    <div>
+        <table class="table">
             <tr v-for="entry in entries" :key="entry.id">
-                <td>{{entry.title}}</td>
-                <td class="has-text-grey">{{entry.author}}</td>
+                <td><span>{{entry.title}}</span></td>
+                <td><span class="has-text-grey">{{entry.author}}</span></td>
                 <td>
                     <b-dropdown>
                         <template #trigger>
                             <b-button class="borderless" icon-left="dots-vertical"/>
                         </template>
+                        <b-dropdown-item>Play</b-dropdown-item>
+                        <b-dropdown-item>Share</b-dropdown-item>
                     </b-dropdown>
                 </td>
             </tr>
