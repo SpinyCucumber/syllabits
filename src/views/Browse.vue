@@ -3,14 +3,11 @@
     <template #content-area>
         <!-- Testing -->
         <div class="scene-content">
-            <connection
-                :query="browsePoemsQuery"
-                :component="PoemEntry"
-                :map="(data) => data.allPoems"
-                prop="poem"
-                tag="table"
-                class="poem-entry-list"
-                :perPage="10"/>
+            <!-- TODO Use buefy table -->
+            <table class="poem-entry-list">
+                <poem-entry v-for="poem in entries"
+                    :key="poem.id"/>
+            </table>
         </div>
     </template>
     <template #background-area>
@@ -20,7 +17,7 @@
 </template>
 
 <script>
-import { Scene, BackgroundImage, Connection } from '@/components'
+import { Scene, BackgroundImage } from '@/components'
 import { browsePoems as browsePoemsQuery } from '@/queries'
 import Vue from 'vue'
 
@@ -39,7 +36,14 @@ const PoemEntry = Vue.component('PoemEntry', {
 
 export default {
     name: 'Browse',
-    components: { Scene, BackgroundImage, Connection },
+    components: { Scene, BackgroundImage, PoemEntry },
+    mixins: [ Connection({
+        name: 'poems',
+        queryOptions: {
+            query: browsePoemsQuery,
+            update: data => data.allPoems,
+        }
+    }) ],
     setup() {
         return { PoemEntry, browsePoemsQuery };
     }
