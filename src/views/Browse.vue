@@ -16,6 +16,12 @@
                     </td>
                 </tr>
             </tbody>
+            <tfoot>
+                <b-pagination
+                    v-model="currentPage"
+                    :total="totalCount"
+                    :per-page="perPage"/>
+            </tfoot>
         </table>
     </div>
 </template>
@@ -35,7 +41,8 @@ export default {
         return {
             fields: ['title', 'author'],
             perPage: 10,
-            currentPage: 0,
+            // Buefy starts page numbers at 1 for some reason
+            currentPage: 1,
         }
     },
 
@@ -51,7 +58,7 @@ export default {
             update: data => data.allPoems,
             variables() {
                 return {
-                   first: (this.currentPage + 1) * this.perPage,
+                   first: this.currentPage * this.perPage,
                    last: this.perPage,
                 }
             },
