@@ -3,9 +3,12 @@
         <div class="inner">
             <slot/>
         </div>
-        <button class="handle" v-if="hasHandle" @click="open = !open">
-            <div class="mdi mdi-chevron-down handle-icon"/>
-        </button>
+        <b-button
+            icon-left="chevron-down"
+            class="borderless handle"
+            size="is-large"
+            v-if="hasHandle"
+            @click="open = !open"/>
     </div>
 </template>
 
