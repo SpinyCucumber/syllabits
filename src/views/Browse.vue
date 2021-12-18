@@ -1,28 +1,32 @@
 <template>
     <div>
-        <table class="table is-hoverable">
-            <tbody>
-                <tr v-for="entry in entries" :key="entry.id" @dblclick="play(entry)">
-                    <td><span>{{entry.title}}</span></td>
-                    <td><span class="has-text-grey">{{entry.author}}</span></td>
-                    <td>
-                        <b-dropdown>
-                            <template #trigger>
-                                <b-button class="borderless" icon-left="dots-horizontal"/>
-                            </template>
-                            <b-dropdown-item @click="play(entry)">Play</b-dropdown-item>
-                            <b-dropdown-item>Share</b-dropdown-item>
-                        </b-dropdown>
-                    </td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <b-pagination
-                    v-model="currentPage"
-                    :total="totalCount"
-                    :per-page="perPage"/>
-            </tfoot>
-        </table>
+        <div class="table-wrapper">
+            <!-- Limit to container -->
+            <b-loading is-full-page="false" v-model="loading"/>
+            <table class="table is-hoverable">
+                <tbody>
+                    <tr v-for="entry in entries" :key="entry.id" @dblclick="play(entry)">
+                        <td><span>{{entry.title}}</span></td>
+                        <td><span class="has-text-grey">{{entry.author}}</span></td>
+                        <td>
+                            <b-dropdown>
+                                <template #trigger>
+                                    <b-button class="borderless" icon-left="dots-horizontal"/>
+                                </template>
+                                <b-dropdown-item @click="play(entry)">Play</b-dropdown-item>
+                                <b-dropdown-item>Share</b-dropdown-item>
+                            </b-dropdown>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <b-pagination
+                        v-model="currentPage"
+                        :total="totalCount"
+                        :per-page="perPage"/>
+                </tfoot>
+            </table>
+        </div>
     </div>
 </template>
 
