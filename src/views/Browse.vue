@@ -1,19 +1,21 @@
 <template>
     <div>
-        <table class="table">
-            <tr v-for="entry in entries" :key="entry.id">
-                <td><span>{{entry.title}}</span></td>
-                <td><span class="has-text-grey">{{entry.author}}</span></td>
-                <td>
-                    <b-dropdown>
-                        <template #trigger>
-                            <b-button class="borderless" icon-left="dots-vertical"/>
-                        </template>
-                        <b-dropdown-item>Play</b-dropdown-item>
-                        <b-dropdown-item>Share</b-dropdown-item>
-                    </b-dropdown>
-                </td>
-            </tr>
+        <table class="table is-hoverable">
+            <tbody>
+                <tr v-for="entry in entries" :key="entry.id" @dblclick="play(entry)">
+                    <td><span>{{entry.title}}</span></td>
+                    <td><span class="has-text-grey">{{entry.author}}</span></td>
+                    <td>
+                        <b-dropdown>
+                            <template #trigger>
+                                <b-button class="borderless" icon-left="dots-horizontal"/>
+                            </template>
+                            <b-dropdown-item @click="play(entry)">Play</b-dropdown-item>
+                            <b-dropdown-item>Share</b-dropdown-item>
+                        </b-dropdown>
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </div>
 </template>
@@ -32,7 +34,6 @@ export default {
     data() {
         return {
             fields: ['title', 'author'],
-            selected: null,
             perPage: 10,
             currentPage: 0,
         }
@@ -72,8 +73,8 @@ export default {
         }
     },
 
-    watch: {
-        selected({id}) {
+    methods: {
+        play({id}) {
             // When user selects a poem, navigate to the play menu
             const location = new PoemLocation({t: LocationType.DIRECT, p: id}).encode();
             this.$router.push({name: 'Play', params: {location}});
