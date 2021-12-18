@@ -1,6 +1,5 @@
 <template>
     <div>
-        <!-- TODO Use buefy table -->
         <b-table
             :loading="loading"
             :data="entries"
@@ -37,6 +36,12 @@ export default {
     },
 
     apollo: {
+        /**
+         * This uses a basic "slicing" approach to pagination.
+         * The disadvantage is that the server has to iterate through all previous entries
+         * to find the request entries.
+         * But hey, it's flexible, and simple to implement.
+         */
         connection: {
             query: browsePoemsQuery,
             update: data => data.allPoems,
