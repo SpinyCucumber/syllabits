@@ -30,11 +30,6 @@ import { Connection } from '@/mixins'
 import { TranslationService } from '@/services'
 import Vue from 'vue'
 
-const inProgressPlaceholder = [
-    { to: {name: 'RandomPoem'}, key: 'jumpin'},
-    { to: {name: 'Browse'}, key: 'browsepoems'},
-]
-
 function PoemListWidget({name, queryOptions, placeholder}) {
     return Vue.component(name, {
         mixins: [ Connection('poems', queryOptions) ],
@@ -54,6 +49,10 @@ function PoemListWidget({name, queryOptions, placeholder}) {
 }
 
 // Construct components used by widgets
+const placeholderButtons = [
+    { to: {name: 'RandomPoem'}, key: 'jumpin'},
+    { to: {name: 'Browse'}, key: 'browsepoems'},
+];
 const InProgressList = PoemListWidget({
     name: 'InProgressList',
     queryOptions: {
@@ -66,7 +65,7 @@ const InProgressList = PoemListWidget({
             <div class="submenu is-centered">
                 <p>{TranslationService.get('placeholder.inprogress')}</p>
                 <footer class="submenu-footer">
-                    {inProgressPlaceholder.map(button => (
+                    {placeholderButtons.map(button => (
                         <b-button
                             type="is-primary"
                             tag="router-link"

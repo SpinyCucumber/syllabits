@@ -39,12 +39,9 @@ const PoemEntry = Vue.component('PoemEntry', {
 export default {
     name: 'Browse',
     components: { Scene, BackgroundImage, PoemEntry },
-    mixins: [ Connection({
-        name: 'entries',
-        queryOptions: {
-            query: browsePoemsQuery,
-            update: data => data.allPoems,
-        }
+    mixins: [ Connection('entries', {
+        query: browsePoemsQuery,
+        update: data => data.allPoems,
     }) ],
     setup() {
         return { PoemEntry, browsePoemsQuery };
