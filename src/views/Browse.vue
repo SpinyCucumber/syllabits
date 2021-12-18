@@ -2,9 +2,16 @@
     <div>
         <!-- TODO Use buefy table -->
         <b-table
+            :loading="loading"
             :data="entries"
             :columns="columns"
             :selected.sync="selected"
+
+            :total="totalCount"
+            :per-page="perPage"
+            :current-page.sync="currentPage"
+            paginated
+            backend-pagination
             focusable/>
     </div>
 </template>
@@ -13,28 +20,47 @@
 import { browsePoems as browsePoemsQuery } from '@/queries'
 import { TranslationService, Constants } from '@/services'
 import { PoemLocation } from '@/utilities'
-import { Connection } from '@/mixins'
 
 const { LocationType } = Constants;
 
 export default {
 
     name: 'Browse',
-
-    mixins: [ Connection('entries', {
-        query: browsePoemsQuery,
-        update: data => data.allPoems,
-    }) ],
     
-    setup() {
-        const fields = ['title', 'author'];
-        const columns = fields.map(field => ({field, label: TranslationService.get('field.' + field)}));
-        return { columns };
-    },
-
     data() {
         return {
+            fields: ['title', 'author'],
             selected: null,
+            perPage: 10,
+            currentPage: 0,
+        }
+    },
+
+    apollo: {
+        connection: {
+            query: browsePoemsQuery,
+            update: data => data.allPoems,
+            variables() {
+                return {
+                   first: (this.currentPage + 1) * this.perPage,
+                   last: this.perPage,
+                }
+            },
+        }
+    },
+
+    computed: {
+        entries() {
+            return this.connection?.edges.map(edge => edge.node);
+        },
+        totalCount() {
+            return this.connection?.totalCount;
+        },
+        columns() {
+            return this.fields.map(field => ({field, label: TranslationService.get('field.' + field)}));
+        },
+        loading() {
+            return this.$apollo.queries.connection.loading;
         }
     },
 
@@ -44,6 +70,7 @@ export default {
             const location = new PoemLocation({t: LocationType.DIRECT, p: id}).encode();
             this.$router.push({name: 'Play', params: {location}});
         }
-    }
+    },
+
 }
 </script>
