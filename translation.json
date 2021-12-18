@@ -24,6 +24,10 @@
         "resume": "Jump Back In",
         "repeat": "Practice It Again"
     },
+    "field": {
+        "author": "Author",
+        "title": "Title"
+    },
     "dialog": {
         "resetprogress": {
             "title": "Reset Progress",
