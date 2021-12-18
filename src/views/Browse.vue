@@ -1,17 +1,18 @@
 <template>
-    <div>
-        <b-table
-            :loading="loading"
-            :data="entries"
-            :columns="columns"
-            :selected.sync="selected"
-
-            :total="totalCount"
-            :per-page="perPage"
-            :current-page.sync="currentPage"
-            paginated
-            backend-pagination
-            focusable/>
+    <div class="container">
+        <table>
+            <tr v-for="entry in entries" :key="entry.id">
+                <td>{{entry.title}}</td>
+                <td class="has-text-grey">{{entry.author}}</td>
+                <td>
+                    <b-dropdown>
+                        <template #trigger>
+                            <b-button class="borderless" icon-left="dots-vertical"/>
+                        </template>
+                    </b-dropdown>
+                </td>
+            </tr>
+        </table>
     </div>
 </template>
 
