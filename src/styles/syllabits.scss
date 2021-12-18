@@ -625,20 +625,9 @@ button,
 }
 
 .poem-card-list {
-    .connection-list {
-        display: flex;
-        flex-direction: column;
-        gap: 1em;
-    }
-}
-
-.poem-entry-list {
-    tr {
-        border-bottom: 2px solid $light;
-    }
-    td {
-        padding: 0.5em;
-    }
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
 }
 
 .number {
