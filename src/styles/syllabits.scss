@@ -302,6 +302,10 @@ body {
 button,
 .button {
     font-size: var(--fs-10);
+    &.borderless {
+        border-color: transparent !important;
+        box-shadow: none !important;
+    }
 }
 
 .game-block-shape {
