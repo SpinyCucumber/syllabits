@@ -6,7 +6,8 @@
             <!-- TODO Use buefy table -->
             <table class="poem-entry-list">
                 <poem-entry v-for="poem in entries"
-                    :key="poem.id"/>
+                    :key="poem.id"
+                    :poem="poem"/>
             </table>
         </div>
     </template>
@@ -19,6 +20,7 @@
 <script>
 import { Scene, BackgroundImage } from '@/components'
 import { browsePoems as browsePoemsQuery } from '@/queries'
+import { Connection } from '@/mixins'
 import Vue from 'vue'
 
 // Define components used to render lists
@@ -38,7 +40,7 @@ export default {
     name: 'Browse',
     components: { Scene, BackgroundImage, PoemEntry },
     mixins: [ Connection({
-        name: 'poems',
+        name: 'entries',
         queryOptions: {
             query: browsePoemsQuery,
             update: data => data.allPoems,
