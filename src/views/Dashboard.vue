@@ -24,8 +24,9 @@
 </template>
 
 <script>
-import { Scene, BackgroundImage, Connection, PoemCard } from '@/components'
+import { Scene, BackgroundImage, PoemCard } from '@/components'
 import { inProgress as inProgressQuery, completed as completedQuery } from '@/queries'
+import { Connection } from '@/mixins'
 import { TranslationService } from '@/services'
 import Vue from 'vue'
 
@@ -34,48 +35,60 @@ const inProgressPlaceholder = [
     { to: {name: 'Browse'}, key: 'browsepoems'},
 ]
 
-// Construct components used by widgets
-const InProgressList = Vue.component('InProgressList', {
-    render() {
-        return (
-            <Connection
-                query={inProgressQuery}
-                component={PoemCard}
-                map={(data) => data.me.inProgress}
-                prop="poem"
-                class="poem-card-list">
-                <div slot="placeholder" class="submenu is-centered">
-                    <p>{TranslationService.get('placeholder.inprogress')}</p>
-                    <footer class="submenu-footer">
-                        {inProgressPlaceholder.map(button => (
-                            <b-button
-                                type="is-primary"
-                                tag="router-link"
-                                to={button.to}
-                                label={TranslationService.get('button.' + button.key)}
-                            />
-                        ))}
-                    </footer>
+function PoemListWidget({name, queryOptions, placeholder}) {
+    return Vue.component(name, {
+        mixins: [ Connection('poems', queryOptions) ],
+        methods: { placeholder },
+        render() {
+            if (!this.poems) return;
+            if (this.poems.length) return (
+                <div class="poem-card-list">
+                    {this.poems.map(poem => (
+                        <PoemCard poem={poem}/>
+                    ))}
                 </div>
-            </Connection>
+            )
+            else return this.placeholder();
+        }
+    })
+}
+
+// Construct components used by widgets
+const InProgressList = PoemListWidget({
+    name: 'InProgressList',
+    queryOptions: {
+        query: inProgressQuery,
+        update: data => data.me.inProgress,
+        fetchPolicy: 'cache-and-network',
+    },
+    placeholder() {
+        return (
+            <div class="submenu is-centered">
+                <p>{TranslationService.get('placeholder.inprogress')}</p>
+                <footer class="submenu-footer">
+                    {inProgressPlaceholder.map(button => (
+                        <b-button
+                            type="is-primary"
+                            tag="router-link"
+                            to={button.to}
+                            label={TranslationService.get('button.' + button.key)}
+                        />
+                    ))}
+                </footer>
+            </div>
         )
     }
 })
 
-const CompletedList = Vue.component('CompletedList', {
-    render() {
-        return (
-            <Connection
-                query={completedQuery}
-                component={PoemCard}
-                map={(data) => data.me.completed}
-                prop="poem"
-                class="poem-card-list">
-                <div slot="placeholder" class="submenu is-centered">
-                    <p>{TranslationService.get('placeholder.completed')}</p>
-                </div>
-            </Connection>
-        )
+const CompletedList = PoemListWidget({
+    name: 'CompletedList',
+    queryOptions: {
+        query: completedQuery,
+        update: data => data.me.completed,
+        fetchPolicy: 'cache-and-network',
+    },
+    placeholder() {
+        return (<p>{TranslationService.get('placeholder.completed')}</p>)
     }
 })
 
