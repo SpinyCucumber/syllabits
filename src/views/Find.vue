@@ -1,5 +1,5 @@
 <template>
-    <b-tabs>
+    <b-tabs class="find-view">
 
         <!-- Should abstract this -->
         <b-tab-item :label="$translation.get('tab.poems')">

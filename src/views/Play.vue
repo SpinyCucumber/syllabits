@@ -25,7 +25,7 @@
 
         <template #content-area>
 
-            <div class="play">
+            <div class="play-view">
                 <div class="toolbar">
                     <!-- "Cheat" utils -->
                     <div class="toolbar-start">

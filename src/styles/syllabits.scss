@@ -131,7 +131,7 @@ body {
 
 }
 
-.splash {
+.splash-view {
     @extend .scene-content;
 
     min-width: 60vw;
@@ -202,7 +202,7 @@ body {
 
 }
 
-.login, .register {
+.login-view, .register-view {
     @extend .scene-content;
 
     display: flex;
@@ -226,7 +226,7 @@ body {
     }
 }
 
-.dashboard {
+.dashboard-view {
     display: grid;
     grid-template-columns: repeat(3, auto);
     gap: 1em;
@@ -247,7 +247,7 @@ body {
     .app-view { @extend .full-height }
 }
 
-.play {
+.play-view {
     @extend .scene-content;
 
     width: min(70em, 100vw);

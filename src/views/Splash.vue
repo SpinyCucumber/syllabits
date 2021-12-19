@@ -1,7 +1,7 @@
 <template>
     <scene type="is-centered is-aligned">
         <template #content-area>
-            <div class="splash">
+            <div class="splash-view">
                 <div class="page">
                     <div class="text-area">
                         <div class="title-box">

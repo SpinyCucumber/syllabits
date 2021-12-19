@@ -1,7 +1,7 @@
 <template>
     <scene>
         <template #content-area>
-            <div class="dashboard">
+            <div class="dashboard-view">
                 <div
                     v-for="widget in widgets"
                     :key="widget.key"
