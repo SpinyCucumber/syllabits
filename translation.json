@@ -30,6 +30,9 @@
     "tab": {
         "poems": "Poems"
     },
+    "label": {
+        "sortby": "Sort by"
+    },
     "dialog": {
         "resetprogress": {
             "title": "Reset Progress",
@@ -57,7 +60,7 @@
     },
     "placeholder": {
         "search": {
-            "poem": "Search for title, author, or content..."
+            "poem": "Search for title, author, etc..."
         },
         "categories": "Enter categories...", 
         "inprogress": "You haven't played any poems yet!",

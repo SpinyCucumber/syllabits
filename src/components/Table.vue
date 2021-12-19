@@ -1,17 +1,27 @@
 <template>
     <div class="b-table">
-        <b-field grouped>
-            <b-input
-                v-bind="searchOptions"
-                v-model="searchTerm"
-                type="search"
-                icon="magnify"
-                rounded/>
-            <b-taginput
-                v-model="categories"
-                ellipsis
-                icon="label"
-                :placeholder="$translation.get('placeholder.categories')"/>
+        <b-field grouped group-multiline>
+            <b-field expanded>
+                <b-input
+                    v-bind="searchOptions"
+                    v-model="searchTerm"
+                    type="search"
+                    icon="magnify"
+                    rounded/>
+            </b-field>
+            <b-field expanded>
+                <b-taginput
+                    v-model="categories"
+                    ellipsis
+                    icon="label"
+                    :placeholder="$translation.get('placeholder.categories')"/>
+            </b-field>
+            <b-field
+                horizontal
+                type="is-primary"
+                :label="$translation.get('label.sortby')">
+                <b-select/>
+            </b-field>
         </b-field>
         <div class="table-wrapper">
             <table class="table is-hoverable">
