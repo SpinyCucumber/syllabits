@@ -1,6 +1,6 @@
 <template>
     <div class="b-table">
-        <b-field grouped group-multiline>
+        <b-field grouped>
             <b-field expanded>
                 <b-input
                     v-bind="searchOptions"
