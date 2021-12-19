@@ -1,5 +1,12 @@
 <template>
     <div class="b-table">
+        <b-field grouped>
+            <b-input
+                v-bind="searchOptions"
+                type="search"
+                icon="magnify"
+                rounded/>
+        </b-field>
         <div class="table-wrapper">
             <table class="table is-hoverable">
                 <tbody>
@@ -32,6 +39,7 @@ export default {
 
     props: {
         connectionOptions: Object,
+        searchOptions: Object,
         entryComponent: {required: true},
         perPage: Number,
     },
