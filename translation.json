@@ -56,6 +56,9 @@
         "playingasguest": "<p>You are playing as a guest, so your progress will not be saved.</p><p>Create an account to automatically save your progress and come back to poems later!</p>"
     },
     "placeholder": {
+        "search": {
+            "poem": "Search for title, author, or content..."
+        },
         "inprogress": "You haven't played any poems yet!",
         "completed": "No completed poems..."
     },
