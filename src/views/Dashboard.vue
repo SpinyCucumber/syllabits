@@ -29,9 +29,9 @@ import { inProgress as inProgressQuery, completed as completedQuery } from '@/qu
 import { TranslationService } from '@/services'
 import Vue from 'vue'
 
-function PoemListWidget({name, connection, placeholder}) {
+function PoemListWidget({name, connectionOptions, placeholder}) {
     return Vue.component(name, {
-        apollo: { connection }, 
+        apollo: { connection: connectionOptions }, 
         methods: { placeholder },
         computed: {
             poems() {
@@ -59,7 +59,7 @@ const placeholderButtons = [
 ];
 const InProgressList = PoemListWidget({
     name: 'InProgressList',
-    connection: {
+    connectionOptions: {
         query: inProgressQuery,
         update: data => data.me.inProgress,
         fetchPolicy: 'cache-and-network',
@@ -85,7 +85,7 @@ const InProgressList = PoemListWidget({
 
 const CompletedList = PoemListWidget({
     name: 'CompletedList',
-    connection: {
+    connectionOptions: {
         query: completedQuery,
         update: data => data.me.completed,
         fetchPolicy: 'cache-and-network',
