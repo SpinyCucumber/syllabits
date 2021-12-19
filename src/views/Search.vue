@@ -37,7 +37,7 @@ const { LocationType } = Constants;
 
 export default {
 
-    name: 'Browse',
+    name: 'Search',
     
     data() {
         return {
