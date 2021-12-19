@@ -4,7 +4,7 @@
             <b-field expanded>
                 <b-input
                     v-bind="searchOptions"
-                    v-model="searchTerm"
+                    v-model="search"
                     type="search"
                     icon="magnify"
                     rounded/>
@@ -75,7 +75,7 @@ export default {
             currentPage: 1,
             connection: null,
             categories: [],
-            searchTerm: null,
+            search: null,
             sortField: this.sortFields[0],
         }
     },
@@ -93,6 +93,7 @@ export default {
                 return {
                    first: this.currentPage * this.perPage,
                    last: this.perPage,
+                   search: this.search,
                 }
             },
         })

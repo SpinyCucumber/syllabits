@@ -1,5 +1,5 @@
-query($first: Int, $last: Int) {
-    allPoems(first: $first, last: $last) {
+query($first: Int, $last: Int, $search: String) {
+    allPoems(first: $first, last: $last, search: $search) {
         totalCount
         edges {
             node {
