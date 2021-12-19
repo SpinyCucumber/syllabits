@@ -1,31 +1,40 @@
 <template>
-    <div class="b-table m-4">
-        <div class="table-wrapper">
-            <table class="table is-hoverable">
-                <tbody>
-                    <tr v-for="entry in entries" :key="entry.id" @dblclick="play(entry)">
-                        <td><span>{{entry.title}}</span></td>
-                        <td><span class="has-text-grey">{{entry.author}}</span></td>
-                        <td>
-                            <b-dropdown position="is-bottom-left">
-                                <template #trigger>
-                                    <b-button class="borderless" icon-left="dots-horizontal"/>
-                                </template>
-                                <b-dropdown-item @click="play(entry)">Play</b-dropdown-item>
-                                <b-dropdown-item>Share</b-dropdown-item>
-                            </b-dropdown>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <!-- Limit to container -->
-            <b-loading :is-full-page="false" :active="loading"/>
-        </div>
-        <b-pagination
-            v-model="currentPage"
-            :total="totalCount"
-            :per-page="perPage"/>
-    </div>
+    <b-tabs>
+
+        <!-- Should abstract this -->
+        <b-tab-item :label="$translation.get('tab.poems')">
+            <div class="b-table">
+                <div class="table-wrapper">
+                    <table class="table is-hoverable">
+                        <tbody>
+                            <tr v-for="entry in entries" :key="entry.id" @dblclick="play(entry)">
+                                <td><span>{{entry.title}}</span></td>
+                                <td><span class="has-text-grey">{{entry.author}}</span></td>
+                                <td>
+                                    <b-dropdown position="is-bottom-left">
+                                        <template #trigger>
+                                            <b-button class="borderless" icon-left="dots-horizontal"/>
+                                        </template>
+                                        <b-dropdown-item @click="play(entry)">Play</b-dropdown-item>
+                                        <b-dropdown-item>Share</b-dropdown-item>
+                                    </b-dropdown>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- Limit to container -->
+                    <b-loading :is-full-page="false" :active="loading"/>
+                </div>
+                <b-pagination
+                    v-model="currentPage"
+                    :total="totalCount"
+                    :per-page="perPage"/>
+            </div>
+        </b-tab-item>
+
+        <b-tab-item label="Test"/>
+        
+    </b-tabs>
 </template>
 
 <script>
@@ -42,7 +51,7 @@ export default {
     data() {
         return {
             fields: ['title', 'author'],
-            perPage: 10,
+            perPage: 9,
             // Buefy starts page numbers at 1 for some reason
             currentPage: 1,
         }
