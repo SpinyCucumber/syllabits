@@ -33,7 +33,7 @@
                             <b-button
                                 v-for="button in cheatButtons"
                                 :key="button.key"
-                                type="is-info"
+                                type="is-primary"
                                 :label="$translation.get('button.' + button.key)"
                                 @click="button.action"
                             />
@@ -134,7 +134,7 @@ export default {
             showComplete: false,
             hasWork: false,
             buttons: [
-                { key: 'help', type: 'is-info', icon: 'help', action: this.showHelp, },
+                { key: 'help', type: 'is-primary', icon: 'help', action: this.showHelp, },
                 {
                     key: 'reset',
                     type: 'is-danger',
