@@ -1,8 +1,6 @@
 <template>
-    <div>
+    <div class="b-table">
         <div class="table-wrapper">
-            <!-- Limit to container -->
-            <b-loading is-full-page="false" v-model="loading"/>
             <table class="table is-hoverable">
                 <tbody>
                     <tr v-for="entry in entries" :key="entry.id" @dblclick="play(entry)">
@@ -19,14 +17,14 @@
                         </td>
                     </tr>
                 </tbody>
-                <tfoot>
-                    <b-pagination
-                        v-model="currentPage"
-                        :total="totalCount"
-                        :per-page="perPage"/>
-                </tfoot>
             </table>
+            <!-- Limit to container -->
+            <b-loading :is-full-page="false" :active="loading"/>
         </div>
+        <b-pagination
+            v-model="currentPage"
+            :total="totalCount"
+            :per-page="perPage"/>
     </div>
 </template>
 
