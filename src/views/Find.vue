@@ -11,7 +11,7 @@
 
 <script>
 import { searchPoems } from '@/queries'
-import { Constants } from '@/services'
+import { Constants, TranslationService } from '@/services'
 import { PoemLocation } from '@/utilities'
 import { Table } from '@/components'
 import Vue from 'vue'
@@ -40,10 +40,10 @@ const PoemEntry = Vue.component('PoemEntry', {
                             }
                         }}>
                         <b-dropdown-item onClick={this.play} class="has-text-primary">
-                            {this.$translation.get('button.play')}
+                            {TranslationService.get('button.play')}
                         </b-dropdown-item>
                         <b-dropdown-item>
-                            {this.$translation.get('button.share')}
+                            {TranslationService.get('button.share')}
                         </b-dropdown-item>
                     </b-dropdown>
                 </td>
@@ -64,8 +64,9 @@ export default {
                     key: 'poems',
                     tableOptions: {
                         connectionOptions: { query: searchPoems, update: data => data.allPoems },
+                        searchOptions: { placeholder: TranslationService.get('placeholder.search.poem') },
                         entryComponent: PoemEntry,
-                        perPage: 9,
+                        perPage: 8,
                     },
                 }
             ],
