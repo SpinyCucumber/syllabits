@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { browsePoems as browsePoemsQuery } from '@/queries'
+import { searchPoems } from '@/queries'
 import { Constants } from '@/services'
 import { PoemLocation } from '@/utilities'
 import { Search } from '@/components'
@@ -63,7 +63,7 @@ export default {
                 {
                     key: 'poems',
                     searchOptions: {
-                        connectionOptions: { query: browsePoemsQuery, update: data => data.allPoems },
+                        connectionOptions: { query: searchPoems, update: data => data.allPoems },
                         entryComponent: PoemEntry,
                         perPage: 9,
                     },
