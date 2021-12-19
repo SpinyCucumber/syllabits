@@ -23,6 +23,7 @@
                 <b-select/>
             </b-field>
         </b-field>
+        <p class="has-text-grey">{{totalCount}} results</p>
         <div class="table-wrapper">
             <table class="table is-hoverable">
                 <tbody>
