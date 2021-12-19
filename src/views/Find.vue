@@ -4,7 +4,7 @@
             v-for="tab in tabs"
             :key="tab.key"
             :label="$translation.get('tab.' + tab.key)">
-            <search v-bind="tab.searchOptions"/>
+            <Table v-bind="tab.searchOptions"/>
         </b-tab-item>
     </b-tabs>
 </template>
@@ -13,7 +13,7 @@
 import { searchPoems } from '@/queries'
 import { Constants } from '@/services'
 import { PoemLocation } from '@/utilities'
-import { Search } from '@/components'
+import { Table } from '@/components'
 import Vue from 'vue'
 
 const { LocationType } = Constants;
@@ -55,7 +55,7 @@ const PoemEntry = Vue.component('PoemEntry', {
 export default {
 
     name: 'Find',
-    components: { Search },
+    components: { Table },
     
     data() {
         return {

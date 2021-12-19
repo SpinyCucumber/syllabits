@@ -21,9 +21,14 @@
 </template>
 
 <script>
+/**
+ * A table, intended for quickly finding specific data from a large set
+ * Based on the Buefy table, and uses GraphQL as a backend
+ * Supports pagination and searching
+ */
 export default {
 
-    name: 'Search',
+    name: 'Table',
 
     props: {
         connectionOptions: Object,
