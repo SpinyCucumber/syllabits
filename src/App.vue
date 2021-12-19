@@ -9,12 +9,9 @@
 
               <!-- Items rendered at beginning of navbar -->
               <template #start>
-                <b-navbar-item tag="router-link" :to="{name: 'Search'}">
-                  {{ $translation.get('navbar.search') }}
-                </b-navbar-item>
                 <transition-group name="list" tag="div" class="is-flex">
                   <b-navbar-item
-                    v-for="link in additionalLinks"
+                    v-for="link in allLinks"
                     tag="router-link"
                     :key="link.key"
                     :to="link.to">
@@ -72,6 +69,10 @@ export default {
   components: { Settings },
   data() {
     return {
+      baseLinks: [
+        { to: { name: 'Search' }, key: 'search' },
+        { to: { name: 'RandomPoem' }, key: 'randompoem' },
+      ],
       additionalLinks: [],
     }
   },
@@ -96,6 +97,9 @@ export default {
     },
   },
   computed: {
+    allLinks() {
+      return this.baseLinks.concat(this.additionalLinks);
+    },
     showCheats() {
       return process.env.VUE_APP_SYLLABITS_CHEATS;
     },
