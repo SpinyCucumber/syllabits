@@ -65,6 +65,7 @@ export default {
                     tableOptions: {
                         connectionOptions: { query: searchPoems, update: data => data.allPoems },
                         searchOptions: { placeholder: TranslationService.get('placeholder.search.poem') },
+                        sortFields: ['relevance', 'title', 'author'],
                         entryComponent: PoemEntry,
                         perPage: 8,
                     },

@@ -66,6 +66,11 @@
         "inprogress": "You haven't played any poems yet!",
         "completed": "No completed poems..."
     },
+    "option": {
+        "relevance": "Relevance",
+        "title": "Title",
+        "author": "Author"
+    },
     "play": {
         "check": "Check!",
         "feedback": {

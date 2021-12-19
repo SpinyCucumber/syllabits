@@ -20,7 +20,14 @@
                 horizontal
                 type="is-primary"
                 :label="$translation.get('label.sortby')">
-                <b-select/>
+                <b-select v-model="sortField">
+                    <option
+                        v-for="option in sortFields"
+                        :key="option"
+                        :value="option">
+                        {{ $translation.get('option.' + option) }}
+                    </option>
+                </b-select>
             </b-field>
         </b-field>
         <p class="has-text-grey">{{totalCount}} results</p>
@@ -57,6 +64,7 @@ export default {
     props: {
         connectionOptions: Object,
         searchOptions: Object,
+        sortFields: Array,
         entryComponent: {required: true},
         perPage: Number,
     },
@@ -68,6 +76,7 @@ export default {
             connection: null,
             categories: [],
             searchTerm: null,
+            sortField: this.sortFields[0],
         }
     },
 
