@@ -59,6 +59,7 @@
         "search": {
             "poem": "Search for title, author, or content..."
         },
+        "categories": "Enter categories...", 
         "inprogress": "You haven't played any poems yet!",
         "completed": "No completed poems..."
     },

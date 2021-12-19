@@ -3,9 +3,15 @@
         <b-field grouped>
             <b-input
                 v-bind="searchOptions"
+                v-model="searchTerm"
                 type="search"
                 icon="magnify"
                 rounded/>
+            <b-taginput
+                v-model="categories"
+                ellipsis
+                icon="label"
+                :placeholder="$translation.get('placeholder.categories')"/>
         </b-field>
         <div class="table-wrapper">
             <table class="table is-hoverable">
@@ -49,6 +55,8 @@ export default {
             // Buefy starts page numbering at 1 for some reason
             currentPage: 1,
             connection: null,
+            categories: [],
+            searchTerm: null,
         }
     },
 
