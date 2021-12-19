@@ -19,7 +19,9 @@
         "browsepoems": "Browse Poems",
         "completeall": "Complete All",
         "completeone": "Complete One",
-        "reset": "Reset"
+        "reset": "Reset",
+        "play": "Play",
+        "share": "Share"
     },
     "widget": {
         "resume": "Jump Back In",

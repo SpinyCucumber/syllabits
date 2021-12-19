@@ -1,10 +1,10 @@
 <template>
     <b-tabs class="find-view">
         <b-tab-item
-            v-for="group in groups"
-            :key="group.key"
-            :label="$translation.get('tab.' + group.key)">
-            <search v-bind="group.searchOptions"/>
+            v-for="tab in tabs"
+            :key="tab.key"
+            :label="$translation.get('tab.' + tab.key)">
+            <search v-bind="tab.searchOptions"/>
         </b-tab-item>
     </b-tabs>
 </template>
@@ -39,8 +39,12 @@ const PoemEntry = Vue.component('PoemEntry', {
                                 return (<b-button class="borderless" icon-left="dots-horizontal"/>);
                             }
                         }}>
-                        <b-dropdown-item onClick={this.play}>Play</b-dropdown-item>
-                        <b-dropdown-item>Share</b-dropdown-item>
+                        <b-dropdown-item onClick={this.play} class="has-text-primary">
+                            {this.$translation.get('button.play')}
+                        </b-dropdown-item>
+                        <b-dropdown-item>
+                            {this.$translation.get('button.share')}
+                        </b-dropdown-item>
                     </b-dropdown>
                 </td>
             </tr>
@@ -55,7 +59,7 @@ export default {
     
     data() {
         return {
-            groups: [
+            tabs: [
                 {
                     key: 'poems',
                     searchOptions: {
