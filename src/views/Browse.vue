@@ -1,5 +1,5 @@
 <template>
-    <div class="b-table">
+    <div class="b-table m-4">
         <div class="table-wrapper">
             <table class="table is-hoverable">
                 <tbody>
@@ -7,7 +7,7 @@
                         <td><span>{{entry.title}}</span></td>
                         <td><span class="has-text-grey">{{entry.author}}</span></td>
                         <td>
-                            <b-dropdown>
+                            <b-dropdown position="is-bottom-left">
                                 <template #trigger>
                                     <b-button class="borderless" icon-left="dots-horizontal"/>
                                 </template>

@@ -45,8 +45,9 @@ body {
     @extend .full-height
 }
 
-.table {
-    td { vertical-align: middle; }
+.table, table {
+    td { vertical-align: middle; text-align: left; }
+    tr td:last-child { text-align: right; }
 }
 
 .scene {
@@ -460,6 +461,7 @@ button,
 
 .dropdown-content {
     box-shadow: 0 .5em 1em -.125em hsla(0,0%,4%,.1),0 0 0 1px hsla(0,0%,4%,.02);
+    text-align: left;
 }
 
 .game-dropdown {
