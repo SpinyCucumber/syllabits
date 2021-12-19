@@ -4,7 +4,7 @@
             v-for="tab in tabs"
             :key="tab.key"
             :label="$translation.get('tab.' + tab.key)">
-            <Table v-bind="tab.searchOptions"/>
+            <Table v-bind="tab.tableOptions"/>
         </b-tab-item>
     </b-tabs>
 </template>
@@ -62,7 +62,7 @@ export default {
             tabs: [
                 {
                     key: 'poems',
-                    searchOptions: {
+                    tableOptions: {
                         connectionOptions: { query: searchPoems, update: data => data.allPoems },
                         entryComponent: PoemEntry,
                         perPage: 9,
