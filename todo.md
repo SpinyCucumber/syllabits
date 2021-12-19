@@ -33,7 +33,7 @@
     - [x] Modify script to show problem poems
 - [ ] Keep track of copyright usage (Luna)
 - [x] Poem collections?
-- [ ] Search view
+- [ ] Find view
     - [ ] "Poems" or "Collections" toggle would be useful
     - [ ] Ability to search
 - [ ] Admin view:

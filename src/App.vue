@@ -70,7 +70,7 @@ export default {
   data() {
     return {
       baseLinks: [
-        { to: { name: 'Search' }, key: 'search' },
+        { to: { name: 'Find' }, key: 'find' },
         { to: { name: 'RandomPoem' }, key: 'randompoem' },
       ],
       additionalLinks: [],

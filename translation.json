@@ -1,6 +1,6 @@
 {
     "navbar": {
-        "search": "Find a Poem",
+        "find": "Find a Poem",
         "randompoem": "Play a Poem",
         "next": "Next Poem",
         "previous": "Previous Poem"

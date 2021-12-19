@@ -46,7 +46,7 @@ const { LocationType } = Constants;
 
 export default {
 
-    name: 'Search',
+    name: 'Find',
     
     data() {
         return {
