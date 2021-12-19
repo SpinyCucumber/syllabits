@@ -17,7 +17,7 @@
                     :placeholder="$translation.get('placeholder.categories')"/>
             </b-field>
             <b-field
-                horizontal
+                label-position="on-border"
                 type="is-primary"
                 :label="$translation.get('label.sortby')">
                 <b-select v-model="sortField">
