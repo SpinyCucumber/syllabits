@@ -64,7 +64,7 @@ export default {
     props: {
         connectionOptions: Object,
         searchOptions: Object,
-        sortFields: Array,
+        orderByOptions: Array,
         entryComponent: {required: true},
         perPage: Number,
     },
@@ -76,7 +76,7 @@ export default {
             connection: null,
             categories: [],
             search: null,
-            sortField: this.sortFields[0],
+            orderBy: this.orderByOptions[0],
         }
     },
 
@@ -94,6 +94,7 @@ export default {
                    first: this.currentPage * this.perPage,
                    last: this.perPage,
                    search: this.search,
+                   orderBy: this.orderBy,
                 }
             },
         })
