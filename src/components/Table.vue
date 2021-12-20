@@ -20,9 +20,9 @@
                 label-position="on-border"
                 type="is-primary"
                 :label="$translation.get('label.sortby')">
-                <b-select v-model="sortField">
+                <b-select v-model="orderBy">
                     <option
-                        v-for="option in sortFields"
+                        v-for="option in orderByOptions"
                         :key="option"
                         :value="option">
                         {{ $translation.get('option.' + option) }}
