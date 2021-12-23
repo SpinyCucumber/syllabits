@@ -136,8 +136,12 @@ export default {
             this.hintsLoading = true;
             this.$apollo.query({
                 query: CategoryHints,
-                variables: {first: this.numCategoryHints, name_Startswith: text.toLowerCase()}}
-            )
+                variables: {
+                    first: this.numCategoryHints,
+                    name_Startswith: text.toLowerCase(),
+                    name_Nin: this.categories,
+                }
+            })
             .then(result => result.data.categories)
             .then(connection => {
                 this.categoryHints = connection.edges.map(edge => edge.node.name);
