@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { searchPoems } from '@/queries'
+import { SearchPoems } from '@/queries'
 import { Constants, TranslationService } from '@/services'
 import { PoemLocation } from '@/utilities'
 import { Table } from '@/components'
@@ -63,7 +63,7 @@ export default {
                 {
                     key: 'poems',
                     tableOptions: {
-                        connectionOptions: { query: searchPoems, update: data => data.allPoems },
+                        connectionOptions: { query: SearchPoems, update: data => data.allPoems },
                         searchOptions: { placeholder: TranslationService.get('placeholder.search.poem') },
                         orderByOptions: ['relevance', 'title', 'author'],
                         entryComponent: PoemEntry,
