@@ -17,7 +17,8 @@
                     icon="label"
                     autocomplete
                     @typing="handleTyping"
-                    :data="categoryHints"
+                    :data="displayHints"
+                    :loading="hintsLoading"
                     :placeholder="$translation.get('placeholder.categories')"/>
             </b-field>
             <b-field
@@ -86,6 +87,7 @@ export default {
             search: null,
             orderBy: this.orderByOptions[0],
             categoryHints: [], // Autocomplete options pulled from server
+            hintsLoading: false,
         }
     },
 
@@ -118,12 +120,20 @@ export default {
         },
         loading() {
             return this.$apollo.queries.connection.loading;
+        },
+        // If we are retrieving new hints, the current hints are invalid,
+        // and we don't display them
+        displayHints() {
+            return this.hintsLoading ? [] : this.categoryHints;
         }
     },
 
     methods: {
         handleTyping(text) {
+            // Don't handle empty text
+            if (!text) return;
             // Retrieve category hints from server
+            this.hintsLoading = true;
             this.$apollo.query({
                 query: CategoryHints,
                 variables: {first: this.numCategoryHints, name_Startswith: text.toLowerCase()}}
@@ -131,6 +141,7 @@ export default {
             .then(result => result.data.categories)
             .then(connection => {
                 this.categoryHints = connection.edges.map(edge => edge.node.name);
+                this.hintsLoading = false;
             })
         }
     },
