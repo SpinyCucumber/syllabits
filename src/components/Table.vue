@@ -13,7 +13,6 @@
                 <b-taginput
                     v-model="categories"
                     ellipsis
-                    type="is-primary"
                     icon="label"
                     autocomplete
                     @typing="handleTyping"
