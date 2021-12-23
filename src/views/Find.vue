@@ -66,6 +66,7 @@ export default {
                         connectionOptions: { query: SearchPoems, update: data => data.poems },
                         searchOptions: { placeholder: TranslationService.get('placeholder.search.poem') },
                         orderByOptions: ['relevance', 'title', 'author'],
+                        enableCategories: true,
                         entryComponent: PoemEntry,
                         perPage: 8,
                     },
