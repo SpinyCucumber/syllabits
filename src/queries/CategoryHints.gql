@@ -1,5 +1,5 @@
-query($first: Int, $name_Startswith: String) {
-    categories(first: $first, name_Startswith: $name_Startswith, orderBy: "ref_count") {
+query($first: Int, $name_Startswith: String, $name_Nin: [String]) {
+    categories(first: $first, name_Startswith: $name_Startswith, name_Nin: $name_Nin, orderBy: "ref_count") {
         edges {
             node {
                 name
