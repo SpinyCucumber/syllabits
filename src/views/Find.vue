@@ -63,7 +63,7 @@ export default {
                 {
                     key: 'poems',
                     tableOptions: {
-                        connectionOptions: { query: SearchPoems, update: data => data.allPoems },
+                        connectionOptions: { query: SearchPoems, update: data => data.poems },
                         searchOptions: { placeholder: TranslationService.get('placeholder.search.poem') },
                         orderByOptions: ['relevance', 'title', 'author'],
                         entryComponent: PoemEntry,
