@@ -104,6 +104,7 @@ export default {
                    first: this.currentPage * this.perPage,
                    last: this.perPage,
                    search: this.search,
+                   ...(this.categories.length ? {categories_In: this.categories} : {}),
                    orderBy: this.orderBy,
                 }
             },
