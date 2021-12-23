@@ -22,7 +22,7 @@
 
 <script>
 import { Scene } from '@/components'
-import { login as loginQuery } from '@/queries'
+import { Login } from '@/queries'
 
 export default {
     name: 'Login',
@@ -37,7 +37,7 @@ export default {
         submit() {
             this.busy = true;
             // Submit input to server
-            this.$apollo.mutate({ mutation: loginQuery, variables: { input: this.input } })
+            this.$apollo.mutate({ mutation: Login, variables: { input: this.input } })
                 .then(result => result.data.login.result)
                 .then(token => {
                     this.busy = false;

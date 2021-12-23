@@ -25,7 +25,7 @@
 
 <script>
 import { Scene, BackgroundImage, PoemCard } from '@/components'
-import { inProgress as inProgressQuery, completed as completedQuery } from '@/queries'
+import { InProgress, Completed } from '@/queries'
 import { TranslationService } from '@/services'
 import Vue from 'vue'
 
@@ -60,7 +60,7 @@ const placeholderButtons = [
 const InProgressList = PoemListWidget({
     name: 'InProgressList',
     connectionOptions: {
-        query: inProgressQuery,
+        query: InProgress,
         update: data => data.me.inProgress,
         fetchPolicy: 'cache-and-network',
     },
@@ -86,7 +86,7 @@ const InProgressList = PoemListWidget({
 const CompletedList = PoemListWidget({
     name: 'CompletedList',
     connectionOptions: {
-        query: completedQuery,
+        query: Completed,
         update: data => data.me.completed,
         fetchPolicy: 'cache-and-network',
     },

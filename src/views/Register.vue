@@ -22,7 +22,7 @@
 
 <script>
 import { Scene } from '@/components'
-import { register as registerQuery } from '@/queries'
+import { Register } from '@/queries'
 
 // Register error name -> translation key
 const ERROR_LOOKUP = {
@@ -42,7 +42,7 @@ export default {
         submit() {
             this.busy = true;
             // Submit input to server
-            this.$apollo.mutate({ mutation: registerQuery, variables: { input: this.input } })
+            this.$apollo.mutate({ mutation: Register, variables: { input: this.input } })
                 .then(result => result.data.register)
                 .then(response => {
                     this.busy = false;

@@ -62,7 +62,7 @@
 
 <script>
 import { Settings } from '@/components'
-import { logout as logoutQuery } from '@/queries'
+import { Logout } from '@/queries'
 
 export default {
   name: 'App',
@@ -85,7 +85,7 @@ export default {
       });
     },
     logout() {
-      this.$apollo.mutate({ mutation: logoutQuery })
+      this.$apollo.mutate({ mutation: Logout })
         .then(result => result.data.logout)
         .then(({ok}) => {
           if (ok) {

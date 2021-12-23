@@ -3,7 +3,7 @@
 import Service from './Service'
 import jwt_decode from 'jwt-decode'
 import { apolloClient } from '@/apollo'
-import { refresh as refreshQuery } from '@/queries'
+import { Refresh } from '@/queries'
 
 const PREEMPT = 10000;
 
@@ -39,7 +39,7 @@ const module = {
         // Attempts to obtain a new access token by querying the server.
         // If our cookies contain an unexpired refresh token, this should succeed
         refreshIdentity({dispatch}) {
-            apolloClient.mutate({ mutation: refreshQuery })
+            apolloClient.mutate({ mutation: Refresh })
                 .then(result => result.data.refresh)
                 .then(({result}) => {
                     dispatch('loadIdentity', result);
