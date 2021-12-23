@@ -470,6 +470,12 @@ button,
     text-align: left;
 }
 
+.field {
+    &.is-grouped, &.is-expanded {
+        flex-basis: 0;
+    }
+}
+
 .game-dropdown {
 
     box-shadow: $heavy-shadow;
