@@ -1,5 +1,5 @@
-query($first: Int, $last: Int, $search: String, $categories_In: [String], $orderBy: String) {
-    poems(first: $first, last: $last, search: $search, categories_In: $categories_In, orderBy: $orderBy) {
+query($first: Int, $last: Int, $search: String, $categories_All: [String], $orderBy: String) {
+    poems(first: $first, last: $last, search: $search, categories_All: $categories_All, orderBy: $orderBy) {
         totalCount
         edges {
             node {
