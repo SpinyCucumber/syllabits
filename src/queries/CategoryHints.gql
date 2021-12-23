@@ -1,0 +1,9 @@
+query($first: Int, $name_Startswith: String) {
+    categories(first: $first, name_Startswith: $name_Startswith, orderBy: "ref_count") {
+        edges {
+            node {
+                name
+            }
+        }
+    }
+}
