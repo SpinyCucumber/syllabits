@@ -9,11 +9,13 @@
                     icon="magnify"
                     rounded/>
             </b-field>
-            <b-field expanded>
+            <b-field expanded v-if="enableCategories">
                 <b-taginput
                     v-model="categories"
                     ellipsis
+                    type="is-primary"
                     icon="label"
+                    autocomplete
                     :placeholder="$translation.get('placeholder.categories')"/>
             </b-field>
             <b-field
@@ -66,6 +68,7 @@ export default {
         searchOptions: Object,
         orderByOptions: Array,
         entryComponent: {required: true},
+        enableCategories: {default: false},
         perPage: Number,
     },
 
