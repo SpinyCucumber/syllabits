@@ -33,9 +33,9 @@
     - [x] Modify script to show problem poems
 - [ ] Keep track of copyright usage (Luna)
 - [x] Poem collections?
-- [ ] Find view
-    - [ ] "Poems" or "Collections" toggle would be useful
-    - [ ] Ability to search
+- [x] Find view
+    - Collections tab
+    - [x] Ability to search
 - [ ] Admin view:
     - [ ] Create, edit collections
     - [ ] Add poem to collection
