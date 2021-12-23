@@ -1,5 +1,5 @@
 <template>
-    <div class="b-table">
+    <div>
         <b-field grouped>
             <b-field expanded>
                 <b-input
@@ -34,24 +34,28 @@
                 </b-select>
             </b-field>
         </b-field>
-        <p class="has-text-grey">{{totalCount}} results</p>
-        <div class="table-wrapper">
-            <table class="table is-hoverable">
-                <tbody>
-                    <component
-                        v-for="entry in entries"
-                        :key="entry.id"
-                        :is="entryComponent"
-                        :entry="entry"/>
-                </tbody>
-            </table>
-            <!-- Limit to container -->
-            <b-loading :is-full-page="false" :active="loading"/>
+        <div class="b-table" v-if="connection">
+            <transition name="fade" mode="out-in">
+                <p class="has-text-grey" :key="totalCount">{{totalCount}} results</p>
+            </transition>
+            <div class="table-wrapper">
+                <table class="table is-hoverable">
+                    <tbody>
+                        <component
+                            v-for="entry in entries"
+                            :key="entry.id"
+                            :is="entryComponent"
+                            :entry="entry"/>
+                    </tbody>
+                </table>
+                <!-- Limit to container -->
+                <b-loading :is-full-page="false" :active="loading"/>
+            </div>
+            <b-pagination
+                v-model="currentPage"
+                :total="totalCount"
+                :per-page="perPage"/>
         </div>
-        <b-pagination
-            v-model="currentPage"
-            :total="totalCount"
-            :per-page="perPage"/>
     </div>
 </template>
 
