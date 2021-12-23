@@ -20,6 +20,9 @@
     - [x] Line completion behavior?
     - [x] Stanzas? (related to dataset)
         - For W. Shakespeare dataset: 4 - 4 - 4 - 2
+- [ ] Dashboard view
+    - [ ] Poem card list pagination ("more" button)
+    - [ ] Links to browse by category
 - [ ] Register view
     - [ ] Confirm password
 - [ ] Visual Element Redesign
