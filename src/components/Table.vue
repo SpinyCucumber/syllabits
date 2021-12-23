@@ -16,6 +16,8 @@
                     type="is-primary"
                     icon="label"
                     autocomplete
+                    @typing="handleTyping"
+                    :data="categoryHints"
                     :placeholder="$translation.get('placeholder.categories')"/>
             </b-field>
             <b-field
@@ -54,6 +56,8 @@
 </template>
 
 <script>
+import { CategoryHints } from "@/queries"
+
 /**
  * A table, intended for quickly finding specific data from a large set
  * Based on the Buefy table, and uses GraphQL as a backend
@@ -69,6 +73,7 @@ export default {
         orderByOptions: Array,
         entryComponent: {required: true},
         enableCategories: {default: false},
+        numCategoryHints: {default: 5},
         perPage: Number,
     },
 
@@ -80,6 +85,7 @@ export default {
             categories: [],
             search: null,
             orderBy: this.orderByOptions[0],
+            categoryHints: [], // Autocomplete options pulled from server
         }
     },
 
@@ -114,5 +120,20 @@ export default {
             return this.$apollo.queries.connection.loading;
         }
     },
+
+    methods: {
+        handleTyping(text) {
+            // Retrieve category hints from server
+            this.$apollo.query({
+                query: CategoryHints,
+                variables: {first: this.numCategoryHints, name_Startswith: text.toLowerCase()}}
+            )
+            .then(result => result.data.categories)
+            .then(connection => {
+                this.categoryHints = connection.edges.map(edge => edge.node.name);
+            })
+        }
+    },
+
 }
 </script>
