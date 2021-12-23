@@ -100,7 +100,7 @@
 </template>
 
 <script>
-import { playPoem as playPoemQuery, submitLine as submitLineQuery, resetProgress as resetProgressQuery } from '@/queries'
+import { PlayPoem, SubmitLine, ResetProgress } from '@/queries'
 import { BlockPicker, PoemLine, Scene, GameProgress, GameDropdown } from '@/components'
 import { Constants, AssetService, ReminderService } from '@/services'
 import store from '@/store'
@@ -162,7 +162,7 @@ export default {
             const answer = holding.map(block => block.code).join('');
             // We have to construct the input to the server
             const input = { poemID: this.poem.id, lineNum, answer }
-            return this.$apollo.mutate({ mutation: submitLineQuery, variables: { input } })
+            return this.$apollo.mutate({ mutation: SubmitLine, variables: { input } })
                 .then(result => result.data.submitLine)
                 .then(result => {
                     // If the user is logged in, then we can assume that data on the server has changed.
@@ -200,7 +200,7 @@ export default {
 
         reset() {
             const input = { poemID: this.poem.id };
-            this.$apollo.mutate({ mutation: resetProgressQuery, variables: { input } })
+            this.$apollo.mutate({ mutation: ResetProgress, variables: { input } })
                 .then(result => result.data.resetProgress)
                 .then(result => {
                     // If we've successfully reset progress, show a nice message and clear the slots
@@ -260,7 +260,7 @@ export default {
         location: {
             handler(location) {
                 // Perform server query
-                this.$apollo.mutate({mutation: playPoemQuery, variables: { location }})
+                this.$apollo.mutate({mutation: PlayPoem, variables: { location }})
                     .then(result => result.data.playPoem)
                     .then(({poem, next, previous}) => {
                         this.initialize(poem.lines.length);
