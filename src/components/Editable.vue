@@ -1,7 +1,7 @@
 <template>
   <b-input v-if="editable" v-bind="{value} = $attrs" v-on="{input} = $listeners"/>
   <div v-else>
-    <slot/>
+    <slot v-bind="{value} = $attrs"/>
   </div>
 </template>
 
