@@ -17,7 +17,7 @@
             <!-- Line text -->
             <editable v-model="line.text"
                 class="text"
-                :inputOptions="{size: 'is-medium'}"
+                :input-options="{size: 'is-medium', expanded: true}"
                 v-slot="{value}">
                 {{ value }}
             </editable>

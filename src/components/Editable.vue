@@ -1,5 +1,5 @@
 <template>
-  <b-field v-if="allowEditing" v-bind="fieldProps">
+  <b-field v-if="allowEditing" label-position="on-border" v-bind="{label}">
     <component :is="inputType"
       v-bind="{...inputOptions, value}"
       v-on="$listeners"/>
@@ -31,7 +31,6 @@ export default {
       type: { default: 'text' },
       tag: { default: 'span' },
       inputOptions: { type: Object },
-      fieldOptions: { type: Object },
       labelKey: { type: String }, // Used to create the default field options
     },
 
@@ -39,11 +38,8 @@ export default {
       inputType() {
         return inputTypeLookup[this.type];
       },
-      fieldProps() {
-        return this.fieldOptions || {
-          label: this.$translation.get('label.' + this.labelKey),
-          'label-position': 'on-border',
-        }
+      label() {
+        return this.labelKey ? this.$translation.get('label.' + this.labelKey) : null;
       },
     },
     /**
