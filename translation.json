@@ -31,7 +31,9 @@
         "poems": "Poems"
     },
     "label": {
-        "sortby": "Sort by"
+        "sortby": "Sort by",
+        "title": "Title",
+        "author": "Author"
     },
     "dialog": {
         "resetprogress": {
