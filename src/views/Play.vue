@@ -99,8 +99,8 @@
                             <b-button
                                 v-for="button in displayCompletionButtons"
                                 :key="button.key"
-                                tag="router-link"
                                 :to="button.to"
+                                tag="router-link"
                                 type="is-primary"
                                 :label="$translation.get('button.' + button.key)"/>
                         </footer>
@@ -148,7 +148,18 @@ export default {
             hasWork: false,
             mode: 'play',
             buttons: [
-                { key: 'help', type: 'is-primary', icon: 'help', action: this.showHelp, },
+                {
+                    key: 'help',
+                    type: 'is-primary',
+                    icon: 'help',
+                    action: this.showHelp, },
+                {
+                    key: 'edit',
+                    type: 'is-dark',
+                    icon: 'hammer-wrench',
+                    action: this.startEditMode,
+                    shouldShow: () => this.mode === 'play'
+                },
                 {
                     key: 'reset',
                     type: 'is-danger',
@@ -226,6 +237,11 @@ export default {
                         this.initialize(this.poem.lines.length);
                     }
                 })
+        },
+
+        startEditMode() {
+            this.mode = 'edit';
+            // TODO
         },
 
         onCorrect() {
