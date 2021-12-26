@@ -16,7 +16,7 @@
                     icon="label"
                     autocomplete
                     @typing="handleTyping"
-                    :data="displayHints"
+                    :data="filteredHints"
                     :loading="hintsLoading"
                     :placeholder="$translation.get('placeholder.categories')"/>
             </b-field>
@@ -127,7 +127,7 @@ export default {
         },
         // If we are retrieving new hints, the current hints are invalid,
         // and we don't display them
-        displayHints() {
+        filteredHints() {
             return this.hintsLoading ? [] : this.categoryHints;
         }
     },
