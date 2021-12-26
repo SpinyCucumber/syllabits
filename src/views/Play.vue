@@ -157,11 +157,17 @@ export default {
                 {
                     key: 'edit',
                     options: { type: 'is-dark', 'icon-left': 'hammer-wrench', },
+                    listeners: { click: () => {
+                        this.$router.push({ name: 'Edit', params: { poemID: this.poem.id }});
+                    } },
                     shouldShow: () => this.mode === 'play'
                 },
                 {
                     key: 'play',
                     options: { type: 'is-dark', 'icon-left': 'controller-classic', },
+                    listeners: { click: () => {
+                        this.$router.push({ name: 'Play', params: { location: this.poem.location }});
+                    } },
                     shouldShow: () => this.mode === 'edit'
                 },
                 {
