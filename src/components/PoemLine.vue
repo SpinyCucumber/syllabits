@@ -15,7 +15,10 @@
                     @update:holding="onSlotUpdate"/>
             </div>
             <!-- Line text -->
-            <editable v-model="line.text" class="text" v-slot="{value}">
+            <editable v-model="line.text"
+                class="text"
+                :inputOptions="{size: 'is-medium'}"
+                v-slot="{value}">
                 {{ value }}
             </editable>
         </div>

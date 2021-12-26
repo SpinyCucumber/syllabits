@@ -53,10 +53,17 @@
                 <div class="poem" v-if="ready" :key="poem.id">
 
                     <div class="title-box">
-                        <editable v-model="poem.title" tag="h1" class="title" v-slot="{value}">
+                        <editable v-model="poem.title"
+                            tag="h1"
+                            class="title"
+                            :inputOptions="{size: 'is-large', 'custom-class': 'has-text-centered'}"
+                            v-slot="{value}">
                             {{ value }}
                         </editable>
-                        <editable v-model="poem.author" class="subtitle" v-slot="{value}">
+                        <editable v-model="poem.author"
+                            class="subtitle"
+                            :inputOptions="{'custom-class': 'has-text-centered'}"
+                            v-slot="{value}">
                             {{ value }}
                         </editable>
                     </div>
@@ -128,17 +135,6 @@ export default {
         const [ incorrect ] = useSound(AssetService.getSound('Incorrect'));
         const [ complete ] = useSound(AssetService.getSound('Complete'));
         return { sounds: { correct, incorrect, complete } };
-    },
-
-    mounted() {
-        this.$nextTick(function() {
-            let stack = [this];
-            while (stack.length) {
-                let c = stack.pop();
-                console.log(c.$children);
-                stack.push(...(c.$children));
-            }
-        });
     },
 
     data() {
