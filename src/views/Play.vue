@@ -113,7 +113,7 @@
 </template>
 
 <script>
-import { PlayPoem, SubmitLine, ResetProgress } from '@/queries'
+import { PlayPoem, EditPoem, SubmitLine, ResetProgress } from '@/queries'
 import { BlockPicker, PoemLine, Scene, Editable, GameProgress, GameDropdown } from '@/components'
 import { Constants, AssetService, ReminderService } from '@/services'
 import store from '@/store'
@@ -144,7 +144,8 @@ export default {
     data() {
         return {
             poem: null,
-            lines: null,
+            original: null, // Used it edit mode to track changes
+            lines: null, // TODO Should rename
             numCorrect: 0,
             showComplete: false,
             hasWork: false,
@@ -283,34 +284,53 @@ export default {
     },
 
     watch: {
-        location: {
-            handler(location) {
-                // Perform server query
-                this.$apollo.mutate({mutation: PlayPoem, variables: { location }})
-                    .then(result => result.data.playPoem)
-                    .then(({poem, next, previous}) => {
-                        this.initialize(poem.lines.length);
-                        // Update progress from server if applicable
-                        const { progress } = poem;
-                        if (progress) {
-                            this.hasWork = true;
-                            this.numCorrect = progress.numCorrect;
-                            for (const line of progress.lines) {
-                                let localLine = this.lines[line.number];
-                                // Update holding and state
-                                localLine.holding = Array.from(line.answer).map(code => BlockTypes.forCode(code));
-                                localLine.state = line.correct ? LineState.Correct : LineState.Incorrect;
+        $props: {
+            handler(props) {
+
+                const { mode, location, poemID } = props;
+
+                if (mode === 'play') {
+                    // Perform server query
+                    this.$apollo.mutate({mutation: PlayPoem, variables: { location }})
+                        .then(result => result.data.playPoem)
+                        .then(({poem, next, previous}) => {
+                            this.initialize(poem.lines.length);
+                            // Update progress from server if applicable
+                            const { progress } = poem;
+                            if (progress) {
+                                this.hasWork = true;
+                                this.numCorrect = progress.numCorrect;
+                                for (const line of progress.lines) {
+                                    let localLine = this.lines[line.number];
+                                    // Update holding and state
+                                    localLine.holding = Array.from(line.answer).map(code => BlockTypes.forCode(code));
+                                    localLine.state = line.correct ? LineState.Correct : LineState.Incorrect;
+                                }
                             }
-                        }
-                        // Update navigation links
-                        let links = [];
-                        if (next) links.push({key: 'next', to: {name: 'Play', params: {location: next}}})
-                        if (previous) links.push({key: 'previous', to: {name: 'Play', params: {location: previous}}})
-                        this.$emit('update:additionalLinks', links);
-                        // Finally set poem
-                        this.poem = poem;
-                    });
+                            // Update navigation links
+                            let links = [];
+                            if (next) links.push({key: 'next', to: {name: 'Play', params: {location: next}}})
+                            if (previous) links.push({key: 'previous', to: {name: 'Play', params: {location: previous}}})
+                            this.$emit('update:additionalLinks', links);
+                            // Finally set poem
+                            this.poem = poem;
+                        });
+                }
+
+                else if (mode === 'edit') {
+                    // Query full poem (including keys) from server
+                    this.$apollo.query({ query: EditPoem, variables: { poemID }})
+                        .then(result => result.data.node)
+                        .then(poem => {
+                            // Load the queried poem
+                            // We also keep a copy of the original poem to track changes
+                            this.poem = poem;
+                            this.original = poem;
+                        });
+                }
+
             },
+            deep: true,
             immediate: true,
         },
         complete(newVal) {
