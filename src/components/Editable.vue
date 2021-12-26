@@ -1,7 +1,10 @@
 <template>
-  <b-input v-if="editable" v-bind="{value} = $attrs" v-on="{input} = $listeners"/>
+  <b-input v-if="editable"
+    v-bind="$attrs"
+    v-on="$listeners"/>
   <div v-else>
-    <slot v-bind="{value} = $attrs"/>
+    <slot :value="value"/>
+    {{$attrs}}
   </div>
 </template>
 
@@ -12,8 +15,8 @@
  */
 export default {
     name: 'Editable',
+    inheritAttrs: false,
     props: {
-        value: { required: true },
         editable: { default: false },
     }
 }
