@@ -28,8 +28,8 @@
             <div class="play-view">
                 <div class="toolbar">
                     <!-- "Cheat" utils -->
-                    <div class="toolbar-start">
-                        <div v-if="showCheats" class="grouping">
+                    <transition name="fade">
+                        <div v-if="showCheats && mode === 'play'" class="toolbar-start">
                             <b-button
                                 :label="$translation.get('button.completeall')"
                                 @click="completeAll"/>
@@ -37,7 +37,7 @@
                                 :label="$translation.get('button.completeone')"
                                 @click="completeOne"/>
                         </div>
-                    </div>
+                    </transition>
                     <transition-group name="list" tag="div" class="toolbar-end">
                         <b-button
                             v-for="button in filteredButtons"
@@ -152,7 +152,8 @@ export default {
                 {
                     key: 'help',
                     options: { type: 'is-primary', 'icon-left': 'help', },
-                    listeners: { click: this.showHelp, }
+                    listeners: { click: this.showHelp, },
+                    shouldShow: () => this.mode === 'play'
                 },
                 {
                     key: 'edit',
