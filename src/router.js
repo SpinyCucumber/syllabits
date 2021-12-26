@@ -65,7 +65,13 @@ routes: [
     path: '/play/:location',
     name: 'Play',
     component: Play,
-    props: true,
+    props: route => ({ mode: 'play', location: route.params.location })
+  },
+  {
+    path: '/edit/:poemID',
+    name: 'Edit',
+    component: Play,
+    props: route => ({ mode: 'edit', poemID: route.params.poemID })
   },
   {
     path: '/find',
