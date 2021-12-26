@@ -55,16 +55,16 @@
                     <div class="title-box">
                         <editable v-model="poem.title"
                             tag="h1"
-                            class="title"
-                            labelKey="title"
-                            :inputOptions="{size: 'is-large', 'custom-class': 'has-text-centered'}"
+                            custom-class="title"
+                            label-key="title"
+                            :input-options="{size: 'is-large', 'custom-class': 'has-text-centered'}"
                             v-slot="{value}">
                             {{ value }}
                         </editable>
                         <editable v-model="poem.author"
-                            class="subtitle"
-                            labelKey="author"
-                            :inputOptions="{'custom-class': 'has-text-centered'}"
+                            custom-class="subtitle"
+                            label-key="author"
+                            :input-options="{'custom-class': 'has-text-centered'}"
                             v-slot="{value}">
                             {{ value }}
                         </editable>

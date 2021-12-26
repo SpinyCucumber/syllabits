@@ -4,8 +4,8 @@
       v-bind="{...inputOptions, value}"
       v-on="$listeners"/>
   </b-field>
-  <component v-else :is="tag">
-    <slot v-bind="{value}"/>
+  <component v-else :is="tag" :class="customClass">
+    <slot v-bind="$attrs"/>
   </component>
 </template>
 
@@ -26,6 +26,7 @@ export default {
     inheritAttrs: false,
 
     props: {
+      customClass: { default: '' },
       value: { required: true },
       type: { default: 'text' },
       tag: { default: 'span' },
