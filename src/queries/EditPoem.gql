@@ -1,4 +1,4 @@
-query($poemID: String) {
+query($poemID: ID!) {
     node(id: $poemID) {
         ...on Poem {
             id
