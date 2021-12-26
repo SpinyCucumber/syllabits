@@ -53,11 +53,11 @@
                 <div class="poem" v-if="ready" :key="poem.id">
 
                     <div class="title-box">
-                        <editable v-model="poem.title" size="is-large" v-slot="{value}">
-                            <h1 class="title">{{ value }}</h1>
+                        <editable v-model="poem.title" size="is-large" tag="h1" class="title" v-slot="{value}">
+                            {{ value }}
                         </editable>
-                        <editable v-model="poem.author" v-slot="{value}">
-                            <div class="subtitle">{{ value }}</div>
+                        <editable v-model="poem.author" class="subtitle" v-slot="{value}">
+                            {{ value }}
                         </editable>
                     </div>
 
@@ -65,14 +65,14 @@
 
                     <!-- Poem lines -->
                     <div class="body">
-                            <poem-line
-                                v-for="line in poem.lines"
-                                :key="line.number"
-                                :line="line"
-                                :lineProgress="lines[line.number]"
-                                :checkHandler="(holding) => checkLine(line.number, holding)"
-                                @correct="onCorrect"
-                                @incorrect="onIncorrect"/>
+                        <poem-line
+                            v-for="line in poem.lines"
+                            :key="line.number"
+                            :line="line"
+                            :lineProgress="lines[line.number]"
+                            :checkHandler="(holding) => checkLine(line.number, holding)"
+                            @correct="onCorrect"
+                            @incorrect="onIncorrect"/>
                     </div>
 
                 </div>

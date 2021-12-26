@@ -3,9 +3,9 @@
     :is="inputType"
     v-bind="$attrs"
     v-on="$listeners"/>
-  <div v-else>
-    <slot :value="value"/>
-  </div>
+  <component v-else :is="tag">
+    <slot v-bind="$attrs"/>
+  </component>
 </template>
 
 <script>
@@ -24,6 +24,7 @@ export default {
     inheritAttrs: false,
     props: {
         type: { default: 'text' },
+        tag: { default: 'span' },
         editable: { default: false },
     },
     computed: {
