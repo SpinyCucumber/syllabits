@@ -74,8 +74,8 @@
                     <div class="body">
                         <poem-line
                             v-for="line in poem.lines"
+                            v-bind="{mode, line}"
                             :key="line.number"
-                            :line="line"
                             :progress="progress[line.number]"
                             :checkHandler="(holding) => checkLine(line.number, holding)"
                             @correct="onCorrect"

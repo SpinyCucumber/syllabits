@@ -25,7 +25,7 @@
 
         <!-- Feedback area -->
         <!-- Feedback area is a fixed size to accomodate variable-sized contents -->
-        <div class="feedback-area">
+        <div v-if="mode === 'play'" class="feedback-area">
             <transition name="fade">
                 <b-button type="is-dark"
                     @click="check"
@@ -79,11 +79,12 @@ export default {
     components: { BlockSlot, Feedback, Editable },
 
     props: {
+        mode: { default: 'play' },
         line: { required: true },
-        progress: { type: Object },
-        checkHandler: { required: true, type: Function },
-        hasNumber: { default: true },
-        automaticFeedback: { default: false },
+        progress: { type: Object }, // Used in play mode to track user answer
+        checkHandler: { required: true, type: Function }, // Defines how answers should be checked
+        hasNumber: { default: true }, // Whether the line number is shown
+        automaticFeedback: { default: false }, // If false, the user has to manually press a "check" button
     },
 
     computed: {
