@@ -53,7 +53,7 @@
                 <div class="poem" v-if="ready" :key="poem.id">
 
                     <div class="title-box">
-                        <editable v-model="poem.title" size="is-large" tag="h1" class="title" v-slot="{value}">
+                        <editable v-model="poem.title" tag="h1" class="title" v-slot="{value}">
                             {{ value }}
                         </editable>
                         <editable v-model="poem.author" class="subtitle" v-slot="{value}">
@@ -130,6 +130,17 @@ export default {
         return { sounds: { correct, incorrect, complete } };
     },
 
+    mounted() {
+        this.$nextTick(function() {
+            let stack = [this];
+            while (stack.length) {
+                let c = stack.pop();
+                console.log(c.$children);
+                stack.push(...(c.$children));
+            }
+        });
+    },
+
     data() {
         return {
             poem: null,
@@ -137,6 +148,7 @@ export default {
             numCorrect: 0,
             showComplete: false,
             hasWork: false,
+            allowEditing: true,
             buttons: [
                 { key: 'help', type: 'is-primary', icon: 'help', action: this.showHelp, },
                 {

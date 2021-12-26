@@ -25,12 +25,22 @@ export default {
     props: {
         type: { default: 'text' },
         tag: { default: 'span' },
-        editable: { default: false },
     },
     computed: {
       inputType() {
         return inputTypeLookup[this.type];
       }
+    },
+    beforeCreate() {
+      let c = this;
+      while (c) {
+        if (c.allowEditing !== undefined) {
+          this.editable = c.allowEditing;
+          return;
+        }
+        c = c.$parent;
+      }
+      this.editable = false;
     },
 }
 </script>
