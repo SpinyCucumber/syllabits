@@ -1,8 +1,9 @@
 <template>
-  <component v-if="allowEditing"
-    :is="inputType"
-    v-bind="{...inputOptions, value}"
-    v-on="$listeners"/>
+  <b-field v-if="allowEditing" v-bind="fieldProps">
+    <component :is="inputType"
+      v-bind="{...inputOptions, value}"
+      v-on="$listeners"/>
+  </b-field>
   <component v-else :is="tag">
     <slot v-bind="{value}"/>
   </component>
@@ -29,12 +30,20 @@ export default {
       type: { default: 'text' },
       tag: { default: 'span' },
       inputOptions: { type: Object },
+      fieldOptions: { type: Object },
+      labelKey: { type: String }, // Used to create the default field options
     },
 
     computed: {
       inputType() {
         return inputTypeLookup[this.type];
-      }
+      },
+      fieldProps() {
+        return this.fieldOptions || {
+          label: this.$translation.get('label.' + this.labelKey),
+          'label-position': 'on-border',
+        }
+      },
     },
     /**
      * Each editable component looks for nearest ancestor with the 'allowEditing' attribute,
