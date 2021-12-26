@@ -31,21 +31,19 @@
                     <div class="toolbar-start">
                         <div v-if="showCheats" class="grouping">
                             <b-button
-                                v-for="button in cheatButtons"
-                                :key="button.key"
-                                type="is-primary"
-                                :label="$translation.get('button.' + button.key)"
-                                @click="button.action"
-                            />
+                                :label="$translation.get('button.completeall')"
+                                @click="completeAll"/>
+                            <b-button
+                                :label="$translation.get('button.completeone')"
+                                @click="completeOne"/>
                         </div>
                     </div>
                     <transition-group name="list" tag="div" class="toolbar-end">
                         <b-button
-                            v-for="button in displayButtons"
+                            v-for="button in filteredButtons"
                             :key="button.key"
-                            :type="button.type"
-                            :icon-left="button.icon"
-                            @click="button.action"/>
+                            v-bind="button.options"
+                            v-on="button.listeners"/>
                     </transition-group>
                 </div>
                 
@@ -96,13 +94,15 @@
                             <p class="modal-simple-title">{{ $translation.get("play.complete") }}</p>
                         </header>
                         <footer class="modal-simple-foot">
-                            <b-button
-                                v-for="button in displayCompletionButtons"
-                                :key="button.key"
-                                :to="button.to"
-                                tag="router-link"
+                            <b-button tag="router-link"
+                                v-if="$store.getters.hasIdentity"
                                 type="is-primary"
-                                :label="$translation.get('button.' + button.key)"/>
+                                :to="{name: 'Dashboard'}"
+                                :label="$translation.get('button.dashboard')"/>
+                            <b-button tag="router-link"
+                                type="is-primary"
+                                :to="{name: 'RandomPoem'}"
+                                :label="$translation.get('button.anotherpoem')"/>
                         </footer>
                     </div>
                 </b-modal>
@@ -150,32 +150,26 @@ export default {
             buttons: [
                 {
                     key: 'help',
-                    type: 'is-primary',
-                    icon: 'help',
-                    action: this.showHelp, },
+                    options: { type: 'is-primary', 'icon-left': 'help', },
+                    listeners: { click: this.showHelp, }
+                },
                 {
                     key: 'edit',
-                    type: 'is-dark',
-                    icon: 'hammer-wrench',
-                    action: this.startEditMode,
+                    options: { type: 'is-dark', 'icon-left': 'hammer-wrench', },
                     shouldShow: () => this.mode === 'play'
                 },
                 {
+                    key: 'play',
+                    options: { type: 'is-dark', 'icon-left': 'controller-classic', },
+                    shouldShow: () => this.mode === 'edit'
+                },
+                {
                     key: 'reset',
-                    type: 'is-danger',
-                    icon: 'delete',
-                    action: this.confirmReset,
+                    options: { type: 'is-danger', 'icon-left': 'delete', },
+                    listeners: { click: this.confirmReset, },
                     shouldShow: () => this.hasWork,
                 },
             ],
-            cheatButtons: [
-                { key: 'completeall', action: this.completeAll },
-                { key: 'completeone', action: this.completeOne },
-            ],
-            completionButtons: [
-                { key: 'dashboard', to: { name: 'Dashboard' }, shouldShow: () => store.getters.hasIdentity },
-                { key: 'anotherpoem', to: { name: 'RandomPoem' } },
-            ]
         }
     },
 
@@ -239,11 +233,6 @@ export default {
                 })
         },
 
-        startEditMode() {
-            this.mode = 'edit';
-            // TODO
-        },
-
         onCorrect() {
             // Update numCorrect
             this.numCorrect += 1;
@@ -280,12 +269,9 @@ export default {
         showCheats() {
             return process.env.VUE_APP_SYLLABITS_CHEATS;
         },
-        displayButtons() {
+        filteredButtons() {
             return this.buttons.filter(button => button.shouldShow ? button.shouldShow() : true);
         },
-        displayCompletionButtons() {
-            return this.completionButtons.filter(button => button.shouldShow ? button.shouldShow() : true)
-        }
     },
 
     watch: {
