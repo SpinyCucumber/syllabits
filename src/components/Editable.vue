@@ -1,10 +1,10 @@
 <template>
   <component v-if="allowEditing"
     :is="inputType"
-    v-bind="$attrs"
+    v-bind="{...inputOptions, value}"
     v-on="$listeners"/>
   <component v-else :is="tag">
-    <slot v-bind="$attrs"/>
+    <slot v-bind="{value}"/>
   </component>
 </template>
 
@@ -25,8 +25,10 @@ export default {
     inheritAttrs: false,
 
     props: {
-        type: { default: 'text' },
-        tag: { default: 'span' },
+      value: { required: true },
+      type: { default: 'text' },
+      tag: { default: 'span' },
+      inputOptions: { type: Object },
     },
 
     computed: {
@@ -50,6 +52,6 @@ export default {
       }
       this.allowEditing = false;
     },
-    
+
 }
 </script>
