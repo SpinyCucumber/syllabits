@@ -128,7 +128,9 @@ export default {
     components: { BlockPicker, PoemLine, Scene, Editable, GameProgress, GameDropdown },
 
     props: {
-        location: { required: true, type: String },
+        mode: { default: 'play' }, // Valid values are 'play' or 'edit'
+        location: { type: String }, // Used for play mode. Determined play "context"
+        poemID: { type: String }, // Used for edit mode
     },
 
     setup() {
@@ -146,7 +148,6 @@ export default {
             numCorrect: 0,
             showComplete: false,
             hasWork: false,
-            mode: 'play',
             buttons: [
                 {
                     key: 'help',
@@ -167,7 +168,7 @@ export default {
                     key: 'reset',
                     options: { type: 'is-danger', 'icon-left': 'delete', },
                     listeners: { click: this.confirmReset, },
-                    shouldShow: () => this.hasWork,
+                    shouldShow: () => this.hasWork && this.mode === 'play',
                 },
             ],
         }
