@@ -5,7 +5,7 @@
       v-on="$listeners"/>
   </b-field>
   <component v-else :is="tag" :class="customClass">
-    <slot v-bind="$attrs"/>
+    <slot v-bind="{value}"/>
   </component>
 </template>
 

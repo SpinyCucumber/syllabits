@@ -146,7 +146,7 @@ export default {
             numCorrect: 0,
             showComplete: false,
             hasWork: false,
-            allowEditing: true,
+            mode: 'play',
             buttons: [
                 { key: 'help', type: 'is-primary', icon: 'help', action: this.showHelp, },
                 {
@@ -256,8 +256,10 @@ export default {
             return Boolean(this.poem);
         },
         complete() {
-            if (!this.ready) return false;
-            return this.numCorrect === this.poem.lines.length;
+            return this.ready && (this.numCorrect === this.poem.lines.length);
+        },
+        allowEditing() {
+            return this.mode === 'edit';
         },
         showCheats() {
             return process.env.VUE_APP_SYLLABITS_CHEATS;
