@@ -76,7 +76,7 @@
                             v-for="line in poem.lines"
                             :key="line.number"
                             :line="line"
-                            :lineProgress="progress[line.number]"
+                            :progress="progress[line.number]"
                             :checkHandler="(holding) => checkLine(line.number, holding)"
                             @correct="onCorrect"
                             @incorrect="onIncorrect"/>

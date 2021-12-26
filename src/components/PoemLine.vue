@@ -10,7 +10,7 @@
                 <block-slot v-for="n in 5"
                     ref="slots"
                     :key="n"
-                    :holding.sync="lineProgress.holding[n-1]"
+                    :holding.sync="progress.holding[n-1]"
                     :mode="slotMode"
                     @update:holding="onSlotUpdate"/>
             </div>
@@ -80,7 +80,7 @@ export default {
 
     props: {
         line: { required: true },
-        lineProgress: { required: true },
+        progress: { type: Object },
         checkHandler: { required: true, type: Function },
         hasNumber: { default: true },
         automaticFeedback: { default: false },
@@ -89,26 +89,26 @@ export default {
     computed: {
         // Whether every slot contains a block type
         full() {
-            return !this.lineProgress.holding.some(blockType => blockType === null);
+            return !this.progress.holding.some(blockType => blockType === null);
         },
         // CSS classes
         classes() {
             let classes = ['line'];
-            classes.push(CLASS_LOOKUP.get(this.lineProgress.state));
+            classes.push(CLASS_LOOKUP.get(this.progress.state));
             if (this.line.stanzaBreak) classes.push('stanza-break');
             return classes;
         },
         // Whether the check button is visible
         canCheck() {
             if (this.automaticFeedback) return false;
-            if (this.lineProgress.state === LineState.Unchecked) {
+            if (this.progress.state === LineState.Unchecked) {
                 return this.full;
             }
             return false;
         },
         // How the slots should behave
         slotMode() {
-            if (this.lineProgress.state === LineState.Correct) return SlotMode.Locked;
+            if (this.progress.state === LineState.Correct) return SlotMode.Locked;
             return SlotMode.Slot;
         },
     },
@@ -120,14 +120,14 @@ export default {
          */
         check() {
             // Transition state to "checking"
-            this.lineProgress.state = LineState.Checking;
+            this.progress.state = LineState.Checking;
             // Increment attempts
-            this.lineProgress.attempts += 1;
+            this.progress.attempts += 1;
             // Let component user handle check
-            this.checkHandler(this.lineProgress.holding)
+            this.checkHandler(this.progress.holding)
                 .then(result => {
                     // Transition state
-                    this.lineProgress.state = result.correct ?
+                    this.progress.state = result.correct ?
                         LineState.Correct : LineState.Incorrect;
                     // Trigger animations
                     // Animations are only triggered when we actually get a check result back.
