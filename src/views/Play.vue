@@ -53,8 +53,12 @@
                 <div class="poem" v-if="ready" :key="poem.id">
 
                     <div class="title-box">
-                        <h1 class="title">{{ poem.title }}</h1>
-                        <div class="subtitle">{{ poem.author }}</div>
+                        <editable v-model="poem.title" size="is-large" v-slot="{value}">
+                            <h1 class="title">{{ value }}</h1>
+                        </editable>
+                        <editable v-model="poem.author" v-slot="{value}">
+                            <div class="subtitle">{{ value }}</div>
+                        </editable>
                     </div>
 
                     <img :src="$assets.getIcon('Divider')" class="divider"/>
@@ -101,7 +105,7 @@
 
 <script>
 import { PlayPoem, SubmitLine, ResetProgress } from '@/queries'
-import { BlockPicker, PoemLine, Scene, GameProgress, GameDropdown } from '@/components'
+import { BlockPicker, PoemLine, Scene, Editable, GameProgress, GameDropdown } from '@/components'
 import { Constants, AssetService, ReminderService } from '@/services'
 import store from '@/store'
 import useSound from 'vue-use-sound'
@@ -112,7 +116,7 @@ const { BlockTypes, LineState } = Constants;
 export default {
 
     name: 'Play',
-    components: { BlockPicker, PoemLine, Scene, GameProgress, GameDropdown },
+    components: { BlockPicker, PoemLine, Scene, Editable, GameProgress, GameDropdown },
 
     props: {
         location: { required: true, type: String },
