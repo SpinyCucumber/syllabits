@@ -76,7 +76,7 @@
                             v-for="line in poem.lines"
                             :key="line.number"
                             :line="line"
-                            :lineProgress="lines[line.number]"
+                            :lineProgress="progress[line.number]"
                             :checkHandler="(holding) => checkLine(line.number, holding)"
                             @correct="onCorrect"
                             @incorrect="onIncorrect"/>
@@ -145,7 +145,7 @@ export default {
         return {
             poem: null,
             original: null, // Used it edit mode to track changes
-            lines: null, // TODO Should rename
+            progress: null, // Used to track player answers in play mode
             numCorrect: 0,
             showComplete: false,
             hasWork: false,
@@ -202,10 +202,10 @@ export default {
         
         initialize(numLines) {
             this.hasWork = false;
-            this.lines = [];
+            this.progress = [];
             this.numCorrect = 0;
             for (let i = 0; i < numLines; i++) {
-                Vue.set(this.lines, i, {
+                Vue.set(this.progress, i, {
                     state: LineState.Unchecked,
                     holding: new Array(5).fill(null),
                     attempts: 0,
@@ -301,7 +301,7 @@ export default {
                                 this.hasWork = true;
                                 this.numCorrect = progress.numCorrect;
                                 for (const line of progress.lines) {
-                                    let localLine = this.lines[line.number];
+                                    let localLine = this.progress[line.number];
                                     // Update holding and state
                                     localLine.holding = Array.from(line.answer).map(code => BlockTypes.forCode(code));
                                     localLine.state = line.correct ? LineState.Correct : LineState.Incorrect;
