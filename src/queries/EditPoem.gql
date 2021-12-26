@@ -1,0 +1,16 @@
+query($poemID: String) {
+    node(id: $poemID) {
+        ...on Poem {
+            id
+            location
+            title
+            author
+            lines {
+                number
+                text
+                key
+                stanzaBreak
+            }
+        }
+    }
+}

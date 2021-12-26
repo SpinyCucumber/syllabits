@@ -1,6 +1,7 @@
 export { default as SubmitLine } from './SubmitLine.gql'
 export { default as RandomPoem } from './RandomPoem.gql'
 export { default as PlayPoem } from './PlayPoem.gql'
+export { default as EditPoem } from './EditPoem.gql'
 export { default as Login } from './Login.gql'
 export { default as Register } from './Register.gql'
 export { default as Logout } from './Logout.gql'
