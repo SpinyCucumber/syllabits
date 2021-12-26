@@ -41,6 +41,9 @@ export default {
       label() {
         return this.labelKey ? this.$translation.get('label.' + this.labelKey) : null;
       },
+      allowEditing() {
+        return this.editRoot.allowEditing;
+      },
     },
     /**
      * Each editable component looks for nearest ancestor with the 'allowEditing' attribute,
@@ -50,13 +53,10 @@ export default {
     beforeCreate() {
       let c = this;
       while (c) {
-        if (c.allowEditing !== undefined) {
-          this.allowEditing = c.allowEditing;
-          return;
-        }
+        if (c.allowEditing !== undefined) break;
         c = c.$parent;
       }
-      this.allowEditing = false;
+      this.editRoot = c;
     },
 
 }
