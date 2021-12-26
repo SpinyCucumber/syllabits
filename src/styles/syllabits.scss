@@ -290,6 +290,11 @@ body {
         }
     }
 
+    &.is-mode-edit .body {
+        // Edit mode requires only two columns
+        grid-template-columns: auto auto;
+    }
+
     // We insert a pseudo-element "spacer" between each stanza
     // to create space.
     .line.stanza-break:before {

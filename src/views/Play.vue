@@ -25,7 +25,7 @@
 
         <template #content-area>
 
-            <div class="play-view">
+            <div :class="classes">
                 <div class="toolbar">
                     <!-- "Cheat" utils -->
                     <transition name="fade">
@@ -266,6 +266,9 @@ export default {
     },
 
     computed: {
+        classes() {
+            return ['play-view', 'is-mode-' + this.mode];
+        },
         ready() {
             return Boolean(this.poem);
         },
