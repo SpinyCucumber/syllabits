@@ -15,7 +15,9 @@
                     @update:holding="onSlotUpdate"/>
             </div>
             <!-- Line text -->
-            <div class="text">{{ line.text }}</div>
+            <editable v-model="line.text" class="text" v-slot="{value}">
+                {{ value }}
+            </editable>
         </div>
 
         <!-- Feedback area -->
@@ -46,6 +48,7 @@
 // 4. Incorrect
 //  Can transition to Unchecked by changing slots.
 import BlockSlot from './BlockSlot'
+import Editable from './Editable'
 import Feedback from './Feedback'
 import { Constants } from '@/services'
 
@@ -70,7 +73,7 @@ function getFeedbackLevel(attempts) {
 export default {
 
     name: 'PoemLine',
-    components: { BlockSlot, Feedback },
+    components: { BlockSlot, Feedback, Editable },
 
     props: {
         line: { required: true },
