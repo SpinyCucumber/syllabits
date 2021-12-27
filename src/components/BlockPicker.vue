@@ -3,7 +3,7 @@
         <block-slot
             v-for="type in this.$constants.BlockTypes.values"
             :key="type.name"
-            :holding="type"
+            :holding="type.code"
             :mode="$constants.SlotMode.Bucket"/>
     </div>
 </template>

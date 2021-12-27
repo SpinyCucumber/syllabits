@@ -1,7 +1,7 @@
 <template>
     <div
-        :class="['game-block', `type-${type.name}`]">
-        <img v-for="(stress, index) in this.type.stresses" :src="$assets.getIcon(stress.name)" :key="index" class="game-notation"/>
+        :class="['game-block', `type-${blockType.name}`]">
+        <img v-for="(stress, index) in blockType.stresses" :src="$assets.getIcon(stress.name)" :key="index" class="game-notation"/>
     </div>
 </template>
 
@@ -12,11 +12,11 @@ const { BlockTypes } = Constants;
 export default {
     name: 'Block',
     props: {
-        typeCode: String,
+        type: String,
     },
     computed: {
-        type() {
-            return BlockTypes.forCode(this.typeCode);
+        blockType() {
+            return BlockTypes.forCode(this.type);
         }
     },
 }
