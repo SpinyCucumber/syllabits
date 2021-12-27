@@ -184,11 +184,8 @@ export default {
 
     methods: {
 
-        checkLine(lineNum, holding) {
-            // Create a code using the block types the line contains.
-            // This is for representing the sequence of blocks efficiently.
-            const answer = holding.map(block => block.code).join('');
-            // We have to construct the input to the server
+        checkLine(lineNum, answer) {
+            // Construct the input to the server
             const input = { poemID: this.poem.id, lineNum, answer }
             return this.$apollo.mutate({ mutation: SubmitLine, variables: { input } })
                 .then(result => result.data.submitLine)
