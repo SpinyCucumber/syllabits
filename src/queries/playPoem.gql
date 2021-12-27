@@ -8,6 +8,7 @@ mutation($location: String!) {
             author
             lines {
                 number
+                numFeet
                 text
                 stanzaBreak
             }

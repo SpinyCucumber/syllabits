@@ -199,14 +199,19 @@ export default {
                 });
         },
         
-        initialize(numLines) {
+        /**
+         * Sets up data structures used to track player progress
+         * Should only be called in play mode, and poem should be set
+         */
+        setupProgress() {
             this.hasWork = false;
             this.progress = [];
             this.numCorrect = 0;
-            for (let i = 0; i < numLines; i++) {
+            for (let i = 0; i < this.poem.lines.length; i++) {
+                const { numFeet } = this.poem.lines[i];
                 Vue.set(this.progress, i, {
                     state: LineState.Unchecked,
-                    holding: new Array(5).fill(null),
+                    holding: new Array(numFeet).fill(null),
                     attempts: 0,
                 })
             }
@@ -236,7 +241,7 @@ export default {
                             message: this.$translation.get('message.resetsuccess'),
                             type: 'is-danger'
                         });
-                        this.initialize(this.poem.lines.length);
+                        this.setupProgress();
                     }
                 })
         },
@@ -296,7 +301,9 @@ export default {
                     this.$apollo.mutate({mutation: PlayPoem, variables: { location }})
                         .then(result => result.data.playPoem)
                         .then(({poem, next, previous}) => {
-                            this.initialize(poem.lines.length);
+                            // Set poem and initialize progress data
+                            this.poem = poem;
+                            this.setupProgress();
                             // Update progress from server if applicable
                             const { progress } = poem;
                             if (progress) {
@@ -314,8 +321,6 @@ export default {
                             if (next) links.push({key: 'next', to: {name: 'Play', params: {location: next}}})
                             if (previous) links.push({key: 'previous', to: {name: 'Play', params: {location: previous}}})
                             this.$emit('update:additionalLinks', links);
-                            // Finally set poem
-                            this.poem = poem;
                         });
                 }
 
