@@ -7,7 +7,7 @@
         <div class="text-box">
             <!-- Block slots -->
             <div class="slot-container">
-                <block-slot v-for="n in 5"
+                <block-slot v-for="n in progress.holding.length"
                     ref="slots"
                     :key="n"
                     :holding.sync="progress.holding[n-1]"
@@ -143,10 +143,8 @@ export default {
             this.$emit('correct');
             // 'Bounce' the slots in order to create a wave
             let delay = 0;
-            for(let i = 0; i < 5; i++) {
-                setTimeout(() => {
-                    this.$refs.slots[i].animate('correct');
-                }, delay);
+            for(let slot of this.$refs.slots) {
+                setTimeout(() => slot.animate('correct'), delay);
                 delay += 100;
             }
             // Feedback!
