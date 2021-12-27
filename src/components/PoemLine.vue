@@ -151,7 +151,7 @@ export default {
             }
             // Feedback!
             // Retrieve feedback level using attempts
-            const feedbackLevel = getFeedbackLevel(this.lineProgress.attempts);
+            const feedbackLevel = getFeedbackLevel(this.progress.attempts);
             setTimeout(() => {
                 this.$refs.feedback.show(feedbackLevel);
             }, delay);
@@ -176,7 +176,7 @@ export default {
          * If the slots are changed while in the 'Incorrect' state, transition to Unchecked
          */
         onSlotUpdate() {
-            if (this.lineProgress.state === LineState.Incorrect) this.lineProgress.state = LineState.Unchecked;
+            if (this.progress.state === LineState.Incorrect) this.progress.state = LineState.Unchecked;
         }
 
     },
