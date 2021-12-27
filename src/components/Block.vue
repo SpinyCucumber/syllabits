@@ -6,14 +6,18 @@
 </template>
 
 <script>
-import { BlockType } from '@/utilities'
+import { Constants } from '@/services'
+const { BlockTypes } = Constants;
 
 export default {
     name: 'Block',
-
     props: {
-        type: BlockType
+        typeCode: String,
     },
-
+    computed: {
+        type() {
+            return BlockTypes.forCode(this.typeCode);
+        }
+    },
 }
 </script>

@@ -55,6 +55,8 @@ export default {
 
     props: {
         mode: { default: SlotMode.Slot },
+        // Using an foot type code (a short string) is preferable to using an enum type here.
+        // A string is more easily mapped to/from JSON data, which makes querying the server easier.
         holding: String, 
     },
 
