@@ -31,9 +31,11 @@
                     <transition name="fade">
                         <div v-if="showCheats && mode === 'play'" class="toolbar-start">
                             <b-button
+                                type="is-primary"
                                 :label="$translation.get('button.completeall')"
                                 @click="completeAll"/>
                             <b-button
+                                type="is-primary"
                                 :label="$translation.get('button.completeone')"
                                 @click="completeOne"/>
                         </div>
