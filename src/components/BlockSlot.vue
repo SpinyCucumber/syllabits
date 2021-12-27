@@ -35,7 +35,6 @@
 <script>
 import Block from './Block'
 import { Animatable } from '@/mixins'
-import { BlockType } from '@/utilities'
 import { Draggable, Container } from 'vue-smooth-dnd'
 import useSound from 'vue-use-sound'
 import { Constants, AssetService } from '@/services'
@@ -56,7 +55,7 @@ export default {
 
     props: {
         mode: { default: SlotMode.Slot },
-        holding: BlockType, 
+        holding: String, 
     },
 
     data() {
