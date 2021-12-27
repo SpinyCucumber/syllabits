@@ -120,7 +120,7 @@ import store from '@/store'
 import useSound from 'vue-use-sound'
 import Vue from 'vue'
 
-const { BlockTypes, LineState } = Constants;
+const { LineState } = Constants;
 
 export default {
 
@@ -303,7 +303,7 @@ export default {
                                 for (const line of progress.lines) {
                                     let localLine = this.progress[line.number];
                                     // Update holding and state
-                                    localLine.holding = Array.from(line.answer).map(code => BlockTypes.forCode(code));
+                                    localLine.holding = line.answer;
                                     localLine.state = line.correct ? LineState.Correct : LineState.Incorrect;
                                 }
                             }
