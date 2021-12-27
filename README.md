@@ -23,13 +23,6 @@ npm run serve
 npm run lint
 ```
 
-### 'Dummy' Backend
-The app contains a 'dummy' backend which can be ran in lieu of running the actual backend. To run it, use
-```
-npm run apollo
-```
-* Maintaining the dummy backend is (unfortunately) not a priority, so it might be out of date with the actual backend. Always prefer using the actual backend, especially since it has a debug mode.
-
 ### Deploying on CPanel
 These are the recommended steps for deploying on CPanel:
 1. Clone this repository on the CPanel system, and ensure that you are able to push to it.
@@ -43,4 +36,4 @@ These are the recommended steps for deploying on CPanel:
     * CPanel can be a pain in the ass; the auto-deploy feature feels almost unusable. An alternative is to use a post-receive Git hook, which can be a bash script that builds the project and copies files.
     * Another note: The 'yorkie' package made using "updateInstead" painful. It overrides all hooks in a way that breaks updateInstead. Considering the package hasn't been updated in 3 years, I should probably remove it.
     * Actually deploying the built app simply involves copying all files from dist/ to the public_html folder.
-4. Simply push to the remote repository to deploy changes
+4. Push to the remote repository to deploy changes
