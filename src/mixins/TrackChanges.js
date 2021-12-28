@@ -1,5 +1,4 @@
 function calculateChanges(data, original, context) {
-    console.log({data, original});
     const { excludeFields } = context;
     // Handle objects
     // I can't comprehend why null is an object
@@ -10,16 +9,16 @@ function calculateChanges(data, original, context) {
         for (const key in original) {
             // Allow the user the exclude certain fields
             if (excludeFields.has(key)) continue;
-            changes.push(...calculateChanges(data[key], original[key], context)
-                .map((change) => {
-                    change.field = (change.field) ? (change.field + '.' + key) : key;
-                }));
+            let subchanges = calculateChanges(data[key], original[key], context);
+            for(let change of subchanges) change.field = (change.field) ? (change.field + '.' + key) : key;
+            changes.push(...subchanges);
         }
         return changes;
     }
-    else {
+    else if (original !== data) {
         return [{ op: 'set', value: data }];
     }
+    return [];
 }
 
 /**
