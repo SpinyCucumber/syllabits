@@ -118,6 +118,7 @@
 import { PlayPoem, EditPoem, SubmitLine, ResetProgress } from '@/queries'
 import { BlockPicker, PoemLine, Scene, Editable, GameProgress, GameDropdown } from '@/components'
 import { Constants, AssetService, ReminderService } from '@/services'
+import { TrackChanges } from '@/mixins'
 import store from '@/store'
 import useSound from 'vue-use-sound'
 import Vue from 'vue'
@@ -134,6 +135,10 @@ export default {
         location: { type: String }, // Used for play mode. Determined play "context"
         poemID: { type: String }, // Used for edit mode
     },
+
+    mixins: [
+        TrackChanges('poem', 'original')
+    ],
 
     setup() {
         // Load sounds
