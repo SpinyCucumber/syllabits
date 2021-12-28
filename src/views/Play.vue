@@ -70,7 +70,7 @@
                         </editable>
                     </div>
 
-                    <img :src="$assets.getIcon('Divider')" class="divider"/>
+                    <img v-if="mode === 'play'" :src="$assets.getIcon('Divider')" class="divider"/>
 
                     <!-- Poem lines -->
                     <div class="body">
