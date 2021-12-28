@@ -1,4 +1,5 @@
-function calculateChanges(data, original) {
+function calculateChanges(data, original, context) {
+    const { excludeFields } = context;
     console.log({data, original});
     // Handle objects
     // I can't comprehend why null is an object
@@ -7,6 +8,8 @@ function calculateChanges(data, original) {
         // We add a 'field' property to the changes of each key
         let changes = [];
         for (const key in original) {
+            // Allow the user the exclude certain fields
+            if (excludeFields.has(key)) continue;
             changes.push(...calculateChanges(data[key], original[key])
                 .map((change) => {
                     change.field = (change.field) ? (change.field + '.' + key) : key;
@@ -24,11 +27,17 @@ function calculateChanges(data, original) {
  * Requires the name of the prop to track, and the name of prop that contains the "original" copy
  * Creates a computed property which is a list of changes named 'changes'
  */
-export default function TrackChanges(dataName, originalName) {
+export default function TrackChanges(options) {
+    // Coerce excludeFields into a set
+    options.excludeFields = new Set(options.excludeFields);
     return ({
         computed: {
             changes() {
-                return calculateChanges(this[dataName], this[originalName]);
+                return calculateChanges(
+                    this[options.pop('prop')],
+                    this[options.pop('original')],
+                    options
+                );
             }
         }
     });
