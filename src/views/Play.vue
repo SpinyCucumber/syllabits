@@ -137,7 +137,11 @@ export default {
     },
 
     mixins: [
-        TrackChanges('poem', 'original')
+        TrackChanges({
+            prop: 'poem',
+            original: 'original',
+            excludeFields: ['id', 'progress']
+        }),
     ],
 
     setup() {
