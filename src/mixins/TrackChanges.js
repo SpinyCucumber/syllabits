@@ -1,21 +1,22 @@
 function calculateChanges(data, original) {
-    let changes = [];
+    console.log({data, original});
     // Handle objects
     // I can't comprehend why null is an object
     if (typeof original === 'object' && original !== null) {
         // For every key, calculate the changes of the corresponding value
         // We add a 'field' property to the changes of each key
+        let changes = [];
         for (const key in original) {
             changes.push(...calculateChanges(data[key], original[key])
                 .map((change) => {
                     change.field = (change.field) ? (change.field + '.' + key) : key;
                 }));
         }
+        return changes;
     }
     else {
-        changes.push({ op: 'set', value: data });
+        return [{ op: 'set', value: data }];
     }
-    return changes;
 }
 
 /**
