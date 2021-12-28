@@ -1,6 +1,6 @@
 function calculateChanges(data, original, context) {
-    const { excludeFields } = context;
     console.log({data, original});
+    const { excludeFields } = context;
     // Handle objects
     // I can't comprehend why null is an object
     if (typeof original === 'object' && original !== null) {
@@ -10,7 +10,7 @@ function calculateChanges(data, original, context) {
         for (const key in original) {
             // Allow the user the exclude certain fields
             if (excludeFields.has(key)) continue;
-            changes.push(...calculateChanges(data[key], original[key])
+            changes.push(...calculateChanges(data[key], original[key], context)
                 .map((change) => {
                     change.field = (change.field) ? (change.field + '.' + key) : key;
                 }));
@@ -28,15 +28,17 @@ function calculateChanges(data, original, context) {
  * Creates a computed property which is a list of changes named 'changes'
  */
 export default function TrackChanges(options) {
+    // Extract prop, original option
+    const { prop, original, ...context } = options;
     // Coerce excludeFields into a set
-    options.excludeFields = new Set(options.excludeFields);
+    context.excludeFields = new Set(context.excludeFields);
     return ({
         computed: {
             changes() {
                 return calculateChanges(
-                    this[options.pop('prop')],
-                    this[options.pop('original')],
-                    options
+                    this[prop],
+                    this[original],
+                    context
                 );
             }
         }
