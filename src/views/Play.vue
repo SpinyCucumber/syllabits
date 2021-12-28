@@ -140,7 +140,7 @@ export default {
         TrackChanges({
             prop: 'poem',
             original: 'original',
-            excludeFields: ['id', 'progress']
+            excludeFields: ['id', 'progress', '__typename', 'location']
         }),
     ],
 
