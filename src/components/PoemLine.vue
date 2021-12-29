@@ -90,7 +90,7 @@ export default {
     computed: {
         // Whether every slot contains a block
         full() {
-            return !this.progress.holding.some(blockType => blockType === null);
+            return !this.holding.some(blockType => blockType === null);
         },
         // The blocks the line currently contains
         holding() {
@@ -197,7 +197,7 @@ export default {
         full(newVal) {
             // If the player completes the line while automatic feedback is enabled,
             // we automatically check the answer
-            if (newVal && this.automaticFeedback) this.check();
+            if (newVal && this.mode === 'play' && this.automaticFeedback) this.check();
         }
     },
 
