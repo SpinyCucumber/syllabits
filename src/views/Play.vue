@@ -157,6 +157,7 @@ export default {
             original: null, // Used it edit mode to track changes
             progress: null, // Used to track player answers in play mode
             numCorrect: 0,
+            ready: false, // Whether the poem is ready to be rendered
             showComplete: false,
             hasWork: false,
             buttons: [
@@ -295,11 +296,10 @@ export default {
         classes() {
             return ['play-view', 'is-mode-' + this.mode];
         },
-        ready() {
-            return Boolean(this.poem);
-        },
+        // TODO Phase this out in favor of events
         complete() {
-            return this.ready && (this.numCorrect === this.poem.lines.length);
+            // return this.ready && (this.numCorrect === this.poem.lines.length);
+            return false;
         },
         allowEditing() {
             return this.mode === 'edit';
@@ -320,6 +320,7 @@ export default {
 
                 if (mode === 'play') {
                     // Perform server query
+                    this.ready = false;
                     this.$apollo.mutate({mutation: PlayPoem, variables: { location }})
                         .then(result => result.data.playPoem)
                         .then(({poem, next, previous}) => {
@@ -343,11 +344,14 @@ export default {
                             if (next) links.push({key: 'next', to: {name: 'Play', params: {location: next}}})
                             if (previous) links.push({key: 'previous', to: {name: 'Play', params: {location: previous}}})
                             this.$emit('update:additionalLinks', links);
+                            // Let's play!
+                            this.ready = true;
                         });
                 }
 
                 else if (mode === 'edit') {
                     // Query full poem (including keys) from server
+                    this.ready = false;
                     this.$apollo.query({ query: EditPoem, variables: { poemID }})
                         .then(result => result.data.node)
                         .then(poem => {
@@ -355,6 +359,7 @@ export default {
                             // We also keep a copy of the original poem to track changes
                             this.original = clone(poem);
                             this.poem = poem;
+                            this.ready = true;
                         });
                 }
 
