@@ -82,7 +82,7 @@ export default {
         mode: { default: 'play' },
         line: { required: true },
         progress: { type: Object }, // Used in play mode to track user answer
-        checkHandler: { required: true, type: Function }, // Defines how answers should be checked
+        checkHandler: { type: Function }, // Defines how answers should be checked
         hasNumber: { default: true }, // Whether the line number is shown
         automaticFeedback: { default: false }, // If false, the user has to manually press a "check" button
     },
