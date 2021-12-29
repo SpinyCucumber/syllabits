@@ -118,8 +118,13 @@ export default {
         },
         // How the slots should behave
         slotMode() {
-            if (this.progress.state === LineState.Correct) return SlotMode.Locked;
-            return SlotMode.Slot;
+            if (this.mode === 'edit') return SlotMode.Slot;
+            else if (this.mode === 'play') {
+                // Slots are locked if line is correct
+                if (this.progress.state === LineState.Correct) return SlotMode.Locked;
+                return SlotMode.Slot;
+            }
+            return null;
         },
     },
 
