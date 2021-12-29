@@ -385,13 +385,13 @@ export default {
                 else if (mode === 'edit') {
                     // Query full poem (including keys) from server
                     this.ready = false;
-                    this.$apollo.query({ query: EditPoem, variables: { poemID }})
+                    this.$apollo.query({ query: EditPoem, variables: { poemID }, fetchPolicy: 'network-only' })
                         .then(result => result.data.node)
                         .then(poem => {
                             // Load the queried poem
                             // We also keep a copy of the original poem to track changes
-                            this.original = clone(poem);
-                            this.poem = poem;
+                            this.original = poem;
+                            this.poem = clone(poem);
                             this.ready = true;
                         });
                 }
