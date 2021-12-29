@@ -1,14 +1,12 @@
 <template>
-  <transition name="fade" mode="out-in">
-    <b-field v-if="allowEditing" label-position="on-border" v-bind="{label}">
-      <component :is="inputType"
-        v-bind="{...inputOptions, value}"
-        v-on="$listeners"/>
-    </b-field>
-    <component v-else :is="tag" :class="customClass">
-      <slot v-bind="{value}"/>
-    </component>
-  </transition>
+  <b-field v-if="allowEditing" label-position="on-border" v-bind="{label}">
+    <component :is="inputType"
+      v-bind="{...inputOptions, value}"
+      v-on="$listeners"/>
+  </b-field>
+  <component v-else :is="tag" :class="customClass">
+    <slot v-bind="{value}"/>
+  </component>
 </template>
 
 <script>

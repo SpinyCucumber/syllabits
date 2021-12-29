@@ -4,7 +4,7 @@
 
         <template #static-area>
             <!-- Block picker "drawer" -->
-            <div class="grouping" v-if="ready">
+            <div class="grouping" v-if="mode">
                 <div class="block-dropdown">
                     <game-dropdown :has-handle="true">
                         <block-picker/>
@@ -25,7 +25,7 @@
 
         <template #content-area>
 
-            <div :class="classes">
+            <div class="play-view">
                 <div class="toolbar">
                     <!-- "Cheat" utils -->
                     <transition name="fade">
@@ -50,7 +50,7 @@
                 </div>
                 
                 <transition name="fade" mode="out-in">
-                    <div class="poem" v-if="ready" :key="poem.id">
+                    <div :class="poemClasses" :key="poem" v-if="mode">
 
                         <div class="title-box">
                             <editable v-model="poem.title"
@@ -163,8 +163,8 @@ export default {
     components: { BlockPicker, PoemLine, Scene, Editable, GameProgress, GameDropdown, PoemComplete },
 
     props: {
-        mode: { default: 'play' }, // Valid values are 'play' or 'edit'
-        location: { type: String }, // Used for play mode. Determined play "context"
+        intent: { default: 'play' }, // Valid values are 'play' or 'edit'
+        location: { type: String }, // Used for play mode. Determines play "context"
         poemID: { type: String }, // Used for edit mode
     },
 
@@ -187,11 +187,11 @@ export default {
 
     data() {
         return {
+            mode: null,
             poem: null, // Loaded poem. Contains line text, numbers, title, etc.
             original: null, // Used it edit mode to track changes
             progress: null, // Used to track player answers in play mode
             numCorrect: 0,
-            ready: false, // Whether the poem is ready to be rendered
             showComplete: false, // Whether the 'poem complete' dialog is being shown
             hasWork: false,
             buttons: [
@@ -331,8 +331,8 @@ export default {
     },
 
     computed: {
-        classes() {
-            return ['play-view', 'is-mode-' + this.mode];
+        poemClasses() {
+            return ['poem', 'is-mode-' + this.mode];
         },
         allowEditing() {
             return this.mode === 'edit';
@@ -349,17 +349,17 @@ export default {
         $props: {
             handler(props) {
 
-                const { mode, location, poemID } = props;
+                const { intent, location, poemID } = props;
 
-                if (mode === 'play') {
+                if (intent === 'play') {
                     // Perform server query
-                    this.ready = false;
                     this.$apollo.mutate({mutation: PlayPoem, variables: { location }})
                         .then(result => result.data.playPoem)
                         .then(({poem, next, previous}) => {
                             // Set poem and initialize progress data
                             this.poem = poem;
                             this.setupProgress();
+                            this.mode = 'play';
                             // Update progress from server if applicable
                             const { progress } = poem;
                             if (progress) {
@@ -377,14 +377,11 @@ export default {
                             if (next) links.push({key: 'next', to: {name: 'Play', params: {location: next}}})
                             if (previous) links.push({key: 'previous', to: {name: 'Play', params: {location: previous}}})
                             this.$emit('update:additionalLinks', links);
-                            // Let's play!
-                            this.ready = true;
                         });
                 }
 
-                else if (mode === 'edit') {
+                else if (intent === 'edit') {
                     // Query full poem (including keys) from server
-                    this.ready = false;
                     this.$apollo.query({ query: EditPoem, variables: { poemID }, fetchPolicy: 'network-only' })
                         .then(result => result.data.node)
                         .then(poem => {
@@ -392,7 +389,7 @@ export default {
                             // We also keep a copy of the original poem to track changes
                             this.original = poem;
                             this.poem = clone(poem);
-                            this.ready = true;
+                            this.mode = 'edit';
                         });
                 }
 
