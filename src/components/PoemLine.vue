@@ -12,7 +12,7 @@
                     :key="n"
                     :holding.sync="holding[n-1]"
                     :mode="slotMode"
-                    @update:holding="onSlotUpdate"/>
+                    v-on="slotListeners"/>
             </div>
             <!-- Line text -->
             <editable v-model="line.text"
@@ -116,6 +116,17 @@ export default {
             }
             return false;
         },
+        // What slot events we listen to
+        slotListeners() {
+            // In play mode, we listen to slot changes to transition to unchecked if necessary
+            let listeners = {}
+            if (this.mode === 'play' && this.progress.state === LineState.Incorrect) {
+                listeners = { ...listeners,
+                    'update:holding': () => { this.progress.state = LineState.Unchecked }
+                };
+            }
+            return listeners;
+        },
         // How the slots should behave
         slotMode() {
             if (this.mode === 'edit') return SlotMode.Slot;
@@ -183,13 +194,6 @@ export default {
                 this.$refs.feedback.show(FeedbackType.Incorrect);
             }, delay);
         },
-
-        /**
-         * If the slots are changed while in the 'Incorrect' state, transition to Unchecked
-         */
-        onSlotUpdate() {
-            if (this.progress.state === LineState.Incorrect) this.progress.state = LineState.Unchecked;
-        }
 
     },
 
