@@ -76,10 +76,8 @@
                         <div class="body">
                             <poem-line
                                 v-for="line in poem.lines"
-                                v-bind="{mode, line}"
                                 :key="line.number"
-                                :progress="progress[line.number]"
-                                :checkHandler="(holding) => checkLine(line.number, holding)"
+                                v-bind="lineBindings(line)"
                                 @correct="onCorrect"
                                 @incorrect="onIncorrect"/>
                         </div>
@@ -195,6 +193,20 @@ export default {
     },
 
     methods: {
+
+        lineBindings(line) {
+            let bindings = ({
+                line,
+                mode: this.mode,
+            });
+            // Some bindings are only applicable in play mode
+            if (this.mode === 'play') bindings = {
+                ...bindings,
+                checkHandler: (holding) => this.checkLine(line.number, holding),
+                progress: this.progress[line.number],
+            }
+            return bindings;
+        },
 
         checkLine(lineNum, answer) {
             // Construct the input to the server
@@ -341,8 +353,8 @@ export default {
                         .then(poem => {
                             // Load the queried poem
                             // We also keep a copy of the original poem to track changes
-                            this.poem = poem;
                             this.original = clone(poem);
+                            this.poem = poem;
                         });
                 }
 
