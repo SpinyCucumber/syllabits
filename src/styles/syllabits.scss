@@ -262,6 +262,7 @@ body {
     width: min(70em, 100vw);
 
     .poem {
+
         display: flex;
         flex-grow: 1;
         flex-direction: column;
@@ -271,30 +272,33 @@ body {
         padding-right: 1em;
         padding-top: 3em;
         padding-bottom: 3em;
+
+        .title, .subtitle {
+            font-family: var(--font-stylized);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .body {
+            min-width: 80%;
+            display: grid;
+            align-items: center;
+            grid-row-gap: 1.5em;
+            grid-template-columns: auto auto auto;
+    
+            // With small screens, use a grid with only two columns
+            @include mobile {
+                grid-template-columns: auto auto;
+            }
+        }
+
+
         &.is-mode-edit .body {
             // Edit mode requires only two columns
             grid-template-columns: auto auto;
         }
-    }
 
-    .title, .subtitle {
-        font-family: var(--font-stylized);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .body {
-        min-width: 80%;
-        display: grid;
-        align-items: center;
-        grid-row-gap: 1.5em;
-        grid-template-columns: auto auto auto;
-
-        // With small screens, use a grid with only two columns
-        @include mobile {
-            grid-template-columns: auto auto;
-        }
     }
 
     // We insert a pseudo-element "spacer" between each stanza
