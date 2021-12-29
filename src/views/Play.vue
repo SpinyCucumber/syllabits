@@ -32,12 +32,12 @@
                         <div v-if="showCheats && mode === 'play'" class="toolbar-start">
                             <b-button
                                 type="is-primary"
-                                :label="$translation.get('button.completeall')"
-                                @click="completeAll"/>
+                                :label="$translation.get('button.oncomplete')"
+                                @click="onComplete"/>
                             <b-button
                                 type="is-primary"
-                                :label="$translation.get('button.completeone')"
-                                @click="completeOne"/>
+                                :label="$translation.get('button.oncorrect')"
+                                @click="onCorrect"/>
                         </div>
                     </transition>
                     <transition-group name="list" tag="div" class="toolbar-end">
@@ -86,6 +86,7 @@
                 </transition>
 
                 <!-- Poem complete dialog -->
+                <!-- TODO Fix behavior -->
                 <b-modal
                     v-model="showComplete"
                     has-modal-card>
@@ -158,7 +159,7 @@ export default {
             progress: null, // Used to track player answers in play mode
             numCorrect: 0,
             ready: false, // Whether the poem is ready to be rendered
-            showComplete: false,
+            showComplete: false, // Whether the 'poem complete' dialog is being shown
             hasWork: false,
             buttons: [
                 {
@@ -272,22 +273,23 @@ export default {
         onCorrect() {
             // Update numCorrect
             this.numCorrect += 1;
-            if (!this.complete) {
+            if (this.numCorrect === this.poem.lines.length) {
+                this.onComplete();
+            }
+            else {
                 // Play sound
                 this.sounds.correct();
             }
         },
 
+        onComplete() {
+            // Play fun sound and show dialog
+            this.sounds.complete();
+            this.showComplete = true;
+        },
+
         onIncorrect() {
             this.sounds.incorrect();
-        },
-
-        completeAll() {
-            this.numCorrect = this.poem.lines.length;
-        },
-
-        completeOne() {
-            this.onCorrect();
         },
 
     },
@@ -295,11 +297,6 @@ export default {
     computed: {
         classes() {
             return ['play-view', 'is-mode-' + this.mode];
-        },
-        // TODO Phase this out in favor of events
-        complete() {
-            // return this.ready && (this.numCorrect === this.poem.lines.length);
-            return false;
         },
         allowEditing() {
             return this.mode === 'edit';
@@ -364,15 +361,10 @@ export default {
                 }
 
             },
+
             deep: true,
             immediate: true,
-        },
-        complete(newVal) {
-            if (newVal) {
-                // Play fun sound!
-                this.sounds.complete();
-            }
-            this.showComplete = newVal;
+            
         },
     },
 
