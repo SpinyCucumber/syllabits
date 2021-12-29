@@ -50,41 +50,41 @@
                 </div>
                 
                 <transition name="fade" mode="out-in">
-                <div class="poem" v-if="ready" :key="poem.id">
+                    <div class="poem" v-if="ready" :key="poem.id">
 
-                    <div class="title-box">
-                        <editable v-model="poem.title"
-                            tag="h1"
-                            custom-class="title"
-                            label-key="title"
-                            :input-options="{size: 'is-large', 'custom-class': 'has-text-centered'}"
-                            v-slot="{value}">
-                            {{ value }}
-                        </editable>
-                        <editable v-model="poem.author"
-                            custom-class="subtitle"
-                            label-key="author"
-                            :input-options="{'custom-class': 'has-text-centered'}"
-                            v-slot="{value}">
-                            {{ value }}
-                        </editable>
+                        <div class="title-box">
+                            <editable v-model="poem.title"
+                                tag="h1"
+                                custom-class="title"
+                                label-key="title"
+                                :input-options="{size: 'is-large', 'custom-class': 'has-text-centered'}"
+                                v-slot="{value}">
+                                {{ value }}
+                            </editable>
+                            <editable v-model="poem.author"
+                                custom-class="subtitle"
+                                label-key="author"
+                                :input-options="{'custom-class': 'has-text-centered'}"
+                                v-slot="{value}">
+                                {{ value }}
+                            </editable>
+                        </div>
+
+                        <img v-if="mode === 'play'" :src="$assets.getIcon('Divider')" class="divider"/>
+
+                        <!-- Poem lines -->
+                        <div class="body">
+                            <poem-line
+                                v-for="line in poem.lines"
+                                v-bind="{mode, line}"
+                                :key="line.number"
+                                :progress="progress[line.number]"
+                                :checkHandler="(holding) => checkLine(line.number, holding)"
+                                @correct="onCorrect"
+                                @incorrect="onIncorrect"/>
+                        </div>
+
                     </div>
-
-                    <img v-if="mode === 'play'" :src="$assets.getIcon('Divider')" class="divider"/>
-
-                    <!-- Poem lines -->
-                    <div class="body">
-                        <poem-line
-                            v-for="line in poem.lines"
-                            v-bind="{mode, line}"
-                            :key="line.number"
-                            :progress="progress[line.number]"
-                            :checkHandler="(holding) => checkLine(line.number, holding)"
-                            @correct="onCorrect"
-                            @incorrect="onIncorrect"/>
-                    </div>
-
-                </div>
                 </transition>
 
                 <!-- Poem complete dialog -->

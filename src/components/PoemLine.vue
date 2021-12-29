@@ -88,9 +88,16 @@ export default {
     },
 
     computed: {
-        // Whether every slot contains a block type
+        // Whether every slot contains a block
         full() {
             return !this.progress.holding.some(blockType => blockType === null);
+        },
+        // The blocks the line currently contains
+        holding() {
+            // In edit mode, the slots are bound to the line key
+            if (this.mode === 'edit') return this.line.key;
+            if (this.mode === 'play') return this.progress.holding;
+            return null;
         },
         // CSS classes
         classes() {
