@@ -115,6 +115,7 @@ const { LineState } = Constants;
  * Can be easily connected to a Buefy modal
  */
 const PoemComplete = Vue.component('PoemComplete', {
+
     methods: {
         anotherPoem() {
             this.$router.push({name: 'RandomPoem'});
@@ -140,7 +141,7 @@ const PoemComplete = Vue.component('PoemComplete', {
             return buttons;
         },
     },
-    // Can we use submenu?
+
     render() {
         return (
             <div class="modal-simple">
@@ -153,7 +154,8 @@ const PoemComplete = Vue.component('PoemComplete', {
             </div>
         )
     }
-})
+
+});
 
 export default {
 
