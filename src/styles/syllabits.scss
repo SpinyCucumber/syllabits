@@ -174,10 +174,13 @@ body {
         font-size: var(--fs-10);
         row-gap: 1em;
 
-        .line .text {
-            font-style: italic;
-            color: $gray;
+        .poem-line {
+            .text {
+                font-style: italic;
+                color: $gray;
+            }
         }
+
     }
 
     .button-area {
@@ -297,15 +300,19 @@ body {
 
     // We insert a pseudo-element "spacer" between each stanza
     // to create space.
-    .line.stanza-break:before {
-        content: '';
-        // Span entire row
-        grid-column: 1/-1;
-        height: 4em;
-    }
+    .poem-line {
 
-    .line .text-box {
-        font-size: var(--fs-20);
+        &.stanza-break:before {
+            content: '';
+            // Span entire row
+            grid-column: 1/-1;
+            height: 4em;
+        }
+
+        .text-box {
+            font-size: var(--fs-20);
+        }
+    
     }
 
 }
@@ -555,7 +562,7 @@ button,
     opacity: 0.15;
 }
 
-.line {
+.poem-line {
 
     @extend .grouping;
 
@@ -567,12 +574,12 @@ button,
         transition: background-color 1s ease;
     }
 
-    &.correct .number {
+    &.is-correct .number {
         background-color: $success;
         color: $success-invert;
     }
 
-    &.incorrect .number {
+    &.is-incorrect .number {
         background-color: $danger;
         color: $danger-invert;
     }

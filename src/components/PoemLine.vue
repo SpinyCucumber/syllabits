@@ -58,10 +58,10 @@ import { Constants } from '@/services'
 const { LineState, SlotMode, FeedbackType } = Constants;
 
 const CLASS_LOOKUP = new Map([
-    [LineState.Unchecked, 'unchecked'],
-    [LineState.Checking, 'checking'],
-    [LineState.Correct, 'correct'],
-    [LineState.Incorrect, 'incorrect'],    
+    [LineState.Unchecked, 'is-unchecked'],
+    [LineState.Checking, 'is-checking'],
+    [LineState.Correct, 'is-correct'],
+    [LineState.Incorrect, 'is-incorrect'],    
 ]);
 
 // Maps number of attempts to different feedback types.
@@ -101,9 +101,11 @@ export default {
         },
         // CSS classes
         classes() {
-            let classes = ['line'];
-            classes.push(CLASS_LOOKUP.get(this.progress.state));
-            if (this.line.stanzaBreak) classes.push('stanza-break');
+            let classes = ['poem-line'];
+            classes.push(`is-mode-${this.mode}`);
+            // If line is in play mode, attach additional info
+            if(this.mode === 'play') classes.push(CLASS_LOOKUP.get(this.progress.state));
+            if (this.line.stanzaBreak) classes.push('has-stanza-break');
             return classes;
         },
         // Whether the check button is visible
