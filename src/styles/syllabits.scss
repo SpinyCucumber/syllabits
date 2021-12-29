@@ -175,7 +175,7 @@ body {
         row-gap: 1em;
 
         .poem-line {
-            .text {
+            .poem-text {
                 font-style: italic;
                 color: $gray;
             }
@@ -597,7 +597,7 @@ button,
         justify-content: space-between;
     }
 
-    .text {
+    .poem-text {
         font-family: var(--font-stylized);
         letter-spacing: 0.04em;
     }

@@ -16,8 +16,8 @@
             </div>
             <!-- Line text -->
             <editable v-model="line.text"
-                class="text"
-                :input-options="{size: 'is-medium', expanded: true}"
+                class="poem-text"
+                :input-options="{size: 'is-large'}"
                 v-slot="{value}">
                 {{ value }}
             </editable>
@@ -201,7 +201,7 @@ export default {
         full(newVal) {
             // If the player completes the line while automatic feedback is enabled,
             // we automatically check the answer
-            if (newVal && this.mode === 'play' && this.automaticFeedback) this.check();
+            if (this.mode === 'play' && newVal && this.automaticFeedback) this.check();
         }
     },
 
