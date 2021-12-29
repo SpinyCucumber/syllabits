@@ -8,6 +8,7 @@ import { PoemLocation } from '@/utilities'
 import { apolloClient } from '@/apollo'
 
 const { LocationType } = Constants;
+const { isNavigationFailure, NavigationFailureType } = VueRouter
 
 Vue.use(VueRouter)
 
@@ -79,5 +80,21 @@ routes: [
     component: Find,
   },
 ]});
+
+// Modify the router push method to not throw errors when it is working as intended :(
+// This should be fixed in the next version of vue-router
+// Code gratiously adapted from https://stackoverflow.com/a/64808960
+// See also https://github.com/vuejs/vue-router/issues/2932
+const originalPush = router.push;
+router.push = function push(location, onResolve, onReject) {
+  if (onResolve || onReject) {
+    return originalPush.call(this, location, onResolve, onReject);
+  }
+  return originalPush.call(this, location).catch((err) => {
+    if (!isNavigationFailure(err, NavigationFailureType.redirected)) {
+      Promise.reject(err)
+    }
+  });
+};
 
 export default router
