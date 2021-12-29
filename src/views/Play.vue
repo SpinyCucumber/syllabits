@@ -120,6 +120,7 @@ import { BlockPicker, PoemLine, Scene, Editable, GameProgress, GameDropdown } fr
 import { Constants, AssetService, ReminderService } from '@/services'
 import { TrackChanges } from '@/mixins'
 import store from '@/store'
+import clone from 'just-clone'
 import useSound from 'vue-use-sound'
 import Vue from 'vue'
 
@@ -341,7 +342,7 @@ export default {
                             // Load the queried poem
                             // We also keep a copy of the original poem to track changes
                             this.poem = poem;
-                            this.original = poem;
+                            this.original = clone(poem);
                         });
                 }
 
