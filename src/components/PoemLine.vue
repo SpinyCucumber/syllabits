@@ -7,10 +7,10 @@
         <div class="text-box">
             <!-- Block slots -->
             <div class="slot-container">
-                <block-slot v-for="n in progress.holding.length"
+                <block-slot v-for="n in holding.length"
                     ref="slots"
                     :key="n"
-                    :holding.sync="progress.holding[n-1]"
+                    :holding.sync="holding[n-1]"
                     :mode="slotMode"
                     @update:holding="onSlotUpdate"/>
             </div>
