@@ -112,6 +112,7 @@ const { LineState } = Constants;
 
 /**
  * A component that renders a "poem complete" dialog
+ * Can be easily connected to a Buefy modal
  */
 const PoemComplete = Vue.component('PoemComplete', {
     methods: {
@@ -166,6 +167,7 @@ export default {
     },
 
     mixins: [
+        // In edit mode, we track the changes made to the poem by comparing to an original copy
         TrackChanges({
             prop: 'poem',
             original: 'original',
@@ -183,7 +185,7 @@ export default {
 
     data() {
         return {
-            poem: null,
+            poem: null, // Loaded poem. Contains line text, numbers, title, etc.
             original: null, // Used it edit mode to track changes
             progress: null, // Used to track player answers in play mode
             numCorrect: 0,
@@ -216,7 +218,7 @@ export default {
                 {
                     key: 'reset',
                     options: { type: 'is-danger', 'icon-left': 'delete', },
-                    listeners: { click: this.confirmReset, },
+                    listeners: { click: this.confirmResetProgress, },
                     shouldShow: () => this.hasWork && this.mode === 'play',
                 },
             ],
@@ -225,6 +227,9 @@ export default {
 
     methods: {
 
+        /**
+         * Properties to be bound to each poem line
+         */
         lineBindings(line) {
             let bindings = ({
                 line,
@@ -274,16 +279,16 @@ export default {
             this.$buefy.dialog.alert(this.$translation.get('dialog.help'));
         },
 
-        confirmReset() {
+        confirmResetProgress() {
             this.$buefy.dialog.confirm({
                 ...this.$translation.get('dialog.resetprogress'),
                 type: 'is-danger',
                 hasIcon: true,
-                onConfirm: this.reset,
+                onConfirm: this.resetProgress,
             })
         },
 
-        reset() {
+        resetProgress() {
             const input = { poemID: this.poem.id };
             this.$apollo.mutate({ mutation: ResetProgress, variables: { input } })
                 .then(result => result.data.resetProgress)
