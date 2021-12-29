@@ -41,17 +41,17 @@
     - [x] Ability to search
 - [ ] Admin view:
     - [ ] Create, edit collections
-    - [ ] Add poem to collection
+        - Add poem to collection
 - [x] Message for guest players
     - Appears when playing poem for first time in session
 - [x] Push to server
 - [ ] Add Poem Interface
     - [ ] Initial screen to upload text, enter author, title
-        - Stanza information also comes from here
+        - Stanza information also comes from here?
+    - [ ] Will probably need custom input component to accodomate resizing
     - [ ] Stanza break switch?
-    - [ ] Field for title + author
-    - [ ] 5 feet, text box under?
-    - [ ] Always 14 lines
-- [ ] Edit button in the game interface as well
+    - [x] Field for title + author
+    - [x] 5 feet, text box under?
+- [x] Edit button in the game interface as well
 - [ ] IMPROVEMENT Phase out vue-smooth-dnd... It is abysmal for performance 
 - [ ] Scratch pad?
