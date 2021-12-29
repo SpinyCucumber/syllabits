@@ -84,30 +84,15 @@
 
                     </div>
                 </transition>
-
                 <!-- Poem complete dialog -->
-                <!-- TODO Fix behavior -->
                 <b-modal
                     v-model="showComplete"
                     has-modal-card>
-                    <div class="modal-simple">
-                        <header class="modal-simple-head">
-                            <p class="modal-simple-title">{{ $translation.get("play.complete") }}</p>
-                        </header>
-                        <footer class="modal-simple-foot">
-                            <b-button tag="router-link"
-                                v-if="$store.getters.hasIdentity"
-                                type="is-primary"
-                                :to="{name: 'Dashboard'}"
-                                :label="$translation.get('button.dashboard')"/>
-                            <b-button tag="router-link"
-                                type="is-primary"
-                                :to="{name: 'RandomPoem'}"
-                                :label="$translation.get('button.anotherpoem')"/>
-                        </footer>
-                    </div>
+                    <template v-slot="{ close }">
+                        <poem-complete @close="close"/>
+                    </template>
                 </b-modal>
-                </div>
+            </div>
         </template>
 
     </scene>
@@ -125,10 +110,54 @@ import Vue from 'vue'
 
 const { LineState } = Constants;
 
+/**
+ * A component that renders a "poem complete" dialog
+ */
+const PoemComplete = Vue.component('PoemComplete', {
+    methods: {
+        anotherPoem() {
+            this.$router.push({name: 'RandomPoem'});
+            this.$emit('close');
+        },
+        dashboard() {
+            this.$router.push({name: 'Dashboard'});
+            this.$emit('close');
+        },
+        buttons() {
+            let buttons = [
+                <b-button type="is-primary"
+                    onClick={this.anotherPoem}
+                    label={this.$translation.get('button.anotherpoem')}/>
+            ];
+            if (this.$store.getters.hasIdentity) {
+                buttons = [...buttons,
+                    <b-button type="is-primary"
+                        onClick={this.dashboard}
+                        label={this.$translation.get('button.dashboard')}/>
+                ];
+            }
+            return buttons;
+        },
+    },
+    // Can we use submenu?
+    render() {
+        return (
+            <div class="modal-simple">
+                <header class="modal-simple-head">
+                    <p class="modal-simple-title">{this.$translation.get("play.complete")}</p>
+                </header>
+                <footer class="modal-simple-foot">
+                    {this.buttons()}
+                </footer>
+            </div>
+        )
+    }
+})
+
 export default {
 
     name: 'Play',
-    components: { BlockPicker, PoemLine, Scene, Editable, GameProgress, GameDropdown },
+    components: { BlockPicker, PoemLine, Scene, Editable, GameProgress, GameDropdown, PoemComplete },
 
     props: {
         mode: { default: 'play' }, // Valid values are 'play' or 'edit'
@@ -364,7 +393,7 @@ export default {
 
             deep: true,
             immediate: true,
-            
+
         },
     },
 
