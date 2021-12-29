@@ -302,7 +302,7 @@ body {
     // to create space.
     .poem-line {
 
-        &.stanza-break:before {
+        &.has-stanza-break:before {
             content: '';
             // Span entire row
             grid-column: 1/-1;
