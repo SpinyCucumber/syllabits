@@ -17,8 +17,8 @@
         "anotherpoem": "Play Another Poem",
         "dashboard": "Back to Dashboard",
         "find": "Find a Poem",
-        "completeall": "Complete All",
-        "completeone": "Complete One",
+        "oncorrect": "onCorrect",
+        "oncomplete": "onComplete",
         "reset": "Reset",
         "play": "Play",
         "share": "Share"
