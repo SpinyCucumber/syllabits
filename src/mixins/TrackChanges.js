@@ -10,7 +10,7 @@ function calculateChanges(data, original, context) {
             // Allow the user the exclude certain fields
             if (excludeFields.has(key)) continue;
             let subchanges = calculateChanges(data[key], original[key], context);
-            for(let change of subchanges) change.field = (change.field) ? (change.field + '.' + key) : key;
+            for(let change of subchanges) change.field = (change.field) ? (key + '.' + change.field) : key;
             changes.push(...subchanges);
         }
         return changes;
