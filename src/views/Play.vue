@@ -98,12 +98,16 @@
 
         </template>
 
+        <template #background-area>
+            <background-image v-if="mode === 'edit'" :src="$assets.getTexture('Relief1')" class="muted"/>
+        </template>
+
     </scene>
 </template>
 
 <script>
 import { PlayPoem, EditPoem, SubmitLine, ResetProgress } from '@/queries'
-import { BlockPicker, PoemLine, Scene, Editable, GameProgress, GameDropdown } from '@/components'
+import { BlockPicker, PoemLine, Scene, Editable, GameProgress, GameDropdown, BackgroundImage } from '@/components'
 import { Constants, AssetService, ReminderService } from '@/services'
 import { TrackChanges } from '@/mixins'
 import store from '@/store'
@@ -163,7 +167,7 @@ const PoemComplete = Vue.component('PoemComplete', {
 export default {
 
     name: 'Play',
-    components: { BlockPicker, PoemLine, Scene, Editable, GameProgress, GameDropdown, PoemComplete },
+    components: { BlockPicker, PoemLine, Scene, Editable, GameProgress, GameDropdown, BackgroundImage, PoemComplete },
 
     props: {
         mode: { default: 'play' }, // Valid values are 'play' or 'edit'
