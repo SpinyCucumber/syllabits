@@ -26,7 +26,7 @@
         <template #content-area>
 
             <transition name="fade" mode="out-in">
-                <div :class="classes" :key="sessionID">
+                <div :class="classes">
                     <div class="toolbar">
                         <!-- "Cheat" utils -->
                         <transition name="fade">
@@ -186,21 +186,26 @@ export default {
         return { sounds: { correct, incorrect, complete } };
     },
 
+    created() {
+        // If user is not logged in (playing as guest), we send them a polite reminder
+        if (!store.getters.hasIdentity) ReminderService.show('playingasguest');
+        // Setup!
+        this.setup();
+    },
+
     data() {
         return {
             poem: null, // Loaded poem. Contains line text, numbers, title, etc.
-            original: null, // Used it edit mode to track changes
+            original: null, // Used in edit mode to track changes
             progress: null, // Used to track player answers in play mode
-            numCorrect: 0,
+            numCorrect: 0, // Used in play mode. Number of correct lines
             showComplete: false, // Whether the 'poem complete' dialog is being shown
             hasWork: false,
-            sessionID: null,
             buttons: [
                 {
                     key: 'help',
                     options: { type: 'is-primary', 'icon-left': 'help', },
                     listeners: { click: this.showHelp, },
-                    shouldShow: () => this.mode === 'play'
                 },
                 {
                     key: 'edit',
@@ -263,10 +268,6 @@ export default {
                 });
         },
 
-        startSession() {
-            this.sessionID = Date.now();
-        },
-
         /**
          * Initializes data structures used to track player progress
          */
@@ -286,7 +287,7 @@ export default {
 
         /**
          * Performs all work necessary to start playing/editing,
-         * including loading poem from server, initializing data
+         * including loading poem from server and initializing data
          */
         setup() {
 
@@ -398,29 +399,6 @@ export default {
         filteredButtons() {
             return this.buttons.filter(button => button.shouldShow ? button.shouldShow() : true);
         },
-    },
-
-    watch: {
-        $props: {
-            immediate: true,
-            handler() {
-                this.startSession();
-                this.setup();
-            }
-        }
-    },
-
-    beforeRouteEnter(to, from, next) {
-        // If user is not logged in (playing as guest), we send them a polite reminder
-        if (!store.getters.hasIdentity) ReminderService.show('playingasguest');
-        next();
-    },
-
-    // Make sure to clean up our navigation links like a good boy
-    // Could abstract this with a mixin if end up using this pattern more
-    beforeRouteLeave(to, from, next) {
-        this.$emit('update:additionalLinks', []);
-        next();
     },
 
 }
