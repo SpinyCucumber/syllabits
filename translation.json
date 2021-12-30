@@ -58,7 +58,8 @@
         "resetsuccess": "Progress reset!"
     },
     "reminders": {
-        "playingasguest": "<p>You are playing as a guest, so your progress will not be saved.</p><p>Create an account to automatically save your progress and come back to poems later!</p>"
+        "playingasguest": "<p>You are playing as a guest, so your progress will not be saved.</p><p>Create an account to automatically save your progress!</p>",
+        "editmode": "<p>Edit mode!</p><p>In edit mode, you can make changes to the poem and the answer key.</p><p>Make sure to submit your changes before exiting!</p>"
     },
     "placeholder": {
         "search": {

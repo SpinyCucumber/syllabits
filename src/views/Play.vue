@@ -195,6 +195,8 @@ export default {
     created() {
         // If user is not logged in (playing as guest), we send them a polite reminder
         if (!store.getters.hasIdentity) ReminderService.show('playingasguest');
+        // We also send a quick message if edit mode is enabled
+        if (this.mode === 'edit') ReminderService.show('editmode');
         // Setup!
         this.setup();
     },
