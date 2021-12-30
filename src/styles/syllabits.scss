@@ -251,7 +251,14 @@ body {
     .main-view {
         display: flex;
         flex-direction: column;
-        &>.inner { flex-grow: 1; }
+        &>.inner {
+            flex-grow: 1;
+            position: relative;
+            &>* {
+                position: absolute;
+                top: 0; left: 0; bottom: 0; right: 0;
+            }
+        }
     }
     .app-view { @extend .full-height }
 }
