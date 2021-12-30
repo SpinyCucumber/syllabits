@@ -136,13 +136,11 @@ const PoemComplete = Vue.component('PoemComplete', {
                     onClick={this.anotherPoem}
                     label={this.$translation.get('button.anotherpoem')}/>
             ];
-            if (this.$store.getters.hasIdentity) {
-                buttons = [...buttons,
-                    <b-button type="is-primary"
-                        onClick={this.dashboard}
-                        label={this.$translation.get('button.dashboard')}/>
-                ];
-            }
+            if (this.$store.getters.hasIdentity) buttons = [...buttons,
+                <b-button type="is-primary"
+                    onClick={this.dashboard}
+                    label={this.$translation.get('button.dashboard')}/>
+            ];
             return buttons;
         },
     },
