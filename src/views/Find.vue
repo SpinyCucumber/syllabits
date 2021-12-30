@@ -21,10 +21,32 @@ const { LocationType } = Constants;
 const PoemEntry = Vue.component('PoemEntry', {
     props: { entry: Object },
     methods: {
+        dropdownItems() {
+            let dropdownItems = [
+                <b-dropdown-item onClick={this.play} class="has-text-primary">
+                    {TranslationService.get('button.play')}
+                </b-dropdown-item>,
+                <b-dropdown-item onClick={this.share}>
+                    {TranslationService.get('button.share')}
+                </b-dropdown-item>
+            ];
+            if (this.$store.getters.isAdmin) dropdownItems = [...dropdownItems, 
+                <b-dropdown-item onClick={this.edit}>
+                    {TranslationService.get('button.edit')}
+                </b-dropdown-item>
+            ];
+            return dropdownItems;
+        },
         play() {
             // When user selects a poem, navigate to the play menu
             const location = new PoemLocation({t: LocationType.DIRECT, p: this.entry.id}).encode();
             this.$router.push({name: 'Play', params: {location}});
+        },
+        edit() {
+            this.$router.push({name: 'Edit', params: {poemID: this.entry.id}});
+        },
+        share() {
+            // TODO
         }
     },
     render() {
@@ -39,12 +61,7 @@ const PoemEntry = Vue.component('PoemEntry', {
                                 return (<b-button class="borderless" icon-left="dots-horizontal"/>);
                             }
                         }}>
-                        <b-dropdown-item onClick={this.play} class="has-text-primary">
-                            {TranslationService.get('button.play')}
-                        </b-dropdown-item>
-                        <b-dropdown-item>
-                            {TranslationService.get('button.share')}
-                        </b-dropdown-item>
+                        {this.dropdownItems()}
                     </b-dropdown>
                 </td>
             </tr>

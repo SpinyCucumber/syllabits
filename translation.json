@@ -21,7 +21,8 @@
         "oncomplete": "onComplete",
         "reset": "Reset",
         "play": "Play",
-        "share": "Share"
+        "share": "Share",
+        "edit": "Edit"
     },
     "widget": {
         "resume": "Jump Back In",
