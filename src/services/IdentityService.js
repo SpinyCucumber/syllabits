@@ -26,13 +26,16 @@ const module = {
     },
     getters: {
         claims(state) {
-            return jwt_decode(state.token);
+            if (state.token) return jwt_decode(state.token);
         },
         hasIdentity(state) {
             return state.token !== null;
         },
         determined(state) {
             return state.token !== undefined;
+        },
+        isAdmin(state, getters) {
+            return getters.claims?.is_admin;
         }
     },
     actions: {
