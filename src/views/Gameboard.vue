@@ -219,7 +219,7 @@ export default {
                     listeners: { click: () => {
                         this.$router.push({ name: 'Edit', params: { poemID: this.poem.id }});
                     } },
-                    shouldShow: () => this.mode === 'play'
+                    shouldShow: () => this.mode === 'play' && store.getters.isAdmin
                 },
                 {
                     key: 'play',
