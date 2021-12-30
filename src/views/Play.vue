@@ -50,39 +50,41 @@
                         </transition-group>
                     </div>
                     
-                    <div v-if="poem" class="poem">
+                    <transition name="fade">
+                        <div v-if="poem" class="poem">
 
-                        <div class="title-box">
-                            <editable v-model="poem.title"
-                                tag="h1"
-                                custom-class="title"
-                                label-key="title"
-                                :input-options="{size: 'is-large', 'custom-class': 'has-text-centered'}"
-                                v-slot="{value}">
-                                {{ value }}
-                            </editable>
-                            <editable v-model="poem.author"
-                                custom-class="subtitle"
-                                label-key="author"
-                                :input-options="{'custom-class': 'has-text-centered'}"
-                                v-slot="{value}">
-                                {{ value }}
-                            </editable>
+                            <div class="title-box">
+                                <editable v-model="poem.title"
+                                    tag="h1"
+                                    custom-class="title"
+                                    label-key="title"
+                                    :input-options="{size: 'is-large', 'custom-class': 'has-text-centered'}"
+                                    v-slot="{value}">
+                                    {{ value }}
+                                </editable>
+                                <editable v-model="poem.author"
+                                    custom-class="subtitle"
+                                    label-key="author"
+                                    :input-options="{'custom-class': 'has-text-centered'}"
+                                    v-slot="{value}">
+                                    {{ value }}
+                                </editable>
+                            </div>
+
+                            <img v-if="mode === 'play'" :src="$assets.getIcon('Divider')" class="divider"/>
+
+                            <!-- Poem lines -->
+                            <div class="body">
+                                <poem-line
+                                    v-for="line in poem.lines"
+                                    :key="line.number"
+                                    v-bind="lineBindings(line)"
+                                    @correct="onCorrect"
+                                    @incorrect="onIncorrect"/>
+                            </div>
+
                         </div>
-
-                        <img v-if="mode === 'play'" :src="$assets.getIcon('Divider')" class="divider"/>
-
-                        <!-- Poem lines -->
-                        <div class="body">
-                            <poem-line
-                                v-for="line in poem.lines"
-                                :key="line.number"
-                                v-bind="lineBindings(line)"
-                                @correct="onCorrect"
-                                @incorrect="onIncorrect"/>
-                        </div>
-
-                    </div>
+                    </transition>
                     <!-- Poem complete dialog -->
                     <b-modal
                         v-model="showComplete"
