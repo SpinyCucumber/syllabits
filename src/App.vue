@@ -3,7 +3,7 @@
     <transition name="fade" mode="out-in">
       <div v-if="$store.getters.determined" class="full-height" key="determined">
         <transition name="fade" mode="out-in">
-          <router-view v-if="$route.meta.transitory" class="app-view"/>
+          <router-view v-if="$route.meta.transitory" :key="$route.fullPath" class="app-view"/>
           <div v-else class="app-view main-view">
             <b-navbar>
 
@@ -48,7 +48,11 @@
 
             </b-navbar>
             <transition name="fade" mode="out-in">
-              <router-view class="inner" :additionalLinks.sync="additionalLinks"/>
+              <!-- Reusing components introduces all kinds of logic headaches that are
+                simpler just to... avoid. We avoid this by binding the key to the route path -->
+              <router-view class="inner"
+                :additionalLinks.sync="additionalLinks"
+                :key="$route.fullPath"/>
             </transition>
           </div>
         </transition>
