@@ -134,9 +134,8 @@ body {
 .splash-view {
     @extend .scene-content;
 
-    min-width: 60vw;
-    min-height: 60vh;
-    padding: 2em;
+    min-width: 65vw;
+    min-height: 65vh;
     display: flex;
     flex-direction: row;
     align-items: center;
