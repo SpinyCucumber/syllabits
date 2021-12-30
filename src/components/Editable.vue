@@ -42,7 +42,7 @@ export default {
         return this.labelKey ? this.$translation.get('label.' + this.labelKey) : null;
       },
       allowEditing() {
-        return this.editRoot.allowEditing;
+        return this.editRoot?.allowEditing;
       },
     },
     /**
