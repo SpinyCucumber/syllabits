@@ -293,12 +293,11 @@ body {
             }
         }
 
+    }
 
-        &.is-mode-edit .body {
-            // Edit mode requires only two columns
-            grid-template-columns: auto auto;
-        }
-
+    &.is-mode-edit .poem .body {
+        // Edit mode requires only two columns
+        grid-template-columns: auto auto;
     }
 
     // We insert a pseudo-element "spacer" between each stanza

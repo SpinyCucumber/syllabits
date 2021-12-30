@@ -25,32 +25,32 @@
 
         <template #content-area>
 
-            <div class="play-view">
-                <div class="toolbar">
-                    <!-- "Cheat" utils -->
-                    <transition name="fade">
-                        <div v-if="showCheats && mode === 'play'" class="toolbar-start">
+            <transition name="fade" mode="out-in">
+                <div :class="classes" :key="sessionID">
+                    <div class="toolbar">
+                        <!-- "Cheat" utils -->
+                        <transition name="fade">
+                            <div v-if="showCheats && mode === 'play'" class="toolbar-start">
+                                <b-button
+                                    type="is-primary"
+                                    :label="$translation.get('button.oncomplete')"
+                                    @click="onComplete"/>
+                                <b-button
+                                    type="is-primary"
+                                    :label="$translation.get('button.oncorrect')"
+                                    @click="onCorrect"/>
+                            </div>
+                        </transition>
+                        <transition-group name="list" tag="div" class="toolbar-end">
                             <b-button
-                                type="is-primary"
-                                :label="$translation.get('button.oncomplete')"
-                                @click="onComplete"/>
-                            <b-button
-                                type="is-primary"
-                                :label="$translation.get('button.oncorrect')"
-                                @click="onCorrect"/>
-                        </div>
-                    </transition>
-                    <transition-group name="list" tag="div" class="toolbar-end">
-                        <b-button
-                            v-for="button in filteredButtons"
-                            :key="button.key"
-                            v-bind="button.options"
-                            v-on="button.listeners"/>
-                    </transition-group>
-                </div>
-                
-                <transition name="fade" mode="out-in">
-                    <div :class="poemClasses" :key="poem" v-if="mode">
+                                v-for="button in filteredButtons"
+                                :key="button.key"
+                                v-bind="button.options"
+                                v-on="button.listeners"/>
+                        </transition-group>
+                    </div>
+                    
+                    <div v-if="poem" class="poem">
 
                         <div class="title-box">
                             <editable v-model="poem.title"
@@ -83,16 +83,17 @@
                         </div>
 
                     </div>
-                </transition>
-                <!-- Poem complete dialog -->
-                <b-modal
-                    v-model="showComplete"
-                    has-modal-card>
-                    <template v-slot="{ close }">
-                        <poem-complete @close="close"/>
-                    </template>
-                </b-modal>
-            </div>
+                    <!-- Poem complete dialog -->
+                    <b-modal
+                        v-model="showComplete"
+                        has-modal-card>
+                        <template v-slot="{ close }">
+                            <poem-complete @close="close"/>
+                        </template>
+                    </b-modal>
+                </div>
+            </transition>
+
         </template>
 
     </scene>
@@ -163,7 +164,7 @@ export default {
     components: { BlockPicker, PoemLine, Scene, Editable, GameProgress, GameDropdown, PoemComplete },
 
     props: {
-        intent: { default: 'play' }, // Valid values are 'play' or 'edit'
+        mode: { default: 'play' }, // Valid values are 'play' or 'edit'
         location: { type: String }, // Used for play mode. Determines play "context"
         poemID: { type: String }, // Used for edit mode
     },
@@ -187,13 +188,13 @@ export default {
 
     data() {
         return {
-            mode: null,
             poem: null, // Loaded poem. Contains line text, numbers, title, etc.
             original: null, // Used it edit mode to track changes
             progress: null, // Used to track player answers in play mode
             numCorrect: 0,
             showComplete: false, // Whether the 'poem complete' dialog is being shown
             hasWork: false,
+            sessionID: null,
             buttons: [
                 {
                     key: 'help',
@@ -331,8 +332,8 @@ export default {
     },
 
     computed: {
-        poemClasses() {
-            return ['poem', 'is-mode-' + this.mode];
+        classes() {
+            return ['play-view', 'is-mode-' + this.mode];
         },
         allowEditing() {
             return this.mode === 'edit';
@@ -349,9 +350,11 @@ export default {
         $props: {
             handler(props) {
 
-                const { intent, location, poemID } = props;
+                // Start new session
+                this.sessionID = btoa(Math.random()).substring(0,12);
+                const { mode, location, poemID } = props;
 
-                if (intent === 'play') {
+                if (mode === 'play') {
                     // Perform server query
                     this.$apollo.mutate({mutation: PlayPoem, variables: { location }})
                         .then(result => result.data.playPoem)
@@ -359,7 +362,6 @@ export default {
                             // Set poem and initialize progress data
                             this.poem = poem;
                             this.setupProgress();
-                            this.mode = 'play';
                             // Update progress from server if applicable
                             const { progress } = poem;
                             if (progress) {
@@ -380,7 +382,7 @@ export default {
                         });
                 }
 
-                else if (intent === 'edit') {
+                else if (mode === 'edit') {
                     // Query full poem (including keys) from server
                     this.$apollo.query({ query: EditPoem, variables: { poemID }, fetchPolicy: 'network-only' })
                         .then(result => result.data.node)
@@ -389,7 +391,6 @@ export default {
                             // We also keep a copy of the original poem to track changes
                             this.original = poem;
                             this.poem = clone(poem);
-                            this.mode = 'edit';
                         });
                 }
 

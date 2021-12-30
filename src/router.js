@@ -66,13 +66,13 @@ routes: [
     path: '/play/:location',
     name: 'Play',
     component: Play,
-    props: route => ({ intent: 'play', location: route.params.location })
+    props: route => ({ mode: 'play', location: route.params.location })
   },
   {
     path: '/edit/:poemID',
     name: 'Edit',
     component: Play,
-    props: route => ({ intent: 'edit', poemID: route.params.poemID })
+    props: route => ({ mode: 'edit', poemID: route.params.poemID })
   },
   {
     path: '/find',
