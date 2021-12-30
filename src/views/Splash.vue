@@ -14,8 +14,9 @@
                                 :has-number="false"
                                 :key="i"
                                 :line="line"
-                                :lineProgress="demoProgress[i]"
-                                :checkHandler="(holding) => checkLine(i, holding)"/>
+                                :automatic-feedback="true"
+                                :progress="demoProgress[i]"
+                                :check-handler="(holding) => checkLine(i, holding)"/>
                         </div>
                     </div>
                 </div>
@@ -64,6 +65,7 @@ export default {
         }
     },
     created() {
+        // Set up demo poem progress
         for (let i in this.demoPoem) {
             Vue.set(this.demoProgress, i, { holding: Array(5).fill(null), state: LineState.Unchecked, attempts: 0 });
         }
