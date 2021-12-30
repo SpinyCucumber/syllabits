@@ -231,7 +231,7 @@ export default {
     methods: {
 
         /**
-         * Properties to be bound to each poem line
+         * Properties bound to each poem line
          */
         lineBindings(line) {
             let bindings = ({
@@ -247,6 +247,9 @@ export default {
             return bindings;
         },
 
+        /**
+         * Handles checking submitted line answers by querying the server
+         */
         checkLine(lineNum, answer) {
             // Construct the input to the server
             const input = { poemID: this.poem.id, lineNum, answer }
@@ -259,10 +262,13 @@ export default {
                     return result;
                 });
         },
-        
+
+        startSession() {
+            this.sessionID = Date.now();
+        },
+
         /**
-         * Sets up data structures used to track player progress
-         * Should only be called in play mode, and poem should be set
+         * Initializes data structures used to track player progress
          */
         setupProgress() {
             this.hasWork = false;
@@ -276,6 +282,54 @@ export default {
                     attempts: 0,
                 })
             }
+        },
+
+        /**
+         * Performs all work necessary to start playing/editing,
+         * including loading poem from server, initializing data
+         */
+        setup() {
+
+            if (this.mode === 'play') {
+                // Perform server query
+                this.$apollo.mutate({mutation: PlayPoem, variables: { location: this.location }})
+                    .then(result => result.data.playPoem)
+                    .then(({poem, next, previous}) => {
+                        // Set poem and initialize progress data
+                        this.poem = poem;
+                        this.setupProgress();
+                        // Update progress from server if applicable
+                        const { progress } = poem;
+                        if (progress) {
+                            this.hasWork = true;
+                            this.numCorrect = progress.numCorrect;
+                            for (const line of progress.lines) {
+                                let localLine = this.progress[line.number];
+                                // Update holding and state
+                                localLine.holding = line.answer;
+                                localLine.state = line.correct ? LineState.Correct : LineState.Incorrect;
+                            }
+                        }
+                        // Update navigation links
+                        let links = [];
+                        if (next) links.push({key: 'next', to: {name: 'Play', params: {location: next}}})
+                        if (previous) links.push({key: 'previous', to: {name: 'Play', params: {location: previous}}})
+                        this.$emit('update:additionalLinks', links);
+                    });
+            }
+
+            else if (this.mode === 'edit') {
+                // Query full poem (including keys) from server
+                this.$apollo.query({ query: EditPoem, variables: { poemID: this.poemID }, fetchPolicy: 'network-only' })
+                    .then(result => result.data.node)
+                    .then(poem => {
+                        // Load the queried poem
+                        // We also keep a copy of the original poem to track changes
+                        this.original = poem;
+                        this.poem = clone(poem);
+                    });
+            }
+
         },
 
         showHelp() {
@@ -348,58 +402,12 @@ export default {
 
     watch: {
         $props: {
-            handler(props) {
-
-                // Start new session
-                this.sessionID = btoa(Math.random()).substring(0,12);
-                const { mode, location, poemID } = props;
-
-                if (mode === 'play') {
-                    // Perform server query
-                    this.$apollo.mutate({mutation: PlayPoem, variables: { location }})
-                        .then(result => result.data.playPoem)
-                        .then(({poem, next, previous}) => {
-                            // Set poem and initialize progress data
-                            this.poem = poem;
-                            this.setupProgress();
-                            // Update progress from server if applicable
-                            const { progress } = poem;
-                            if (progress) {
-                                this.hasWork = true;
-                                this.numCorrect = progress.numCorrect;
-                                for (const line of progress.lines) {
-                                    let localLine = this.progress[line.number];
-                                    // Update holding and state
-                                    localLine.holding = line.answer;
-                                    localLine.state = line.correct ? LineState.Correct : LineState.Incorrect;
-                                }
-                            }
-                            // Update navigation links
-                            let links = [];
-                            if (next) links.push({key: 'next', to: {name: 'Play', params: {location: next}}})
-                            if (previous) links.push({key: 'previous', to: {name: 'Play', params: {location: previous}}})
-                            this.$emit('update:additionalLinks', links);
-                        });
-                }
-
-                else if (mode === 'edit') {
-                    // Query full poem (including keys) from server
-                    this.$apollo.query({ query: EditPoem, variables: { poemID }, fetchPolicy: 'network-only' })
-                        .then(result => result.data.node)
-                        .then(poem => {
-                            // Load the queried poem
-                            // We also keep a copy of the original poem to track changes
-                            this.original = poem;
-                            this.poem = clone(poem);
-                        });
-                }
-
-            },
-
-            deep: true,
             immediate: true,
-
-        },
+            handler() {
+                this.startSession();
+                this.setup();
+            }
+        }
     },
 
     beforeRouteEnter(to, from, next) {
