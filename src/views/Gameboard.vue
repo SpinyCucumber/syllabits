@@ -4,21 +4,19 @@
 
         <template #static-area>
             <!-- Block picker "drawer" -->
-            <div class="grouping">
-                <div class="block-dropdown">
-                    <game-dropdown :has-handle="true">
-                        <block-picker/>
-                    </game-dropdown>
-                </div>
+            <div class="block-dropdown">
+                <game-dropdown :has-handle="true">
+                    <block-picker/>
+                </game-dropdown>
+            </div>
 
-                <div class="progress-dropdown" v-if="mode === 'play' && poem">
-                    <game-dropdown :trigger="numCorrect">
-                        <game-progress
-                            :max-value="poem.lines.length"
-                            :value="numCorrect"
-                            type="is-rounded"/>
-                    </game-dropdown>
-                </div>
+            <div class="progress-dropdown" v-if="mode === 'play' && poem">
+                <game-dropdown :trigger="numCorrect">
+                    <game-progress
+                        :max-value="poem.lines.length"
+                        :value="numCorrect"
+                        type="is-rounded"/>
+                </game-dropdown>
             </div>
 
         </template>
