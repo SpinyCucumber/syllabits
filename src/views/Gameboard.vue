@@ -166,7 +166,7 @@ const PoemComplete = Vue.component('PoemComplete', {
 
 export default {
 
-    name: 'Play',
+    name: 'Gameboard',
     components: { BlockPicker, PoemLine, Scene, Editable, GameProgress, GameDropdown, BackgroundImage, PoemComplete },
 
     props: {
@@ -206,9 +206,9 @@ export default {
             poem: null, // Loaded poem. Contains line text, numbers, title, etc.
             original: null, // Used in edit mode to track changes
             progress: null, // Used to track player answers in play mode
-            numCorrect: 0, // Used in play mode. Number of correct lines
+            numCorrect: 0, // Used in play mode to track number of correct lines
             showComplete: false, // Whether the 'poem complete' dialog is being shown
-            hasWork: false,
+            hasWork: false, // Whether the user has progress info saved on the server
             buttons: [
                 {
                     key: 'help',
@@ -396,7 +396,7 @@ export default {
 
     computed: {
         classes() {
-            return ['play-view', 'is-mode-' + this.mode];
+            return ['gameboard', 'is-mode-' + this.mode];
         },
         allowEditing() {
             return this.mode === 'edit';

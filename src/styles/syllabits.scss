@@ -235,7 +235,7 @@ body {
     }
 }
 
-.dashboard-view {
+.dashboard {
     display: grid;
     grid-template-columns: repeat(3, auto);
     gap: 1em;
@@ -263,9 +263,9 @@ body {
     .app-view { @extend .full-height }
 }
 
-.play-view {
-    @extend .scene-content;
+.gameboard {
 
+    @extend .scene-content;
     width: min(70em, 100vw);
 
     .poem {

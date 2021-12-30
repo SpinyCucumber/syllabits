@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '@/store'
-import { Splash, Login, Register, Dashboard, Play, Find } from '@/views'
+import { Splash, Login, Register, Dashboard, Gameboard, Find } from '@/views'
 import { RandomPoem } from '@/queries'
 import { Constants } from '@/services'
 import { PoemLocation } from '@/utilities'
@@ -65,13 +65,13 @@ routes: [
   {
     path: '/play/:location',
     name: 'Play',
-    component: Play,
+    component: Gameboard,
     props: route => ({ mode: 'play', location: route.params.location })
   },
   {
     path: '/edit/:poemID',
     name: 'Edit',
-    component: Play,
+    component: Gameboard,
     props: route => ({ mode: 'edit', poemID: route.params.poemID })
   },
   {
