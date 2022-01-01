@@ -10,11 +10,11 @@
                 </game-dropdown>
             </div>
 
-            <div class="progress-dropdown" v-if="mode === 'play' && poem">
-                <game-dropdown :trigger="numCorrect">
+            <div class="progress-dropdown" v-if="progress">
+                <game-dropdown :trigger="progress.numCorrect">
                     <game-progress
                         :max-value="poem.lines.length"
-                        :value="numCorrect"
+                        :value="progress.numCorrect"
                         type="is-rounded"/>
                 </game-dropdown>
             </div>
@@ -201,10 +201,8 @@ export default {
         return {
             poem: null, // Loaded poem. Contains line text, numbers, title, etc.
             original: null, // Used in edit mode to track changes
-            progress: null, // Used to track player answers in play mode
-            numCorrect: 0, // Used in play mode to track number of correct lines
+            progress: null, // Used to track user progress in play mode
             showComplete: false, // Whether the 'poem complete' dialog is being shown
-            hasWork: false, // Whether the user has progress info saved on the server
             buttons: [
                 {
                     key: 'help',
@@ -231,7 +229,7 @@ export default {
                     key: 'reset',
                     options: { type: 'is-danger', 'icon-left': 'delete', },
                     listeners: { click: this.confirmResetProgress, },
-                    shouldShow: () => this.hasWork && this.mode === 'play',
+                    shouldShow: () => this.progress?.saved,
                 },
             ],
         }
@@ -251,7 +249,7 @@ export default {
             if (this.mode === 'play') bindings = {
                 ...bindings,
                 checkHandler: (holding) => this.checkLine(line.number, holding),
-                progress: this.progress[line.number],
+                progress: this.progress.lines[line.number],
             }
             return bindings;
         },
@@ -266,8 +264,8 @@ export default {
                 .then(result => result.data.submitLine)
                 .then(result => {
                     // If the user is logged in, then we can assume that data on the server has changed.
-                    // Set hasWork so we can show reset button, etc.
-                    if (store.getters.hasIdentity) this.hasWork = true;
+                    // Set saved so we can show reset button, etc.
+                    if (store.getters.hasIdentity) this.progress.saved = true;
                     return result;
                 });
         },
@@ -276,17 +274,15 @@ export default {
          * Initializes data structures used to track player progress
          */
         setupProgress() {
-            this.hasWork = false;
-            this.progress = [];
-            this.numCorrect = 0;
-            for (let i = 0; i < this.poem.lines.length; i++) {
-                const { numFeet } = this.poem.lines[i];
-                Vue.set(this.progress, i, {
+            this.progress = {
+                numCorrect: 0,
+                saved: false,
+                lines: this.poem.lines.map(({numFeet}) => ({
                     state: LineState.Unchecked,
                     holding: new Array(numFeet).fill(null),
                     attempts: 0,
-                })
-            }
+                })),
+            };
         },
 
         /**
@@ -304,12 +300,13 @@ export default {
                         this.poem = poem;
                         this.setupProgress();
                         // Update progress from server if applicable
+                        // TODO Rewrite this
                         const { progress } = poem;
                         if (progress) {
-                            this.hasWork = true;
-                            this.numCorrect = progress.numCorrect;
+                            this.progress.saved = true;
+                            this.progress.numCorrect = progress.numCorrect;
                             for (const line of progress.lines) {
-                                let localLine = this.progress[line.number];
+                                let localLine = this.progress.lines[line.number];
                                 // Update holding and state
                                 localLine.holding = line.answer;
                                 localLine.state = line.correct ? LineState.Correct : LineState.Incorrect;
@@ -368,8 +365,8 @@ export default {
 
         onCorrect() {
             // Update numCorrect
-            this.numCorrect += 1;
-            if (this.numCorrect === this.poem.lines.length) {
+            this.progress.numCorrect += 1;
+            if (this.progress.numCorrect === this.poem.lines.length) {
                 this.onComplete();
             }
             else {
