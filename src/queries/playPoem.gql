@@ -14,9 +14,11 @@ mutation($location: String!) {
             }
             progress {
                 lines {
-                    answer
-                    number
-                    correct
+                    key
+                    value {
+                        answer
+                        correct
+                    }
                 }
                 numCorrect
             }

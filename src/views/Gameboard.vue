@@ -300,17 +300,16 @@ export default {
                         this.poem = poem;
                         this.setupProgress();
                         // Update progress from server if applicable
-                        // TODO Rewrite this
                         const { progress } = poem;
                         if (progress) {
                             this.progress.saved = true;
                             this.progress.numCorrect = progress.numCorrect;
-                            for (const line of progress.lines) {
-                                let localLine = this.progress.lines[line.number];
+                            progress.lines.forEach(({key, value}) => {
+                                let localLine = this.progress.lines[key];
                                 // Update holding and state
-                                localLine.holding = line.answer;
-                                localLine.state = line.correct ? LineState.Correct : LineState.Incorrect;
-                            }
+                                localLine.holding = value.answer;
+                                localLine.state = value.correct ? LineState.Correct : LineState.Incorrect;
+                            });
                         }
                         // Update navigation links
                         let links = [];
