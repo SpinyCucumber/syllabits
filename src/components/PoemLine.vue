@@ -63,13 +63,6 @@ import { Constants } from '@/services'
 
 const { LineState, SlotMode, FeedbackType } = Constants;
 
-const CLASS_LOOKUP = new Map([
-    [LineState.Unchecked, 'is-unchecked'],
-    [LineState.Checking, 'is-checking'],
-    [LineState.Correct, 'is-correct'],
-    [LineState.Incorrect, 'is-incorrect'],    
-]);
-
 // Maps number of attempts to different feedback types.
 // For example, one attempt => perfect, two attempts => great, etc.
 // Four attempts and higher default to "okay"
@@ -110,7 +103,7 @@ export default {
             let classes = ['poem-line'];
             classes.push(`is-mode-${this.mode}`);
             // If line is in play mode, attach additional info
-            if(this.mode === 'play') classes.push(CLASS_LOOKUP.get(this.progress.state));
+            if(this.mode === 'play') classes.push(`is-state-${this.progress.state.name}`);
             if (this.line.stanzaBreak) classes.push('has-stanza-break');
             return classes;
         },
