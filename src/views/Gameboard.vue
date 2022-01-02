@@ -232,6 +232,19 @@ export default {
                     shouldShow: () => this.progress?.saved,
                 },
             ],
+            // A list of actions avaliable for each poem line in edit mode
+            lineActions: [
+                {
+                    key: 'addstanzabreak',
+                    action: (line) => { line.stanzaBreak = true },
+                    shouldShow: (line) => line.stanzaBreak === false,
+                },
+                {
+                    key: 'removestanzabreak',
+                    action: (line) => { line.stanzaBreak = false },
+                    shouldShow: (line) => line.stanzaBreak === true,
+                },
+            ],
         }
     },
 
@@ -250,6 +263,11 @@ export default {
                 ...bindings,
                 checkHandler: (holding) => this.checkLine(line.id, holding),
                 progress: this.progress.lines[line.id],
+            }
+            // If edit mode is enabled, we bind line actions
+            else if (this.mode === 'edit') bindings = {
+                ...bindings,
+                actions: this.lineActions.filter((action) => action.shouldShow ? action.shouldShow(line) : true)
             }
             return bindings;
         },
