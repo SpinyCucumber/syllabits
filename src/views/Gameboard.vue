@@ -74,7 +74,7 @@
                             <!-- Poem lines -->
                             <div class="body">
                                 <poem-line
-                                    v-for="line in poem.lines"
+                                    v-for="line in sortedLines"
                                     :key="line.id"
                                     v-bind="lineBindings(line)"
                                     @correct="onCorrect"
@@ -401,6 +401,15 @@ export default {
         },
         filteredButtons() {
             return this.buttons.filter(button => button.shouldShow ? button.shouldShow() : true);
+        },
+        /**
+         * Poem lines use a "virtual ordering" to change the order in which they appear without
+         * changing the actual order on the backend. We define a "sortedLines" computed property
+         * to display the virtual ordering, which is defined the "order" property of each line.
+         */
+        sortedLines() {
+            // Must copy array as Array.sort is in-place
+            return [...this.poem.lines].sort((a, b) => a.order - b.order);
         },
     },
 
