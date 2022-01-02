@@ -37,7 +37,7 @@
             <feedback ref="feedback"/>
         </div>
         <!-- Dropdown for edit mode -->
-        <b-dropdown v-else-if="mode === 'edit'" class="options">
+        <b-dropdown v-else-if="mode === 'edit'" position="is-bottom-left" class="options">
             <template #trigger>
                 <b-button class="borderless has-text-grey" icon-left="dots-horizontal" size="is-medium"/>
             </template>
