@@ -245,7 +245,7 @@ export default {
                     shouldShow: (line) => line.stanzaBreak === true,
                 },
                 {
-                    key: 'moveup',
+                    key: 'movelineup',
                     apply: (line) => {
                         let predecessor = this.sortedLines[line.order - 1];
                         predecessor.order += 1;
@@ -254,13 +254,23 @@ export default {
                     shouldShow: (line) => line.order > 0,
                 },
                 {
-                    key: 'movedown',
+                    key: 'movelinedown',
                     apply: (line) => {
                         let successor = this.sortedLines[line.order + 1];
                         successor.order -= 1;
                         line.order += 1;
                     },
                     shouldShow: (line) => line.order < (this.poem.lines.length - 1),
+                },
+                {
+                    key: 'deleteline',
+                    apply: (line) => {
+                        line._deleted = true;
+                        for (let successor of this.sortedLines.slice(line.order)) {
+                            successor.order -= 1;
+                        }
+                    },
+                    options: { class: 'has-text-danger' },
                 },
             ],
         }
@@ -445,7 +455,7 @@ export default {
          */
         sortedLines() {
             // Must copy array as Array.sort is in-place
-            return [...this.poem.lines].sort((a, b) => a.order - b.order);
+            return this.poem.lines.filter(line => !line._deleted).sort((a, b) => a.order - b.order);
         },
     },
 
