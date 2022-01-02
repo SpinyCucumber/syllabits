@@ -44,7 +44,7 @@
             <b-dropdown-item v-for="action in actions"
                 :key="action.key"
                 v-bind="action.options"
-                @click="action.apply(this.line)">
+                @click="action.apply(line)">
                 {{ $translation.get('button.' + action.key) }}
             </b-dropdown-item>
         </b-dropdown>

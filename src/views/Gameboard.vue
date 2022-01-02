@@ -236,12 +236,12 @@ export default {
             lineActions: [
                 {
                     key: 'addstanzabreak',
-                    action: (line) => { line.stanzaBreak = true },
+                    apply: (line) => { line.stanzaBreak = true },
                     shouldShow: (line) => line.stanzaBreak === false,
                 },
                 {
                     key: 'removestanzabreak',
-                    action: (line) => { line.stanzaBreak = false },
+                    apply: (line) => { line.stanzaBreak = false },
                     shouldShow: (line) => line.stanzaBreak === true,
                 },
             ],
