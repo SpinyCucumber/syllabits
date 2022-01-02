@@ -55,8 +55,10 @@ class Enum {
             }
             
             this.values.push(value);
-            this[name] = value;
+
             value.name = name;
+            const symbol = name[0].toUpperCase() + name.slice(1);
+            this[symbol] = value;
 
         }
     }

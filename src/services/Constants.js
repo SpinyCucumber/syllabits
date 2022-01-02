@@ -1,22 +1,22 @@
 import Service from './Service'
 import { Enum, SerializableEnum, BlockType } from '@/utilities'
 
-const StressTypes = new Enum(['Unstressed', 'Stressed']);
+const StressTypes = new Enum(['unstressed', 'stressed']);
 const U = StressTypes.Unstressed, S = StressTypes.Stressed;
 
 const BlockTypes = new SerializableEnum({
-    Iamb: ['i', [U, S]],
-    Trochee: ['t', [S, U]],
-    Dactyl: ['d', [S, U, U]],
-    Anapest: ['a', [U, U, S]],
-    Spondee: ['s', [S, S]],
-    Pyrrhic: ['p', [U, U]],
+    iamb: ['i', [U, S]],
+    trochee: ['t', [S, U]],
+    dactyl: ['d', [S, U, U]],
+    anapest: ['a', [U, U, S]],
+    spondee: ['s', [S, S]],
+    pyrrhic: ['p', [U, U]],
 }, (args) => new BlockType(...args));
 
-const LineState = new Enum(['Unchecked', 'Checking', 'Correct', 'Incorrect']);
-const SlotMode = new Enum(['Slot', 'Bucket', 'Locked']);
-const FeedbackType = new Enum(['Perfect', 'Great', 'Good', 'Okay', 'Incorrect']);
-const LocationType = {DIRECT: 0, COLLECTION: 1}
+const LineState = new Enum(['unchecked', 'checking', 'correct', 'incorrect']);
+const SlotMode = new Enum(['slot', 'bucket', 'locked']);
+const FeedbackType = new Enum(['perfect', 'great', 'good', 'okay', 'incorrect']);
+const LocationType = new Enum(['direct', 'collection']);
 
 export default new Service({
     name: 'constants',
