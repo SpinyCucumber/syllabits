@@ -56,14 +56,14 @@
                                     tag="h1"
                                     custom-class="title"
                                     label-key="title"
-                                    :input-options="{size: 'is-large', 'custom-class': 'has-text-centered'}"
+                                    :control-options="{size: 'is-large', 'custom-class': 'has-text-centered'}"
                                     v-slot="{value}">
                                     {{ value }}
                                 </editable>
                                 <editable v-model="poem.author"
                                     custom-class="subtitle"
                                     label-key="author"
-                                    :input-options="{'custom-class': 'has-text-centered'}"
+                                    :control-options="{'custom-class': 'has-text-centered'}"
                                     v-slot="{value}">
                                     {{ value }}
                                 </editable>
