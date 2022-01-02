@@ -2,7 +2,7 @@
     <div :class="classes">
         <!-- Line number -->
         <!-- Add 1 because computers are weird -->
-        <div v-if="hasNumber" class="number">{{ line.number + 1 }}</div>
+        <div v-if="hasNumber" class="number">{{ line.order + 1 }}</div>
 
         <div class="text-box">
             <!-- Block slots -->
