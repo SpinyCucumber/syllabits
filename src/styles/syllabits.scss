@@ -328,6 +328,15 @@ button,
     }
 }
 
+input,
+.input {
+    &.is-resizable {
+        box-sizing: content-box;
+        padding-top: 0; padding-bottom: 0;
+        transition: width 0.2s ease;
+    }
+}
+
 .game-block-shape {
     width: $block-width;
     height: $block-height;
@@ -588,6 +597,7 @@ button,
         justify-self: start;
         flex-direction: column;
         gap: 0.5em;
+        will-change: width;
     }
 
     .slot-container {
