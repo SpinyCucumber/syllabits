@@ -1,7 +1,7 @@
 <template>
   <b-field v-if="allowEditing" label-position="on-border" v-bind="{label}">
     <component :is="control"
-      v-bind="{...inputOptions, value}"
+      v-bind="{...controlOptions, value}"
       v-on="$listeners"/>
   </b-field>
   <component v-else :is="tag" :class="customClass">
@@ -11,6 +11,12 @@
 
 <script>
 import { BInput } from 'buefy/dist/components/input'
+import ResizableInput from './ResizableInput'
+
+const controlLookup = {
+  'input': BInput,
+  'input-resizable': ResizableInput,
+}
 
 /**
  * A component meant to wrap a editable field.
@@ -24,13 +30,16 @@ export default {
     props: {
       customClass: { default: '' },
       value: { required: true },
-      control: { default: BInput },
+      controlType: { default: 'input' },
+      controlOptions: { type: Object },
       tag: { default: 'span' },
-      inputOptions: { type: Object },
       labelKey: { type: String }, // Used to create the default field options
     },
 
     computed: {
+      control() {
+        return controlLookup[this.controlType];
+      },
       label() {
         return this.labelKey ? this.$translation.get('label.' + this.labelKey) : null;
       },

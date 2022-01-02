@@ -17,7 +17,8 @@
             <!-- Line text -->
             <editable v-model="line.text"
                 class="poem-text"
-                :input-options="{size: 'is-large'}"
+                control-type="input-resizable"
+                :control-options="{size: 'is-large'}"
                 v-slot="{value}">
                 {{ value }}
             </editable>
