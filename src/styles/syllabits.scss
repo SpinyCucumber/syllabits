@@ -387,12 +387,12 @@ button,
         animation: bounce 0.4s;
     }
 
-    &.mode-slot.drop-active .game-blank {
+    &.is-mode-slot.drop-active .game-blank {
         fill: $lighter;
         animation: ants 3s linear 0s infinite normal forwards;
     }
 
-    &:not(.mode-slot) .game-blank {
+    &:not(.is-mode-slot) .game-blank {
         visibility: hidden;
     }
 
@@ -467,7 +467,6 @@ button,
     &.is-rounded, &.is-rounded .inner {
         border-radius: 9999px;
     }
-
     
     @each $name, $components in $colors {
         &.is-#{$name} {

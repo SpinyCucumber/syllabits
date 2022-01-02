@@ -41,12 +41,6 @@ import { Constants, AssetService } from '@/services'
 
 const { SlotMode } = Constants;
 
-const CLASS_LOOKUP = new Map([
-    [SlotMode.Slot, 'slot'],
-    [SlotMode.Bucket, 'bucket'],
-    [SlotMode.Locked, 'locked'],
-])
-
 export default {
     
     name: 'BlockSlot',
@@ -131,7 +125,7 @@ export default {
 
     computed: {
         classes() {
-            let classes = ['game-slot', `mode-${CLASS_LOOKUP.get(this.mode)}`];
+            let classes = ['game-slot', `is-mode-${this.mode.name}`];
             if (this.dropActive) classes.push('drop-active');
             if (this.dragActive) classes.push('drag-active');
             return classes;
