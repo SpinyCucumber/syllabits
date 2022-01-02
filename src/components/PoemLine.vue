@@ -46,6 +46,7 @@
                 v-bind="action.options"
                 @click="action.apply(this.line)">
                 {{ $translation.get('button.' + action.key) }}
+            </b-dropdown-item>
         </b-dropdown>
 
     </div>
