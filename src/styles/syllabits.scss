@@ -301,11 +301,6 @@ body {
 
     }
 
-    &.is-mode-edit .poem .body {
-        // Edit mode requires only two columns
-        grid-template-columns: auto auto;
-    }
-
     // We insert a pseudo-element "spacer" between each stanza
     // to create space.
     .poem-line {
@@ -642,6 +637,10 @@ button,
             transform: translate(-50%, -50%);
         }
 
+    }
+
+    .options {
+        justify-self: end;
     }
 
     .check-button {
