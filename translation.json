@@ -22,7 +22,9 @@
         "reset": "Reset",
         "play": "Play",
         "share": "Share",
-        "edit": "Edit"
+        "edit": "Edit",
+        "addstanzabreak": "Add Stanza Break",
+        "removestanzabreak": "Remove Stanza Break"
     },
     "widget": {
         "resume": "Jump Back In",
