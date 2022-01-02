@@ -42,7 +42,7 @@
 
               <template #brand>
                 <b-navbar-item tag="router-link" :to="{ name: $store.getters.hasIdentity ? 'Dashboard' : 'Splash' }">
-                  <img :src="$assets.getTexture('Logo')"/>
+                  <img :src="$assets.getTexture('logo')"/>
                 </b-navbar-item>
               </template>
 

@@ -3,7 +3,7 @@
         <template #content-area>
             <div class="login-view">
                 <!-- TODO Could change logo here (or background) to something more exciting -->
-                <img :src="$assets.getTexture('Logo')" class="logo"/>
+                <img :src="$assets.getTexture('logo')" class="logo"/>
                 <form @submit.prevent="submit">
                     <b-field label="Email" label-position="on-border">
                         <b-input type="email" v-model="input.email"/>

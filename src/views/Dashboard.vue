@@ -18,7 +18,7 @@
             </div>
         </template>
         <template #background-area>
-            <background-image :src="$assets.getTexture('Books')" class="muted"/>
+            <background-image :src="$assets.getTexture('books')" class="muted"/>
         </template>
     </scene>
 </template>

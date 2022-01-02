@@ -6,7 +6,7 @@
                     <div class="text-area">
                         <div class="title-box">
                             <h1 class="branding">SyllaBits</h1>
-                            <img :src="$assets.getIcon('Divider')" class="divider"/>
+                            <img :src="$assets.getIcon('divider')" class="divider"/>
                         </div>
                         <div class="demo-poem">
                             <poem-line
@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="page">
-                    <img :src="$assets.getTexture('Logo')" class="logo"/>
+                    <img :src="$assets.getTexture('logo')" class="logo"/>
                     <div class="button-area">
                         <b-button
                             v-for="button of buttons"
@@ -51,7 +51,7 @@ export default {
     components: { Scene, Carousel, PoemLine },
     data() {
         return {
-            images: ['Paper1', 'Paper2', 'Paper3', 'Paper4'].map(AssetService.getTexture),
+            images: ['paper1', 'paper2', 'paper3', 'paper4'].map(AssetService.getTexture),
             buttons: [
                 { key: "jumpin", to: { name: "RandomPoem" } },
                 { key: "login", to: { name: "Login" } },

@@ -69,7 +69,7 @@
                                 </editable>
                             </div>
 
-                            <img v-if="mode === 'play'" :src="$assets.getIcon('Divider')" class="divider"/>
+                            <img v-if="mode === 'play'" :src="$assets.getIcon('divider')" class="divider"/>
 
                             <!-- Poem lines -->
                             <div class="body">
@@ -97,7 +97,7 @@
         </template>
 
         <template #background-area>
-            <background-image v-if="mode === 'edit'" :src="$assets.getTexture('Relief1')" class="muted"/>
+            <background-image v-if="mode === 'edit'" :src="$assets.getTexture('relief1')" class="muted"/>
         </template>
 
     </scene>

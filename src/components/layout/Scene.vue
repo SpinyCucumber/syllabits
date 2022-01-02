@@ -7,7 +7,7 @@
                     <slot name="background-area">
                         <!-- Default background -->
                         <background-image
-                            :src="$assets.getTexture('Paper2')"
+                            :src="$assets.getTexture('paper2')"
                             class="muted"/>
                     </slot>
                 </div>
