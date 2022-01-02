@@ -36,8 +36,8 @@
             </transition>
             <feedback ref="feedback"/>
         </div>
-        <!-- Dropdown for edit mode -->
-        <b-dropdown v-else-if="mode === 'edit'" position="is-bottom-left" class="options">
+        <!-- Action dropdown for edit mode -->
+        <b-dropdown v-else-if="mode === 'edit'" class="actions">
             <template #trigger>
                 <b-button class="borderless has-text-grey" icon-left="dots-horizontal" size="is-medium"/>
             </template>
@@ -84,6 +84,18 @@ export default {
         checkHandler: { type: Function }, // Defines how answers should be checked
         hasNumber: { default: true }, // Whether the line number is shown
         automaticFeedback: { default: false }, // If false, the user has to manually press a "check" button
+    },
+
+    data() {
+        return {
+            // A list of dropdown items avaliable in edit mode
+            actions: [
+                {
+                    key: 'removestanzabreak',
+
+                }
+            ]
+        };
     },
 
     computed: {
