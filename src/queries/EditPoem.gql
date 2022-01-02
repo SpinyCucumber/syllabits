@@ -6,7 +6,8 @@ query($poemID: ID!) {
             title
             author
             lines {
-                number
+                id
+                order
                 text
                 key
                 stanzaBreak
