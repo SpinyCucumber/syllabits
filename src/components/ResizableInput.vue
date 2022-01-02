@@ -4,7 +4,7 @@
         :class="rootClasses">
         <input
             ref="input"
-            class="input"
+            class="input is-resizable"
             v-autowidth="{minWidth: '5em'}"
             :class="[inputClasses, customClass]"
             :type="newType"
@@ -51,6 +51,7 @@ export default {
             newType: this.type,
             newAutocomplete: this.autocomplete || config.defaultInputAutocomplete,
             isPasswordVisible: false,
+            _elementRef: 'input',
         }
     },
     computed: {
