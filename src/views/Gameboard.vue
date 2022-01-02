@@ -75,7 +75,7 @@
                             <div class="body">
                                 <poem-line
                                     v-for="line in poem.lines"
-                                    :key="line.number"
+                                    :key="line.id"
                                     v-bind="lineBindings(line)"
                                     @correct="onCorrect"
                                     @incorrect="onIncorrect"/>
@@ -248,8 +248,8 @@ export default {
             // Some bindings are only applicable in play mode
             if (this.mode === 'play') bindings = {
                 ...bindings,
-                checkHandler: (holding) => this.checkLine(line.number, holding),
-                progress: this.progress.lines[line.number],
+                checkHandler: (holding) => this.checkLine(line.id, holding),
+                progress: this.progress.lines[line.id],
             }
             return bindings;
         },
@@ -257,9 +257,9 @@ export default {
         /**
          * Handles checking submitted line answers by querying the server
          */
-        checkLine(lineNum, answer) {
+        checkLine(lineID, answer) {
             // Construct the input to the server
-            const input = { poemID: this.poem.id, lineNum, answer }
+            const input = { poemID: this.poem.id, lineID, answer }
             return this.$apollo.mutate({ mutation: SubmitLine, variables: { input } })
                 .then(result => result.data.submitLine)
                 .then(result => {
@@ -277,11 +277,14 @@ export default {
             this.progress = {
                 numCorrect: 0,
                 saved: false,
-                lines: this.poem.lines.map(({numFeet}) => ({
-                    state: LineState.Unchecked,
-                    holding: new Array(numFeet).fill(null),
-                    attempts: 0,
-                })),
+                lines: Object.fromEntries(this.poem.lines.map(({id, numFeet}) => ([
+                    id,
+                    {
+                        state: LineState.Unchecked,
+                        holding: new Array(numFeet).fill(null),
+                        attempts: 0,
+                    }
+                ]))),
             };
         },
 
