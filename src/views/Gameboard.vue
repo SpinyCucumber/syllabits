@@ -236,13 +236,31 @@ export default {
             lineActions: [
                 {
                     key: 'addstanzabreak',
-                    apply: (line) => { line.stanzaBreak = true },
+                    apply: (line) => { line.stanzaBreak = true; },
                     shouldShow: (line) => line.stanzaBreak === false,
                 },
                 {
                     key: 'removestanzabreak',
-                    apply: (line) => { line.stanzaBreak = false },
+                    apply: (line) => { line.stanzaBreak = false; },
                     shouldShow: (line) => line.stanzaBreak === true,
+                },
+                {
+                    key: 'moveup',
+                    apply: (line) => {
+                        let predecessor = this.sortedLines[line.order - 1];
+                        predecessor.order += 1;
+                        line.order -= 1;
+                    },
+                    shouldShow: (line) => line.order > 0,
+                },
+                {
+                    key: 'movedown',
+                    apply: (line) => {
+                        let successor = this.sortedLines[line.order + 1];
+                        successor.order -= 1;
+                        line.order += 1;
+                    },
+                    shouldShow: (line) => line.order < (this.poem.lines.length - 1),
                 },
             ],
         }

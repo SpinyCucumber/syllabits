@@ -24,7 +24,9 @@
         "share": "Share",
         "edit": "Edit",
         "addstanzabreak": "Add Stanza Break",
-        "removestanzabreak": "Remove Stanza Break"
+        "removestanzabreak": "Remove Stanza Break",
+        "moveup": "Move Up",
+        "movedown": "Move Down"
     },
     "widget": {
         "resume": "Jump Back In",
