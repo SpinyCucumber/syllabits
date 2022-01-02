@@ -245,9 +245,10 @@ body {
     }
 }
 
-#app {
+.app {
     @extend .full-height;
-    .main-view {
+    position: relative;
+    .nav-view {
         display: flex;
         flex-direction: column;
         &>.inner {
@@ -259,7 +260,10 @@ body {
             }
         }
     }
-    .app-view { @extend .full-height }
+    .app-view {
+        position: absolute;
+        top: 0; left: 0; bottom: 0; right: 0;
+    }
 }
 
 .gameboard {

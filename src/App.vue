@@ -1,10 +1,12 @@
 <template>
-  <div id="app" :style="rootStyle">
+  <div class="app" :style="rootStyle">
     <transition name="fade" mode="out-in">
       <div v-if="$store.getters.determined" class="full-height" key="determined">
         <transition name="fade">
+
           <router-view v-if="$route.meta.transitory" :key="$route.fullPath" class="app-view"/>
-          <div v-else class="app-view main-view">
+
+          <div v-else class="app-view nav-view">
             <b-navbar>
 
               <!-- Items rendered at beginning of navbar -->
@@ -57,6 +59,7 @@
               </transition>
             </div>
           </div>
+          
         </transition>
       </div>
       <div v-else class="loading-overlay is-full-page is-active">
