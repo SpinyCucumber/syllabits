@@ -168,10 +168,10 @@ body {
     }
 
     .demo-poem {
-        display: grid;
-        grid-template-columns: auto auto;
+        display: flex;
+        flex-direction: column;
         font-size: var(--fs-10);
-        row-gap: 1em;
+        gap: 1em;
 
         .poem-line {
             .poem-text {
@@ -292,34 +292,19 @@ body {
 
         .body {
             min-width: 80%;
-            display: grid;
-            align-items: center;
-            grid-template-columns: auto auto auto;
-    
-            // With small screens, use a grid with only two columns
-            @include mobile {
-                grid-template-columns: auto auto;
-            }
+            display: flex;
+            flex-direction: column;
         }
 
     }
 
-    // We insert a pseudo-element "spacer" between each line to create space.
-    // We can create a stanza break by increasing the height.
-    // We also animate the transition for edit mode.
+    // We insert space between each line using margin-top.
+    // This allows us to animate adding/removing stanza breaks.
     .poem-line {
 
-        &:before {
-            content: '';
-            // Span entire row
-            grid-column: 1/-1;
-            height: 1.5em;
-            transition: height 1s ease;
-        }
-
-        &.has-stanza-break:before {
-            height: 6em;
-        }
+        &:not(:first-child) { margin-top: 1.5em; }
+        &.has-stanza-break { margin-top: 6em; }
+        transition: all 1s ease;
 
         .text-box {
             font-size: var(--fs-20);
@@ -575,7 +560,9 @@ button,
 
 .poem-line {
 
-    @extend .grouping;
+    display: flex;
+    align-items: center;
+    gap: 1em;
 
     .number {
         justify-self: start;
@@ -614,25 +601,10 @@ button,
     }
 
     .feedback-area {
-        justify-self: end;
+        margin-left: auto;
         width: $feedback-area-width;
         height: $feedback-area-height;
-
-        // With smaller screens, we are working with two columns instead of three.
-        // We let the feedback occupy the entire next row if screen is small.
-        // When the feedback area is empty on smaller screens, we "hide" it.
-        // When an element appears, we transition the height to make the element "slide in."
-        @include mobile {
-            height: 0;
-            justify-self: center;
-            // Span entire row
-            grid-column: 1/-1;
-            transition: height 1s ease;
-
-            &:not(:empty) {
-                height: $feedback-area-height;
-            }
-        }
+        // TODO Responsiveness
 
         // Since multiple elements can exist in the feedback area simultaneously, we take an
         // absolute/relative positioning approach. We use the child selector to center the child elements.
@@ -648,7 +620,7 @@ button,
     }
 
     .actions {
-        justify-self: end;
+        margin-left: auto;
     }
 
     .check-button {

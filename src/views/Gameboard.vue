@@ -72,14 +72,14 @@
                             <img v-if="mode === 'play'" :src="$assets.getIcon('divider')" class="divider"/>
 
                             <!-- Poem lines -->
-                            <div class="body">
+                            <transition-group tag="div" class="body" name="list">
                                 <poem-line
                                     v-for="line in sortedLines"
                                     :key="line.id"
                                     v-bind="lineBindings(line)"
                                     @correct="onCorrect"
                                     @incorrect="onIncorrect"/>
-                            </div>
+                            </transition-group>
 
                         </div>
                     </transition>
