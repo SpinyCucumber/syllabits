@@ -108,12 +108,13 @@ import { PlayPoem, EditPoem, SubmitLine, ResetProgress } from '@/queries'
 import { BlockPicker, PoemLine, Scene, Editable, GameProgress, GameDropdown, BackgroundImage } from '@/components'
 import { Constants, AssetService, ReminderService } from '@/services'
 import { TrackChanges } from '@/mixins'
+import { PoemLocation } from '@/utilities'
 import store from '@/store'
 import clone from 'just-clone'
 import useSound from 'vue-use-sound'
 import Vue from 'vue'
 
-const { LineState } = Constants;
+const { LineState, LocationType } = Constants;
 
 /**
  * A component that renders a "poem complete" dialog
@@ -221,7 +222,9 @@ export default {
                     key: 'play',
                     options: { type: 'is-dark', 'icon-left': 'controller-classic', },
                     listeners: { click: () => {
-                        this.$router.push({ name: 'Play', params: { location: this.poem.location }});
+                        let location = this.poem.location ||
+                            new PoemLocation({t: LocationType.Direct, p: this.poem.id}).encode();
+                        this.$router.push({ name: 'Play', params: { location: location }});
                     } },
                     shouldShow: () => this.mode === 'edit'
                 },
