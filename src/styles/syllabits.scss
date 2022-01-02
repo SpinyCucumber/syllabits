@@ -294,7 +294,6 @@ body {
             min-width: 80%;
             display: grid;
             align-items: center;
-            grid-row-gap: 1.5em;
             grid-template-columns: auto auto auto;
     
             // With small screens, use a grid with only two columns
@@ -305,15 +304,21 @@ body {
 
     }
 
-    // We insert a pseudo-element "spacer" between each stanza
-    // to create space.
+    // We insert a pseudo-element "spacer" between each line to create space.
+    // We can create a stanza break by increasing the height.
+    // We also animate the transition for edit mode.
     .poem-line {
 
-        &.has-stanza-break:before {
+        &:before {
             content: '';
             // Span entire row
             grid-column: 1/-1;
-            height: 4em;
+            height: 1.5em;
+            transition: height 1s ease;
+        }
+
+        &.has-stanza-break:before {
+            height: 6em;
         }
 
         .text-box {
