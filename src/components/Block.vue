@@ -1,6 +1,6 @@
 <template>
     <div
-        :class="['game-block', `type-${blockType.name}`]">
+        :class="['game-block', `is-type-${blockType.name}`]">
         <img v-for="(stress, index) in blockType.stresses" :src="$assets.getIcon(stress.name)" :key="index" class="game-notation"/>
     </div>
 </template>

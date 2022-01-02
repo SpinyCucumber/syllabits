@@ -349,7 +349,7 @@ button,
 
     // Color
     @each $type, $color in $block-colors {
-        &.type-#{$type} {
+        &.is-type-#{$type} {
             background-color: $color;
         }
     }
@@ -581,12 +581,12 @@ button,
         transition: background-color 1s ease;
     }
 
-    &.is-correct .number {
+    &.is-state-correct .number {
         background-color: $success;
         color: $success-invert;
     }
 
-    &.is-incorrect .number {
+    &.is-state-incorrect .number {
         background-color: $danger;
         color: $danger-invert;
     }
