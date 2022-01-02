@@ -39,7 +39,7 @@ const PoemEntry = Vue.component('PoemEntry', {
         },
         play() {
             // When user selects a poem, navigate to the play menu
-            const location = new PoemLocation({t: LocationType.DIRECT, p: this.entry.id}).encode();
+            const location = new PoemLocation({t: LocationType.Direct, p: this.entry.id}).encode();
             this.$router.push({name: 'Play', params: {location}});
         },
         edit() {
