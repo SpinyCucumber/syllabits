@@ -10,17 +10,7 @@
 </template>
 
 <script>
-import { Constants, TranslationService } from '@/services'
-const { FeedbackType } = Constants;
-
-const KEY_LOOKUP = new Map([
-    [FeedbackType.Perfect, 'perfect'],
-    [FeedbackType.Great, 'great'],
-    [FeedbackType.Good, 'good'],
-    [FeedbackType.Okay, 'okay'],
-    [FeedbackType.Incorrect, 'incorrect'],
-]);
-const CLASS_LOOKUP = KEY_LOOKUP;
+import { TranslationService } from '@/services'
 
 export default 
 {
@@ -44,12 +34,12 @@ export default
     computed: {
         classes() {
             let classes = ['game-feedback'];
-            if (this.showing) classes.push(`type-${CLASS_LOOKUP.get(this.showing)}`);
+            if (this.showing) classes.push(`is-type-${this.showing.name}`);
             return classes;
         },
         display() {
-            // Construct translation key using feedback type and lookup string
-            const key = `play.feedback.${KEY_LOOKUP.get(this.showing)}`;
+            // Construct translation key using feedback type name
+            const key = `play.feedback.${this.showing.name}`;
             return TranslationService.get(key);
         },
     }

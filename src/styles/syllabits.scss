@@ -436,7 +436,7 @@ button,
     animation: spring 5s ease;
 
     @each $type, $color in $feedback-colors {
-        &.type-#{$type} {
+        &.is-type-#{$type} {
             background-color: $color;
         }
     }
