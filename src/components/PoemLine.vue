@@ -31,7 +31,7 @@
                     @click="check"
                     class="check-button"
                     v-if="canCheck">
-                    {{ $translation.get("play.check") }}
+                    {{ $translation.get('play.check') }}
                 </b-button>
             </transition>
             <feedback ref="feedback"/>
@@ -41,6 +41,11 @@
             <template #trigger>
                 <b-button class="borderless has-text-grey" icon-left="dots-horizontal" size="is-medium"/>
             </template>
+            <b-dropdown-item v-for="action in actions"
+                :key="action.key"
+                v-bind="action.options"
+                @click="action.apply(this.line)">
+                {{ $translation.get('button.' + action.key) }}
         </b-dropdown>
 
     </div>
@@ -81,21 +86,13 @@ export default {
         mode: { default: 'play' },
         line: { required: true },
         progress: { type: Object }, // Used in play mode to track user answer
-        checkHandler: { type: Function }, // Defines how answers should be checked
+        checkHandler: { type: Function }, // Defines how answers should be checked in play mode
+        // A list of dropdown edit actions to show in edit mode
+        // Each action must define a string 'key', and a function 'apply' which accepts a line
+        // Can also optionally specify an 'options' prop which is bound to the dropdown item
+        actions: { type: Array },
         hasNumber: { default: true }, // Whether the line number is shown
         automaticFeedback: { default: false }, // If false, the user has to manually press a "check" button
-    },
-
-    data() {
-        return {
-            // A list of dropdown items avaliable in edit mode
-            actions: [
-                {
-                    key: 'removestanzabreak',
-
-                }
-            ]
-        };
     },
 
     computed: {
