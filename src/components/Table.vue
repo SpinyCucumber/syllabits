@@ -10,15 +10,7 @@
                     rounded/>
             </b-field>
             <b-field expanded v-if="enableCategories">
-                <b-taginput
-                    v-model="categories"
-                    ellipsis
-                    icon="label"
-                    autocomplete
-                    @typing="handleTyping"
-                    :data="filteredHints"
-                    :loading="hintsLoading"
-                    :placeholder="$translation.get('placeholder.categories')"/>
+                <category-input v-model="categories"/>
             </b-field>
             <b-field
                 label-position="on-border"
@@ -60,7 +52,7 @@
 </template>
 
 <script>
-import { CategoryHints } from "@/queries"
+import CategoryInput from './CategoryInput'
 
 /**
  * A table, intended for quickly finding specific data from a large set
@@ -70,6 +62,7 @@ import { CategoryHints } from "@/queries"
 export default {
 
     name: 'Table',
+    components: { CategoryInput },
 
     props: {
         connectionOptions: Object,
@@ -77,7 +70,6 @@ export default {
         orderByOptions: Array,
         entryComponent: {required: true},
         enableCategories: {default: false},
-        numCategoryHints: {default: 5},
         perPage: Number,
     },
 
@@ -89,8 +81,6 @@ export default {
             categories: [],
             search: null,
             orderBy: this.orderByOptions[0],
-            categoryHints: [], // Autocomplete options pulled from server
-            hintsLoading: false,
         }
     },
 
@@ -125,33 +115,6 @@ export default {
         loading() {
             return this.$apollo.queries.connection.loading;
         },
-        // If we are retrieving new hints, the current hints are invalid,
-        // and we don't display them
-        filteredHints() {
-            return this.hintsLoading ? [] : this.categoryHints;
-        }
-    },
-
-    methods: {
-        handleTyping(text) {
-            // Don't handle empty text
-            if (!text) return;
-            // Retrieve category hints from server
-            this.hintsLoading = true;
-            this.$apollo.query({
-                query: CategoryHints,
-                variables: {
-                    first: this.numCategoryHints,
-                    name_Startswith: text.toLowerCase(),
-                    name_Nin: this.categories,
-                }
-            })
-            .then(result => result.data.categories)
-            .then(connection => {
-                this.categoryHints = connection.edges.map(edge => edge.node.name);
-                this.hintsLoading = false;
-            })
-        }
     },
 
 }
