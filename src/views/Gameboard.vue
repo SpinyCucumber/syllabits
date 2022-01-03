@@ -71,6 +71,13 @@
 
                             <img v-if="mode === 'play'" :src="$assets.getIcon('divider')" class="divider"/>
 
+                            <!-- Include category input in edit mode -->
+                            <b-field v-if="mode === 'edit'" class="poem-categories"
+                                :label="$translation.get('label.categories')"
+                                label-position="on-border">
+                                <category-input v-model="poem.categories" allow-new/>
+                            </b-field>
+
                             <!-- Poem lines -->
                             <transition-group tag="div" class="body" name="list">
                                 <poem-line
@@ -105,7 +112,16 @@
 
 <script>
 import { PlayPoem, EditPoem, SubmitLine, ResetProgress } from '@/queries'
-import { BlockPicker, PoemLine, Scene, Editable, GameProgress, GameDropdown, BackgroundImage } from '@/components'
+import {
+    BlockPicker,
+    PoemLine,
+    Scene,
+    Editable,
+    GameProgress,
+    GameDropdown,
+    BackgroundImage,
+    CategoryInput,
+} from '@/components'
 import { Constants, AssetService, ReminderService } from '@/services'
 import { TrackChanges } from '@/mixins'
 import { PoemLocation } from '@/utilities'
@@ -164,7 +180,17 @@ const PoemComplete = Vue.component('PoemComplete', {
 export default {
 
     name: 'Gameboard',
-    components: { BlockPicker, PoemLine, Scene, Editable, GameProgress, GameDropdown, BackgroundImage, PoemComplete },
+    components: {
+        BlockPicker,
+        PoemLine,
+        Scene,
+        Editable,
+        GameProgress,
+        GameDropdown,
+        BackgroundImage,
+        PoemComplete,
+        CategoryInput,
+    },
 
     props: {
         mode: { default: 'play' }, // Valid values are 'play' or 'edit'

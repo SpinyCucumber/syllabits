@@ -39,7 +39,8 @@
     "label": {
         "sortby": "Sort by",
         "title": "Title",
-        "author": "Author"
+        "author": "Author",
+        "categories": "Categories"
     },
     "dialog": {
         "resetprogress": {
