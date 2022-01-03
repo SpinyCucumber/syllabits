@@ -3,6 +3,7 @@
         v-bind="{ value, ...$attrs }"
         v-on="$listeners"
         icon="label"
+        type="is-light"
         autocomplete
         @typing="handleTyping"
         :data="filteredHints"
