@@ -314,6 +314,9 @@ body {
 
     .poem-categories {
         width: min(90vw, 30em);
+        .taginput-container {
+            @extend .borderless;
+        }
     }
 
 }
@@ -325,11 +328,6 @@ body {
 button,
 .button {
     font-size: var(--fs-10);
-    &.borderless {
-        background-color: transparent !important;
-        border-color: transparent !important;
-        box-shadow: none !important;
-    }
 }
 
 input,
@@ -758,6 +756,12 @@ input,
 
 .grouping {
     display: contents;
+}
+
+.borderless {
+    background-color: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
 }
 
 html {

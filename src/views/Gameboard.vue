@@ -72,7 +72,7 @@
                             <img v-if="mode === 'play'" :src="$assets.getIcon('divider')" class="divider"/>
 
                             <!-- Include category input in edit mode -->
-                            <b-field v-if="mode === 'edit'" class="poem-categories">
+                            <b-field class="poem-categories" v-if="mode === 'edit'">
                                 <category-input v-model="poem.categories" allow-new/>
                             </b-field>
 
