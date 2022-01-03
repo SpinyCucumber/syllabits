@@ -123,6 +123,7 @@ import {
 import { Constants, AssetService, ReminderService } from '@/services'
 import { TrackChanges } from '@/mixins'
 import { PoemLocation } from '@/utilities'
+import { nanoid } from 'nanoid'
 import store from '@/store'
 import clone from 'just-clone'
 import useSound from 'vue-use-sound'
@@ -292,15 +293,37 @@ export default {
                     shouldShow: (line) => line.order < (this.poem.lines.length - 1),
                 },
                 {
+                    key: 'insertline',
+                    icon: 'plus',
+                    options: { class: 'has-text-success' },
+                    apply: (line) => {
+                        // Create a new line below this one
+                        // We have to generate a temporary ID
+                        // TODO Could add support for customizable number of feet
+                        let newLine = {
+                            id: nanoid(),
+                            text: '',
+                            key: new Array(5).fill(null),
+                            order: line.order + 1,
+                            _new: true,
+                        }
+                        // Move all successive lines down
+                        for (let successor of this.sortedLines.slice(line.order + 1)) {
+                            successor.order += 1;
+                        }
+                        this.poem.lines.push(newLine);
+                    }
+                },
+                {
                     key: 'deleteline',
                     icon: 'delete',
+                    options: { class: 'has-text-danger' },
                     apply: (line) => {
                         line._deleted = true;
                         for (let successor of this.sortedLines.slice(line.order)) {
                             successor.order -= 1;
                         }
                     },
-                    options: { class: 'has-text-danger' },
                 },
             ],
         }

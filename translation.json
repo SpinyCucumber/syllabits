@@ -27,7 +27,8 @@
         "removestanzabreak": "Remove Stanza Break",
         "movelineup": "Move Up",
         "movelinedown": "Move Down",
-        "deleteline": "Delete Line"
+        "deleteline": "Delete Line",
+        "insertline": "Insert Line"
     },
     "widget": {
         "resume": "Jump Back In",
