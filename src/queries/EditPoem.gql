@@ -2,9 +2,10 @@ query($poemID: ID!) {
     node(id: $poemID) {
         ...on Poem {
             id
-            location
             title
             author
+            location
+            categories
             lines {
                 id
                 order
