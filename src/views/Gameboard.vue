@@ -305,6 +305,7 @@ export default {
                             text: '',
                             key: new Array(5).fill(null),
                             order: line.order + 1,
+                            stanzaBreak: false,
                             _new: true,
                         }
                         // Move all successive lines down
