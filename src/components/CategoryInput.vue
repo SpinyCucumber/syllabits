@@ -1,6 +1,6 @@
 <template>
     <b-taginput
-        v-bind="$attrs"
+        v-bind="{ value, ...$attrs }"
         v-on="$listeners"
         icon="label"
         autocomplete
@@ -18,7 +18,8 @@ export default {
     inheritAttrs: false,
 
     props: {
-      numHints: { default: 5 },  
+        value: Array,
+        numHints: { default: 5 },  
     },
 
     data() {
