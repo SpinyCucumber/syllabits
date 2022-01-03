@@ -273,6 +273,7 @@ export default {
                 },
                 {
                     key: 'movelineup',
+                    icon: 'arrow-up',
                     apply: (line) => {
                         let predecessor = this.sortedLines[line.order - 1];
                         predecessor.order += 1;
@@ -282,6 +283,7 @@ export default {
                 },
                 {
                     key: 'movelinedown',
+                    icon: 'arrow-down',
                     apply: (line) => {
                         let successor = this.sortedLines[line.order + 1];
                         successor.order -= 1;
@@ -291,6 +293,7 @@ export default {
                 },
                 {
                     key: 'deleteline',
+                    icon: 'delete',
                     apply: (line) => {
                         line._deleted = true;
                         for (let successor of this.sortedLines.slice(line.order)) {
