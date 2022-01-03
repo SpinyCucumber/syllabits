@@ -4,7 +4,7 @@
         :class="rootClasses">
         <input
             class="input is-resizable"
-            v-autowidth="{minWidth: '5em', comfortZone: 20}"
+            v-autowidth="{minWidth: '18em', comfortZone: 20}"
             :class="[inputClasses, customClass]"
             :type="newType"
             :autocomplete="newAutocomplete"

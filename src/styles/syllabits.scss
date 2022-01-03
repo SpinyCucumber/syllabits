@@ -331,9 +331,11 @@ button,
 input,
 .input {
     &.is-resizable {
+        width: auto;
         box-sizing: content-box;
         padding-top: 0; padding-bottom: 0;
-        transition: width 0.2s ease;
+        transition: all 0.2s ease;
+        right: 0;
     }
 }
 
@@ -597,7 +599,6 @@ input,
         justify-self: start;
         flex-direction: column;
         gap: 0.5em;
-        will-change: width;
     }
 
     .slot-container {
