@@ -1,3 +1,25 @@
+function handlerForHint(hint) {
+    // TODO
+}
+
+/**
+ * TODO
+ * Documents don't support adding/removing fields
+ */
+function handleDocument(newDoc, oldDoc) {
+    let changes = []
+    for (const prop in original) {
+        // If field is object, try to determine handler
+        const newField = newDoc[prop], oldField = oldDoc[prop];
+        if (typeof field === 'object' && field._trackerHint) {
+            let handler = handlerForHint(field._trackerHint);
+            let fieldChanges = handler(newField, oldField);
+            // Modify the path of each change and combine
+            // TODO
+        }
+    }
+}
+
 function calculateChanges(data, original, context) {
     const { excludeFields } = context;
     // Handle objects
