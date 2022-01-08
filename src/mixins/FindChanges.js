@@ -10,7 +10,7 @@ class Handler {
             function change(args) {
                 return {path, ...args};
             }
-            return findChanges({change, ...args});
+            yield* findChanges({change, ...args});
         }
         // Register handler
         handlerLookup.set(forHint, this);
@@ -26,8 +26,8 @@ function handlerForHint(hint) {
  */
 const documentHandler = new Handler({
     forHint: 'Document',
-    findChanges({path, newValue, oldValue, change, context}) {
-        for (const fieldName in original) {
+    *findChanges({path, newValue, oldValue, change, context}) {
+        for (const fieldName in oldValue) {
             // Allow user to exclude certain fields
             if (context.excludeFields.has(fieldName)) continue;
             // If field defines hint property, lookup and call appropriate handler
@@ -36,7 +36,7 @@ const documentHandler = new Handler({
             if (hint) {
                 let handler = handlerForHint(hint);
                 let fieldPath = path ? path + '.' + fieldName : fieldName;
-                yield handler.findChanges({path: fieldPath, newValue: newFieldValue, oldValue: oldFieldValue});
+                yield* handler.findChanges({path: fieldPath, newValue: newFieldValue, oldValue: oldFieldValue});
             }
             else if (newFieldValue !== oldFieldValue) {
                 yield change({op: 'set', field: fieldName, value: newFieldValue});
