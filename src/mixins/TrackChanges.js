@@ -6,16 +6,13 @@ function handlerForHint(hint) {
  * TODO
  * Documents don't support adding/removing fields
  */
-function handleDocument(newDoc, oldDoc) {
-    let changes = []
+function handleDocument({path, newValue, oldValue}) {
     for (const prop in original) {
         // If field is object, try to determine handler
-        const newField = newDoc[prop], oldField = oldDoc[prop];
-        if (typeof field === 'object' && field._trackerHint) {
-            let handler = handlerForHint(field._trackerHint);
-            let fieldChanges = handler(newField, oldField);
-            // Modify the path of each change and combine
-            // TODO
+        const newField = newValue[prop], oldField = oldValue[prop];
+        if (typeof newField === 'object' && newField._trackerHint) {
+            let handler = handlerForHint(newField._trackerHint);
+            yield handler({path: path ? path + '.' + prop : prop, newValue: newField, oldValue: oldField});
         }
     }
 }
