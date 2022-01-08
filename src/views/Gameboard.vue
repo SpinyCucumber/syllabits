@@ -199,9 +199,9 @@ export default {
 
     mixins: [
         // In edit mode, we track the changes made to the poem by comparing to an original copy
-        TrackChanges({
-            prop: 'poem',
-            original: 'original',
+        FindChanges({
+            newProp: 'poem',
+            oldProp: 'original',
             excludeFields: ['id', 'progress', '__typename', 'location']
         }),
     ],
