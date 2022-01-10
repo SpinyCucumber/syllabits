@@ -1,0 +1,5 @@
+mutation($id: ID!, $changes: [JSONString]) {
+    updatePoem(id: $id, changes: $changes) {
+        ok
+    }
+}
