@@ -1,3 +1,5 @@
+import deepEqual from 'deep-equal'
+
 let handlerLookup = new Map();
 
 class Handler {
@@ -22,7 +24,7 @@ function handlerForHint(hint) {
 }
 
 /**
- * Documents don't support adding/removing fields
+ * Documents don't support adding/removing fields, so our job is a bit easier
  */
 const documentHandler = new Handler({
     forHint: 'Document',
@@ -32,14 +34,18 @@ const documentHandler = new Handler({
             if (context.excludeFields.has(fieldName)) continue;
             // If field defines hint property, lookup and call appropriate handler
             const newFieldValue = newValue[fieldName], oldFieldValue = oldValue[fieldName];
-            let hint = oldFieldValue._trackerHint;
+            let hint = oldFieldValue._hint;
             if (hint) {
                 let handler = handlerForHint(hint);
                 let fieldPath = path ? path + '.' + fieldName : fieldName;
                 yield* handler.findChanges({path: fieldPath, newValue: newFieldValue, oldValue: oldFieldValue});
             }
-            else if (newFieldValue !== oldFieldValue) {
-                yield change({op: 'set', field: fieldName, value: newFieldValue});
+            // If the field is an atomic type (e.g. String, Number) or explicitly marked as atomic,
+            // we check for equality between the old and new value. If they are different,
+            // we produce a 'set' change
+            else if (typeof oldFieldValue !== 'object' || oldFieldValue._atomic) {
+                if (!deepEqual(newFieldValue, oldFieldValue, {strict: true}))
+                    yield change({op: 'set', field: fieldName, value: newFieldValue});
             }
         }
     }
