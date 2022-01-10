@@ -56,10 +56,25 @@ const documentHandler = new Handler({
     }
 });
 
+new Handler({
+    forHint: 'List',
+    *findChanges({newValue, oldValue, change}) {
+        // Determine new elements and removed elements
+        let removed = new Set(oldValue);
+        let added = new Set();
+        for (const elem of newValue) {
+            if (removed.has(elem)) removed.delete(elem);
+            else added.add(elem);
+        }
+        for (const value of removed) yield change({op: "remove", value})
+        for (const value of added) yield change({op: "add", value});
+    }
+})
+
 /**
  * All documents in a document list must declare a field 'id'
  */
-const documentListHandler = new Handler({
+new Handler({
     forHint: 'DocumentList',
     *findChanges({path, newValue, oldValue, change, context}) {
         // A lookup table to speed up finding documents by ID
