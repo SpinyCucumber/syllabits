@@ -371,6 +371,17 @@ export default {
         },
 
         /**
+         * Attaches 'hints' to a poem that allows us to find changes more easily
+         */
+        prepare(poem) {
+            poem.categories._hint = 'List';
+            poem.lines._hint = 'DocumentList';
+            for (let line of poem.lines) {
+                line.key._atomic = true;
+            }
+        },
+
+        /**
          * Initializes data structures used to track player progress
          */
         setupProgress() {
@@ -428,7 +439,8 @@ export default {
                     .then(result => result.data.node)
                     .then(poem => {
                         // Load the queried poem
-                        // We also keep a copy of the original poem to track changes
+                        // We also keep a copy of the original poem to find changes
+                        this.prepare(poem);
                         this.original = poem;
                         this.poem = clone(poem);
                     });
