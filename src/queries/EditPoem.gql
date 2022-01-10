@@ -1,5 +1,5 @@
-query($poemID: ID!) {
-    node(id: $poemID) {
+query($id: ID!) {
+    node(id: $id) {
         ...on Poem {
             id
             title

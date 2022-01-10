@@ -446,7 +446,7 @@ export default {
 
             else if (this.mode === 'edit') {
                 // Query full poem (including keys) from server
-                this.$apollo.query({ query: EditPoem, variables: { poemID: this.poemID }, fetchPolicy: 'network-only' })
+                this.$apollo.query({ query: EditPoem, variables: { id: this.poemID }, fetchPolicy: 'network-only' })
                     .then(result => result.data.node)
                     .then(poem => {
                         // Load the queried poem
