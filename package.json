@@ -18,6 +18,7 @@
     "babel-eslint": "^10.1.0",
     "buefy": "^0.9.10",
     "core-js": "^3.6.5",
+    "deep-equal": "^2.0.5",
     "graphql-type-json": "^0.2.1",
     "just-clone": "^5.0.1",
     "jwt-decode": "^3.1.2",
