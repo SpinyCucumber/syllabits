@@ -118,3 +118,12 @@
   transform: scaleY(0);
   transform-origin: center top;
 }
+
+.dropdown-enter-active, .dropdown-leave-active {
+    transition: .5s ease;
+    transition-property: transform, opacity;
+}
+.dropdown-enter, .dropdown-leave-to{
+    transform: translate(0, -120%);
+    opacity: 0;
+}

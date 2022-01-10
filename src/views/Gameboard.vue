@@ -20,13 +20,13 @@
             </div>
 
             <div class="save-changes-dropdown" v-if="changes">
-                <transition name="list">
+                <transition name="dropdown">
                     <b-button
                         v-if="changes.length > 0"
                         type="is-primary"
                         size="is-large"
                         @click="saveChanges"
-                        :label="`${$translation.get('button.savechanges')} (${changes.length})`"/>
+                        :label="$translation.get('button.savechanges')"/>
                 </transition>
             </div>
 
