@@ -120,7 +120,7 @@
 </template>
 
 <script>
-import { PlayPoem, EditPoem, SubmitLine, ResetProgress } from '@/queries'
+import { PlayPoem, EditPoem, UpdatePoem, SubmitLine, ResetProgress } from '@/queries'
 import {
     BlockPicker,
     PoemLine,
@@ -460,7 +460,22 @@ export default {
         },
 
         saveChanges() {
-            // TODO
+            // Update poem on server
+            let variables = { id: this.poemID, changes: this.changes.map(JSON.stringify) };
+            this.$apollo.mutate({ mutation: UpdatePoem, variables })
+                .then(result => result.data.updatePoem)
+                .then(result => {
+                    // If changes were accepted successfully, show a nice message
+                    // We also set the original poem data to the current
+                    if (result.ok) {
+                        this.$buefy.toast.open({
+                            message: this.$translation.get('message.savechangessuccess'),
+                            type: 'is-success'
+                        });
+                        this.original = this.poem;
+                        this.poem = clone(this.poem);
+                    }
+                });
         },
 
         showHelp() {
