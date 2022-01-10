@@ -28,7 +28,8 @@
         "movelineup": "Move Up",
         "movelinedown": "Move Down",
         "deleteline": "Delete Line",
-        "insertline": "Insert Line"
+        "insertline": "Insert Line",
+        "savechanges": "Save Changes"
     },
     "widget": {
         "resume": "Jump Back In",

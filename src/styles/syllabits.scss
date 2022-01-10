@@ -551,6 +551,14 @@ input,
     z-index: $z-index-progress-dropdown;
 }
 
+.save-changes-dropdown {
+    @extend .static-item;
+    top: 0em;
+    left: 50%;
+    transform: translate(-50%, 10%);
+    z-index: $z-index-progress-dropdown;
+}
+
 .toolbar {
     display: flex;
     .toolbar-start { margin-right: auto; }

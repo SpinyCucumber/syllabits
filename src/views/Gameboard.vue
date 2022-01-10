@@ -19,6 +19,17 @@
                 </game-dropdown>
             </div>
 
+            <div class="save-changes-dropdown" v-if="changes">
+                <transition name="list">
+                    <b-button
+                        v-if="changes.length > 0"
+                        type="is-primary"
+                        size="is-large"
+                        @click="saveChanges"
+                        :label="`${$translation.get('button.savechanges')} (${changes.length})`"/>
+                </transition>
+            </div>
+
         </template>
 
         <template #content-area>
@@ -446,6 +457,10 @@ export default {
                     });
             }
 
+        },
+
+        saveChanges() {
+            // TODO
         },
 
         showHelp() {
