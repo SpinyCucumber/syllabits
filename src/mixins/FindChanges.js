@@ -1,6 +1,8 @@
 import deepEqual from 'deep-equal'
 
-let handlerLookup = new Map();
+const protectedFields = new Set(['id', '_new', '_deleted', '_hint']);
+
+const handlerLookup = new Map();
 
 class Handler {
     constructor(options) {
@@ -24,6 +26,19 @@ function handlerForHint(hint) {
 }
 
 /**
+ * Omits protected fields from objects
+ */
+function sanitize(value) {
+    if (typeof value !== 'object') return obj;
+    return Object.keys(value)
+        .filter((key) => !protectedFields.has(key))
+        .reduce((result, key) => {
+            result[key] = sanitize(value[key]);
+            return result;
+        }, {});
+}
+
+/**
  * Documents don't support adding/removing fields, so our job is a bit easier
  */
 const documentHandler = new Handler({
@@ -31,7 +46,7 @@ const documentHandler = new Handler({
     *findChanges({path, newValue, oldValue, change, context}) {
         for (const fieldName in oldValue) {
             // Allow user to exclude certain fields
-            if (context.excludeFields.has(fieldName)) continue;
+            if (context.excludeFields.has(fieldName) || protectedFields.has(fieldName)) continue;
             // If field defines hint property, lookup and call appropriate handler
             const newFieldValue = newValue[fieldName], oldFieldValue = oldValue[fieldName];
             let hint = oldFieldValue._hint;
@@ -82,7 +97,7 @@ new Handler({
         for (const newDocument of newValue) {
             // Check if document is new or deleted
             if (newDocument._new) {
-                yield change({op: 'create', data: newDocument});
+                yield change({op: 'create', data: sanitize(newDocument)});
             }
             else if (newDocument._deleted) {
                 yield change({op: 'delete', where: {id: newDocument.id}});
