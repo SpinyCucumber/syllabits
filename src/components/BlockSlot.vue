@@ -51,7 +51,9 @@ export default {
         mode: { default: SlotMode.Slot },
         // Using an foot type code (a short string) is preferable to using an enum type here.
         // A string is more easily mapped to/from JSON data, which makes querying the server easier.
-        holding: null,
+        // Also, I desperately wish I could use null to represent no content, but Mongoengine hates
+        // lists with null values, so it's much easier to use the empty string. Alas.
+        holding: { default: '' },
     },
 
     data() {
@@ -104,7 +106,7 @@ export default {
             }
             else if (removedIndex !== null) {
                 // Only clear slot if we are in "slot" mode
-                if (this.mode === SlotMode.Slot) this.$emit('update:holding', null);
+                if (this.mode === SlotMode.Slot) this.$emit('update:holding', '');
             }
             else {
                 this.$emit('update:holding', payload.source.holding);
