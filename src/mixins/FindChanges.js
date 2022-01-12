@@ -1,6 +1,6 @@
 import deepEqual from 'deep-equal'
 
-const protectedFields = new Set(['id', '_new', '_deleted', '_hint']);
+const internalFields = new Set(['id', '_new', '_deleted', '_hint']);
 
 const handlerLookup = new Map();
 
@@ -26,12 +26,12 @@ function handlerForHint(hint) {
 }
 
 /**
- * Omits protected fields from objects
+ * Omits internal fields from objects so that only "data" is left
  */
 function sanitize(value) {
-    if (typeof value !== 'object') return obj;
+    if (typeof value !== 'object' || value === null) return value;
     return Object.keys(value)
-        .filter((key) => !protectedFields.has(key))
+        .filter((key) => !internalFields.has(key))
         .reduce((result, key) => {
             result[key] = sanitize(value[key]);
             return result;
@@ -46,7 +46,7 @@ const documentHandler = new Handler({
     *findChanges({path, newValue, oldValue, change, context}) {
         for (const fieldName in oldValue) {
             // Allow user to exclude certain fields
-            if (context.excludeFields.has(fieldName) || protectedFields.has(fieldName)) continue;
+            if (context.excludeFields.has(fieldName) || internalFields.has(fieldName)) continue;
             // If field defines hint property, lookup and call appropriate handler
             const newFieldValue = newValue[fieldName], oldFieldValue = oldValue[fieldName];
             let hint = oldFieldValue._hint;
