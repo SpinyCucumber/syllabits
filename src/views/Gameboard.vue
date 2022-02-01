@@ -327,7 +327,8 @@ export default {
                     icon: 'delete',
                     options: { class: 'has-text-danger' },
                     apply: (line) => {
-                        this.lines.splice(this.lines.indexOf(line), 1);
+                        let {lines} = this.poem;
+                        lines.splice(lines.indexOf(line), 1);
                         for (let successor of this.sortedLines.slice(line.order)) {
                             successor.order -= 1;
                         }
