@@ -15,6 +15,12 @@ class Context {
     }
 }
 
+/**
+ * Determines which handler to use when comparing objects
+ * Makes a 'best guess' based on the object's type.
+ * Objects can optionally override the default by specifying a 'hint'
+ * property, which should be a string that corresponds to the handler name.
+ */
 function inferHandler(value) {
     // Attempt to use hint to determine handler
     let hint = value._hint;
@@ -57,14 +63,15 @@ function clone(value, options = {sanitize: false}) {
         }
     }
     return result;
-    
+
 }
 
 const handlers = {
 
     /**
-    * Documents don't support adding/removing fields, so our job is a bit easier
-    */
+     * Finds changes between two 'documents,' which are key/value containers.
+     * Documents don't support adding/removing fields
+     */
     Document: function*(newValue, oldValue, context) {
         for (const fieldName in oldValue) {
             // Allow user to exclude certain fields
@@ -102,8 +109,9 @@ const handlers = {
     },
 
     /**
-    * All documents in a document list must declare a field 'id'
-    */
+     * Finds changes between two 'documents lists,' which are lists of composite values.
+     * All documents in a document list must declare a field 'id'
+     */
     DocumentList: function*(newValue, oldValue, context) {
         // A lookup table to speed up finding documents by ID
         const lookup = new Map(oldValue.map(document => ([document.id, document])));
