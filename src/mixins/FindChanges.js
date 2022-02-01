@@ -2,27 +2,19 @@ import deepEqual from 'deep-equal'
 
 const internalFields = new Set(['id', '_new', '_deleted', '_hint']);
 
-const handlerLookup = new Map();
+// TODO Handlers object, inferHandler, findTransforms
 
-class Handler {
-    constructor(options) {
-        const { forHint, findChanges } = options;
-        // We expose a 'change' argument to each handler, which is a function that helps
-        // creating new changes by automatically setting the document path.
-        this.findChanges = function *(args) {
-            const { path } = args;
-            function change(args) {
-                return {path, ...args};
-            }
-            yield* findChanges({change, ...args});
-        }
-        // Register handler
-        handlerLookup.set(forHint, this);
+class Context {
+    constructor(path, options) {
+        this.path = path;
+        this.options = options;
     }
-}
-
-function handlerForHint(hint) {
-    return handlerLookup.get(hint);
+    fork() {
+        return new Context(this.path, this.options);
+    }
+    makeTransform(op, args) {
+        return {path: this.path, op, ...args};
+    }
 }
 
 /**
@@ -43,29 +35,25 @@ function sanitize(value) {
  */
 const documentHandler = new Handler({
     forHint: 'Document',
-    *findChanges({path, newValue, oldValue, change, context}) {
+    *findChanges(newValue, oldValue, context) {
         for (const fieldName in oldValue) {
             // Allow user to exclude certain fields
-            if (context.excludeFields.has(fieldName) || internalFields.has(fieldName)) continue;
+            if (context.options.excludeFields.has(fieldName) || internalFields.has(fieldName)) continue;
             // If field defines hint property, lookup and call appropriate handler
             const newFieldValue = newValue[fieldName], oldFieldValue = oldValue[fieldName];
             let hint = oldFieldValue._hint;
             if (hint) {
                 let handler = handlerForHint(hint);
-                let fieldPath = path ? path + '.' + fieldName : fieldName;
-                yield* handler.findChanges({
-                    path: fieldPath,
-                    newValue: newFieldValue,
-                    oldValue: oldFieldValue,
-                    context,
-                });
+                let fieldContext = context.fork();
+                newContext.path += '.' + fieldName;
+                yield* handler(newFieldValue, oldFieldValue, fieldContext);
             }
             // If the field is an atomic type (e.g. String, Number) or explicitly marked as atomic,
             // we check for equality between the old and new value. If they are different,
             // we produce a 'set' change
             else if (typeof oldFieldValue !== 'object' || oldFieldValue._atomic) {
                 if (!deepEqual(newFieldValue, oldFieldValue, {strict: true}))
-                    yield change({op: 'set', field: fieldName, value: newFieldValue});
+                    yield context.makeTransform('set', {field: fieldName, value: newFieldValue});
             }
         }
     }
@@ -73,7 +61,7 @@ const documentHandler = new Handler({
 
 new Handler({
     forHint: 'List',
-    *findChanges({newValue, oldValue, change}) {
+    *findChanges(newValue, oldValue, context) {
         // Determine new elements and removed elements
         let removed = new Set(oldValue);
         let added = new Set();
@@ -81,8 +69,8 @@ new Handler({
             if (removed.has(elem)) removed.delete(elem);
             else added.add(elem);
         }
-        for (const value of removed) yield change({op: "remove", value})
-        for (const value of added) yield change({op: "add", value});
+        for (const value of removed) yield context.makeTransform('remove', {value})
+        for (const value of added) yield context.makeTransform('add', {value});
     }
 })
 
@@ -91,27 +79,24 @@ new Handler({
  */
 new Handler({
     forHint: 'DocumentList',
-    *findChanges({path, newValue, oldValue, change, context}) {
+    *findChanges(newValue, oldValue, context) {
         // A lookup table to speed up finding documents by ID
         const lookup = new Map(oldValue.map(document => ([document.id, document])));
         for (const newDocument of newValue) {
             // Check if document is new or deleted
             if (newDocument._new) {
-                yield change({op: 'create', data: sanitize(newDocument)});
+                yield context.makeTransform('create', {data: sanitize(newDocument)});
             }
             else if (newDocument._deleted) {
-                yield change({op: 'delete', where: {id: newDocument.id}});
+                yield context.makeTransform('delete', {where: {id: newDocument.id}});
             }
             else {
                 // Find document with corresponding ID and construct document path
+                // TODO Should infer handler here
                 let oldDocument = lookup.get(newDocument.id);
-                let documentPath = path + `[id=${newDocument.id}]`
-                yield* documentHandler.findChanges({
-                    path: documentPath,
-                    newValue: newDocument,
-                    oldValue: oldDocument,
-                    context,
-                });
+                let documentContext = context.fork();
+                documentContext.path += `[id=${newDocument.id}]`;
+                yield* documentHandler.findChanges(newDocument, oldDocument, documentContext);
             }
         }
     }
