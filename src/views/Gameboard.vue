@@ -136,7 +136,6 @@ import { TrackChanges } from '@/mixins'
 import { PoemLocation } from '@/utilities'
 import { nanoid } from 'nanoid'
 import store from '@/store'
-import clone from 'just-clone'
 import useSound from 'vue-use-sound'
 import Vue from 'vue'
 
@@ -211,8 +210,7 @@ export default {
     mixins: [
         // In edit mode, we track the changes made to the poem by comparing to an original copy
         TrackChanges({
-            newValue: 'poem',
-            oldValue: 'original',
+            toTrack: 'poem',
             excludeFields: ['progress', '__typename', 'location']
         }),
     ],
@@ -237,7 +235,6 @@ export default {
     data() {
         return {
             poem: null, // Loaded poem. Contains line text, numbers, title, etc.
-            original: null, // Used in edit mode to track changes
             progress: null, // Used to track user progress in play mode
             showComplete: false, // Whether the 'poem complete' dialog is being shown
             buttons: [
@@ -440,7 +437,7 @@ export default {
                     .then(poem => {
                         // We 'annotate' the poem for the tracking system,
                         // then we start tracking changes
-                        poem.categories._hint = 'List';
+                        poem._hint = 'Document';
                         poem.lines._hint = 'DocumentList';
                         for (let line of poem.lines) {
                             line.key._atomic = true;
@@ -468,11 +465,6 @@ export default {
                         this.startTracking();
                     }
                 });
-        },
-
-        startTracking() {
-            this.original = this.poem;
-            this.poem = clone(this.poem);
         },
 
         showHelp() {

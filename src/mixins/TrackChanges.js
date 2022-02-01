@@ -15,13 +15,18 @@ class Context {
     }
 }
 
-function inferHandler(value, fallback) {
+function inferHandler(value) {
+    // Attempt to use hint to determine handler
     let hint = value._hint;
     if (hint) {
         let handler = handlers[hint];
         if (handler) return handler;
     }
-    return fallback;
+    // 'Guess' handler using value type
+    if (typeof value === 'object' && value !== null) {
+        if (Array.isArray(value)) return handlers.List;
+        else return handlers.Document;
+    }
 }
 
 /**
@@ -36,23 +41,23 @@ function clone(value, options = {sanitize: false}) {
         result = value;
     }
     else if (Array.isArray(value)) {
-        result = value.map(e => clone(e));
+        result = value.map(e => clone(e, options));
     }
     else {
         result = {};
         for(const key in value) {
             if (metaFields.has(key)) continue;
-            result[key] = clone(value[key]);
+            result[key] = clone(value[key], options);
         }
     }
     // Copy meta fields
     if (!options.sanitize) {
         for (const field of metaFields) {
-            if (value[field]) result[field] = value[field]; 
+            if (value[field]) result[field] = value[field];
         }
     }
     return result;
-
+    
 }
 
 const handlers = {
@@ -66,19 +71,20 @@ const handlers = {
             if (context.options.excludeFields.has(fieldName) || metaFields.has(fieldName)) continue;
             // If field defines hint property, lookup and call appropriate handler
             const newFieldValue = newValue[fieldName], oldFieldValue = oldValue[fieldName];
-            let handler = inferHandler(oldFieldValue);
-            if (handler) {
+            // If the field is an atomic type (e.g. String, Number) or explicitly marked as atomic,
+            // we check for equality between the old and new value. If they are different,
+            // we produce a 'set' change
+            // Otherwise, we infer the handler for the field value
+            if (typeof oldFieldValue !== 'object' || oldFieldValue._atomic) {
+                if (!deepEqual(newFieldValue, oldFieldValue, {strict: true}))
+                    yield context.makeTransform('set', {field: fieldName, value: newFieldValue});
+            }
+            else {
+                let handler = inferHandler(oldFieldValue);
                 let fieldContext = context.fork();
                 if (fieldContext.path !== '') fieldContext.path += '.';
                 fieldContext.path += fieldName;
                 yield* handler(newFieldValue, oldFieldValue, fieldContext);
-            }
-            // If the field is an atomic type (e.g. String, Number) or explicitly marked as atomic,
-            // we check for equality between the old and new value. If they are different,
-            // we produce a 'set' change
-            else if (typeof oldFieldValue !== 'object' || oldFieldValue._atomic) {
-                if (!deepEqual(newFieldValue, oldFieldValue, {strict: true}))
-                    yield context.makeTransform('set', {field: fieldName, value: newFieldValue});
             }
         }
     },
@@ -115,7 +121,7 @@ const handlers = {
                 let oldDocument = lookup.get(newDocument.id);
                 let documentContext = context.fork();
                 documentContext.path += `[id=${newDocument.id}]`;
-                let handler = inferHandler(oldDocument, handlers.Document);
+                let handler = inferHandler(oldDocument);
                 yield* handler(newDocument, oldDocument, documentContext);
             }
         }
@@ -128,17 +134,28 @@ const handlers = {
  * Creates a computed property 'transforms'
  */
 export default function TrackChanges(args) {
-    // Extract prop, original option
-    const { oldValue, newValue, ...options } = args;
+    // Extract prop to track and options
+    const { toTrack, ...options } = args;
     // Coerce excludeFields into a set
     options.excludeFields = new Set(options.excludeFields);
     return ({
+        data() {
+            return {
+                original: null,
+            }
+        },
         computed: {
             transforms() {
                 let context = new Context('', options);
-                let handler = inferHandler(this[oldValue], handlers.Document);
-                return Array.from(handler(this[newValue], this[oldValue], context));
+                let handler = inferHandler(this.original);
+                return Array.from(handler(this[toTrack], this.original, context));
             },
+        },
+        methods: {
+            startTracking() {
+                this.original = this[toTrack];
+                this[toTrack] = clone(this[toTrack]);
+            }
         }
     });
 }
