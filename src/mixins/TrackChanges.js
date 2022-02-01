@@ -1,6 +1,6 @@
 import deepEqual from 'deep-equal'
 
-const internalFields = new Set(['id', '_hint']);
+const metaFields = new Set(['id', '_hint', '_atomic']);
 
 class Context {
     constructor(path, options) {
@@ -29,14 +29,38 @@ function inferHandler(value, fallback) {
  */
 function sanitize(value) {
     if (typeof value !== 'object' || value === null) return value;
-    return Object.keys(value)
-        .filter((key) => !internalFields.has(key))
-        .reduce((result, key) => {
-            result[key] = sanitize(value[key]);
-            return result;
-        }, {});
+    if (Array.isArray(value)) {
+        return value.map(e => sanitize(e));
+    }
+    let result = {};
+    for (const key in value) {
+        if (metaFields.has(key)) continue;
+        result[key] = sanitize(value[key]);
+    }
+    return result;
 }
 
+/**
+ * Clones objects while preserving metadata like hints
+ */
+function clone(value) {
+    if (typeof value !== 'object' || value === null) return value;
+    let result;
+    if (Array.isArray(value)) {
+        result = value.map(e => clone(e));
+    }
+    else {
+        result = {};
+        for(const key in value) {
+            result[key] = clone(value[key]);
+        }
+    }
+    // Copy meta fields
+    for (const field of metaFields) {
+        if (value[field]) result[field] = value[field]; 
+    }
+    return result;
+}
 
 const handlers = {
 
@@ -46,7 +70,7 @@ const handlers = {
     Document: function*(newValue, oldValue, context) {
         for (const fieldName in oldValue) {
             // Allow user to exclude certain fields
-            if (context.options.excludeFields.has(fieldName) || internalFields.has(fieldName)) continue;
+            if (context.options.excludeFields.has(fieldName) || metaFields.has(fieldName)) continue;
             // If field defines hint property, lookup and call appropriate handler
             const newFieldValue = newValue[fieldName], oldFieldValue = oldValue[fieldName];
             let handler = inferHandler(oldFieldValue);
