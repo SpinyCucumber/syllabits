@@ -311,10 +311,11 @@ export default {
                         let newLine = {
                             id: nanoid(),
                             text: '',
-                            key: new Array(5).fill(null),
+                            key: new Array(5).fill(''),
                             order: line.order + 1,
                             stanzaBreak: false,
                         }
+                        newLine.key._atomic = true;
                         // Move all successive lines down
                         for (let successor of this.sortedLines.slice(line.order + 1)) {
                             successor.order += 1;
@@ -389,7 +390,7 @@ export default {
                     id,
                     {
                         state: LineState.Unchecked,
-                        holding: new Array(numFeet).fill(null),
+                        holding: new Array(numFeet).fill(''),
                         attempts: 0,
                     }
                 ]))),
