@@ -25,41 +25,34 @@ function inferHandler(value, fallback) {
 }
 
 /**
- * Omits internal fields from objects so that only "data" is left
- */
-function sanitize(value) {
-    if (typeof value !== 'object' || value === null) return value;
-    if (Array.isArray(value)) {
-        return value.map(e => sanitize(e));
-    }
-    let result = {};
-    for (const key in value) {
-        if (metaFields.has(key)) continue;
-        result[key] = sanitize(value[key]);
-    }
-    return result;
-}
-
-/**
  * Clones objects while preserving metadata like hints
+ * Can optionally 'sanitize' data to omit metadata
  */
-function clone(value) {
-    if (typeof value !== 'object' || value === null) return value;
+function clone(value, options = {sanitize: false}) {
+    if (value === null) return value;
+
     let result;
-    if (Array.isArray(value)) {
+    if (typeof value !== 'object') {
+        result = value;
+    }
+    else if (Array.isArray(value)) {
         result = value.map(e => clone(e));
     }
     else {
         result = {};
         for(const key in value) {
+            if (metaFields.has(key)) continue;
             result[key] = clone(value[key]);
         }
     }
     // Copy meta fields
-    for (const field of metaFields) {
-        if (value[field]) result[field] = value[field]; 
+    if (!options.sanitize) {
+        for (const field of metaFields) {
+            if (value[field]) result[field] = value[field]; 
+        }
     }
     return result;
+
 }
 
 const handlers = {
@@ -111,7 +104,8 @@ const handlers = {
         for (const newDocument of newValue) {
             // Check if document is new or deleted
             if (newDocument._new) {
-                yield context.makeTransform('create', {data: sanitize(newDocument)});
+                let data = clone(newDocument, {sanitize: true});
+                yield context.makeTransform('create', {data});
             }
             else if (newDocument._deleted) {
                 yield context.makeTransform('delete', {where: {id: newDocument.id}});
