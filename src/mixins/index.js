@@ -1,2 +1,2 @@
 export { default as Animatable } from './Animatable'
-export { default as FindChanges } from './FindChanges'
+export { default as TrackChanges } from './TrackChanges'
