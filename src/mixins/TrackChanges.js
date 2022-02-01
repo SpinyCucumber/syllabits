@@ -2,6 +2,10 @@ import deepEqual from 'deep-equal'
 
 const metaFields = new Set(['id', '_hint', '_atomic']);
 
+/**
+ * A context comparing objects
+ * Includes a 'path,' which refers to the part of the object being examined
+ */
 class Context {
     constructor(path, options) {
         this.path = path;
@@ -165,6 +169,10 @@ export default function TrackChanges(args) {
             },
         },
         methods: {
+            /**
+             * Saves the current state of the property to track,
+             * and compares any future changes to the property to the current state.
+             */
             startTracking() {
                 this.original = this[toTrack];
                 this[toTrack] = clone(this[toTrack]);
