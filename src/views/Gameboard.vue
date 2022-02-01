@@ -19,10 +19,10 @@
                 </game-dropdown>
             </div>
 
-            <div class="save-changes-dropdown" v-if="changes">
+            <div class="save-changes-dropdown" v-if="poem && mode === 'edit'">
                 <transition name="dropdown">
                     <b-button
-                        v-if="changes.length > 0"
+                        v-if="transforms.length > 0"
                         type="is-primary"
                         size="is-large"
                         @click="saveChanges"
@@ -132,7 +132,7 @@ import {
     CategoryInput,
 } from '@/components'
 import { Constants, AssetService, ReminderService } from '@/services'
-import { FindChanges } from '@/mixins'
+import { TrackChanges } from '@/mixins'
 import { PoemLocation } from '@/utilities'
 import { nanoid } from 'nanoid'
 import store from '@/store'
@@ -210,10 +210,10 @@ export default {
 
     mixins: [
         // In edit mode, we track the changes made to the poem by comparing to an original copy
-        FindChanges({
-            newProp: 'poem',
-            oldProp: 'original',
-            excludeFields: ['id', 'progress', '__typename', 'location']
+        TrackChanges({
+            newValue: 'poem',
+            oldValue: 'original',
+            excludeFields: ['progress', '__typename', 'location']
         }),
     ],
 
@@ -382,17 +382,6 @@ export default {
         },
 
         /**
-         * Attaches 'hints' to a poem that allows us to find changes more easily
-         */
-        prepare(poem) {
-            poem.categories._hint = 'List';
-            poem.lines._hint = 'DocumentList';
-            for (let line of poem.lines) {
-                line.key._atomic = true;
-            }
-        },
-
-        /**
          * Initializes data structures used to track player progress
          */
         setupProgress() {
@@ -449,11 +438,15 @@ export default {
                 this.$apollo.query({ query: EditPoem, variables: { id: this.poemID }, fetchPolicy: 'network-only' })
                     .then(result => result.data.node)
                     .then(poem => {
-                        // Load the queried poem
-                        // We also keep a copy of the original poem to find changes
-                        this.prepare(poem);
-                        this.original = poem;
-                        this.poem = clone(poem);
+                        // We 'annotate' the poem for the tracking system,
+                        // then we start tracking changes
+                        poem.categories._hint = 'List';
+                        poem.lines._hint = 'DocumentList';
+                        for (let line of poem.lines) {
+                            line.key._atomic = true;
+                        }
+                        this.poem = poem;
+                        this.startTracking();
                     });
             }
 
@@ -461,21 +454,25 @@ export default {
 
         saveChanges() {
             // Update poem on server
-            let variables = { id: this.poemID, changes: this.changes.map(JSON.stringify) };
+            let variables = { id: this.poemID, transforms: this.transforms.map(JSON.stringify) };
             this.$apollo.mutate({ mutation: UpdatePoem, variables })
                 .then(result => result.data.updatePoem)
                 .then(result => {
                     // If changes were accepted successfully, show a nice message
-                    // We also set the original poem data to the current
+                    // We also save the changes and start tracking new changes
                     if (result.ok) {
                         this.$buefy.toast.open({
                             message: this.$translation.get('message.savechangessuccess'),
                             type: 'is-success'
                         });
-                        this.original = this.poem;
-                        this.poem = clone(this.poem);
+                        this.startTracking();
                     }
                 });
+        },
+
+        startTracking() {
+            this.original = this.poem;
+            this.poem = clone(this.poem);
         },
 
         showHelp() {
