@@ -314,7 +314,6 @@ export default {
                             key: new Array(5).fill(null),
                             order: line.order + 1,
                             stanzaBreak: false,
-                            _new: true,
                         }
                         // Move all successive lines down
                         for (let successor of this.sortedLines.slice(line.order + 1)) {
@@ -328,7 +327,7 @@ export default {
                     icon: 'delete',
                     options: { class: 'has-text-danger' },
                     apply: (line) => {
-                        line._deleted = true;
+                        this.lines.splice(this.lines.indexOf(line), 1);
                         for (let successor of this.sortedLines.slice(line.order)) {
                             successor.order -= 1;
                         }
@@ -540,7 +539,7 @@ export default {
          */
         sortedLines() {
             // Must copy array as Array.sort is in-place
-            return this.poem.lines.filter(line => !line._deleted).sort((a, b) => a.order - b.order);
+            return [...this.poem.lines].sort((a, b) => a.order - b.order);
         },
     },
 

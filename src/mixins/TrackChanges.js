@@ -114,24 +114,29 @@ const handlers = {
      */
     DocumentList: function*(newValue, oldValue, context) {
         // A lookup table to speed up finding documents by ID
-        const lookup = new Map(oldValue.map(document => ([document.id, document])));
+        const removed = new Map(oldValue.map(document => ([document.id, document])));
         for (const newDocument of newValue) {
-            // Check if document is new or deleted
-            if (newDocument._new) {
-                let data = clone(newDocument, {sanitize: true});
-                yield context.makeTransform('create', {data});
-            }
-            else if (newDocument._deleted) {
-                yield context.makeTransform('delete', {where: {id: newDocument.id}});
-            }
-            else {
+            const { id } = newDocument;
+            // If document exists in both old and new lists, find transforms of document
+            if (removed.has(id)) {
                 // Find document with corresponding ID and construct document path
-                let oldDocument = lookup.get(newDocument.id);
+                let oldDocument = removed.get(id);
+                removed.delete(id);
                 let documentContext = context.fork();
-                documentContext.path += `[id=${newDocument.id}]`;
+                documentContext.path += `[id=${id}]`;
                 let handler = inferHandler(oldDocument);
                 yield* handler(newDocument, oldDocument, documentContext);
             }
+            // Otherwise, document is new. We produce a 'create' transform
+            else {
+                let data = clone(newDocument, {sanitize: true});
+                yield context.makeTransform('create', {data});
+            }
+        }
+        // All documents that exist in the old list but not the new have been deleted.
+        // For each one, produce a 'delete' transform
+        for (const id of removed.keys()) {
+            yield context.makeTransform('delete', {where: {id}});
         }
     },
 
