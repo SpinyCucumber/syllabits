@@ -1,8 +1,6 @@
 import deepEqual from 'deep-equal'
 
-const internalFields = new Set(['id', '_new', '_deleted', '_hint']);
-
-// TODO Handlers object, inferHandler, findTransforms
+const internalFields = new Set(['id', '_hint']);
 
 class Context {
     constructor(path, options) {
@@ -15,6 +13,15 @@ class Context {
     makeTransform(op, args) {
         return {path: this.path, op, ...args};
     }
+}
+
+function inferHandler(value, fallback) {
+    let hint = value._hint;
+    if (hint) {
+        let handler = handlers[hint];
+        if (handler) return handler;
+    }
+    return fallback;
 }
 
 /**
@@ -30,22 +37,23 @@ function sanitize(value) {
         }, {});
 }
 
-/**
- * Documents don't support adding/removing fields, so our job is a bit easier
- */
-const documentHandler = new Handler({
-    forHint: 'Document',
-    *findChanges(newValue, oldValue, context) {
+
+const handlers = {
+
+    /**
+    * Documents don't support adding/removing fields, so our job is a bit easier
+    */
+    Document: function*(newValue, oldValue, context) {
         for (const fieldName in oldValue) {
             // Allow user to exclude certain fields
             if (context.options.excludeFields.has(fieldName) || internalFields.has(fieldName)) continue;
             // If field defines hint property, lookup and call appropriate handler
             const newFieldValue = newValue[fieldName], oldFieldValue = oldValue[fieldName];
-            let hint = oldFieldValue._hint;
-            if (hint) {
-                let handler = handlerForHint(hint);
+            let handler = inferHandler(oldFieldValue);
+            if (handler) {
                 let fieldContext = context.fork();
-                newContext.path += '.' + fieldName;
+                if (fieldContext.path !== '') fieldContext.path += '.';
+                fieldContext.path += fieldName;
                 yield* handler(newFieldValue, oldFieldValue, fieldContext);
             }
             // If the field is an atomic type (e.g. String, Number) or explicitly marked as atomic,
@@ -56,12 +64,9 @@ const documentHandler = new Handler({
                     yield context.makeTransform('set', {field: fieldName, value: newFieldValue});
             }
         }
-    }
-});
+    },
 
-new Handler({
-    forHint: 'List',
-    *findChanges(newValue, oldValue, context) {
+    List: function*(newValue, oldValue, context) {
         // Determine new elements and removed elements
         let removed = new Set(oldValue);
         let added = new Set();
@@ -71,15 +76,12 @@ new Handler({
         }
         for (const value of removed) yield context.makeTransform('remove', {value})
         for (const value of added) yield context.makeTransform('add', {value});
-    }
-})
+    },
 
-/**
- * All documents in a document list must declare a field 'id'
- */
-new Handler({
-    forHint: 'DocumentList',
-    *findChanges(newValue, oldValue, context) {
+    /**
+    * All documents in a document list must declare a field 'id'
+    */
+    DocumentList: function*(newValue, oldValue, context) {
         // A lookup table to speed up finding documents by ID
         const lookup = new Map(oldValue.map(document => ([document.id, document])));
         for (const newDocument of newValue) {
@@ -92,35 +94,33 @@ new Handler({
             }
             else {
                 // Find document with corresponding ID and construct document path
-                // TODO Should infer handler here
                 let oldDocument = lookup.get(newDocument.id);
                 let documentContext = context.fork();
                 documentContext.path += `[id=${newDocument.id}]`;
-                yield* documentHandler.findChanges(newDocument, oldDocument, documentContext);
+                let handler = inferHandler(oldDocument, handlers.Document);
+                yield* handler(newDocument, oldDocument, documentContext);
             }
         }
-    }
-})
+    },
+
+};
 
 /**
  * A Vue mixin that tracks how a prop changes over time
- * Requires the name of the prop to track, and the name of prop that contains the "original" copy
- * Creates a computed property which is a list of changes named 'changes'
+ * Creates a computed property 'transforms'
  */
-export default function FindChanges(options) {
+export default function TrackChanges(args) {
     // Extract prop, original option
-    const { newProp, oldProp, ...context } = options;
+    const { oldValue, newValue, ...options } = args;
     // Coerce excludeFields into a set
-    context.excludeFields = new Set(context.excludeFields);
+    options.excludeFields = new Set(options.excludeFields);
     return ({
         computed: {
-            changes() {
-                return Array.from(documentHandler.findChanges({
-                    newValue: this[newProp],
-                    oldValue: this[oldProp],
-                    context,
-                }));
-            }
+            transforms() {
+                let context = new Context('', options);
+                let handler = inferHandler(this[oldValue], handlers.Document);
+                return Array.from(handler(this[newValue], this[oldValue], context));
+            },
         }
     });
 }
