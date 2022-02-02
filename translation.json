@@ -64,7 +64,8 @@
         "loginfail": "Invalid username/password.",
         "registersuccess": "Successfully created account!",
         "registeruserexists": "A user with that email already exists.",
-        "resetsuccess": "Progress reset!"
+        "resetsuccess": "Progress reset!",
+        "savechangessuccess": "Changes saved successfully!"
     },
     "reminders": {
         "playingasguest": "<p>You are playing as a guest, so your progress will not be saved.</p><p>Create an account to automatically save your progress!</p>",
