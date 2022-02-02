@@ -101,7 +101,7 @@ export default {
     computed: {
         // Whether every slot contains a block
         full() {
-            return !this.holding.some(blockType => blockType === null);
+            return !this.holding.some(blockType => blockType === '');
         },
         // The blocks the line currently contains
         holding() {
