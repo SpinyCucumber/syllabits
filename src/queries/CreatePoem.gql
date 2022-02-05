@@ -1,0 +1,6 @@
+mutation($data: JSONString) {
+    createPoem(data: $data) {
+        ok
+        
+    }
+}
