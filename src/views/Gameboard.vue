@@ -19,10 +19,16 @@
                 </game-dropdown>
             </div>
 
-            <div class="save-changes-dropdown" v-if="poem && mode === 'edit'">
+            <div class="save-dropdown" v-if="mode === 'edit'">
                 <transition name="dropdown">
                     <b-button
-                        v-if="transforms.length > 0"
+                        v-if="!original"
+                        type="is-primary"
+                        size="is-large"
+                        @click="save"
+                        :label="$translation.get('button.save')"/>
+                    <b-button
+                        v-else-if="transforms.length > 0"
                         type="is-primary"
                         size="is-large"
                         @click="saveChanges"
@@ -120,7 +126,7 @@
 </template>
 
 <script>
-import { PlayPoem, EditPoem, UpdatePoem, SubmitLine, ResetProgress } from '@/queries'
+import { PlayPoem, EditPoem, UpdatePoem, CreatePoem, SubmitLine, ResetProgress } from '@/queries'
 import {
     BlockPicker,
     PoemLine,
@@ -133,7 +139,7 @@ import {
 } from '@/components'
 import { Constants, AssetService, ReminderService } from '@/services'
 import { TrackChanges } from '@/mixins'
-import { PoemLocation } from '@/utilities'
+import { PoemLocation, clone } from '@/utilities'
 import { nanoid } from 'nanoid'
 import store from '@/store'
 import useSound from 'vue-use-sound'
@@ -450,14 +456,36 @@ export default {
 
         },
 
+        /**
+         * If the poem doesn't exist on the server,
+         * creates a new poem on the server and initializes its data
+         */
+        save() {
+            // Sanitize poem and send to server
+            let data = clone(this.poem, {metaFields: new Set('id'), sanitize: true});
+            let variables = { data: JSON.stringify(data) };
+            this.$apollo.mutate({ mutation: CreatePoem, variables })
+                .then(result => result.data.createPoem)
+                .then(result => {
+                    // If poem was saved successfully, show message and start tracking changes
+                    if (result.ok) {
+                        this.$buefy.toast.open({
+                            message: this.$translation.get('message.savessuccess'),
+                            type: 'is-success'
+                        });
+                        this.startTracking();
+                    }
+                });
+        },
+
         saveChanges() {
             // Update poem on server
-            let variables = { id: this.poemID, transforms: this.transforms.map(JSON.stringify) };
+            let variables = { id: this.poem.id, transforms: this.transforms.map(JSON.stringify) };
             this.$apollo.mutate({ mutation: UpdatePoem, variables })
                 .then(result => result.data.updatePoem)
                 .then(result => {
                     // If changes were accepted successfully, show a nice message
-                    // We also save the changes and start tracking new changes
+                    // and save current state of poem to track future changes
                     if (result.ok) {
                         this.$buefy.toast.open({
                             message: this.$translation.get('message.savechangessuccess'),

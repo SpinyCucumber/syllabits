@@ -551,7 +551,7 @@ input,
     z-index: $z-index-progress-dropdown;
 }
 
-.save-changes-dropdown {
+.save-dropdown {
     @extend .static-item;
     top: 0em;
     left: 50%;
