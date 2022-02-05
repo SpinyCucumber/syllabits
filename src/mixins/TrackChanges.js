@@ -1,4 +1,5 @@
 import deepEqual from 'deep-equal'
+import clone from '@/utilities'
 
 const metaFields = new Set(['id', '_hint', '_atomic']);
 
@@ -37,37 +38,6 @@ function inferHandler(value) {
         if (Array.isArray(value)) return handlers.List;
         else return handlers.Document;
     }
-}
-
-/**
- * Clones objects while preserving metadata like hints
- * Can optionally 'sanitize' data to omit metadata
- */
-function clone(value, options = {sanitize: false}) {
-    if (value === null) return value;
-
-    let result;
-    if (typeof value !== 'object') {
-        result = value;
-    }
-    else if (Array.isArray(value)) {
-        result = value.map(e => clone(e, options));
-    }
-    else {
-        result = {};
-        for(const key in value) {
-            if (metaFields.has(key)) continue;
-            result[key] = clone(value[key], options);
-        }
-    }
-    // Copy meta fields
-    if (!options.sanitize) {
-        for (const field of metaFields) {
-            if (value[field]) result[field] = value[field];
-        }
-    }
-    return result;
-
 }
 
 const handlers = {
@@ -133,7 +103,7 @@ const handlers = {
             }
             // Otherwise, document is new. We produce a 'create' transform
             else {
-                let data = clone(newDocument, {sanitize: true});
+                let data = clone(newDocument, {metaFields, sanitize: true});
                 yield context.makeTransform('create', {data});
             }
         }
@@ -175,7 +145,7 @@ export default function TrackChanges(args) {
              */
             startTracking() {
                 this.original = this[toTrack];
-                this[toTrack] = clone(this[toTrack]);
+                this[toTrack] = clone(this[toTrack], {metaFields});
             }
         }
     });

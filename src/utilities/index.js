@@ -91,4 +91,5 @@ class SerializableEnum extends Enum {
 
 }
 
+export { default as clone } from './clone'
 export { PoemLocation, BlockType, Enum, SerializableEnum };
