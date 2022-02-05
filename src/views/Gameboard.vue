@@ -26,13 +26,13 @@
                         type="is-primary"
                         size="is-large"
                         @click="save"
-                        :label="$translation.get('button.save')"/>
+                        :label="$translation.get('button.poem.save')"/>
                     <b-button
                         v-else-if="transforms.length > 0"
                         type="is-primary"
                         size="is-large"
                         @click="saveChanges"
-                        :label="$translation.get('button.savechanges')"/>
+                        :label="$translation.get('button.poem.savechanges')"/>
                 </transition>
             </div>
 
@@ -294,7 +294,7 @@ export default {
                     shouldShow: (line) => line.stanzaBreak === true,
                 },
                 {
-                    key: 'movelineup',
+                    key: 'moveup',
                     icon: 'arrow-up',
                     apply: (line) => {
                         let predecessor = this.sortedLines[line.order - 1];
@@ -304,7 +304,7 @@ export default {
                     shouldShow: (line) => line.order > 0,
                 },
                 {
-                    key: 'movelinedown',
+                    key: 'movedown',
                     icon: 'arrow-down',
                     apply: (line) => {
                         let successor = this.sortedLines[line.order + 1];
@@ -314,7 +314,7 @@ export default {
                     shouldShow: (line) => line.order < (this.poem.lines.length - 1),
                 },
                 {
-                    key: 'insertline',
+                    key: 'insert',
                     icon: 'plus',
                     options: { class: 'has-text-success' },
                     apply: (line) => {
@@ -337,7 +337,7 @@ export default {
                     }
                 },
                 {
-                    key: 'deleteline',
+                    key: 'delete',
                     icon: 'delete',
                     options: { class: 'has-text-danger' },
                     apply: (line) => {
@@ -488,7 +488,7 @@ export default {
                     // If poem was saved successfully, show message and reload view
                     if (result.ok) {
                         this.$buefy.toast.open({
-                            message: this.$translation.get('message.savessuccess'),
+                            message: this.$translation.get('message.poem.savesuccess'),
                             type: 'is-success'
                         });
                         this.$router.push({ name: 'Edit', params: { poemID: result.id }});
@@ -510,7 +510,7 @@ export default {
                     // and save current state of poem to track future changes
                     if (result.ok) {
                         this.$buefy.toast.open({
-                            message: this.$translation.get('message.savechangessuccess'),
+                            message: this.$translation.get('message.poem.savechangessuccess'),
                             type: 'is-success'
                         });
                         this.startTracking();
@@ -519,12 +519,12 @@ export default {
         },
 
         showHelp() {
-            this.$buefy.dialog.alert(this.$translation.get('dialog.help'));
+            this.$buefy.dialog.alert(this.$translation.get('dialog.poem.help'));
         },
 
         confirmResetProgress() {
             this.$buefy.dialog.confirm({
-                ...this.$translation.get('dialog.resetprogress'),
+                ...this.$translation.get('dialog.poem.resetprogress'),
                 type: 'is-danger',
                 hasIcon: true,
                 onConfirm: this.resetProgress,
@@ -539,7 +539,7 @@ export default {
                     // If we've successfully reset progress, show a nice message and clear the slots
                     if (result.ok) {
                         this.$buefy.toast.open({
-                            message: this.$translation.get('message.resetsuccess'),
+                            message: this.$translation.get('message.poem.resetsuccess'),
                             type: 'is-danger'
                         });
                         this.setupProgress();

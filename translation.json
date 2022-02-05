@@ -19,17 +19,22 @@
         "find": "Find a Poem",
         "oncorrect": "onCorrect",
         "oncomplete": "onComplete",
-        "reset": "Reset",
-        "play": "Play",
-        "share": "Share",
-        "edit": "Edit",
-        "addstanzabreak": "Add Stanza Break",
-        "removestanzabreak": "Remove Stanza Break",
-        "movelineup": "Move Up",
-        "movelinedown": "Move Down",
-        "deleteline": "Delete Line",
-        "insertline": "Insert Line",
-        "savechanges": "Save Changes"
+        "poem": {
+            "reset": "Reset",
+            "play": "Play",
+            "share": "Share",
+            "edit": "Edit",
+            "save": "Save Poem",
+            "savechanges": "Save Changes"
+        },
+        "line": {
+            "addstanzabreak": "Add Stanza Break",
+            "removestanzabreak": "Remove Stanza Break",
+            "moveup": "Move Up",
+            "movedown": "Move Down",
+            "delete": "Delete Line",
+            "insert": "Insert Line"
+        }
     },
     "widget": {
         "resume": "Jump Back In",
@@ -45,14 +50,16 @@
         "categories": "Categories"
     },
     "dialog": {
-        "resetprogress": {
-            "title": "Reset Progress",
-            "message": "Are you sure you want to reset your progress? You will lose all your work on this poem, but you will get to play it again.",
-            "confirmText": "Reset"
-        },
-        "help": {
-            "title": "Help",
-            "message": "<p>Poems are made of lines</p><p>Lines are made of words</p>"
+        "poem": {
+            "resetprogress": {
+                "title": "Reset Progress",
+                "message": "Are you sure you want to reset your progress? You will lose all your work on this poem, but you will get to play it again.",
+                "confirmText": "Reset"
+            },
+            "help": {
+                "title": "Help",
+                "message": "<p>Poems are made of lines</p><p>Lines are made of words</p>"
+            }
         },
         "logout": {
             "title": "Logout",
@@ -64,16 +71,22 @@
         "loginfail": "Invalid username/password.",
         "registersuccess": "Successfully created account!",
         "registeruserexists": "A user with that email already exists.",
-        "resetsuccess": "Progress reset!",
-        "savechangessuccess": "Changes saved successfully!"
+        "poem": {
+            "resetsuccess": "Progress reset!",
+            "savesuccess": "Poem saved!",
+            "savechangessuccess": "Changes saved successfully!"
+        }
     },
     "reminders": {
         "playingasguest": "<p>You are playing as a guest, so your progress will not be saved.</p><p>Create an account to automatically save your progress!</p>",
         "editmode": "<p>Edit mode!</p><p>In edit mode, you can make changes to the poem and the answer key.</p><p>Make sure to submit your changes before exiting!</p>"
     },
     "placeholder": {
-        "search": {
-            "poem": "Search for title, author, etc..."
+        "poem": {
+            "search": "Search for title, author, etc...",
+            "title": "Enter title...",
+            "author": "Enter author...",
+            "text": "Enter line text..."
         },
         "categories": "Enter categories...", 
         "inprogress": "You haven't played any poems yet!",

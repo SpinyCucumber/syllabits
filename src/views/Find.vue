@@ -24,15 +24,15 @@ const PoemEntry = Vue.component('PoemEntry', {
         dropdownItems() {
             let dropdownItems = [
                 <b-dropdown-item onClick={this.play} class="has-text-primary">
-                    {TranslationService.get('button.play')}
+                    {TranslationService.get('button.poem.play')}
                 </b-dropdown-item>,
                 <b-dropdown-item onClick={this.share}>
-                    {TranslationService.get('button.share')}
+                    {TranslationService.get('button.poem.share')}
                 </b-dropdown-item>
             ];
             if (this.$store.getters.isAdmin) dropdownItems = [...dropdownItems, 
                 <b-dropdown-item onClick={this.edit}>
-                    {TranslationService.get('button.edit')}
+                    {TranslationService.get('button.poem.edit')}
                 </b-dropdown-item>
             ];
             return dropdownItems;
@@ -81,7 +81,7 @@ export default {
                     key: 'poems',
                     tableOptions: {
                         connectionOptions: { query: SearchPoems, update: data => data.poems },
-                        searchOptions: { placeholder: TranslationService.get('placeholder.search.poem') },
+                        searchOptions: { placeholder: TranslationService.get('placeholder.poem.search') },
                         orderByOptions: ['relevance', 'title', 'author'],
                         enableCategories: true,
                         entryComponent: PoemEntry,

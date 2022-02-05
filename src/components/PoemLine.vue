@@ -50,7 +50,7 @@
                 v-bind="action.options"
                 @click="action.apply(line)">
                 <b-icon :icon="action.icon" size="is-small"/>
-                {{ $translation.get('button.' + action.key) }}
+                {{ $translation.get('button.line.' + action.key) }}
             </b-dropdown-item>
         </b-dropdown>
 
