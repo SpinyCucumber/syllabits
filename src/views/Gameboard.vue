@@ -19,7 +19,7 @@
                 </game-dropdown>
             </div>
 
-            <div class="save-dropdown" v-if="mode === 'edit'">
+            <div class="save-dropdown" v-if="mode === 'edit' && poem">
                 <transition name="dropdown">
                     <b-button
                         v-if="!original"
@@ -438,20 +438,31 @@ export default {
             }
 
             else if (this.mode === 'edit') {
-                // Query full poem (including keys) from server
-                this.$apollo.query({ query: EditPoem, variables: { id: this.poemID }, fetchPolicy: 'network-only' })
-                    .then(result => result.data.node)
-                    .then(poem => {
-                        // We 'annotate' the poem for the tracking system,
-                        // then we start tracking changes
-                        poem._hint = 'Document';
-                        poem.lines._hint = 'DocumentList';
-                        for (let line of poem.lines) {
-                            line.key._atomic = true;
-                        }
-                        this.poem = poem;
-                        this.startTracking();
-                    });
+                // If poemID is specified, query full poem (including keys) from server
+                // If not, we create a "starter poem"
+                if (this.poemID) {
+                    this.$apollo.query({ query: EditPoem, variables: { id: this.poemID }, fetchPolicy: 'network-only' })
+                        .then(result => result.data.node)
+                        .then(poem => {
+                            // We 'annotate' the poem for the tracking system,
+                            // then we start tracking changes
+                            poem._hint = 'Document';
+                            poem.lines._hint = 'DocumentList';
+                            for (let line of poem.lines) {
+                                line.key._atomic = true;
+                            }
+                            this.poem = poem;
+                            this.startTracking();
+                        });
+                }
+                else {
+                    this.poem = {
+                        title: '',
+                        author: '',
+                        categories: [],
+                        lines: [{ id: nanoid(), order: 0, text: '', key: new Array(5).fill(''), stanzaBreak: false }],
+                    }
+                }
             }
 
         },
@@ -467,17 +478,21 @@ export default {
             this.$apollo.mutate({ mutation: CreatePoem, variables })
                 .then(result => result.data.createPoem)
                 .then(result => {
-                    // If poem was saved successfully, show message and start tracking changes
+                    // If poem was saved successfully, show message and reload view
                     if (result.ok) {
                         this.$buefy.toast.open({
                             message: this.$translation.get('message.savessuccess'),
                             type: 'is-success'
                         });
-                        this.startTracking();
+                        this.$router.push({ name: 'Edit', params: { poemID: result.id }});
                     }
                 });
         },
 
+        /**
+         * If the poem already exists on the server,
+         * updates the poem on the server by sending transforms
+         */
         saveChanges() {
             // Update poem on server
             let variables = { id: this.poem.id, transforms: this.transforms.map(JSON.stringify) };
