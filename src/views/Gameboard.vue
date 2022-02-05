@@ -73,14 +73,21 @@
                                     tag="h1"
                                     custom-class="title"
                                     label-key="title"
-                                    :control-options="{size: 'is-large', 'custom-class': 'has-text-centered'}"
+                                    :control-options="{
+                                        size: 'is-large',
+                                        'custom-class': 'has-text-centered',
+                                        placeholder: $translation.get('placeholder.poem.title'),
+                                    }"
                                     v-slot="{value}">
                                     {{ value }}
                                 </editable>
                                 <editable v-model="poem.author"
                                     custom-class="subtitle"
                                     label-key="author"
-                                    :control-options="{'custom-class': 'has-text-centered'}"
+                                    :control-options="{
+                                        'custom-class': 'has-text-centered',
+                                        placeholder: $translation.get('placeholder.poem.author'),
+                                    }"
                                     v-slot="{value}">
                                     {{ value }}
                                 </editable>

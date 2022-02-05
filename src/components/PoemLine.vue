@@ -18,7 +18,10 @@
             <editable v-model="line.text"
                 class="poem-text"
                 control-type="input-resizable"
-                :control-options="{size: 'is-large'}"
+                :control-options="{
+                    size: 'is-large',
+                    placeholder: $translation.get('placeholder.poem.text')
+                }"
                 v-slot="{value}">
                 {{ value }}
             </editable>
