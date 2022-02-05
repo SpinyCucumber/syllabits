@@ -480,8 +480,9 @@ export default {
          */
         save() {
             // Sanitize poem and send to server
-            let data = clone(this.poem, {metaFields: new Set('id'), sanitize: true});
+            let data = clone(this.poem, {metaFields: new Set(['id']), sanitize: true});
             let variables = { data: JSON.stringify(data) };
+            console.log(data);
             this.$apollo.mutate({ mutation: CreatePoem, variables })
                 .then(result => result.data.createPoem)
                 .then(result => {
