@@ -5,7 +5,7 @@ import jwt_decode from 'jwt-decode'
 import { apolloClient } from '@/apollo'
 import { Refresh } from '@/queries'
 
-const PREEMPT = 10000;
+const PREEMPT = 60000;
 
 let refreshTimeout = null;
 
@@ -48,15 +48,15 @@ const module = {
                     dispatch('loadIdentity', result);
                 });
         },
-        loadIdentity({commit, getters}, token) {
+        loadIdentity({commit, getters, dispatch}, token) {
             commit('setToken', token);
             // If token is valid, schedule token refresh
             // Make sure to cancel previously scheduled refresh if applicable
             if (token !== null) {
                 const delta = (getters.claims.exp * 1000) - Date.now() - PREEMPT;
                 if (refreshTimeout) clearTimeout(refreshTimeout);
-                // TODO
-                refreshTimeout = setTimeout(() => {}, delta);
+                let callback = function() { dispatch('refreshIdentity') };
+                refreshTimeout = setTimeout(callback, delta);
             }
         },
         clearIdentity({commit}) {
