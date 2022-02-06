@@ -22,7 +22,7 @@
             <div class="save-dropdown" v-if="mode === 'edit' && poem">
                 <transition name="dropdown">
                     <b-button
-                        v-if="!original"
+                        v-if="!saved"
                         type="is-primary"
                         size="is-large"
                         @click="save"
@@ -262,6 +262,7 @@ export default {
             poem: null, // Loaded poem. Contains line text, numbers, title, etc.
             progress: null, // Used to track user progress in play mode
             showComplete: false, // Whether the 'poem complete' dialog is being shown
+            saved: false, // Whether the poem actually exists on the server (only in edit mode)
             buttons: [
                 {
                     key: 'help',
@@ -284,7 +285,8 @@ export default {
                             new PoemLocation({t: LocationType.Direct, p: this.poem.id}).encode();
                         this.$router.push({ name: 'Play', params: { location: location }});
                     } },
-                    shouldShow: () => this.mode === 'edit'
+                    // Poem must exist on server/be saved in order to play
+                    shouldShow: () => this.mode === 'edit' && this.saved
                 },
                 {
                     key: 'reset',
@@ -405,7 +407,7 @@ export default {
         setupProgress() {
             this.progress = {
                 numCorrect: 0,
-                saved: false,
+                saved: false, // Whether the user progress exists on the server
                 lines: Object.fromEntries(this.poem.lines.map(({id, numFeet}) => ([
                     id,
                     {
@@ -459,14 +461,16 @@ export default {
                         .then(result => result.data.node)
                         .then(poem => {
                             // We 'annotate' the poem for the tracking system,
-                            // then we start tracking changes
+                            // then we 'make a snapshot' of the current poem state to compare
+                            // future changes to.
                             poem._hint = 'Document';
                             poem.lines._hint = 'DocumentList';
                             for (let line of poem.lines) {
                                 line.key._atomic = true;
                             }
                             this.poem = poem;
-                            this.startTracking();
+                            this.saved = true;
+                            this.makeSnapshot();
                         });
                 }
                 else {
@@ -513,13 +517,13 @@ export default {
                 .then(result => result.data.updatePoem)
                 .then(result => {
                     // If changes were accepted successfully, show a nice message
-                    // and save current state of poem to track future changes
+                    // and save current poem state
                     if (result.ok) {
                         this.$buefy.toast.open({
                             message: this.$translation.get('message.poem.savechangessuccess'),
                             type: 'is-success'
                         });
-                        this.startTracking();
+                        this.makeSnapshot();
                     }
                 });
         },

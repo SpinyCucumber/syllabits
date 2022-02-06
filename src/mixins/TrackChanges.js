@@ -143,7 +143,7 @@ export default function TrackChanges(args) {
              * Saves the current state of the property to track,
              * and compares any future changes to the property to the current state.
              */
-            startTracking() {
+            makeSnapshot() {
                 this.original = this[toTrack];
                 this[toTrack] = clone(this[toTrack], {metaFields});
             }
