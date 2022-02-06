@@ -146,13 +146,25 @@ import {
 } from '@/components'
 import { Constants, AssetService, ReminderService } from '@/services'
 import { TrackChanges } from '@/mixins'
-import { PoemLocation, clone } from '@/utilities'
-import { nanoid } from 'nanoid'
+import { PoemLocation } from '@/utilities'
+import ObjectID from 'bson-objectid'
 import store from '@/store'
 import useSound from 'vue-use-sound'
 import Vue from 'vue'
 
 const { LineState, LocationType } = Constants;
+
+/**
+ * Creates an empty line
+ */
+function makeLine() {
+    return {
+        id: ObjectID().toHexString(),
+        text: '',
+        key: new Array(5).fill(''),
+        stanzaBreak: false,
+    }
+}
 
 /**
  * A component that renders a "poem complete" dialog
@@ -321,13 +333,8 @@ export default {
                         // Create a new line below this one
                         // We have to generate a temporary ID
                         // TODO Could add support for customizable number of feet
-                        let newLine = {
-                            id: nanoid(),
-                            text: '',
-                            key: new Array(5).fill(''),
-                            order: line.order + 1,
-                            stanzaBreak: false,
-                        }
+                        let newLine = makeLine();
+                        newLine.order = line.order + 1,
                         newLine.key._atomic = true;
                         // Move all successive lines down
                         for (let successor of this.sortedLines.slice(line.order + 1)) {
@@ -446,7 +453,7 @@ export default {
 
             else if (this.mode === 'edit') {
                 // If poemID is specified, query full poem (including keys) from server
-                // If not, we create a "starter poem"
+                // If not, we create an empty "starter poem"
                 if (this.poemID) {
                     this.$apollo.query({ query: EditPoem, variables: { id: this.poemID }, fetchPolicy: 'network-only' })
                         .then(result => result.data.node)
@@ -467,7 +474,7 @@ export default {
                         title: '',
                         author: '',
                         categories: [],
-                        lines: [{ id: nanoid(), order: 0, text: '', key: new Array(5).fill(''), stanzaBreak: false }],
+                        lines: [{...makeLine(), order: 0}],
                     }
                 }
             }
@@ -479,10 +486,8 @@ export default {
          * creates a new poem on the server and initializes its data
          */
         save() {
-            // Sanitize poem and send to server
-            let data = clone(this.poem, {metaFields: new Set(['id']), sanitize: true});
-            let variables = { data: JSON.stringify(data) };
-            console.log(data);
+            // Serialize poem and send to server
+            let variables = { data: JSON.stringify(this.poem) };
             this.$apollo.mutate({ mutation: CreatePoem, variables })
                 .then(result => result.data.createPoem)
                 .then(result => {
