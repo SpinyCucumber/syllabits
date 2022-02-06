@@ -20,7 +20,7 @@
                     {{ $translation.get('navbar.' + link.key) }}
                   </b-navbar-item>
                 </transition-group>
-                <b-navbar-dropdown :label="$translation.get('navbar.admin')">
+                <b-navbar-dropdown v-if="$store.getters.isAdmin" :label="$translation.get('navbar.admin')">
                   <b-navbar-item tag="router-link" :to="{name: 'Edit'}">
                     <!-- Could include a "my poems" view in the future to better manage creating/editing poems -->
                     {{ $translation.get('navbar.edit') }}
