@@ -22,13 +22,13 @@
             <div class="save-dropdown" v-if="mode === 'edit' && poem">
                 <transition name="dropdown">
                     <b-button
-                        v-if="!saved"
+                        v-if="allowSave"
                         type="is-primary"
                         size="is-large"
                         @click="save"
                         :label="$translation.get('button.poem.save')"/>
                     <b-button
-                        v-else-if="transforms.length > 0"
+                        v-else-if="saved && transforms.length > 0"
                         type="is-primary"
                         size="is-large"
                         @click="saveChanges"
@@ -584,6 +584,9 @@ export default {
     computed: {
         classes() {
             return ['gameboard', 'is-mode-' + this.mode];
+        },
+        allowSave() {
+            return !this.saved && this.poem.title && this.poem.lines.length > 0;
         },
         allowEditing() {
             return this.mode === 'edit';
