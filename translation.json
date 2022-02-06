@@ -53,7 +53,7 @@
         "poem": {
             "resetprogress": {
                 "title": "Reset Progress",
-                "message": "Are you sure you want to reset your progress? You will lose all your work on this poem, but you will get to play it again.",
+                "message": "Are you sure you want to reset your progress? You will lose all your work on this poem!",
                 "confirmText": "Reset"
             },
             "help": {
@@ -79,7 +79,7 @@
     },
     "reminders": {
         "playingasguest": "<p>You are playing as a guest, so your progress will not be saved.</p><p>Create an account to automatically save your progress!</p>",
-        "editmode": "<p>Edit mode!</p><p>In edit mode, you can make changes to the poem and the answer key.</p><p>Make sure to submit your changes before exiting!</p>"
+        "editmode": "<p>Edit mode!</p><p>In edit mode, you can make changes to existing poems as well as create new poems.</p><p>Make sure to save your changes before exiting!</p>"
     },
     "placeholder": {
         "poem": {
