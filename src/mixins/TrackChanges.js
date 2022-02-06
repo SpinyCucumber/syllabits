@@ -1,7 +1,7 @@
 import deepEqual from 'deep-equal'
 import { clone } from '@/utilities'
 
-const metaFields = new Set(['id', '_hint', '_atomic']);
+const metaFields = new Set(['_hint', '_atomic']);
 
 /**
  * A context comparing objects
