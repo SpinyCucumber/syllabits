@@ -290,7 +290,7 @@ export default {
                 },
                 {
                     key: 'reset',
-                    options: { type: 'is-danger', 'icon-left': 'delete', },
+                    options: { type: 'is-danger', 'icon-left': 'restart', },
                     listeners: { click: this.confirmResetProgress, },
                     shouldShow: () => this.progress?.saved,
                 },
