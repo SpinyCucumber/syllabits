@@ -52,6 +52,12 @@
                 <b-icon :icon="action.icon" size="is-small"/>
                 {{ $translation.get('button.line.' + action.key) }}
             </b-dropdown-item>
+            <!-- Feet number input -->
+            <b-dropdown-item custom>
+                <b-field>
+                    <b-numberinput v-model="numFeet" min="0" expanded size="is-small"/>
+                </b-field>
+            </b-dropdown-item>
         </b-dropdown>
 
     </div>
@@ -150,6 +156,19 @@ export default {
                 return SlotMode.Slot;
             }
             return null;
+        },
+        // A property to control the number of feet in the key
+        numFeet: {
+            get() {
+                return this.holding.length;
+            },
+            set(value) {
+                // Prefer modifying in-place
+                while (this.holding.length < value)
+                    this.holding.push('');
+                while (this.holding.length > value)
+                    this.holding.pop();
+            },
         },
     },
 

@@ -333,8 +333,6 @@ export default {
                     options: { class: 'has-text-success' },
                     apply: (line) => {
                         // Create a new line below this one
-                        // We have to generate a temporary ID
-                        // TODO Could add support for customizable number of feet
                         let newLine = makeLine();
                         newLine.order = line.order + 1,
                         newLine.key._atomic = true;
