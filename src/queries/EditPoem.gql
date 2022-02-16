@@ -5,7 +5,9 @@ query($id: ID!) {
             title
             author
             location
-            categories
+            categories {
+                name
+            }
             lines {
                 id
                 order
