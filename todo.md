@@ -14,7 +14,7 @@
         - [x] Reset button
         - [x] Help Button
         - [x] Random poem -> next, previous poem
-    - [ ] IMPROVEMENT "Fun Fact" button in feedback area once line is complete
+    - [ ] IMPROVEMENT "Fun Fact" in feedback area once line is complete?
     - [x] Poem Complete! Dialog
     - [x] Resolve Dataset issues
     - [x] Line completion behavior?
@@ -37,7 +37,7 @@
 - [ ] Keep track of copyright usage (Luna)
 - [x] Poem collections?
 - [x] Find view
-    - Collections tab
+    - [ ] Collections tab
     - [x] Ability to search
 - [ ] Admin view:
     - [ ] Create, edit collections
@@ -45,13 +45,28 @@
 - [x] Message for guest players
     - Appears when playing poem for first time in session
 - [x] Push to server
-- [ ] Add Poem Interface
-    - [ ] Initial screen to upload text, enter author, title
+- [x] Add Poem Interface
+    - [x] Initial screen to upload text, enter author, title
         - Stanza information also comes from here?
-    - [ ] Will probably need custom input component to accodomate resizing
-    - [ ] Stanza break switch?
+    - [x] Will probably need custom input component to accodomate resizing
+    - [x] Stanza break switch?
     - [x] Field for title + author
     - [x] 5 feet, text box under?
 - [x] Edit button in the game interface as well
 - [ ] IMPROVEMENT Phase out vue-smooth-dnd... It is abysmal for performance 
 - [ ] Scratch pad?
+- [ ] User groups
+    - Owner
+        - Modify roles of others?
+    - Admin
+        - Add/edit poems (but not modify roles!)
+- [ ] About page
+    - FAQ?
+    - Include link in Navbar
+- [ ] Credits page?
+    - Include Folger stuff
+- [ ] Contact Page
+    - Dedicated Syllabits Email?
+- [ ] Tutorial
+    - Automatically presented to guests
+    - Also accessible through help popup in Gameboard
