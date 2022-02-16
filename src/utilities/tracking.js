@@ -31,7 +31,7 @@ class Handler {
  */
 class Document extends Handler {
 
-    constructor(fieldHandlers, options) {
+    constructor(fieldHandlers = {}, options) {
         super(options);
         this.fieldHandlers = fieldHandlers;
     }
