@@ -1,7 +1,7 @@
 import deepEqual from 'deep-equal'
 import { clone } from '@/utilities'
 
-const metaFields = new Set(['_hint', '_atomic']);
+const metaFields = new Set(['_hint', '_atomic', '_idField']);
 
 /**
  * A context comparing objects
@@ -83,7 +83,27 @@ const handlers = {
     },
 
     /**
+     * Finds changes between two 'reference lists', which are lists of documents
+     * that have a unique ID and persist outside of the referencing document.
+     */
+    ReferenceList: function*(newValue, oldValue, context) {
+        // Find ID field
+        let idField = oldValue._idField;
+        // Determine new IDs and removed IDs
+        let removed = new Set(oldValue.map(document => document[idField]));
+        let added = new Set();
+        for (const document of newValue) {
+            const id = document[idField];
+            if (removed.has(id)) removed.delete(id);
+            else added.add(id);
+        }
+        for (const id of removed) yield context.makeTransform('delete_ref', {id});
+        for (const id of added) yield context.makeTransform('create_ref', {id});
+    },
+
+    /**
      * Finds changes between two 'documents lists,' which are lists of composite values.
+     * Unlike a reference lists, the documents are actually embedded.
      * All documents in a document list must declare a field 'id'
      */
     DocumentList: function*(newValue, oldValue, context) {
