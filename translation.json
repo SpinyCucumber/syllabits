@@ -58,6 +58,11 @@
                 "message": "Are you sure you want to reset your progress? You will lose all your work on this poem!",
                 "confirmText": "Reset"
             },
+            "delete": {
+                "title": "Delete Poem",
+                "message": "Are you sure you want to delete this poem? It will be permanently lost!",
+                "confirmText": "Delete"
+            },
             "help": {
                 "title": "Help",
                 "message": "<p>Poems are made of lines</p><p>Lines are made of words</p>"
@@ -75,6 +80,7 @@
         "registeruserexists": "A user with that email already exists.",
         "poem": {
             "resetsuccess": "Progress reset!",
+            "deletesuccess": "Poem deleted!",
             "savesuccess": "Poem saved!",
             "savechangessuccess": "Changes saved successfully!"
         }

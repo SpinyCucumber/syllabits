@@ -135,7 +135,7 @@
 </template>
 
 <script>
-import { PlayPoem, EditPoem, UpdatePoem, CreatePoem, SubmitLine, ResetProgress } from '@/queries'
+import { PlayPoem, EditPoem, UpdatePoem, CreatePoem, DeletePoem, SubmitLine, ResetProgress } from '@/queries'
 import {
     BlockPicker,
     PoemLine,
@@ -301,6 +301,12 @@ export default {
                     listeners: { click: this.confirmResetProgress, },
                     shouldShow: () => this.progress?.saved,
                 },
+                {
+                    key: 'delete',
+                    options: { type: 'is-danger', 'icon-left': 'delete', },
+                    listeners: { click: this.confirmDelete, },
+                    shouldShow: () => this.mode === 'edit' && this.saved
+                }
             ],
             // A list of actions avaliable for each poem line in edit mode
             lineActions: [
@@ -534,7 +540,7 @@ export default {
                 type: 'is-danger',
                 hasIcon: true,
                 onConfirm: this.resetProgress,
-            })
+            });
         },
 
         resetProgress() {
@@ -549,6 +555,33 @@ export default {
                             type: 'is-danger'
                         });
                         this.setupProgress();
+                    }
+                })
+        },
+
+        /**
+         * Deletes a saved poem from the server!
+         */
+        confirmDelete() {
+            this.$buefy.dialog.confirm({
+                ...this.$translation.get('dialog.poem.delete'),
+                type: 'is-danger',
+                hasIcon: true,
+                onConfirm: this.delete,
+            });
+        },
+
+        delete() {
+            this.$apollo.mutate({ mutation: DeletePoem, variables: { id: this.poem.id } })
+                .then(result => result.data.deletePoem)
+                .then(result => {
+                    // If we've successfully reset progress, show a nice message and navigate backwards
+                    if (result.ok) {
+                        this.$buefy.toast.open({
+                            message: this.$translation.get('message.poem.deletesuccess'),
+                            type: 'is-danger'
+                        });
+                        this.$router.back();
                     }
                 })
         },
