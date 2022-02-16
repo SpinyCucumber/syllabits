@@ -1,3 +1,5 @@
+import deepEqual from "deep-equal";
+
 /**
  * A context comparing objects
  * Includes a 'path,' which refers to the part of the object being examined
@@ -30,8 +32,8 @@ class Handler {
 class Document extends Handler {
 
     constructor(fieldHandlers, options) {
-        this.fieldHandlers = fieldHandlers;
         super(options);
+        this.fieldHandlers = fieldHandlers;
     }
 
     *findTransforms(newValue, oldValue, context) {
@@ -90,8 +92,8 @@ class ReferenceList extends Handler {
 class DocumentList extends Handler {
 
     constructor(elemHandler, options) {
-        this.elemHandler = elemHandler;
         super(options);
+        this.elemHandler = elemHandler;
     }
 
     *findTransforms(newValue, oldValue, context) {
