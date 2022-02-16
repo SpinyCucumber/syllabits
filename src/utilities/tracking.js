@@ -63,18 +63,15 @@ class Document extends Handler {
 }
 
 /**
- * Finds changes between two 'reference lists', which are lists of documents
- * that have a unique ID and persist outside of the referencing document.
- * Must specify an 'idField' which determines which property uniquely identifies documents
+ * Finds changes between two 'reference lists', which are lists of IDs.
  */
 class ReferenceList extends Handler {
 
     *findTransforms(newValue, oldValue, context) {
         // Determine new IDs and removed IDs
-        let removed = new Set(oldValue.map(document => document[this.idField]));
+        let removed = new Set(oldValue);
         let added = new Set();
-        for (const document of newValue) {
-            const id = document[this.idField];
+        for (const id of newValue) {
             if (removed.has(id)) removed.delete(id);
             else added.add(id);
         }
