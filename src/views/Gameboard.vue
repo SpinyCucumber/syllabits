@@ -240,7 +240,7 @@ export default {
         TrackChanges({
             toTrack: 'poem',
             handler: new Document({
-                categories: new ReferenceList({ idField: 'name' }),
+                categories: new ReferenceList(),
                 lines: new DocumentList(new Document(), { idField: 'id' }),
             }),
             excludeFields: ['progress', '__typename', 'location']
