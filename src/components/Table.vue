@@ -93,6 +93,7 @@ export default {
          */
         this.$apollo.addSmartQuery('connection', {
             ...this.connectionOptions,
+            fetchPolicy: 'cache-and-network',
             variables() {
                 return {
                    first: this.currentPage * this.perPage,
