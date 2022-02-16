@@ -50,6 +50,7 @@ export default {
             this.hintsLoading = true;
             this.$apollo.query({
                 query: CategoryHints,
+                fetchPolicy: 'network-only',
                 variables: {
                     first: this.numHints,
                     name_Startswith: text.toLowerCase(),
@@ -58,7 +59,7 @@ export default {
             })
             .then(result => result.data.categories)
             .then(connection => {
-                this.categoryHints = connection.edges.map(edge => edge.node);
+                this.categoryHints = connection.edges.map(edge => edge.node.name);
                 this.hintsLoading = false;
             })
         },
