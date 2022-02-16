@@ -461,6 +461,13 @@ export default {
                             // We 'annotate' the poem for the tracking system,
                             // then we 'make a snapshot' of the current poem state to compare
                             // future changes to.
+                            // TODO Switch to schema-based system... Could implement each handler as a class
+                            // I.e. schema = Document({
+                            //     categories: ReferenceList({ idField: 'name' }),
+                            //     lines: DocumentList(Document({
+                            //         key: Atomic(),
+                            //     })),    
+                            // })
                             poem._hint = 'Document';
                             poem.lines._hint = 'DocumentList';
                             for (let line of poem.lines) {
