@@ -147,6 +147,7 @@ import {
 import { Constants, AssetService, ReminderService } from '@/services'
 import { TrackChanges } from '@/mixins'
 import { PoemLocation } from '@/utilities'
+import { Document, ReferenceList, DocumentList } from '@/utilities/tracking'
 import ObjectID from 'bson-objectid'
 import store from '@/store'
 import useSound from 'vue-use-sound'
@@ -236,6 +237,10 @@ export default {
         // In edit mode, we track the changes made to the poem by comparing to an original copy
         TrackChanges({
             toTrack: 'poem',
+            handler: new Document({
+                categories: new ReferenceList({ idField: 'name' }),
+                lines: new DocumentList(new Document(), { idField: 'id' }),
+            }),
             excludeFields: ['progress', '__typename', 'location']
         }),
     ],
@@ -458,21 +463,6 @@ export default {
                     this.$apollo.query({ query: EditPoem, variables: { id: this.poemID }, fetchPolicy: 'network-only' })
                         .then(result => result.data.node)
                         .then(poem => {
-                            // We 'annotate' the poem for the tracking system,
-                            // then we 'make a snapshot' of the current poem state to compare
-                            // future changes to.
-                            // TODO Switch to schema-based system... Could implement each handler as a class
-                            // I.e. schema = Document({
-                            //     categories: ReferenceList({ idField: 'name' }),
-                            //     lines: DocumentList(Document({
-                            //         key: Atomic(),
-                            //     })),    
-                            // })
-                            poem._hint = 'Document';
-                            poem.lines._hint = 'DocumentList';
-                            for (let line of poem.lines) {
-                                line.key._atomic = true;
-                            }
                             this.poem = poem;
                             this.saved = true;
                             this.makeSnapshot();
