@@ -20,7 +20,8 @@
                 control-type="input-resizable"
                 :control-options="{
                     size: 'is-large',
-                    placeholder: $translation.get('placeholder.poem.text')
+                    placeholder: $translation.get('placeholder.poem.text'),
+                    lazy: true,
                 }"
                 v-slot="{value}">
                 {{ value }}

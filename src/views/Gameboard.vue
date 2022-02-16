@@ -77,6 +77,7 @@
                                         size: 'is-large',
                                         'custom-class': 'has-text-centered',
                                         placeholder: $translation.get('placeholder.poem.title'),
+                                        lazy: true,
                                     }"
                                     v-slot="{value}">
                                     {{ value }}
@@ -87,6 +88,7 @@
                                     :control-options="{
                                         'custom-class': 'has-text-centered',
                                         placeholder: $translation.get('placeholder.poem.author'),
+                                        lazy: true,
                                     }"
                                     v-slot="{value}">
                                     {{ value }}
