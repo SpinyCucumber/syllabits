@@ -341,8 +341,7 @@ export default {
                     apply: (line) => {
                         // Create a new line below this one
                         let newLine = makeLine();
-                        newLine.order = line.order + 1,
-                        newLine.key._atomic = true;
+                        newLine.order = line.order + 1;
                         // Move all successive lines down
                         for (let successor of this.sortedLines.slice(line.order + 1)) {
                             successor.order += 1;
