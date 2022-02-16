@@ -4,6 +4,8 @@
         v-on="$listeners"
         icon="label"
         type="is-light"
+        field="name"
+        :create-tag="createCategory"
         autocomplete
         @typing="handleTyping"
         :data="filteredHints"
@@ -51,14 +53,17 @@ export default {
                 variables: {
                     first: this.numHints,
                     name_Startswith: text.toLowerCase(),
-                    name_Nin: this.value,
+                    name_Nin: this.value.map(category => category.name)
                 }
             })
             .then(result => result.data.categories)
             .then(connection => {
-                this.categoryHints = connection.edges.map(edge => edge.node.name);
+                this.categoryHints = connection.edges.map(edge => edge.node);
                 this.hintsLoading = false;
             })
+        },
+        createCategory(name) {
+            return { name };
         }
     },
 }
