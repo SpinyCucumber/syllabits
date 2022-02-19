@@ -149,7 +149,7 @@ import {
 import { Constants, AssetService, ReminderService } from '@/services'
 import { TrackChanges } from '@/mixins'
 import { PoemLocation } from '@/utilities'
-import { Document, ReferenceList, DocumentList } from '@/utilities/tracking'
+import { Document, List, DocumentList } from '@/utilities/tracking'
 import ObjectID from 'bson-objectid'
 import store from '@/store'
 import useSound from 'vue-use-sound'
@@ -240,7 +240,7 @@ export default {
         TrackChanges({
             toTrack: 'poem',
             handler: new Document({
-                categories: new ReferenceList(),
+                categories: new List(),
                 lines: new DocumentList(new Document(), { idField: 'id' }),
             }),
             excludeFields: ['progress', '__typename', 'location']

@@ -64,20 +64,20 @@ class Document extends Handler {
 }
 
 /**
- * Finds changes between two 'reference lists', which are lists of IDs.
+ * Finds changes between two lists of atomic values
  */
-class ReferenceList extends Handler {
+class List extends Handler {
 
     *findTransforms(newValue, oldValue, context) {
-        // Determine new IDs and removed IDs
+        // Determine new elements and removed elements
         let removed = new Set(oldValue);
         let added = new Set();
-        for (const id of newValue) {
-            if (removed.has(id)) removed.delete(id);
-            else added.add(id);
+        for (const elem of newValue) {
+            if (removed.has(elem)) removed.delete(elem);
+            else added.add(elem);
         }
-        for (const id of removed) yield context.makeTransform('delete_ref', {id});
-        for (const id of added) yield context.makeTransform('create_ref', {id});
+        for (const value of removed) yield context.makeTransform('remove', {value});
+        for (const value of added) yield context.makeTransform('add', {value});
     }
 
 }
@@ -122,4 +122,4 @@ class DocumentList extends Handler {
 
 }
 
-export { Context, Handler, Document, ReferenceList, DocumentList }
+export { Context, Handler, Document, List, DocumentList }
