@@ -512,6 +512,7 @@ input,
     transition: transform 1s ease;
 
     .inner {
+        align-self: stretch;
         padding: 1em;
     }
 
