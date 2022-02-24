@@ -257,7 +257,7 @@ export default {
 
     created() {
         // If user is not logged in (playing as guest), offer to play the tutorial
-        if (!store.getters.hasIdentity) {
+        if (!store.getters.hasIdentity && this.mode === 'play') {
             ReminderService.showDialog('playtutorial', {
                 onConfirm: () => { this.$router.push({name: 'Tutorial'}); }
             });
