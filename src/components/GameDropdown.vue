@@ -3,14 +3,12 @@
         <div class="inner">
             <slot/>
         </div>
-        <b-tooltip :active="false" position="is-right" ref="handleTooltip">
-            <b-button
-                icon-left="chevron-down"
-                class="borderless handle"
-                size="is-large"
-                v-if="hasHandle"
-                @click="open = !open"/>
-        </b-tooltip>
+        <b-button
+            icon-left="chevron-down"
+            class="borderless handle"
+            size="is-large"
+            v-if="hasHandle"
+            @click="open = !open"/>
     </div>
 </template>
 

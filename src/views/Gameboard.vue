@@ -5,7 +5,7 @@
         <template #static-area>
             <!-- Block picker "drawer" -->
             <div class="block-dropdown">
-                <game-dropdown :has-handle="true">
+                <game-dropdown :has-handle="true" ref="blockDropdown">
                     <block-picker/>
                 </game-dropdown>
             </div>
