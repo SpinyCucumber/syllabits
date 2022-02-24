@@ -151,6 +151,7 @@ import { TrackChanges } from '@/mixins'
 import { PoemLocation } from '@/utilities'
 import { Document, List, DocumentList } from '@/utilities/tracking'
 import ObjectID from 'bson-objectid'
+import TutorialPoem from '/tutorial-poem'
 import store from '@/store'
 import useSound from 'vue-use-sound'
 import Vue from 'vue'
@@ -497,7 +498,8 @@ export default {
             }
 
             else if (this.mode === 'tutorial') {
-                // TODO Load tutorial poem
+                this.poem = TutorialPoem;
+                this.setupProgress();
             }
 
         },
