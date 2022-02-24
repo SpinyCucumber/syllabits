@@ -31,7 +31,6 @@
     - [ ] Progress bar head
     - [ ] Poem completion dialog art
 - [x] Buefy color scheme changes
-- [ ] Help page (Tutorial?)
 - [x] Sonnet 20 .-.
     - [x] Modify script to show problem poems
 - [ ] Keep track of copyright usage (Luna)
@@ -67,6 +66,7 @@
     - Include Folger stuff
 - [ ] Contact Page
     - Dedicated Syllabits Email?
-- [ ] Tutorial
-    - Automatically presented to guests
-    - Also accessible through help popup in Gameboard
+- [ ] Tutorial (WIP)
+    - [x] Automatically presented to guests
+    - [ ] Also accessible through help popup in Gameboard
+- [ ] Fix '/' route redirect
