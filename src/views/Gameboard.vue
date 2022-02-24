@@ -95,7 +95,7 @@
                                 </editable>
                             </div>
 
-                            <img v-if="mode === 'play'" :src="$assets.getIcon('divider')" class="divider"/>
+                            <img v-if="mode !== 'edit'" :src="$assets.getIcon('divider')" class="divider"/>
 
                             <!-- Include category input in edit mode -->
                             <b-field class="poem-categories" v-if="mode === 'edit'">
@@ -230,7 +230,7 @@ export default {
     },
 
     props: {
-        mode: { default: 'play' }, // Valid values are 'play' or 'edit'
+        mode: { default: 'play' }, // Valid values are 'play', 'edit', or 'tutorial'
         location: { type: String }, // Used for play mode. Determines play "context"
         poemID: { type: String }, // Used for edit mode
     },
@@ -377,20 +377,24 @@ export default {
          * Properties bound to each poem line
          */
         lineBindings(line) {
+            // These properties are bounds to lines regardless of gameboard mode
             let bindings = ({
                 line,
-                mode: this.mode,
+                mode: (this.mode === 'edit') ? 'edit' : 'play',
             });
-            // Some bindings are only applicable in play mode
-            if (this.mode === 'play') bindings = {
-                ...bindings,
-                checkHandler: (holding) => this.checkLine(line.id, holding),
-                progress: this.progress.lines[line.id],
-            }
             // If edit mode is enabled, we bind line actions
-            else if (this.mode === 'edit') bindings = {
+            // Otherwise, bind line progress and check handler
+            // Tutorial mode and play mode use different line check handlers
+            if (this.mode === 'edit') bindings = {
                 ...bindings,
                 actions: this.lineActions.filter((action) => action.shouldShow ? action.shouldShow(line) : true)
+            }
+            else bindings = {
+                ...bindings,
+                progress: this.progress.lines[line.id],
+                checkHandler: (this.mode === 'play') ?
+                    (holding) => this.checkLine(line.id, holding) :
+                    (holding) => this.checkTutorialLine(line.id, holding),
             }
             return bindings;
         },
@@ -483,6 +487,10 @@ export default {
                         lines: [{...makeLine(), order: 0}],
                     }
                 }
+            }
+
+            else if (this.mode === 'tutorial') {
+                // TODO Load tutorial poem
             }
 
         },
