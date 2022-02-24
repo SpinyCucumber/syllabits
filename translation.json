@@ -86,8 +86,17 @@
         }
     },
     "reminders": {
-        "playingasguest": "<p>You are playing as a guest, so your progress will not be saved.</p><p>Create an account to automatically save your progress!</p>",
-        "editmode": "<p>Edit mode!</p><p>In edit mode, you can make changes to existing poems as well as create new poems.</p><p>Make sure to save your changes before exiting!</p>"
+        "playingasguest": {
+            "message": "<p>You are playing as a guest, so your progress will not be saved.</p><p>Create an account to automatically save your progress!</p>"
+        },
+        "editmode": {
+            "message": "<p>Edit mode!</p><p>In edit mode, you can make changes to existing poems as well as create new poems.</p><p>Make sure to save your changes before exiting!</p>"
+        },
+        "playtutorial": {
+            "title": "Try out the tutorial!",
+            "message": "You should do it.",
+            "cancelText": "I'm good"
+        }
     },
     "placeholder": {
         "poem": {

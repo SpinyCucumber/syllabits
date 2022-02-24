@@ -1,6 +1,6 @@
 import Service from './Service'
 import TranslationService from './TranslationService'
-import { ToastProgrammatic as Toast } from 'buefy'
+import { ToastProgrammatic as Toast, DialogProgrammatic as Dialog } from 'buefy'
 
 const toastOptions = {
     type: 'is-info',
@@ -9,19 +9,27 @@ const toastOptions = {
 
 let shown = new Set();
 
-function display(key) {
-    Toast.open({
-        message: TranslationService.get('reminders.' + key),
-        ...toastOptions,
-    });
-}
-
 export default new Service({
     name: 'reminders',
-    show(key) {
-        if (!shown.has(key)) {
-            display(key);
-            shown.add(key);
-        }
-    }
+
+    showMessage(key) {
+        if (shown.has(key)) return false;
+        Toast.open({
+            ...TranslationService.get('reminders.' + key),
+            ...toastOptions,
+        });
+        shown.add(key);
+        return true;
+    },
+
+    showDialog(key, options) {
+        if (shown.has(key)) return false;
+        Dialog.confirm({
+            ...TranslationService.get('reminders.' + key),
+            ...options,
+        })
+        shown.add(key);
+        return true;
+    },
+
 })

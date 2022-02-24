@@ -256,10 +256,14 @@ export default {
     },
 
     created() {
-        // If user is not logged in (playing as guest), we send them a polite reminder
-        if (!store.getters.hasIdentity) ReminderService.show('playingasguest');
+        // If user is not logged in (playing as guest), offer to play the tutorial
+        if (!store.getters.hasIdentity) {
+            ReminderService.showDialog('playtutorial', {
+                onConfirm: () => { this.$router.push({name: 'Tutorial'}); }
+            });
+        }
         // We also send a quick message if edit mode is enabled
-        if (this.mode === 'edit') ReminderService.show('editmode');
+        if (this.mode === 'edit') ReminderService.showMessage('editmode');
         // Setup!
         this.setup();
     },
@@ -410,7 +414,9 @@ export default {
                 .then(result => {
                     // If the user is logged in, then we can assume that data on the server has changed.
                     // Set saved so we can show reset button, etc.
+                    // Otherwise show a reminder that progress isn't being saved...
                     if (store.getters.hasIdentity) this.progress.saved = true;
+                    else ReminderService.showMessage('playingasguest');
                     return result;
                 });
         },
