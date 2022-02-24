@@ -279,6 +279,7 @@ export default {
                     key: 'help',
                     options: { type: 'is-primary', 'icon-left': 'help', },
                     listeners: { click: this.showHelp, },
+                    shouldShow: () => this.mode !== 'tutorial',
                 },
                 {
                     key: 'edit',
