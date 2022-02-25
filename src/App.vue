@@ -1,7 +1,7 @@
 <template>
   <div class="app" :style="rootStyle">
     <transition name="fade" mode="out-in">
-      <div v-if="$store.getters.determined" class="full-height" key="determined">
+      <div v-if="$store.state.identity.ready" class="full-height" key="determined">
         <transition name="fade">
 
           <router-view v-if="$route.meta.transitory" :key="$route.fullPath" class="app-view"/>

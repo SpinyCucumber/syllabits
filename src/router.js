@@ -10,6 +10,8 @@ import { apolloClient } from '@/apollo'
 const { LocationType } = Constants;
 const { isNavigationFailure, NavigationFailureType } = VueRouter
 
+let init = null;
+
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -17,12 +19,8 @@ routes: [
   {
     path: '/',
     name: 'Root',
-    redirect() {
-      // If user is logged in, we redirect them to the dashboard. Otherwise the splash view.
-      if (store.getters.hasIdentity) {
-        return { name: 'Dashboard' };
-      }
-      return { name: 'Splash' };
+    beforeEnter(to, from, next) {
+      next(store.getters.hasIdentity ? { name: 'Dashboard' } : { name: 'Splash' });
     },
   },
   {
@@ -86,6 +84,11 @@ routes: [
     component: Find,
   },
 ]});
+
+router.beforeEach((to, from, next) => {
+  if (!init) init = store.dispatch('init');
+  init.then(next);
+});
 
 // Modify the router push method to not throw errors when it is working as intended :(
 // This should be fixed in the next version of vue-router

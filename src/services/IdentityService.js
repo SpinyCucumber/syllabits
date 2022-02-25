@@ -17,11 +17,15 @@ const module = {
             // Can be null, which means user is not logged in/no identity
             // Can be an actual access token which corresponds to a user account (has an identity)
             token: undefined,
+            ready: false,
         }
     },
     mutations: {
         setToken(state, token) {
             state.token = token;
+        },
+        setReady(state, ready) {
+            state.ready = ready;
         },
     },
     getters: {
@@ -29,10 +33,7 @@ const module = {
             if (state.token) return jwt_decode(state.token);
         },
         hasIdentity(state) {
-            return state.token !== null;
-        },
-        determined(state) {
-            return state.token !== undefined;
+            return state.token !== null && state.token !== undefined;
         },
         isAdmin(state, getters) {
             return getters.claims?.is_admin;
@@ -42,11 +43,9 @@ const module = {
         // Attempts to obtain a new access token by querying the server.
         // If our cookies contain an unexpired refresh token, this should succeed
         refreshIdentity({dispatch}) {
-            apolloClient.mutate({ mutation: Refresh })
+            return apolloClient.mutate({ mutation: Refresh })
                 .then(result => result.data.refresh)
-                .then(({result}) => {
-                    dispatch('loadIdentity', result);
-                });
+                .then(({result}) => dispatch('loadIdentity', result));
         },
         loadIdentity({commit, getters, dispatch}, token) {
             commit('setToken', token);
@@ -64,6 +63,12 @@ const module = {
             // Cancel refresh if applicable
             if (refreshTimeout) clearTimeout(refreshTimeout);
         },
+        init({commit, dispatch}) {
+            return Promise.all([
+                dispatch('refreshIdentity')
+            ])
+            .then(() => { commit('setReady', true); })
+        },
     }
 }
 
@@ -77,8 +82,6 @@ class IdentityService extends Service {
         super.install(vue);
         // Must pass store as option
         store.registerModule('identity', module);
-        // Grab an initial access token
-        store.dispatch('refreshIdentity');
     }
 
 }
