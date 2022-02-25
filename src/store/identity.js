@@ -1,6 +1,3 @@
-// Handles tracking user identity.
-// This handling JWTs as well as things like admin status.
-import Service from './Service'
 import jwt_decode from 'jwt-decode'
 import { apolloClient } from '@/apollo'
 import { Refresh } from '@/queries'
@@ -9,7 +6,7 @@ const PREEMPT = 60000;
 
 let refreshTimeout = null;
 
-const module = {
+export default {
     state() {
         return {
             // Token has three possible values, each of which correspond to a different state
@@ -17,15 +14,11 @@ const module = {
             // Can be null, which means user is not logged in/no identity
             // Can be an actual access token which corresponds to a user account (has an identity)
             token: undefined,
-            ready: false,
         }
     },
     mutations: {
         setToken(state, token) {
             state.token = token;
-        },
-        setReady(state, ready) {
-            state.ready = ready;
         },
     },
     getters: {
@@ -33,7 +26,7 @@ const module = {
             if (state.token) return jwt_decode(state.token);
         },
         hasIdentity(state) {
-            return state.token !== null && state.token !== undefined;
+            return Boolean(state.token);
         },
         isAdmin(state, getters) {
             return getters.claims?.is_admin;
@@ -63,27 +56,5 @@ const module = {
             // Cancel refresh if applicable
             if (refreshTimeout) clearTimeout(refreshTimeout);
         },
-        init({commit, dispatch}) {
-            return Promise.all([
-                dispatch('refreshIdentity')
-            ])
-            .then(() => { commit('setReady', true); })
-        },
     }
 }
-
-class IdentityService extends Service {
-
-    constructor() {
-        super({name: 'identity'});
-    }
-
-    install(vue, {store}) {
-        super.install(vue);
-        // Must pass store as option
-        store.registerModule('identity', module);
-    }
-
-}
-
-export default new IdentityService();

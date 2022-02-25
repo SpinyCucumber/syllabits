@@ -1,72 +1,67 @@
 <template>
   <div class="app" :style="rootStyle">
-    <transition name="fade" mode="out-in">
-      <div v-if="$store.state.identity.ready" class="full-height" key="determined">
-        <transition name="fade">
+    <transition name="fade-long" mode="out-in">
+      <div v-if="$store.getters.ready" class="full-height app-content">
 
-          <router-view v-if="$route.meta.transitory" :key="$route.fullPath" class="app-view"/>
+        <b-navbar v-if="!$route.meta.transitory">
 
-          <div v-else class="app-view nav-view">
-            <b-navbar>
+          <!-- Items rendered at beginning of navbar -->
+          <template #start>
+            <transition-group name="list" tag="div" class="is-flex">
+              <b-navbar-item
+                v-for="link in allLinks"
+                tag="router-link"
+                :key="link.key"
+                :to="link.to">
+                {{ $translation.get('navbar.' + link.key) }}
+              </b-navbar-item>
+            </transition-group>
+            <b-navbar-dropdown v-if="$store.getters.isAdmin" :label="$translation.get('navbar.admin')">
+              <b-navbar-item tag="router-link" :to="{name: 'Edit'}">
+                <!-- Could include a "my poems" view in the future to better manage creating/editing poems -->
+                {{ $translation.get('navbar.edit') }}
+              </b-navbar-item>
+            </b-navbar-dropdown>
+          </template>
 
-              <!-- Items rendered at beginning of navbar -->
-              <template #start>
-                <transition-group name="list" tag="div" class="is-flex">
-                  <b-navbar-item
-                    v-for="link in allLinks"
-                    tag="router-link"
-                    :key="link.key"
-                    :to="link.to">
-                    {{ $translation.get('navbar.' + link.key) }}
-                  </b-navbar-item>
-                </transition-group>
-                <b-navbar-dropdown v-if="$store.getters.isAdmin" :label="$translation.get('navbar.admin')">
-                  <b-navbar-item tag="router-link" :to="{name: 'Edit'}">
-                    <!-- Could include a "my poems" view in the future to better manage creating/editing poems -->
-                    {{ $translation.get('navbar.edit') }}
-                  </b-navbar-item>
-                </b-navbar-dropdown>
-              </template>
+          <template #end>
+            <b-navbar-dropdown arrowless right boxed
+              v-if="$store.getters.hasIdentity">
+              <template #label><b-icon icon="account"/></template>
+              <b-navbar-item tag="div">
+                <div class="submenu is-centered">
+                  <b-icon icon="account-circle" size="is-large"/>
+                  <p class="subtitle">{{ $store.getters.claims.email }}</p>
+                  <b-button type="is-danger" :label="$translation.get('button.logout')" @click="confirmLogout"/>
+                </div>
+              </b-navbar-item>
+            </b-navbar-dropdown>
+            <b-navbar-dropdown arrowless right boxed>
+              <template #label><b-icon icon="cog"/></template>
+              <b-navbar-item tag="div">
+                <settings/>
+              </b-navbar-item>
+            </b-navbar-dropdown>
+          </template>
 
-              <template #end>
-                <b-navbar-dropdown arrowless right boxed
-                  v-if="$store.getters.hasIdentity">
-                  <template #label><b-icon icon="account"/></template>
-                  <b-navbar-item tag="div">
-                    <div class="submenu is-centered">
-                      <b-icon icon="account-circle" size="is-large"/>
-                      <p class="subtitle">{{ $store.getters.claims.email }}</p>
-                      <b-button type="is-danger" :label="$translation.get('button.logout')" @click="confirmLogout"/>
-                    </div>
-                  </b-navbar-item>
-                </b-navbar-dropdown>
-                <b-navbar-dropdown arrowless right boxed>
-                  <template #label><b-icon icon="cog"/></template>
-                  <b-navbar-item tag="div">
-                    <settings/>
-                  </b-navbar-item>
-                </b-navbar-dropdown>
-              </template>
+          <template #brand>
+            <b-navbar-item tag="router-link" :to="{ name: $store.getters.hasIdentity ? 'Dashboard' : 'Splash' }">
+              <img :src="$assets.getTexture('logo')"/>
+            </b-navbar-item>
+          </template>
 
-              <template #brand>
-                <b-navbar-item tag="router-link" :to="{ name: $store.getters.hasIdentity ? 'Dashboard' : 'Splash' }">
-                  <img :src="$assets.getTexture('logo')"/>
-                </b-navbar-item>
-              </template>
+        </b-navbar>
 
-            </b-navbar>
-            <div class="inner">
-              <transition name="fade">
-                <!-- Reusing components introduces all kinds of logic headaches that are
-                  simpler just to... avoid. We avoid this by binding the key to the route path -->
-                <router-view
-                  :additionalLinks.sync="additionalLinks"
-                  :key="$route.fullPath"/>
-              </transition>
-            </div>
-          </div>
-          
-        </transition>
+        <div class="inner">
+          <transition name="fade">
+            <!-- Reusing components introduces all kinds of logic headaches that are
+              simpler just to... avoid. We avoid this by binding the key to the route path -->
+            <router-view
+              :additionalLinks.sync="additionalLinks"
+              :key="$route.fullPath"/>
+          </transition>
+        </div>
+
       </div>
       <div v-else class="loading-overlay is-full-page is-active">
         <div class="loading-icon"/>
