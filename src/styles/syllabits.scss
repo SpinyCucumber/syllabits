@@ -247,8 +247,7 @@ body {
 
 .app {
     @extend .full-height;
-    position: relative;
-    .nav-view {
+    .app-content {
         display: flex;
         flex-direction: column;
         &>.inner {

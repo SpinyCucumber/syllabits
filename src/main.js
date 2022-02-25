@@ -5,7 +5,7 @@ import router from './router'
 import Buefy from 'buefy'
 
 import { apolloProvider } from './apollo'
-import { Constants, IdentityService, AssetService, TranslationService, ReminderService } from './services'
+import { Constants, AssetService, TranslationService, ReminderService } from './services'
 
 import './styles/syllabits.scss'
 
@@ -13,7 +13,6 @@ import './styles/syllabits.scss'
 // Buefy bundle size is actually small
 Vue.use(Buefy);
 Vue.use(Constants);
-Vue.use(IdentityService, {store});
 Vue.use(AssetService);
 Vue.use(TranslationService);
 Vue.use(ReminderService);
