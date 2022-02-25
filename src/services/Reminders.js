@@ -1,5 +1,5 @@
 import Service from './Service'
-import TranslationService from './TranslationService'
+import Translation from './Translation'
 import { ToastProgrammatic, DialogProgrammatic } from 'buefy'
 
 const toastOptions = {
@@ -15,7 +15,7 @@ export default new Service({
     showMessage(key) {
         if (shown.has(key)) return false;
         ToastProgrammatic.open({
-            ...TranslationService.get('reminders.' + key),
+            ...Translation.get('reminders.' + key),
             ...toastOptions,
         });
         shown.add(key);
@@ -25,7 +25,7 @@ export default new Service({
     showDialog(key, options) {
         if (shown.has(key)) return false;
         DialogProgrammatic.confirm({
-            ...TranslationService.get('reminders.' + key),
+            ...Translation.get('reminders.' + key),
             ...options,
         })
         shown.add(key);

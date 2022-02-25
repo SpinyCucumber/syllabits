@@ -42,7 +42,7 @@
 
 <script>
 import { Scene, Carousel, PoemLine } from '@/components'
-import { AssetService, Constants } from '@/services'
+import { Assets, Constants } from '@/services'
 import Vue from 'vue'
 
 const { LineState } = Constants
@@ -51,7 +51,7 @@ export default {
     components: { Scene, Carousel, PoemLine },
     data() {
         return {
-            images: ['paper1', 'paper2', 'paper3', 'paper4'].map(AssetService.getTexture),
+            images: ['paper1', 'paper2', 'paper3', 'paper4'].map(Assets.getTexture),
             buttons: [
                 { key: "jumpin", to: { name: "RandomPoem" } },
                 { key: "login", to: { name: "Login" } },

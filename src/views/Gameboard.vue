@@ -149,7 +149,7 @@ import {
     BackgroundImage,
     CategoryInput,
 } from '@/components'
-import { Constants, AssetService, ReminderService } from '@/services'
+import { Constants, Assets, Reminders } from '@/services'
 import { TrackChanges } from '@/mixins'
 import { PoemLocation } from '@/utilities'
 import { Document, List, DocumentList } from '@/utilities/tracking'
@@ -256,21 +256,21 @@ export default {
 
     setup() {
         // Load sounds
-        const [ correct ] = useSound(AssetService.getSound('Correct'));
-        const [ incorrect ] = useSound(AssetService.getSound('Incorrect'));
-        const [ complete ] = useSound(AssetService.getSound('Complete'));
+        const [ correct ] = useSound(Assets.getSound('Correct'));
+        const [ incorrect ] = useSound(Assets.getSound('Incorrect'));
+        const [ complete ] = useSound(Assets.getSound('Complete'));
         return { sounds: { correct, incorrect, complete } };
     },
 
     created() {
         // If user is not logged in (playing as guest), offer to play the tutorial
         if (!store.getters.hasIdentity && this.mode === 'play') {
-            ReminderService.showDialog('playtutorial', {
+            Reminders.showDialog('playtutorial', {
                 onConfirm: () => { this.$router.push({name: 'Tutorial'}); }
             });
         }
         // We also send a quick message if edit mode is enabled
-        if (this.mode === 'edit') ReminderService.showMessage('editmode');
+        if (this.mode === 'edit') Reminders.showMessage('editmode');
         // Setup!
         this.setup();
     },
@@ -426,7 +426,7 @@ export default {
                     // Set saved so we can show reset button, etc.
                     // Otherwise show a reminder that progress isn't being saved...
                     if (store.getters.hasIdentity) this.progress.saved = true;
-                    else ReminderService.showMessage('playingasguest');
+                    else Reminders.showMessage('playingasguest');
                     return result;
                 });
         },

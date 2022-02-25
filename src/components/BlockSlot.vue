@@ -37,7 +37,7 @@ import Block from './Block'
 import { Animatable } from '@/mixins'
 import { Draggable, Container } from 'vue-smooth-dnd'
 import useSound from 'vue-use-sound'
-import { Constants, AssetService } from '@/services'
+import { Constants, Assets } from '@/services'
 
 const { SlotMode } = Constants;
 
@@ -65,7 +65,7 @@ export default {
 
     setup() {
         // Load sounds
-        const [ drop ] = useSound(AssetService.getSound('BlockDrop'));
+        const [ drop ] = useSound(Assets.getSound('BlockDrop'));
         return { sounds: { drop } };
     },
 

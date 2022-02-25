@@ -10,8 +10,6 @@
 </template>
 
 <script>
-import { TranslationService } from '@/services'
-
 export default 
 {
     name: 'Feedback',
@@ -39,8 +37,7 @@ export default
         },
         display() {
             // Construct translation key using feedback type name
-            const key = `play.feedback.${this.showing.name}`;
-            return TranslationService.get(key);
+            return this.$translation.get(`play.feedback.${this.showing.name}`);
         },
     }
 }
