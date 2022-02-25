@@ -247,21 +247,18 @@ body {
 
 .app {
     @extend .full-height;
+    position: relative;
     .app-content {
-        display: flex;
-        flex-direction: column;
-        &>.inner {
-            flex-grow: 1;
-            position: relative;
-            &>* {
-                position: absolute;
-                top: 0; left: 0; bottom: 0; right: 0;
-            }
-        }
-    }
-    .app-view {
         position: absolute;
         top: 0; left: 0; bottom: 0; right: 0;
+    }
+}
+
+.navbar-view {
+    display: flex;
+    flex-direction: column;
+    .navbar-view-content {
+        flex-grow: 1;
     }
 }
 
