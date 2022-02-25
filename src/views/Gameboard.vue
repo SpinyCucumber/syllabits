@@ -1,5 +1,5 @@
 <template>
-    <navbar-view>
+    <navbar-view :extra-links="extraLinks">
 
         <scene class="navbar-view-content" type="is-aligned has-scroll">
 
@@ -281,6 +281,8 @@ export default {
             progress: null, // Used to track user progress in play mode
             showComplete: false, // Whether the 'poem complete' dialog is being shown
             saved: false, // Whether the poem actually exists on the server (only in edit mode)
+            nextPoem: null, // For each 'play context', the server can specify a next and previous poem. (only in play mode)
+            previousPoem: null,
             buttons: [
                 {
                     key: 'help',
@@ -460,6 +462,8 @@ export default {
                     .then(({poem, next, previous}) => {
                         // Set poem and initialize progress data
                         this.poem = poem;
+                        this.next = next;
+                        this.previous = previous;
                         this.setupProgress();
                         // Update progress from server if applicable
                         const { progress } = poem;
@@ -473,11 +477,6 @@ export default {
                                 localLine.state = value.correct ? LineState.Correct : LineState.Incorrect;
                             });
                         }
-                        // Update navigation links
-                        let links = [];
-                        if (next) links.push({key: 'next', to: {name: 'Play', params: {location: next}}})
-                        if (previous) links.push({key: 'previous', to: {name: 'Play', params: {location: previous}}})
-                        this.$emit('update:additionalLinks', links);
                     });
             }
 
@@ -657,6 +656,12 @@ export default {
         sortedLines() {
             // Must copy array as Array.sort is in-place
             return [...this.poem.lines].sort((a, b) => a.order - b.order);
+        },
+        extraLinks() {
+            let links = [];
+            if (this.nextPoem) links.push({ key: 'nextpoem', to: { name: 'Play', params: { location: this.nextPoem } } });
+            if (this.previousPoem) links.push({ key: 'previouspoem', to: { name: 'Play', params: { location: this.previousPoem } } });
+            return links;
         },
     },
 
