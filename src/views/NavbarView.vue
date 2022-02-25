@@ -59,9 +59,18 @@
 </template>
 
 <script>
+import { Settings } from '@/components'
+
+/**
+ * An abstract view that displays a navbar at the top of the page
+ */
 export default {
 
     components: { Settings },
+
+    props: {
+        extraLinks: [],
+    },
 
     data() {
         return {
@@ -69,7 +78,6 @@ export default {
                 { to: { name: 'Find' }, key: 'find' },
                 { to: { name: 'RandomPoem' }, key: 'randompoem' },
             ],
-            extraLinks: [],
         }
     },
 
