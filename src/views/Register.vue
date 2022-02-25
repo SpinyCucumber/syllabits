@@ -1,7 +1,7 @@
 <template>
     <scene type="is-aligned is-centered">
         <template #content-area>
-            <div class="register-view">
+            <div class="register-menu">
                 <!-- TODO Could change logo here (or background) to something more exciting -->
                 <img :src="$assets.getTexture('logo')" class="logo"/>
                 <form @submit.prevent="submit">
