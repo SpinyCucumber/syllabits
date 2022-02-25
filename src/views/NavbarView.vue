@@ -7,17 +7,17 @@
             <template #start>
                 <transition-group name="list" tag="div" class="is-flex">
                     <b-navbar-item
-                    v-for="link in allLinks"
-                    tag="router-link"
-                    :key="link.key"
-                    :to="link.to">
-                    {{ $translation.get('navbar.' + link.key) }}
+                        v-for="link in allLinks"
+                        tag="router-link"
+                        :key="link.key"
+                        :to="link.to">
+                        {{ $translation.get('navbar.' + link.key) }}
                     </b-navbar-item>
                 </transition-group>
                 <b-navbar-dropdown v-if="$store.getters.isAdmin" :label="$translation.get('navbar.admin')">
                     <b-navbar-item tag="router-link" :to="{name: 'Edit'}">
-                    <!-- Could include a "my poems" view in the future to better manage creating/editing poems -->
-                    {{ $translation.get('navbar.edit') }}
+                        <!-- Could include a "my poems" view in the future to better manage creating/editing poems -->
+                        {{ $translation.get('navbar.edit') }}
                     </b-navbar-item>
                 </b-navbar-dropdown>
             </template>
@@ -60,6 +60,7 @@
 
 <script>
 import { Settings } from '@/components'
+import { Logout } from '@/queries'
 
 /**
  * An abstract view that displays a navbar at the top of the page
@@ -69,7 +70,7 @@ export default {
     components: { Settings },
 
     props: {
-        extraLinks: [],
+        extraLinks: { default: () => [] },
     },
 
     data() {
@@ -83,7 +84,7 @@ export default {
 
     computed: {
         allLinks() {
-            return this.baseLinks.concat(this.additionalLinks);
+            return this.baseLinks.concat(this.extraLinks);
         },
     },
 
