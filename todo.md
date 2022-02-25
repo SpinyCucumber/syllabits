@@ -69,4 +69,4 @@
 - [ ] Tutorial (WIP)
     - [x] Automatically presented to guests
     - [ ] Also accessible through help popup in Gameboard
-- [ ] Fix '/' route redirect
+- [x] Fix '/' route redirect
