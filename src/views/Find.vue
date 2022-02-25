@@ -1,12 +1,14 @@
 <template>
-    <b-tabs class="find-view">
-        <b-tab-item
-            v-for="tab in tabs"
-            :key="tab.key"
-            :label="$translation.get('tab.' + tab.key)">
-            <Table v-bind="tab.tableOptions"/>
-        </b-tab-item>
-    </b-tabs>
+    <navbar-view>
+        <b-tabs class="find-view">
+            <b-tab-item
+                v-for="tab in tabs"
+                :key="tab.key"
+                :label="$translation.get('tab.' + tab.key)">
+                <Table v-bind="tab.tableOptions"/>
+            </b-tab-item>
+        </b-tabs>
+    </navbar-view>
 </template>
 
 <script>
@@ -14,6 +16,7 @@ import { SearchPoems } from '@/queries'
 import { Constants, TranslationService } from '@/services'
 import { PoemLocation } from '@/utilities'
 import { Table } from '@/components'
+import NavbarView from './NavbarView'
 import Vue from 'vue'
 
 const { LocationType } = Constants;
@@ -72,7 +75,7 @@ const PoemEntry = Vue.component('PoemEntry', {
 export default {
 
     name: 'Find',
-    components: { Table },
+    components: { NavbarView, Table },
     
     data() {
         return {

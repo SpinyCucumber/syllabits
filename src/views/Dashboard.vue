@@ -1,32 +1,35 @@
 <template>
-    <scene>
-        <template #content-area>
-            <div class="dashboard">
-                <div
-                    v-for="widget in widgets"
-                    :key="widget.key"
-                    class="widget-container">
-                    <div class="widget">
-                        <h3 class="widget-title">
-                            {{ $translation.get('widget.' + widget.key) }}
-                        </h3>
-                        <component
-                            :is="widget.component"
-                            class="inner"/>
+    <navbar-view>
+        <scene class="navbar-view-content">
+            <template #content-area>
+                <div class="dashboard">
+                    <div
+                        v-for="widget in widgets"
+                        :key="widget.key"
+                        class="widget-container">
+                        <div class="widget">
+                            <h3 class="widget-title">
+                                {{ $translation.get('widget.' + widget.key) }}
+                            </h3>
+                            <component
+                                :is="widget.component"
+                                class="inner"/>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </template>
-        <template #background-area>
-            <background-image :src="$assets.getTexture('books')" class="muted"/>
-        </template>
-    </scene>
+            </template>
+            <template #background-area>
+                <background-image :src="$assets.getTexture('books')" class="muted"/>
+            </template>
+        </scene>
+    </navbar-view>
 </template>
 
 <script>
 import { Scene, BackgroundImage, PoemCard } from '@/components'
 import { InProgress, Completed } from '@/queries'
 import { TranslationService } from '@/services'
+import NavbarView from './NavbarView'
 import Vue from 'vue'
 
 function PoemListWidget({name, connectionOptions, placeholder}) {
@@ -97,7 +100,7 @@ const CompletedList = PoemListWidget({
 
 export default {
     name: 'Dashboard',
-    components: { Scene, BackgroundImage },
+    components: { Scene, BackgroundImage, NavbarView },
 
     data() {
         return {

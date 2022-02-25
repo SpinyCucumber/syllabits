@@ -51,9 +51,7 @@
         </b-navbar>
 
         <!-- Content goes here! -->
-        <div class="navbar-view-content">
-            <slot/>
-        </div>
+        <slot/>
 
     </div>
 </template>

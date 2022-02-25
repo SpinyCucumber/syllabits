@@ -205,6 +205,7 @@ body {
 }
 
 .find-view {
+    @extend .navbar-view-content;
     .tabs>ul {
         justify-content: center;
     }
@@ -232,6 +233,7 @@ body {
         flex-direction: column;
         margin-top: auto;
     }
+    
 }
 
 .dashboard {
@@ -259,6 +261,7 @@ body {
     flex-direction: column;
     .navbar-view-content {
         flex-grow: 1;
+
     }
 }
 

@@ -1,137 +1,140 @@
 <template>
+    <navbar-view>
 
-    <scene type="is-aligned has-scroll">
+        <scene class="navbar-view-content" type="is-aligned has-scroll">
 
-        <template #static-area>
-            <!-- Block picker "drawer" -->
-            <div class="block-dropdown">
-                <game-dropdown :has-handle="true" ref="blockDropdown">
-                    <block-picker/>
-                </game-dropdown>
-            </div>
+            <template #static-area>
+                <!-- Block picker "drawer" -->
+                <div class="block-dropdown">
+                    <game-dropdown :has-handle="true" ref="blockDropdown">
+                        <block-picker/>
+                    </game-dropdown>
+                </div>
 
-            <div class="progress-dropdown" v-if="progress">
-                <game-dropdown :trigger="progress.numCorrect">
-                    <game-progress
-                        :max-value="poem.lines.length"
-                        :value="progress.numCorrect"
-                        type="is-rounded"/>
-                </game-dropdown>
-            </div>
+                <div class="progress-dropdown" v-if="progress">
+                    <game-dropdown :trigger="progress.numCorrect">
+                        <game-progress
+                            :max-value="poem.lines.length"
+                            :value="progress.numCorrect"
+                            type="is-rounded"/>
+                    </game-dropdown>
+                </div>
 
-            <div class="save-dropdown" v-if="mode === 'edit' && poem">
-                <transition name="dropdown">
-                    <b-button
-                        v-if="allowSave"
-                        type="is-primary"
-                        size="is-large"
-                        @click="save"
-                        :label="$translation.get('button.poem.save')"/>
-                    <b-button
-                        v-else-if="saved && transforms.length > 0"
-                        type="is-primary"
-                        size="is-large"
-                        @click="saveChanges"
-                        :label="$translation.get('button.poem.savechanges')"/>
-                </transition>
-            </div>
+                <div class="save-dropdown" v-if="mode === 'edit' && poem">
+                    <transition name="dropdown">
+                        <b-button
+                            v-if="allowSave"
+                            type="is-primary"
+                            size="is-large"
+                            @click="save"
+                            :label="$translation.get('button.poem.save')"/>
+                        <b-button
+                            v-else-if="saved && transforms.length > 0"
+                            type="is-primary"
+                            size="is-large"
+                            @click="saveChanges"
+                            :label="$translation.get('button.poem.savechanges')"/>
+                    </transition>
+                </div>
 
-        </template>
+            </template>
 
-        <template #content-area>
+            <template #content-area>
 
-            <transition name="fade" mode="out-in">
-                <div :class="classes">
-                    <div class="toolbar">
-                        <!-- "Cheat" utils -->
+                <transition name="fade" mode="out-in">
+                    <div :class="classes">
+                        <div class="toolbar">
+                            <!-- "Cheat" utils -->
+                            <transition name="fade">
+                                <div v-if="showCheats && mode === 'play'" class="toolbar-start">
+                                    <b-button
+                                        type="is-primary"
+                                        :label="$translation.get('button.oncomplete')"
+                                        @click="onComplete"/>
+                                    <b-button
+                                        type="is-primary"
+                                        :label="$translation.get('button.oncorrect')"
+                                        @click="onCorrect"/>
+                                </div>
+                            </transition>
+                            <transition-group name="list" tag="div" class="toolbar-end">
+                                <b-button
+                                    v-for="button in filteredButtons"
+                                    :key="button.key"
+                                    v-bind="button.options"
+                                    v-on="button.listeners"/>
+                            </transition-group>
+                        </div>
+                        
                         <transition name="fade">
-                            <div v-if="showCheats && mode === 'play'" class="toolbar-start">
-                                <b-button
-                                    type="is-primary"
-                                    :label="$translation.get('button.oncomplete')"
-                                    @click="onComplete"/>
-                                <b-button
-                                    type="is-primary"
-                                    :label="$translation.get('button.oncorrect')"
-                                    @click="onCorrect"/>
+                            <div v-if="poem" class="poem">
+
+                                <div class="title-box">
+                                    <editable v-model="poem.title"
+                                        tag="h1"
+                                        custom-class="title"
+                                        label-key="title"
+                                        :control-options="{
+                                            size: 'is-large',
+                                            'custom-class': 'has-text-centered',
+                                            placeholder: $translation.get('placeholder.poem.title'),
+                                            lazy: true,
+                                        }"
+                                        v-slot="{value}">
+                                        {{ value }}
+                                    </editable>
+                                    <editable v-model="poem.author"
+                                        custom-class="subtitle"
+                                        label-key="author"
+                                        :control-options="{
+                                            'custom-class': 'has-text-centered',
+                                            placeholder: $translation.get('placeholder.poem.author'),
+                                            lazy: true,
+                                        }"
+                                        v-slot="{value}">
+                                        {{ value }}
+                                    </editable>
+                                </div>
+
+                                <img v-if="mode !== 'edit'" :src="$assets.getIcon('divider')" class="divider"/>
+
+                                <!-- Include category input in edit mode -->
+                                <b-field class="poem-categories" v-if="mode === 'edit'">
+                                    <category-input v-model="poem.categories" allow-new/>
+                                </b-field>
+
+                                <!-- Poem lines -->
+                                <transition-group tag="div" class="body" name="list">
+                                    <poem-line
+                                        v-for="line in sortedLines"
+                                        :key="line.id"
+                                        v-bind="lineBindings(line)"
+                                        @correct="onCorrect"
+                                        @incorrect="onIncorrect"/>
+                                </transition-group>
+
                             </div>
                         </transition>
-                        <transition-group name="list" tag="div" class="toolbar-end">
-                            <b-button
-                                v-for="button in filteredButtons"
-                                :key="button.key"
-                                v-bind="button.options"
-                                v-on="button.listeners"/>
-                        </transition-group>
+                        <!-- Poem complete dialog -->
+                        <b-modal
+                            v-model="showComplete"
+                            has-modal-card>
+                            <template v-slot="{ close }">
+                                <poem-complete @close="close"/>
+                            </template>
+                        </b-modal>
                     </div>
-                    
-                    <transition name="fade">
-                        <div v-if="poem" class="poem">
+                </transition>
 
-                            <div class="title-box">
-                                <editable v-model="poem.title"
-                                    tag="h1"
-                                    custom-class="title"
-                                    label-key="title"
-                                    :control-options="{
-                                        size: 'is-large',
-                                        'custom-class': 'has-text-centered',
-                                        placeholder: $translation.get('placeholder.poem.title'),
-                                        lazy: true,
-                                    }"
-                                    v-slot="{value}">
-                                    {{ value }}
-                                </editable>
-                                <editable v-model="poem.author"
-                                    custom-class="subtitle"
-                                    label-key="author"
-                                    :control-options="{
-                                        'custom-class': 'has-text-centered',
-                                        placeholder: $translation.get('placeholder.poem.author'),
-                                        lazy: true,
-                                    }"
-                                    v-slot="{value}">
-                                    {{ value }}
-                                </editable>
-                            </div>
+            </template>
 
-                            <img v-if="mode !== 'edit'" :src="$assets.getIcon('divider')" class="divider"/>
+            <template #background-area>
+                <background-image v-if="mode === 'edit'" :src="$assets.getTexture('relief1')" class="muted"/>
+            </template>
 
-                            <!-- Include category input in edit mode -->
-                            <b-field class="poem-categories" v-if="mode === 'edit'">
-                                <category-input v-model="poem.categories" allow-new/>
-                            </b-field>
+        </scene>
 
-                            <!-- Poem lines -->
-                            <transition-group tag="div" class="body" name="list">
-                                <poem-line
-                                    v-for="line in sortedLines"
-                                    :key="line.id"
-                                    v-bind="lineBindings(line)"
-                                    @correct="onCorrect"
-                                    @incorrect="onIncorrect"/>
-                            </transition-group>
-
-                        </div>
-                    </transition>
-                    <!-- Poem complete dialog -->
-                    <b-modal
-                        v-model="showComplete"
-                        has-modal-card>
-                        <template v-slot="{ close }">
-                            <poem-complete @close="close"/>
-                        </template>
-                    </b-modal>
-                </div>
-            </transition>
-
-        </template>
-
-        <template #background-area>
-            <background-image v-if="mode === 'edit'" :src="$assets.getTexture('relief1')" class="muted"/>
-        </template>
-
-    </scene>
+    </navbar-view>
 </template>
 
 <script>
@@ -150,6 +153,7 @@ import { Constants, AssetService, ReminderService } from '@/services'
 import { TrackChanges } from '@/mixins'
 import { PoemLocation } from '@/utilities'
 import { Document, List, DocumentList } from '@/utilities/tracking'
+import NavbarView from './NavbarView'
 import ObjectID from 'bson-objectid'
 import TutorialPoem from '/tutorial-poem'
 import store from '@/store'
@@ -218,7 +222,9 @@ const PoemComplete = Vue.component('PoemComplete', {
 export default {
 
     name: 'Gameboard',
+
     components: {
+        NavbarView,
         BlockPicker,
         PoemLine,
         Scene,
