@@ -5,16 +5,18 @@ export default new Service({
 
     name: 'notes',
 
-    create(parent, propsData) {
-        // TODO Add class to parent?
+    create(container, propsData) {
+        // Create new element and attach to parent
+        // We also add a class to the parent to mark it as a container
+        container.classList.add('note-container');
+        const el = document.createElement('div');
+        container.appendChild(el);
+        // Next, create vue instance and mount to element
         const NoteComponent = this.vm.extend(Note);
         const component = new NoteComponent({
-            parent,
-            el: document.createElement('div'),
+            el,
             propsData,
         });
-        // DEBUG
-        console.log({parent, component, NoteComponent});
         return component;
     }
 
