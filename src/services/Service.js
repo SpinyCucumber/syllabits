@@ -5,6 +5,7 @@ class Service {
     }
 
     install(vue) {
+        this.vm = vue;
         vue.prototype[`$${this.name}`] = this;
     }
 

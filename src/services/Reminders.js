@@ -10,6 +10,7 @@ const toastOptions = {
 let shown = new Set();
 
 export default new Service({
+    
     name: 'reminders',
 
     showMessage(key) {
