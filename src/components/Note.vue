@@ -16,6 +16,16 @@ export default {
         classes() {
             return [this.position, this.type];
         },
+    },
+    methods: {
+        attach(container) {
+            // Create new element and attach to parent
+            // We also add a class to the parent to mark it as a container
+            container.classList.add('note-container');
+            const el = document.createElement('div');
+            container.appendChild(el);
+            this.$mount(el);
+        },
     }
 }
 </script>
