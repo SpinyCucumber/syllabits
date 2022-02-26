@@ -490,6 +490,73 @@ input,
     text-align: left;
 }
 
+.note {
+
+    position: absolute;
+    width: auto;
+    white-space: nowrap;
+    padding: 0.35em 0.75em;
+    border-radius: 0.4em;
+    font-size: var(--fs-20);
+    box-shadow: $heavy-shadow;
+
+    &.is-top {
+        left: 50%; top: auto; right: auto; bottom: 100%;
+        transform: translateX(-50%);
+        &::before {
+            top: calc(100% - 5px); left: 50%; right: auto; bottom: auto;
+            transform: translateX(-50%) rotate(45deg);
+        }
+    }
+
+    &.is-bottom {
+        left: 50%; bottom: auto; right: auto; top: 100%;
+        transform: translateX(-50%);
+        &::before {
+            bottom: calc(100% - 5px); left: 50%; right: auto; top: auto;
+            transform: translateX(-50%) rotate(45deg);
+        }
+    }
+
+    &.is-left {
+        top: 50%; left: auto; bottom: auto; right: 100%;
+        transform: translateY(-50%);
+        &::before {
+            left: calc(100% - 5px); top: 50%; right: auto; bottom: auto;
+            transform: translateY(-50%) rotate(45deg);
+        }
+    }
+
+    &.is-right {
+        top: 50%; right: auto; bottom: auto; left: 100%;
+        transform: translateY(-50%);
+        &::before {
+            right: calc(100% - 5px); top: 50%; left: auto; bottom: auto;
+            transform: translateY(-50%) rotate(45deg);
+        }
+    }
+
+    @each $name, $components in $colors {
+        &.is-#{$name} {
+            background-color: nth($components, 1);
+            color: nth($components, 2);
+        }
+    }
+
+    &::before {
+        position: absolute;
+        background-color: inherit;
+        content: "";
+        pointer-events: none;
+        width: 10px; height: 10px;
+    }
+
+}
+
+.note-container {
+    position: relative;
+}
+
 .field {
     &.is-grouped, &.is-expanded {
         flex-basis: 0;

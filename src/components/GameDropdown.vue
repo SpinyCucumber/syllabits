@@ -3,12 +3,14 @@
         <div class="inner">
             <slot/>
         </div>
-        <b-button
-            icon-left="chevron-down"
-            class="borderless handle"
-            size="is-large"
-            v-if="hasHandle"
-            @click="open = !open"/>
+        <div class="handle-area" ref="handleArea">
+            <b-button
+                icon-left="chevron-down"
+                class="borderless handle"
+                size="is-large"
+                v-if="hasHandle"
+                @click="open = !open"/>
+        </div>
     </div>
 </template>
 
