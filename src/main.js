@@ -5,7 +5,7 @@ import router from './router'
 import Buefy from 'buefy'
 
 import { apolloProvider } from './apollo'
-import { Constants, Assets, Translation, Reminders } from './services'
+import { Constants, Assets, Translation, Reminders, Notes } from './services'
 
 import './styles/syllabits.scss'
 
@@ -16,6 +16,7 @@ Vue.use(Constants);
 Vue.use(Assets);
 Vue.use(Translation);
 Vue.use(Reminders);
+Vue.use(Notes);
 
 Vue.config.productionTip = false;
 
