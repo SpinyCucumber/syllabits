@@ -35,7 +35,10 @@ export default {
 
     methods: {
 
-        attach(container) {
+        attach(elementOrSelector) {
+            // If selector was supplied, evaluate selector to find container element
+            const container = (typeof elementOrSelector === 'string') ?
+                document.querySelector(elementOrSelector) : elementOrSelector;
             // Create new element and attach to parent
             // We also add a class to the parent to mark it as a container
             container.classList.add('note-container');
