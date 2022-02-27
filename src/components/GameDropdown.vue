@@ -3,8 +3,9 @@
         <div class="inner">
             <slot/>
         </div>
-        <div class="handle-area" ref="handleArea">
+        <div class="handle-area">
             <b-button
+                ref="handle"
                 icon-left="chevron-down"
                 class="borderless handle"
                 size="is-large"
