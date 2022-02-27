@@ -68,6 +68,15 @@
                 "message": "<p>Poems are made of lines</p><p>Lines are made of words</p>"
             }
         },
+        "tutorial": {
+            "all": {
+                "confirmText": "Continue"
+            },
+            "welcome": {
+                "title": "Tutorial Time",
+                "message": "Welcome to the tutorial! Here's a brief overview of Syllabits works. Hit continue to get started."
+            }
+        },
         "logout": {
             "title": "Logout",
             "message": "Are you sure you want to logout?"
@@ -83,6 +92,9 @@
             "deletesuccess": "Poem deleted!",
             "savesuccess": "Poem saved!",
             "savechangessuccess": "Changes saved successfully!"
+        },
+        "tutorial": {
+            "openpalette": "<p>First, let's open the block palette.</p>"
         }
     },
     "reminders": {
