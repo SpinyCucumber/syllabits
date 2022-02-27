@@ -1,7 +1,6 @@
 <template>
     <transition name="fade">
-        <div class="note" :class="classes" v-show="isActive">
-            {{ message }}
+        <div class="note" :class="classes" v-show="isActive" v-html="message">
         </div>
     </transition>
 </template>
