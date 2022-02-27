@@ -11,17 +11,20 @@ function showDialog(key, options) {
 
 export default {
     steps: [
-        function(advance) {
+        (advance) => {
             showDialog('welcome', { onConfirm: advance });
         },
-        function(advance) {
+        (advance, vm) => {
             const note = Notes.create({ message: Translation.get('message.tutorial.openpalette'), position: 'is-right'});
-            const handle = this.$refs.blockDropdown.$refs.handle;
+            const handle = vm.$refs.blockDropdown.$refs.handle;
             note.attach('.block-dropdown .handle-area');
-            handle.$on('click', function() {
-                note.close();
-                advance();
-            });
+            
+            const originalListener = handle.$listeners['click'];
+            handle.$listeners['click'] = function(event) {
+                originalListener(event);
+                console.log('hi');
+            }
+            handle.$forceUpdate();
         },
     ]
 }
