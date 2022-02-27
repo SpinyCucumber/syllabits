@@ -494,6 +494,7 @@ input,
 
     position: absolute;
     width: auto;
+    z-index: $z-index-note;
     white-space: nowrap;
     padding: 0.35em 0.75em;
     border-radius: 0.4em;
