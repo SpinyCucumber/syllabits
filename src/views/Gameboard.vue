@@ -150,13 +150,14 @@ import {
     CategoryInput,
     PoemComplete,
 } from '@/components'
-import { Constants, Assets, Reminders, Notes } from '@/services'
+import { Constants, Assets, Reminders } from '@/services'
 import { TrackChanges } from '@/mixins'
 import { PoemLocation } from '@/utilities'
 import { Document, List, DocumentList } from '@/utilities/tracking'
 import NavbarView from './NavbarView'
 import ObjectID from 'bson-objectid'
-import TutorialPoem from '/tutorial-poem'
+import tutorialPoem from '/tutorial-poem'
+import tutorial from '@/tutorial'
 import store from '@/store'
 import useSound from 'vue-use-sound'
 
@@ -238,6 +239,7 @@ export default {
             saved: false, // Whether the poem actually exists on the server (only in edit mode)
             nextPoem: null, // For each 'play context', the server can specify a next and previous poem. (only in play mode)
             previousPoem: null,
+            tutorialProgress: 0, // Tracks current step (only in tutorial mode)
             buttons: [
                 {
                     key: 'help',
@@ -458,8 +460,14 @@ export default {
             }
 
             else if (this.mode === 'tutorial') {
-                this.poem = TutorialPoem;
+                this.poem = tutorialPoem;
                 this.setupProgress();
+                // Start tutorial
+                const advance = () => {
+                    if ((this.tutorialProgress += 1) === tutorial.steps.length) this.onTutorialComplete();
+                    else tutorial.steps[this.tutorialProgress](advance);
+                }
+                tutorial.steps[this.tutorialProgress = 0](advance);
             }
 
         },
@@ -561,6 +569,10 @@ export default {
                         this.$router.back();
                     }
                 })
+        },
+
+        onTutorialComplete() {
+            // TODO
         },
 
         onCorrect() {
