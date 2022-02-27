@@ -148,8 +148,9 @@ import {
     GameDropdown,
     BackgroundImage,
     CategoryInput,
+    PoemComplete,
 } from '@/components'
-import { Constants, Assets, Reminders } from '@/services'
+import { Constants, Assets, Reminders, Notes } from '@/services'
 import { TrackChanges } from '@/mixins'
 import { PoemLocation } from '@/utilities'
 import { Document, List, DocumentList } from '@/utilities/tracking'
@@ -158,7 +159,6 @@ import ObjectID from 'bson-objectid'
 import TutorialPoem from '/tutorial-poem'
 import store from '@/store'
 import useSound from 'vue-use-sound'
-import Vue from 'vue'
 
 const { LineState, LocationType } = Constants;
 
@@ -173,51 +173,6 @@ function makeLine() {
         stanzaBreak: false,
     }
 }
-
-/**
- * A component that renders a "poem complete" dialog
- * Can be easily connected to a Buefy modal
- */
-const PoemComplete = Vue.component('PoemComplete', {
-
-    methods: {
-        anotherPoem() {
-            this.$router.push({name: 'RandomPoem'});
-            this.$emit('close');
-        },
-        dashboard() {
-            this.$router.push({name: 'Dashboard'});
-            this.$emit('close');
-        },
-        buttons() {
-            let buttons = [
-                <b-button type="is-primary"
-                    onClick={this.anotherPoem}
-                    label={this.$translation.get('button.anotherpoem')}/>
-            ];
-            if (this.$store.getters.hasIdentity) buttons = [...buttons,
-                <b-button type="is-primary"
-                    onClick={this.dashboard}
-                    label={this.$translation.get('button.dashboard')}/>
-            ];
-            return buttons;
-        },
-    },
-
-    render() {
-        return (
-            <div class="modal-simple">
-                <header class="modal-simple-head">
-                    <p class="modal-simple-title">{this.$translation.get("play.complete")}</p>
-                </header>
-                <footer class="modal-simple-foot">
-                    {this.buttons()}
-                </footer>
-            </div>
-        )
-    }
-
-});
 
 export default {
 
