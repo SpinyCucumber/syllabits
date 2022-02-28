@@ -14,17 +14,15 @@ export default {
         (advance) => {
             showDialog('welcome', { onConfirm: advance });
         },
-        (advance, vm) => {
+        (advance) => {
             const note = Notes.create({ message: Translation.get('message.tutorial.openpalette'), position: 'is-right'});
-            const handle = vm.$refs.blockDropdown.$refs.handle;
+            const handle = document.querySelector('.block-dropdown .handle');
             note.attach('.block-dropdown .handle-area');
-            
-            const originalListener = handle.$listeners['click'];
-            handle.$listeners['click'] = function(event) {
-                originalListener(event);
-                console.log('hi');
-            }
-            handle.$forceUpdate();
+            // Attach listener to handle
+            handle.addEventListener('click', () => {
+                note.close();
+                advance();
+            }, {once: true});
         },
     ]
 }
