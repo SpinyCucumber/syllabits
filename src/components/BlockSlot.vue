@@ -39,7 +39,7 @@ import { Draggable, Container } from 'vue-smooth-dnd'
 import useSound from 'vue-use-sound'
 import { Constants, Assets } from '@/services'
 
-const { SlotMode } = Constants;
+const { SlotMode, BlockTypes } = Constants;
 
 export default {
     
@@ -130,6 +130,7 @@ export default {
             let classes = ['game-slot', `is-mode-${this.mode.name}`];
             if (this.dropActive) classes.push('drop-active');
             if (this.dragActive) classes.push('drag-active');
+            if (this.holding) classes.push(`is-holding-${BlockTypes.forCode(this.holding).name}`);
             return classes;
         },
         removeOnDrop() {
