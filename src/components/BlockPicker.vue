@@ -1,6 +1,7 @@
 <template>
     <div class="block-picker">
         <block-slot
+            ref="buckets"
             v-for="type in this.$constants.BlockTypes.values"
             :key="type.name"
             :holding="type.code"
