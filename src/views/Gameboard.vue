@@ -464,10 +464,15 @@ export default {
                 this.setupProgress();
                 // Start tutorial
                 const advance = () => {
-                    if ((this.tutorialProgress += 1) === tutorial.steps.length) this.onTutorialComplete();
-                    tutorial.steps[this.tutorialProgress](advance, this);
+                    if ((this.tutorialProgress += 1) === tutorial.steps.length)
+                        this.onTutorialComplete();
+                    else {
+                        const nextStep = tutorial.steps[this.tutorialProgress];
+                        nextStep(advance, this);
+                    }
                 };
-                tutorial.steps[this.tutorialProgress = 0](advance, this);
+                const firstStep = tutorial.steps[this.tutorialProgress = 0];
+                firstStep(advance, this);
             }
 
         },
