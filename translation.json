@@ -94,7 +94,8 @@
             "savechangessuccess": "Changes saved successfully!"
         },
         "tutorial": {
-            "openpalette": "<p>First, let's open the block palette.</p>"
+            "openpalette": "<p>First, let's open the block palette.</p>",
+            "dragblock": "<p>Drag the 'iamb'</p>"
         }
     },
     "reminders": {
