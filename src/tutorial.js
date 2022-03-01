@@ -24,15 +24,38 @@ export default {
                 setTimeout(advance, 1000);
             }, {once: true});
         },
-        (advance) => {
+        (advance, vm) => {
             const note = Notes.create({ message: Translation.get('message.tutorial.dragblock'), position: 'is-right'});
-            const slot = document.querySelector('.block-dropdown .game-slot.is-holding-iamb');
-            note.attach(slot);
-            // Find slot and attach event listener
-            slot.addEventListener('mousedown', () => {
-                note.close();
-                setTimeout(advance, 1000);
-            }, {once: true});
-        }
+            // Find Iamb slot
+            const picker = vm.$refs.blockDropdown.$slots.default[0].componentInstance;
+            const slot = picker.$refs.buckets.find(bucket => (bucket.holding === 'i'));
+            // Attach listener and note
+            note.attach(slot.$el);
+            slot.$once('move', () => {
+                setTimeout(() => {
+                    note.close();
+                    advance();
+                }, 500);
+            });
+        },
+        (advance, vm) => {
+            const note = Notes.create({ message: Translation.get('message.tutorial.dropblock'), position: 'is-top'});
+            const slot = vm.$refs.lines[0].$refs.slots[0];
+            // Attach note and listener
+            note.attach(slot.$el);
+            const callback = (value) => {
+                if (value === 'i') {
+                    slot.$off('accept', callback);
+                    setTimeout(() => {
+                        note.close();
+                        advance();
+                    }, 500);
+                }
+            }
+            slot.$on('accept', callback);
+        },
+        (advance) => {
+            showDialog('firstline', { onConfirm: advance });
+        },
     ]
 }
