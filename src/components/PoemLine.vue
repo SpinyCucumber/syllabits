@@ -33,9 +33,10 @@
         <div v-if="mode === 'play'" class="feedback-area">
             <transition name="fade">
                 <b-button type="is-dark"
+                    ref="checkButton"
                     @click="check"
                     class="check-button"
-                    v-if="canCheck">
+                    v-show="canCheck">
                     {{ $translation.get('play.check') }}
                 </b-button>
             </transition>
