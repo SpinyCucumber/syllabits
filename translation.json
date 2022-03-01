@@ -76,9 +76,13 @@
                 "title": "Tutorial Time",
                 "message": "Welcome to the tutorial! Here's a brief overview of Syllabits works. Hit continue to get started."
             },
-            "firstline": {
+            "firstblock": {
                 "title": "Congrats on your first block!",
                 "message": "Yep. That's it. Now, see if you can complete the first line. There should be two trochees (blue) followed by two iambs (yellow)."
+            },
+            "firstline": {
+                "title": "First line complete!",
+                "message": "Now, it's time to spread your wings. See if you can complete the next few line! (Hint: ...)"
             }
         },
         "logout": {
@@ -100,7 +104,8 @@
         "tutorial": {
             "openpalette": "<p>First, let's open the block palette.</p>",
             "dragblock": "<p>Drag the 'iamb'</p>",
-            "dropblock": "<p>Drop the block here!</p><p>If you misplace the block, just grab a new one.</p>"
+            "dropblock": "<p>Drop the block here!</p><p>If you misplace the block, just grab a new one.</p>",
+            "check": "<p>Once the line is complete,</p><p>hit 'check' to submit your answer!</p>"
         }
     },
     "reminders": {

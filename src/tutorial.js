@@ -55,6 +55,20 @@ export default {
             slot.$on('accept', callback);
         },
         (advance) => {
+            showDialog('firstblock', { onConfirm: advance });
+        },
+        (advance, vm) => {
+            const line = vm.$refs.lines[0];
+            const checkButton = line.$refs.checkButton;
+            // Attach note to check button
+            const note = Notes.create({ message: Translation.get('message.tutorial.check'), position: 'is-top'});
+            note.attach(checkButton.$el);
+            line.$once('correct', () => {
+                note.close();
+                advance();
+            })
+        },
+        (advance) => {
             showDialog('firstline', { onConfirm: advance });
         },
     ]
