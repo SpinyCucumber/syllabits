@@ -1,12 +1,21 @@
 {
     "title": "Tutorial Poem",
     "author": "Señor Syllabits",
-    "key": [["i", "t", "t", "i", "i"]],
+    "key": [
+        ["i", "t", "t", "i", "i"],
+        ["t", "t", "t", "t", "t"]
+    ],
     "lines": [
         {
             "order": 0,
             "id": 0,
             "text": "Once upon a midnight dreary,",
+            "numFeet": 5
+        },
+        {
+            "order": 1,
+            "id": 1,
+            "text": "while I pondered, weak and weary,",
             "numFeet": 5
         }
     ]
