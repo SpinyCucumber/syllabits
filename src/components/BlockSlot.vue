@@ -81,12 +81,14 @@ export default {
         },
 
         onDragStart(dragResult) {
-            if (dragResult.isSource) this.dragActive = true;
+            if (dragResult.isSource) {
+                this.dragActive = true;
+                this.$emit('move');
+            }
         },
 
         onDragEnd(dragResult) {
-            const { isSource } = dragResult;
-            if (isSource) {
+            if (dragResult.isSource) {
                 this.dragActive = false;
             }
         },
@@ -109,6 +111,7 @@ export default {
                 if (this.mode === SlotMode.Slot) this.$emit('update:holding', '');
             }
             else {
+                this.$emit('accept', payload.source.holding);
                 this.$emit('update:holding', payload.source.holding);
                 // Play sound
                 this.sounds.drop();
