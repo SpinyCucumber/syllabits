@@ -91,5 +91,31 @@ class SerializableEnum extends Enum {
 
 }
 
+/**
+ * Finds differences between a submitted answer and a key
+ * Assumes the answer and the key are the same length
+ * Returns a list of indicies of differences
+ */
+function findConflicts(key, answer) {
+    let conflicts = [];
+    for (let i = 0; i < key.length; i++) {
+        if (key[i] !== answer[i]) {
+            conflicts.push(i);
+        }
+    }
+    return conflicts;
+}
+
+/**
+ * Compares a submitted line answer to an answer key, returning an object
+ * The returned object contains a 'correct' property. If correct is false,
+ * it optionally contains a 'conflicts' property which contains the indicies of conflicting feet.
+ */
+function checkLine(key, answer) {
+    if (key.length !== answer.length) return { correct: false };
+    let conflicts = findConflicts(key, answer);
+    return { correct: (conflicts.length === 0), conflicts };
+}
+
 export { default as clone } from './clone'
-export { PoemLocation, BlockType, Enum, SerializableEnum };
+export { PoemLocation, BlockType, Enum, SerializableEnum, findConflicts, checkLine };
