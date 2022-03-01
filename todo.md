@@ -38,9 +38,6 @@
 - [x] Find view
     - [ ] Collections tab
     - [x] Ability to search
-- [ ] Admin view:
-    - [ ] Create, edit collections
-        - Add poem to collection
 - [x] Message for guest players
     - Appears when playing poem for first time in session
 - [x] Push to server
@@ -65,8 +62,16 @@
 - [ ] Credits page?
     - Include Folger stuff
 - [ ] Contact Page
-    - Dedicated Syllabits Email?
+    - Dedicated SyllaBits Email?
 - [ ] Tutorial (WIP)
     - [x] Automatically presented to guests
     - [ ] Also accessible through help popup in Gameboard
+    - [ ] One-time dialog when player gets line incorrect
 - [x] Fix '/' route redirect
+- In-class demo
+    - [ ] Groups of 3 (one for each poem)
+- [ ] Capture poem feature
+    - Option to exit back to poem from complete dialog
+    - Only captures poem div
+- [ ] Export block images
+- [ ] SyllaBits Admin Tutorial
