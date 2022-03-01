@@ -106,6 +106,7 @@
                                 <!-- Poem lines -->
                                 <transition-group tag="div" class="body" name="list">
                                     <poem-line
+                                        ref="lines"
                                         v-for="line in sortedLines"
                                         :key="line.id"
                                         v-bind="lineBindings(line)"
