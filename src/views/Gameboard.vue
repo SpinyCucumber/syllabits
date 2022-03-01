@@ -393,7 +393,7 @@ export default {
          * Handles checking submitted line answers in tutorial mode
          */
         checkTutorialLine(lineID, answer) {
-            return checkLine(tutorialPoem.key[lineID], answer);
+            return Promise.resolve(checkLine(tutorialPoem.key[lineID], answer));
         },
 
         /**
