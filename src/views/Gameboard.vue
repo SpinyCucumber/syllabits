@@ -153,7 +153,7 @@ import {
 } from '@/components'
 import { Constants, Assets, Reminders } from '@/services'
 import { TrackChanges } from '@/mixins'
-import { PoemLocation } from '@/utilities'
+import { PoemLocation, checkLine } from '@/utilities'
 import { Document, List, DocumentList } from '@/utilities/tracking'
 import NavbarView from './NavbarView'
 import ObjectID from 'bson-objectid'
@@ -387,6 +387,13 @@ export default {
                     else Reminders.showMessage('playingasguest');
                     return result;
                 });
+        },
+
+        /**
+         * Handles checking submitted line answers in tutorial mode
+         */
+        checkTutorialLine(lineID, answer) {
+            return checkLine(tutorialPoem.key[lineID], answer);
         },
 
         /**
