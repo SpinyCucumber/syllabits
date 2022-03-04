@@ -220,16 +220,34 @@ export default {
     },
 
     created() {
-        // If user is not logged in (playing as guest), offer to play the tutorial
-        if (!store.getters.hasIdentity && this.mode === 'play') {
-            Reminders.showDialog('playtutorial', {
+        // Setup!
+        this.setup();
+    },
+
+    mounted() {
+        if (this.mode === 'play') {
+            // If user is not logged in (playing as guest), offer to play the tutorial
+            if (!store.getters.hasIdentity) Reminders.showDialog('playtutorial', {
                 onConfirm: () => { this.$router.push({name: 'Tutorial'}); }
             });
         }
         // We also send a quick message if edit mode is enabled
-        if (this.mode === 'edit') Reminders.showMessage('editmode');
-        // Setup!
-        this.setup();
+        else if (this.mode === 'edit') Reminders.showMessage('editmode');
+        // If tutorial mode is enabled, start the tutorial
+        else if (this.mode === 'tutorial') {
+            const vm = this;
+            const store = {};
+            const advance = () => {
+                if ((this.tutorialProgress += 1) === tutorial.steps.length)
+                    this.onTutorialComplete();
+                else {
+                    const nextStep = tutorial.steps[this.tutorialProgress];
+                    nextStep({advance, vm, store});
+                }
+            };
+            const firstStep = tutorial.steps[this.tutorialProgress = 0];
+            firstStep({advance, vm, store});
+        }
     },
 
     data() {
@@ -470,17 +488,6 @@ export default {
             else if (this.mode === 'tutorial') {
                 this.poem = tutorialPoem;
                 this.setupProgress();
-                // Start tutorial
-                const advance = () => {
-                    if ((this.tutorialProgress += 1) === tutorial.steps.length)
-                        this.onTutorialComplete();
-                    else {
-                        const nextStep = tutorial.steps[this.tutorialProgress];
-                        nextStep(advance, this);
-                    }
-                };
-                const firstStep = tutorial.steps[this.tutorialProgress = 0];
-                firstStep(advance, this);
             }
 
         },

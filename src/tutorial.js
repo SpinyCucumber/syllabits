@@ -1,7 +1,7 @@
 import { Translation, Notes } from '@/services'
 import { DialogProgrammatic } from 'buefy'
 
-function showDialog(key, options) {
+function showDialog(key, options = {}) {
     DialogProgrammatic.alert({
         ...Translation.get('dialog.tutorial.' + key),
         ...Translation.get('dialog.tutorial.all'),
@@ -11,10 +11,22 @@ function showDialog(key, options) {
 
 export default {
     steps: [
-        (advance) => {
+        ({advance, vm, store}) => {
+            const incorrectCallback = () => {
+                if (!store.hasMissedLine) {
+                    showDialog('missedline');
+                    store.hasMissedLine = true;
+                }
+            }
+            // Do tutorial, which involves attaching incorrect
+            // handler to each line. The first time the player gets a line
+            // incorrect, we show a dialog explaining the mechanics.
+            for (const line of vm.$refs.lines) {
+                line.$on('incorrect', incorrectCallback);
+            }
             showDialog('welcome', { onConfirm: advance });
         },
-        (advance) => {
+        ({advance}) => {
             const note = Notes.create({ message: Translation.get('message.tutorial.openpalette'), position: 'is-right'});
             const handle = document.querySelector('.block-dropdown .handle');
             note.attach('.block-dropdown .handle-area');
@@ -24,7 +36,7 @@ export default {
                 setTimeout(advance, 1000);
             }, {once: true});
         },
-        (advance, vm) => {
+        ({advance, vm}) => {
             const note = Notes.create({ message: Translation.get('message.tutorial.dragblock'), position: 'is-right'});
             // Find Iamb slot
             const picker = vm.$refs.blockDropdown.$slots.default[0].componentInstance;
@@ -38,7 +50,7 @@ export default {
                 }, 500);
             });
         },
-        (advance, vm) => {
+        ({advance, vm}) => {
             const note = Notes.create({ message: Translation.get('message.tutorial.dropblock'), position: 'is-top'});
             const slot = vm.$refs.lines[0].$refs.slots[0];
             // Attach note and listener
@@ -54,10 +66,10 @@ export default {
             }
             slot.$on('accept', callback);
         },
-        (advance) => {
+        ({advance}) => {
             showDialog('firstblock', { onConfirm: advance });
         },
-        (advance, vm) => {
+        ({advance, vm}) => {
             const line = vm.$refs.lines[0];
             const checkButton = line.$refs.checkButton;
             // Attach note to check button
@@ -68,7 +80,7 @@ export default {
                 advance();
             })
         },
-        (advance) => {
+        ({advance}) => {
             showDialog('firstline', { onConfirm: advance });
         },
     ]

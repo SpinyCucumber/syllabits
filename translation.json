@@ -83,6 +83,10 @@
             "firstline": {
                 "title": "First line complete!",
                 "message": "Now, it's time to spread your wings. See if you can complete the next few line! (Hint: ...)"
+            },
+            "missedline": {
+                "title": "No big deal!",
+                "message": "Here's how missing a line works:"
             }
         },
         "logout": {
