@@ -240,13 +240,9 @@ export default {
             const advance = () => {
                 if ((this.tutorialProgress += 1) === tutorial.steps.length)
                     this.onTutorialComplete();
-                else {
-                    const nextStep = tutorial.steps[this.tutorialProgress];
-                    nextStep({advance, vm, store});
-                }
+                else this.currentStep.start({advance, vm, store});
             };
-            const firstStep = tutorial.steps[this.tutorialProgress = 0];
-            firstStep({advance, vm, store});
+            this.currentStep.start({advance, vm, store});
         }
     },
 
@@ -258,13 +254,19 @@ export default {
             saved: false, // Whether the poem actually exists on the server (only in edit mode)
             nextPoem: null, // For each 'play context', the server can specify a next and previous poem. (only in play mode)
             previousPoem: null,
-            tutorialProgress: 0, // Tracks current step (only in tutorial mode)
+            tutorialProgress: null, // Tracks current step (only in tutorial mode)
             buttons: [
                 {
                     key: 'help',
                     options: { type: 'is-primary', 'icon-left': 'help', },
                     listeners: { click: this.showHelp, },
                     shouldShow: () => this.mode !== 'tutorial',
+                },
+                {
+                    key: 'helptutorial',
+                    options: { type: 'is-primary', 'icon-left': 'help', },
+                    listeners: { click: this.showHelpTutorial, },
+                    shouldShow: () => this.mode === 'tutorial' && this.currentStep.help
                 },
                 {
                     key: 'edit',
@@ -488,6 +490,7 @@ export default {
             else if (this.mode === 'tutorial') {
                 this.poem = tutorialPoem;
                 this.setupProgress();
+                this.tutorialProgress = 0;
             }
 
         },
@@ -537,6 +540,13 @@ export default {
 
         showHelp() {
             this.$buefy.dialog.alert(this.$translation.get('dialog.poem.help'));
+        },
+
+        showHelpTutorial() {
+            this.$buefy.dialog.alert({
+                ...this.$translation.get('dialog.tutorial.help'),
+                message: this.$translation.get('message.help.' + this.currentStep.help),
+            });
         },
 
         confirmResetProgress() {
@@ -650,6 +660,12 @@ export default {
             if (this.previousPoem) links.push({ key: 'previouspoem', to: { name: 'Play', params: { location: this.previousPoem } } });
             return links;
         },
+        /**
+         * Only applicable in tutorial mode
+         */
+        currentStep() {
+            return tutorial.steps[this.tutorialProgress];
+        }
     },
 
 }
