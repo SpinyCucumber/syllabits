@@ -1,5 +1,5 @@
 <template>
-    <navbar-view :extra-links="extraLinks">
+    <navbar-view class="gameboard" :extra-links="extraLinks">
 
         <scene class="navbar-view-content" type="is-aligned has-scroll">
 
