@@ -395,6 +395,10 @@ input,
         visibility: hidden;
     }
 
+    &.is-disabled .game-blank {
+        fill: $lightest;
+    }
+
     &.drop-active:not(.drag-active) .game-block {
         transition: opacity 0.25s ease;
         opacity: 0.0;
@@ -411,6 +415,8 @@ input,
     stroke: $light;
     stroke-dasharray: $blank-stroke-dasharray;
     stroke-width: $blank-stroke-width;
+
+    transition: fill 1s ease;
 }
 
 .game-notation {
@@ -687,6 +693,11 @@ input,
     .poem-text {
         font-family: var(--font-stylized);
         letter-spacing: 0.04em;
+        transition: color 1s ease;
+    }
+
+    &.is-disabled .poem-text {
+        color: $light;
     }
 
     .feedback-area {

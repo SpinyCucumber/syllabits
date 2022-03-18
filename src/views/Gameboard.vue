@@ -156,10 +156,11 @@ import { TrackChanges } from '@/mixins'
 import { PoemLocation, checkLine } from '@/utilities'
 import { Document, List, DocumentList } from '@/utilities/tracking'
 import NavbarView from './NavbarView'
-import ObjectID from 'bson-objectid'
 import tutorialPoem from '/tutorial-poem'
 import tutorial from '@/tutorial'
 import store from '@/store'
+import Vue from 'vue'
+import ObjectID from 'bson-objectid'
 import useSound from 'vue-use-sound'
 
 const { LineState, LocationType } = Constants;

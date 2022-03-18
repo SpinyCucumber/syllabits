@@ -39,7 +39,7 @@ export default {
                 }
                 showDialog('welcome', { onConfirm: advance });
                 // TESTING
-                vm.$refs.lines[1].disabled = true;
+                vm.setLineOption(vm.sortedLines[1].id, 'disabled', true);
             },
         },
         {
