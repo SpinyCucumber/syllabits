@@ -259,10 +259,7 @@ body {
 .navbar-view {
     display: flex;
     flex-direction: column;
-    .navbar-view-content {
-        flex-grow: 1;
-
-    }
+    .navbar-view-content { flex-grow: 1; }
 }
 
 .gameboard {
