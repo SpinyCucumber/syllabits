@@ -255,6 +255,7 @@ export default {
             nextPoem: null, // For each 'play context', the server can specify a next and previous poem. (only in play mode)
             previousPoem: null,
             tutorialProgress: null, // Tracks current step (only in tutorial mode)
+            lineOptions: {}, // Additional line bindings which can be manually. specified
             buttons: [
                 {
                     key: 'help',
@@ -373,6 +374,7 @@ export default {
             let bindings = ({
                 line,
                 mode: (this.mode === 'edit') ? 'edit' : 'play',
+                ...(this.lineOptions[line.id] || {}),
             });
             // If edit mode is enabled, we bind line actions
             // Otherwise, bind line progress and check handler
@@ -599,6 +601,20 @@ export default {
                         this.$router.back();
                     }
                 })
+        },
+
+        /**
+         * Manually bind a value to a line property
+         * This allows lines to be configured from outside the gameboard.
+         * Must specify lineID, option name, and new value
+         */
+        setLineOption(lineID, key, value) {
+            let options = this.lineOptions[lineID];
+            if (!options) {
+                options = {};
+                Vue.set(this.lineOptions, lineID, options);
+            }
+            Vue.set(options, key, value);
         },
 
         onTutorialComplete() {
