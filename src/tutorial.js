@@ -38,8 +38,10 @@ export default {
                     line.$on('incorrect', incorrectCallback);
                 }
                 showDialog('welcome', { onConfirm: advance });
-                // TESTING
-                vm.setLineOption(vm.sortedLines[1].id, 'disabled', true);
+                // Disable all lines except for first
+                for (let { id } of vm.sortedLines.slice(1)) {
+                    vm.setLineOption(id, 'disabled', true);
+                }
             },
         },
         {
@@ -113,5 +115,14 @@ export default {
                 showDialog('firstline', { onConfirm: advance });
             }
         },
+        {
+            start({advance, vm}) {
+                // Re-enable all lines
+                for (let { id } of vm.sortedLines) {
+                    vm.deleteLineOption(id, 'disabled');
+                }
+                advance();
+            }
+        }
     ]
 }

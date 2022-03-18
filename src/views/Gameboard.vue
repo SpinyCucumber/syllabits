@@ -256,7 +256,7 @@ export default {
             nextPoem: null, // For each 'play context', the server can specify a next and previous poem. (only in play mode)
             previousPoem: null,
             tutorialProgress: null, // Tracks current step (only in tutorial mode)
-            lineOptions: {}, // Additional line bindings which can be manually. specified
+            lineOptions: null, // Additional line bindings which can be manually. specified
             buttons: [
                 {
                     key: 'help',
@@ -496,6 +496,8 @@ export default {
                 this.tutorialProgress = 0;
             }
 
+            this.setupLineOptions();
+
         },
 
         /**
@@ -604,6 +606,10 @@ export default {
                 })
         },
 
+        setupLineOptions() {
+            this.lineOptions = Object.fromEntries(this.poem.lines.map(({id}) => [id, {}]));
+        },
+
         /**
          * Manually bind a value to a line property
          * This allows lines to be configured from outside the gameboard.
@@ -611,11 +617,12 @@ export default {
          */
         setLineOption(lineID, key, value) {
             let options = this.lineOptions[lineID];
-            if (!options) {
-                options = {};
-                Vue.set(this.lineOptions, lineID, options);
-            }
             Vue.set(options, key, value);
+        },
+
+        deleteLineOption(lineID, key) {
+            let options = this.lineOptions[lineID];
+            Vue.delete(options, key);
         },
 
         onTutorialComplete() {
