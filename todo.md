@@ -63,10 +63,12 @@
     - Include Folger stuff
 - [ ] Contact Page
     - Dedicated SyllaBits Email?
+- [ ] More generalized "reminders" system?
 - [ ] Tutorial (WIP)
     - [x] Automatically presented to guests
     - [ ] Also accessible through help popup in Gameboard
-    - [ ] One-time dialog when player gets line incorrect
+    - [x] One-time dialog when player gets line incorrect
+    - [x] Optional help message for certain steps
 - [x] Fix '/' route redirect
 - In-class demo
     - [ ] Groups of 3 (one for each poem)
