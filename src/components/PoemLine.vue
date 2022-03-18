@@ -12,6 +12,7 @@
                     :key="n"
                     :holding.sync="holding[n-1]"
                     :mode="slotMode"
+                    :disabled="disabled"
                     v-on="slotListeners"/>
             </div>
             <!-- Line text -->
@@ -107,6 +108,7 @@ export default {
         actions: { type: Array },
         hasNumber: { default: true }, // Whether the line number is shown
         automaticFeedback: { default: false }, // If false, the user has to manually press a "check" button
+        disabled: { default: false },
     },
 
     computed: {
@@ -128,6 +130,7 @@ export default {
             // If line is in play mode, attach additional info
             if(this.mode === 'play') classes.push(`is-state-${this.progress.state.name}`);
             if (this.line.stanzaBreak) classes.push('has-stanza-break');
+            if (this.disabled) classes.push('is-disabled');
             return classes;
         },
         // Whether the check button is visible

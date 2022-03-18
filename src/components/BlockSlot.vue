@@ -49,6 +49,7 @@ export default {
 
     props: {
         mode: { default: SlotMode.Slot },
+        disabled: { default: false, },
         // Using an foot type code (a short string) is preferable to using an enum type here.
         // A string is more easily mapped to/from JSON data, which makes querying the server easier.
         // Also, I desperately wish I could use null to represent no content, but Mongoengine hates
@@ -72,6 +73,8 @@ export default {
     methods: {
 
         shouldAcceptDrop(srcOptions, payload) {
+            // Don't accept drops if disabled
+            if (this.disabled) return false;
             // If the slot if locked, only accept drops from ourself
             if (payload.source.mode === SlotMode.Locked) {
                 return this === payload.source;
@@ -134,13 +137,14 @@ export default {
             if (this.dropActive) classes.push('drop-active');
             if (this.dragActive) classes.push('drag-active');
             if (this.holding) classes.push(`is-holding-${BlockTypes.forCode(this.holding).name}`);
+            if (this.disabled) classes.push('is-disabled');
             return classes;
         },
         removeOnDrop() {
             if (this.mode === SlotMode.Locked) return false;
             // Can add behavior for other modes here
             return true;
-        }
+        },
     }
 
 }

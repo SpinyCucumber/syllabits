@@ -69,6 +69,7 @@
     - [ ] Also accessible through help popup in Gameboard
     - [x] One-time dialog when player gets line incorrect
     - [x] Optional help message for certain steps
+    - [ ] Disable all lines except for first during first couple steps
 - [x] Fix '/' route redirect
 - In-class demo
     - [ ] Groups of 3 (one for each poem)

@@ -31,13 +31,15 @@ export default {
                         store.hasMissedLine = true;
                     }
                 }
-                // Do tutorial, which involves attaching incorrect
+                // Set up tutorial, which involves attaching incorrect
                 // handler to each line. The first time the player gets a line
                 // incorrect, we show a dialog explaining the mechanics.
                 for (const line of vm.$refs.lines) {
                     line.$on('incorrect', incorrectCallback);
                 }
                 showDialog('welcome', { onConfirm: advance });
+                // TESTING
+                vm.$refs.lines[1].disabled = true;
             },
         },
         {
