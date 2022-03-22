@@ -69,7 +69,7 @@
     - [ ] Also accessible through help popup in Gameboard
     - [x] One-time dialog when player gets line incorrect
     - [x] Optional help message for certain steps
-    - [ ] Disable all lines except for first during first couple steps
+    - [x] Disable all lines except for first during first couple steps
     - [ ] Show dialog to new users as well as guests
 - [x] Fix '/' route redirect
 - In-class demo
@@ -78,5 +78,6 @@
 - [ ] Capture poem feature
     - Option to exit back to poem from complete dialog
     - Only captures poem div
+- [ ] IMPROVEMENT Use promises in gameboard setup method
 - [x] Export block images
 - [ ] SyllaBits Admin Tutorial
