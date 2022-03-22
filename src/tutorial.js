@@ -116,12 +116,11 @@ export default {
             }
         },
         {
-            start({advance, vm}) {
+            start({vm}) {
                 // Re-enable all lines
                 for (let { id } of vm.sortedLines) {
                     vm.deleteLineOption(id, 'disabled');
                 }
-                advance();
             }
         }
     ]
