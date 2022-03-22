@@ -443,6 +443,8 @@ export default {
          */
         setup() {
 
+            // TODO Use promises here for smarter control flow.
+            // We have to do some work after querying server, like setting up line options
             if (this.mode === 'play') {
                 // Perform server query
                 this.$apollo.mutate({mutation: PlayPoem, variables: { location: this.location }})
@@ -453,6 +455,7 @@ export default {
                         this.next = next;
                         this.previous = previous;
                         this.setupProgress();
+                        this.setupLineOptions();
                         // Update progress from server if applicable
                         const { progress } = poem;
                         if (progress) {
@@ -478,6 +481,7 @@ export default {
                             this.poem = poem;
                             this.saved = true;
                             this.makeSnapshot();
+                            this.setupLineOptions();
                         });
                 }
                 else {
@@ -493,10 +497,9 @@ export default {
             else if (this.mode === 'tutorial') {
                 this.poem = tutorialPoem;
                 this.setupProgress();
+                this.setupLineOptions();
                 this.tutorialProgress = 0;
             }
-
-            this.setupLineOptions();
 
         },
 
