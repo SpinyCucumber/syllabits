@@ -70,9 +70,11 @@
     - [x] One-time dialog when player gets line incorrect
     - [x] Optional help message for certain steps
     - [ ] Disable all lines except for first during first couple steps
+    - [ ] Show dialog to new users as well as guests
 - [x] Fix '/' route redirect
 - In-class demo
-    - [ ] Groups of 3 (one for each poem)
+    - Groups of 3 (one for each poem)
+    - Feedback for last part of class
 - [ ] Capture poem feature
     - Option to exit back to poem from complete dialog
     - Only captures poem div
