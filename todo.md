@@ -76,5 +76,5 @@
 - [ ] Capture poem feature
     - Option to exit back to poem from complete dialog
     - Only captures poem div
-- [ ] Export block images
+- [x] Export block images
 - [ ] SyllaBits Admin Tutorial
