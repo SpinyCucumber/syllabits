@@ -491,6 +491,8 @@ export default {
                         categories: [],
                         lines: [{...makeLine(), order: 0}],
                     }
+                    // This would be made much simpler with async/await...
+                    this.setupLineOptions();
                 }
             }
 
