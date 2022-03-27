@@ -221,9 +221,9 @@ export default {
     },
 
     /**
-    * Performs all work necessary to start playing/editing,
-    * including loading poem from server and initializing data
-    */
+     * Performs all work necessary to start playing/editing,
+     * including loading poem from server and initializing data
+     */
     async created() {
         
         if (this.mode === 'play') {

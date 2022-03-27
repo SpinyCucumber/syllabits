@@ -2,7 +2,7 @@
     <scene type="is-aligned is-centered">
         <template #content-area>
             <div class="login-menu">
-                <!-- TODO Could change logo here (or background) to something more exciting -->
+                <!-- TODO IMPROVEMENT Could change logo here (or background) to something more exciting -->
                 <img :src="$assets.getTexture('logo')" class="logo"/>
                 <form @submit.prevent="submit">
                     <b-field label="Email" label-position="on-border">
@@ -34,30 +34,28 @@ export default {
         }
     },
     methods: {
-        submit() {
+        async submit() {
             this.busy = true;
             // Submit input to server
-            this.$apollo.mutate({ mutation: Login, variables: { input: this.input } })
-                .then(result => result.data.login.result)
-                .then(token => {
-                    this.busy = false;
-                    // If we received a valid token, set the identity and navigate to dashboard
-                    // In either case send the user a nice message
-                    if (token) {
-                        this.$store.dispatch('loadIdentity', token);
-                        this.$buefy.toast.open({
-                            message: this.$translation.get('message.loginsuccess'),
-                            type: 'is-success'
-                        });
-                        this.$router.push({ name: 'Dashboard' });
-                    }
-                    else {
-                        this.$buefy.toast.open({
-                            message: this.$translation.get('message.loginfail'),
-                            type: 'is-danger'
-                        });
-                    }
+            const variables = { input: this.input };
+            let { result } = (await this.$apollo.mutate({ mutation: Login, variables })).data.login;
+            this.busy = false;
+            // If we received a valid token, set the identity and navigate to dashboard
+            // In either case send the user a nice message
+            if (result) {
+                this.$store.dispatch('loadIdentity', result);
+                this.$buefy.toast.open({
+                    message: this.$translation.get('message.loginsuccess'),
+                    type: 'is-success'
                 });
+                this.$router.push({ name: 'Dashboard' });
+            }
+            else {
+                this.$buefy.toast.open({
+                    message: this.$translation.get('message.loginfail'),
+                    type: 'is-danger'
+                });
+            }
         }
     }
 }

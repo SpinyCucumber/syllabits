@@ -2,7 +2,7 @@
     <scene type="is-aligned is-centered">
         <template #content-area>
             <div class="register-menu">
-                <!-- TODO Could change logo here (or background) to something more exciting -->
+                <!-- TODO IMPROVEMENT Could change logo here (or background) to something more exciting -->
                 <img :src="$assets.getTexture('logo')" class="logo"/>
                 <form @submit.prevent="submit">
                     <b-field label="Email" label-position="on-border">
@@ -39,33 +39,31 @@ export default {
         }
     },
     methods: {
-        submit() {
+        async submit() {
             this.busy = true;
             // Submit input to server
-            this.$apollo.mutate({ mutation: Register, variables: { input: this.input } })
-                .then(result => result.data.register)
-                .then(response => {
-                    this.busy = false;
-                    // If the response was OK, we set the identity using the new token
-                    // and navigate to the dashboard (and show a nice message as well.)
-                    // Otherwise, we display an error message.
-                    if (response.ok) {
-                        const token = response.result;
-                        this.$store.dispatch('loadIdentity', token);
-                        this.$buefy.toast.open({
-                            message: this.$translation.get('message.registersuccess'),
-                            type: 'is-success'
-                        });
-                        this.$router.push({ name: 'Dashboard' });
-                    }
-                    else {
-                        const key = 'message.register' + ERROR_LOOKUP[response.error];
-                        this.$buefy.toast.open({
-                            message: this.$translation.get(key),
-                            type: 'is-danger'
-                        });
-                    }
+            const variables = { input: this.input };
+            let { ok, result, error } = (await this.$apollo.mutate({ mutation: Register, variables })).data.register;
+            this.busy = false;
+            // If the response was OK, we set the identity using the new token
+            // and navigate to the dashboard (and show a nice message as well.)
+            // Otherwise, we display an error message.
+            if (ok) {
+                const token = result;
+                this.$store.dispatch('loadIdentity', token);
+                this.$buefy.toast.open({
+                    message: this.$translation.get('message.registersuccess'),
+                    type: 'is-success'
                 });
+                this.$router.push({ name: 'Dashboard' });
+            }
+            else {
+                const key = 'message.register' + ERROR_LOOKUP[error];
+                this.$buefy.toast.open({
+                    message: this.$translation.get(key),
+                    type: 'is-danger'
+                });
+            }
         }
     }
 }
