@@ -35,10 +35,9 @@ export default {
     actions: {
         // Attempts to obtain a new access token by querying the server.
         // If our cookies contain an unexpired refresh token, this should succeed
-        refreshIdentity({dispatch}) {
-            return apolloClient.mutate({ mutation: Refresh })
-                .then(result => result.data.refresh)
-                .then(({result}) => dispatch('loadIdentity', result));
+        async refreshIdentity({dispatch}) {
+            let { result } = (await apolloClient.mutate({ mutation: Refresh })).data.refresh;
+            dispatch('loadIdentity', result);
         },
         loadIdentity({commit, getters, dispatch}, token) {
             commit('setToken', token);
