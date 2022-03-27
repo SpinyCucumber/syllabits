@@ -88,7 +88,7 @@ export default {
 
     methods: {
 
-        confirmLogout() {
+        async confirmLogout() {
             this.$buefy.dialog.confirm({
                 ...this.$translation.get('dialog.logout'),
                 type: 'is-danger',
@@ -96,16 +96,13 @@ export default {
             });
         },
 
-        logout() {
-            this.$apollo.mutate({ mutation: Logout })
-                .then(result => result.data.logout)
-                .then(({ok}) => {
-                    if (ok) {
-                        this.$store.dispatch('clearIdentity');
-                        // Navigate back to splash
-                        this.$router.push({name: 'Splash'});
-                    }
-                });
+        async logout() {
+            let { ok } = (await this.$apollo.mutate({ mutation: Logout })).data.logout;
+            if (ok) {
+                this.$store.dispatch('clearIdentity');
+                // Navigate back to splash
+                this.$router.push({name: 'Splash'});
+            }
         },
 
     },
