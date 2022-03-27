@@ -41,25 +41,17 @@ export default {
     },
 
     methods: {
-        handleTyping(text) {
+        async handleTyping(text) {
             // Don't handle empty text
             if (!text) return;
             // Retrieve category hints from server
             this.hintsLoading = true;
-            this.$apollo.query({
-                query: CategoryHints,
-                fetchPolicy: 'network-only',
-                variables: {
-                    first: this.numHints,
-                    name_Startswith: text.toLowerCase(),
-                    name_Nin: this.value,
-                }
-            })
-            .then(result => result.data.categories)
-            .then(connection => {
-                this.categoryHints = connection.edges.map(edge => edge.node.name);
-                this.hintsLoading = false;
-            })
+            const variables = { first: this.numHints, name_Startswith: text.toLowerCase(), name_Nin: this.value };
+            let connection = (await this.$apollo.query({
+                    query: CategoryHints, fetchPolicy: 'network-only', variables
+                })).data.categories;
+            this.categoryHints = connection.edges.map(edge => edge.node.name);
+            this.hintsLoading = false;
         },
     },
 }
