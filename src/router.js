@@ -26,15 +26,12 @@ routes: [
   {
     path: '/randompoem',
     name: 'RandomPoem',
-    beforeEnter(to, from, next) {
+    async beforeEnter(to, from, next) {
       // Execute server query
-      apolloClient.mutate({ mutation: RandomPoem })
-        .then(result => result.data.randomPoem.poem.id)
-        .then(id => {
-          // Transition to play page with the new poem ID
-          const location = new PoemLocation({t: LocationType.Direct, p: id}).encode();
-          next({ name: 'Play', params: {location}});
-        });
+      let { poem } = (await apolloClient.mutate({ mutation: RandomPoem })).data.randomPoem;
+      // Transition to play page with the new poem ID
+      const location = new PoemLocation({t: LocationType.Direct, p: poem.id}).encode();
+      next({ name: 'Play', params: {location}});
     },
   },
   {
