@@ -63,7 +63,7 @@
     - Include Folger stuff
 - [ ] Contact Page
     - Dedicated SyllaBits Email?
-- [ ] More generalized "reminders" system?
+- [ ] IMPROVEMENT More generalized "reminders" system?
 - [ ] Tutorial (WIP)
     - [x] Automatically presented to guests
     - [ ] Also accessible through help popup in Gameboard

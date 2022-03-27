@@ -1,5 +1,7 @@
 mutation($location: String!) {
     playPoem(location: $location) {
+        ok
+        error
         next
         previous
         poem {

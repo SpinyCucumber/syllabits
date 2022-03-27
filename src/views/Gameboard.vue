@@ -67,7 +67,8 @@
                         </div>
                         
                         <transition name="fade">
-                            <div v-if="poem" class="poem">
+                            <div v-if="error" class="gameboard-error" v-html="$translation.get('message.poem.error')"/>
+                            <div v-else-if="poem" class="poem">
 
                                 <div class="title-box">
                                     <editable v-model="poem.title"
@@ -229,9 +230,13 @@ export default {
         if (this.mode === 'play') {
             // In a 'play context', we can access the current program data and the locations
             // of the next and previous poems
-            let { poem, next, previous } = (await this.$apollo.mutate({
+            let { ok, error, poem, next, previous } = (await this.$apollo.mutate({
                     mutation: PlayPoem, variables: { location: this.location }
                 })).data.playPoem;
+            if (!ok) {
+                this.error = error;
+                return;
+            }
             // Set poem and initialize progress data
             this.poem = poem;
             this.next = next;
@@ -314,6 +319,7 @@ export default {
             previousPoem: null,
             tutorialProgress: null, // Tracks current step (only in tutorial mode)
             lineOptions: null, // Additional line bindings which can be manually. specified
+            error: null, // Can be set to indicate that the poem failed to load
             buttons: [
                 {
                     key: 'help',
