@@ -10,7 +10,7 @@ import { apolloClient } from '@/apollo'
 const { LocationType } = Constants;
 const { isNavigationFailure, NavigationFailureType } = VueRouter
 
-let init = null;
+let init = store.dispatch('init');
 
 Vue.use(VueRouter)
 
@@ -83,7 +83,6 @@ routes: [
 ]});
 
 router.beforeEach((to, from, next) => {
-  if (!init) init = store.dispatch('init');
   init.then(next);
 });
 
