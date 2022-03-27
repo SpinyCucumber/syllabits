@@ -220,9 +220,66 @@ export default {
         return { sounds: { correct, incorrect, complete } };
     },
 
-    created() {
-        // Setup!
-        this.setup();
+    /**
+    * Performs all work necessary to start playing/editing,
+    * including loading poem from server and initializing data
+    */
+    async created() {
+        
+        if (this.mode === 'play') {
+            // In a 'play context', we can access the current program data and the locations
+            // of the next and previous poems
+            let { poem, next, previous } = (await this.$apollo.mutate({
+                    mutation: PlayPoem, variables: { location: this.location }
+                })).data.playPoem;
+            // Set poem and initialize progress data
+            this.poem = poem;
+            this.next = next;
+            this.previous = previous;
+            this.setupProgress();
+            // Update progress from server if applicable
+            const { progress } = poem;
+            if (progress) {
+                this.progress.saved = true;
+                this.progress.numCorrect = progress.numCorrect;
+                progress.lines.forEach(({key, value}) => {
+                    let localLine = this.progress.lines[key];
+                    // Update holding and state
+                    localLine.holding = value.answer;
+                    localLine.state = value.correct ? LineState.Correct : LineState.Incorrect;
+                });
+            }
+        }
+
+        else if (this.mode === 'edit') {
+            // If poemID is specified, query full poem (including keys) from server
+            // If not, we create an empty "starter poem"
+            if (this.poemID) {
+                this.poem = (await this.$apollo.query({
+                        query: EditPoem, variables: { id: this.poemID }, fetchPolicy: 'network-only'
+                    })).data.node;
+                this.saved = true;
+                // Save current poem state to track changes
+                this.makeSnapshot();
+            }
+            else {
+                this.poem = {
+                    title: '',
+                    author: '',
+                    categories: [],
+                    lines: [{...makeLine(), order: 0}],
+                }
+            }
+        }
+
+        else if (this.mode === 'tutorial') {
+            this.poem = tutorialPoem;
+            this.setupProgress();
+            this.tutorialProgress = 0;
+        }
+        
+        this.setupLineOptions();
+
     },
 
     mounted() {
@@ -397,26 +454,23 @@ export default {
         /**
          * Handles checking submitted line answers by querying the server
          */
-        checkLine(lineID, answer) {
+        async checkLine(lineID, answer) {
             // Construct the input to the server
             const input = { poemID: this.poem.id, lineID, answer }
-            return this.$apollo.mutate({ mutation: SubmitLine, variables: { input } })
-                .then(result => result.data.submitLine)
-                .then(result => {
-                    // If the user is logged in, then we can assume that data on the server has changed.
-                    // Set saved so we can show reset button, etc.
-                    // Otherwise show a reminder that progress isn't being saved...
-                    if (store.getters.hasIdentity) this.progress.saved = true;
-                    else Reminders.showMessage('playingasguest');
-                    return result;
-                });
+            let result = (await this.$apollo.mutate({ mutation: SubmitLine, variables: { input } })).data.submitLine;
+            // If the user is logged in, then we can assume that data on the server has changed.
+            // Set saved so we can show reset button, etc.
+            // Otherwise show a reminder that progress isn't being saved...
+            if (store.getters.hasIdentity) this.progress.saved = true;
+            else Reminders.showMessage('playingasguest');
+            return result;
         },
 
         /**
          * Handles checking submitted line answers in tutorial mode
          */
-        checkTutorialLine(lineID, answer) {
-            return Promise.resolve(checkLine(tutorialPoem.key[lineID], answer));
+        async checkTutorialLine(lineID, answer) {
+            return checkLine(tutorialPoem.key[lineID], answer);
         },
 
         /**
@@ -438,114 +492,40 @@ export default {
         },
 
         /**
-         * Performs all work necessary to start playing/editing,
-         * including loading poem from server and initializing data
-         */
-        setup() {
-
-            // TODO Use promises here for smarter control flow.
-            // We have to do some work after querying server, like setting up line options
-            if (this.mode === 'play') {
-                // Perform server query
-                this.$apollo.mutate({mutation: PlayPoem, variables: { location: this.location }})
-                    .then(result => result.data.playPoem)
-                    .then(({poem, next, previous}) => {
-                        // Set poem and initialize progress data
-                        this.poem = poem;
-                        this.next = next;
-                        this.previous = previous;
-                        this.setupProgress();
-                        this.setupLineOptions();
-                        // Update progress from server if applicable
-                        const { progress } = poem;
-                        if (progress) {
-                            this.progress.saved = true;
-                            this.progress.numCorrect = progress.numCorrect;
-                            progress.lines.forEach(({key, value}) => {
-                                let localLine = this.progress.lines[key];
-                                // Update holding and state
-                                localLine.holding = value.answer;
-                                localLine.state = value.correct ? LineState.Correct : LineState.Incorrect;
-                            });
-                        }
-                    });
-            }
-
-            else if (this.mode === 'edit') {
-                // If poemID is specified, query full poem (including keys) from server
-                // If not, we create an empty "starter poem"
-                if (this.poemID) {
-                    this.$apollo.query({ query: EditPoem, variables: { id: this.poemID }, fetchPolicy: 'network-only' })
-                        .then(result => result.data.node)
-                        .then(poem => {
-                            this.poem = poem;
-                            this.saved = true;
-                            this.makeSnapshot();
-                            this.setupLineOptions();
-                        });
-                }
-                else {
-                    this.poem = {
-                        title: '',
-                        author: '',
-                        categories: [],
-                        lines: [{...makeLine(), order: 0}],
-                    }
-                    // This would be made much simpler with async/await...
-                    this.setupLineOptions();
-                }
-            }
-
-            else if (this.mode === 'tutorial') {
-                this.poem = tutorialPoem;
-                this.setupProgress();
-                this.setupLineOptions();
-                this.tutorialProgress = 0;
-            }
-
-        },
-
-        /**
          * If the poem doesn't exist on the server,
          * creates a new poem on the server and initializes its data
          */
-        save() {
+        async save() {
             // Serialize poem and send to server
             let variables = { data: JSON.stringify(this.poem) };
-            this.$apollo.mutate({ mutation: CreatePoem, variables })
-                .then(result => result.data.createPoem)
-                .then(result => {
-                    // If poem was saved successfully, show message and reload view
-                    if (result.ok) {
-                        this.$buefy.toast.open({
-                            message: this.$translation.get('message.poem.savesuccess'),
-                            type: 'is-success'
-                        });
-                        this.$router.push({ name: 'Edit', params: { poemID: result.id }});
-                    }
+            let { ok, id } = (await this.$apollo.mutate({ mutation: CreatePoem, variables })).data.createPoem;
+            // If poem was saved successfully, show message and reload view
+            if (ok) {
+                this.$buefy.toast.open({
+                    message: this.$translation.get('message.poem.savesuccess'),
+                    type: 'is-success'
                 });
+                this.$router.push({ name: 'Edit', params: { poemID: id }});
+            }
         },
 
         /**
          * If the poem already exists on the server,
          * updates the poem on the server by sending transforms
          */
-        saveChanges() {
+        async saveChanges() {
             // Update poem on server
             let variables = { id: this.poem.id, transforms: this.transforms.map(JSON.stringify) };
-            this.$apollo.mutate({ mutation: UpdatePoem, variables })
-                .then(result => result.data.updatePoem)
-                .then(result => {
-                    // If changes were accepted successfully, show a nice message
-                    // and save current poem state
-                    if (result.ok) {
-                        this.$buefy.toast.open({
-                            message: this.$translation.get('message.poem.savechangessuccess'),
-                            type: 'is-success'
-                        });
-                        this.makeSnapshot();
-                    }
+            let { ok }  = (await this.$apollo.mutate({ mutation: UpdatePoem, variables })).data.updatePoem;
+            // If changes were accepted successfully, show a nice message
+            // and save current poem state
+            if (ok) {
+                this.$buefy.toast.open({
+                    message: this.$translation.get('message.poem.savechangessuccess'),
+                    type: 'is-success'
                 });
+                this.makeSnapshot();
+            }
         },
 
         showHelp() {
@@ -559,7 +539,7 @@ export default {
             });
         },
 
-        confirmResetProgress() {
+        async confirmResetProgress() {
             this.$buefy.dialog.confirm({
                 ...this.$translation.get('dialog.poem.resetprogress'),
                 type: 'is-danger',
@@ -568,26 +548,23 @@ export default {
             });
         },
 
-        resetProgress() {
-            const input = { poemID: this.poem.id };
-            this.$apollo.mutate({ mutation: ResetProgress, variables: { input } })
-                .then(result => result.data.resetProgress)
-                .then(result => {
-                    // If we've successfully reset progress, show a nice message and clear the slots
-                    if (result.ok) {
-                        this.$buefy.toast.open({
-                            message: this.$translation.get('message.poem.resetsuccess'),
-                            type: 'is-danger'
-                        });
-                        this.setupProgress();
-                    }
-                })
+        /**
+         * Deletes a player's progress towards the current poem from the server
+         */
+        async resetProgress() {
+            const variables = { input: { poemID: this.poem.id } };
+            let { ok } = (await this.$apollo.mutate({ mutation: ResetProgress, variables })).data.resetProgress;
+            // If we've successfully reset progress, show a nice message and clear the slots
+            if (ok) {
+                this.$buefy.toast.open({
+                    message: this.$translation.get('message.poem.resetsuccess'),
+                    type: 'is-danger'
+                });
+                this.setupProgress();
+            }
         },
 
-        /**
-         * Deletes a saved poem from the server!
-         */
-        confirmDelete() {
+        async confirmDelete() {
             this.$buefy.dialog.confirm({
                 ...this.$translation.get('dialog.poem.delete'),
                 type: 'is-danger',
@@ -596,19 +573,21 @@ export default {
             });
         },
 
-        delete() {
-            this.$apollo.mutate({ mutation: DeletePoem, variables: { id: this.poem.id } })
-                .then(result => result.data.deletePoem)
-                .then(result => {
-                    // If we've successfully reset progress, show a nice message and navigate backwards
-                    if (result.ok) {
-                        this.$buefy.toast.open({
-                            message: this.$translation.get('message.poem.deletesuccess'),
-                            type: 'is-danger'
-                        });
-                        this.$router.back();
-                    }
-                })
+        /**
+         * Deletes a saved poem from the server!
+         * Only applicable in edit mode
+         */
+        async delete() {
+            const variables = { id: this.poem.id };
+            let { ok } = (await this.$apollo.mutate({ mutation: DeletePoem, variables })).data.deletePoem;
+            // If we've successfully reset progress, show a nice message and navigate backwards
+            if (ok) {
+                this.$buefy.toast.open({
+                    message: this.$translation.get('message.poem.deletesuccess'),
+                    type: 'is-danger'
+                });
+                this.$router.back();
+            }
         },
 
         setupLineOptions() {
