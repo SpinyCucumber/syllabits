@@ -70,16 +70,14 @@ const InProgressList = PoemListWidget({
     placeholder() {
         return (
             <div class="submenu is-centered">
-                <p>{Translation
-            .get('placeholder.inprogress')}</p>
+                <p>{Translation.get('placeholder.inprogress')}</p>
                 <footer class="submenu-footer">
                     {placeholderButtons.map(button => (
                         <b-button
                             type="is-primary"
                             tag="router-link"
                             to={button.to}
-                            label={Translation
-                        .get('button.' + button.key)}
+                            label={Translation.get('button.' + button.key)}
                         />
                     ))}
                 </footer>
@@ -96,8 +94,7 @@ const CompletedList = PoemListWidget({
         fetchPolicy: 'cache-and-network',
     },
     placeholder() {
-        return (<p>{Translation
-    .get('placeholder.completed')}</p>)
+        return (<p>{Translation.get('placeholder.completed')}</p>)
     }
 })
 
