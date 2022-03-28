@@ -1,5 +1,5 @@
 <template>
-    <div class="game-progress" :style="{ '--progress': progress }">
+    <div class="game-progress is-rounded" :style="{ '--progress': progress }">
         <div class="inner"/>
     </div>
 </template>
