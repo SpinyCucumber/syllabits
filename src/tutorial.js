@@ -27,8 +27,10 @@ export default {
             start({advance, vm, store}) {
                 const incorrectCallback = () => {
                     if (!store.hasMissedLine) {
-                        showDialog('missedline');
-                        store.hasMissedLine = true;
+                        setTimeout(() => {
+                            showDialog('missedline');
+                            store.hasMissedLine = true;
+                        }, 2000);
                     }
                 }
                 // Set up tutorial, which involves attaching incorrect
