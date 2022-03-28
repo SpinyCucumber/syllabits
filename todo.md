@@ -71,6 +71,7 @@
     - [x] Optional help message for certain steps
     - [x] Disable all lines except for first during first couple steps
     - [ ] Show dialog to new users as well as guests
+    - [ ] Use actual block images in notes
 - [x] Fix '/' route redirect
 - In-class demo
     - Groups of 3 (one for each poem)
