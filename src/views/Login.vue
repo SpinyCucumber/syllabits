@@ -45,14 +45,14 @@ export default {
             if (result) {
                 this.$store.dispatch('loadIdentity', result);
                 this.$buefy.toast.open({
-                    message: this.$translation.get('message.loginsuccess'),
+                    message: this.$translation.get('message.login.success'),
                     type: 'is-success'
                 });
                 this.$router.push({ name: 'Dashboard' });
             }
             else {
                 this.$buefy.toast.open({
-                    message: this.$translation.get('message.loginfail'),
+                    message: this.$translation.get('message.login.fail'),
                     type: 'is-danger'
                 });
             }

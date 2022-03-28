@@ -104,10 +104,16 @@
         }
     },
     "message": {
-        "loginsuccess": "Successfully logged in!",
-        "loginfail": "Invalid username/password.",
-        "registersuccess": "Successfully created account!",
-        "registeruserexists": "A user with that email already exists.",
+        "login": {
+            "success": "Successfully logged in!",
+            "fail": "Invalid username/password."
+        },
+        "register": {
+            "success": "Successfully created account!",
+            "error": {
+                "userexists": "A user with that email already exists."
+            }
+        },
         "poem": {
             "resetsuccess": "Progress reset!",
             "deletesuccess": "Poem deleted!",

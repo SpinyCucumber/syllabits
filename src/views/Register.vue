@@ -23,11 +23,7 @@
 <script>
 import { Scene } from '@/components'
 import { Register } from '@/queries'
-
-// Register error name -> translation key
-const ERROR_LOOKUP = {
-    USER_EXISTS: 'userexists'
-}
+import { toTranslationKey } from '@/utilities'
 
 export default {
     name: 'Register',
@@ -52,17 +48,14 @@ export default {
                 const token = result;
                 this.$store.dispatch('loadIdentity', token);
                 this.$buefy.toast.open({
-                    message: this.$translation.get('message.registersuccess'),
+                    message: this.$translation.get('message.register.success'),
                     type: 'is-success'
                 });
                 this.$router.push({ name: 'Dashboard' });
             }
             else {
-                const key = 'message.register' + ERROR_LOOKUP[error];
-                this.$buefy.toast.open({
-                    message: this.$translation.get(key),
-                    type: 'is-danger'
-                });
+                const message = this.$translation.get('message.register.error.' + toTranslationKey(error));
+                this.$buefy.toast.open({ message, type: 'is-danger' });
             }
         }
     }
