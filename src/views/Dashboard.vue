@@ -32,7 +32,7 @@ import { Translation } from '@/services'
 import NavbarView from './NavbarView'
 import Vue from 'vue'
 
-function PoemListWidget({name, connectionOptions, placeholder}) {
+function PoemListWidget({name, connectionOptions, cardOptions = {}, placeholder}) {
     return Vue.component(name, {
         apollo: { connection: connectionOptions }, 
         methods: { placeholder },
@@ -41,13 +41,11 @@ function PoemListWidget({name, connectionOptions, placeholder}) {
                 return this.connection?.edges.map(edge => edge.node);
             }
         },
-        render() {
+        render(h) {
             if (!this.poems) return;
             if (this.poems.length) return (
                 <div class="poem-card-list">
-                    {this.poems.map(poem => (
-                        <PoemCard poem={poem}/>
-                    ))}
+                    {this.poems.map(poem => h(PoemCard, { props: {poem, ...cardOptions}}))}
                 </div>
             )
             else return this.placeholder();
@@ -95,7 +93,8 @@ const CompletedList = PoemListWidget({
     },
     placeholder() {
         return (<p>{Translation.get('placeholder.completed')}</p>)
-    }
+    },
+    cardOptions: { type: 'is-completed' },
 })
 
 export default {

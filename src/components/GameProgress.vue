@@ -1,5 +1,5 @@
 <template>
-    <div :class="['game-progress', type]" :style="{ '--progress': progress }">
+    <div class="game-progress" :style="{ '--progress': progress }">
         <div class="inner"/>
     </div>
 </template>
@@ -10,7 +10,6 @@ export default {
     props: {
         maxValue: Number,
         value: Number,
-        type: String,
     },
 
     computed: {

@@ -10,7 +10,7 @@
             <p class="subtitle">{{ poem.author }}</p>
         </div>
         <game-progress
-            type="is-primary is-small"
+            :class="progressClasses"
             :value="poem.progress.numCorrect"
             :max-value="poem.numLines"/>
     </div>
@@ -23,7 +23,17 @@ export default {
     name: 'PoemCard',
     components: { GameProgress },
     props: {
-        poem: { required: true }
-    }
+        poem: { required: true },
+        /**
+         * Allows users to specify a 'variant,' which affects look/feel of poem card
+         * Valid values are null, 'is-completed' or 'is-saved'
+         */
+        type: { default: null },
+    },
+    computed: {
+        progressClasses() {
+            return ['is-small', this.type === 'is-completed' ? 'is-success' : 'is-primary'];
+        }
+    },
 }
 </script>
