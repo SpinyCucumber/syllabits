@@ -79,6 +79,6 @@
     - Option to exit back to poem from complete dialog
     - Only captures poem div
 - [x] IMPROVEMENT Use promises in gameboard setup method
-- [ ] "Play poem" error states
+- [x] "Play poem" error states
 - [x] Export block images
 - [ ] SyllaBits Admin Tutorial
