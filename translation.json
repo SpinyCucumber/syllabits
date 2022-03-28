@@ -83,19 +83,24 @@
             },
             "welcome": {
                 "title": "Tutorial Time",
-                "message": "Welcome to the tutorial! Here's a brief overview of Syllabits works. Hit continue to get started."
+                "message": "Welcome to the tutorial! Let’s practice using the SyllaBits gameboard."
             },
             "firstblock": {
-                "title": "Congrats on your first block!",
-                "message": "Yep. That's it. Now, see if you can complete the first line. There should be two trochees (blue) followed by two iambs (yellow)."
+                "title": "First block complete!",
+                "message": "Congratulations on your first block! That’s it! Now see if you can complete the first line. (Need a refresher on the guidelines for scansion?)"
             },
             "firstline": {
                 "title": "First line complete!",
-                "message": "Now, it's time to spread your wings. See if you can complete the next few line! (Hint: ...)"
+                "message": "Now it’s time to spread your wings. Try to complete the rest of the stanza."
             },
             "missedline": {
-                "title": "No big deal!",
-                "message": "Here's how missing a line works:"
+                "title": "Something’s amiss.",
+                "message": "No big deal! Did you notice one or more blocks wiggle? Try replacing them with a different block."
+            },
+            "complete": {
+                "title": "You did it!",
+                "message": "Ready to try some poems?",
+                "confirmText": "Yes"
             }
         },
         "logout": {
@@ -121,10 +126,10 @@
             "savechangessuccess": "Changes saved successfully!"
         },
         "tutorial": {
-            "openpalette": "<p>First, let's open the block palette.</p>",
-            "dragblock": "<p>Drag the 'iamb'</p>",
-            "dropblock": "<p>Drop the block here!</p><p>If you misplace the block, just grab a new one.</p>",
-            "check": "<p>Once the line is complete,</p><p>hit 'check' to submit your answer!</p>"
+            "openpalette": "<p>First, let’s open the type case.</p>",
+            "dragblock": "<p>Click and drag an iamb block ( ˘ / ).</p>",
+            "dropblock": "<p>Drop the block here!</p><p>If you misplace the block, just grab another.</p>",
+            "check": "<p>Finished the line?</p><p>Click to \"check\" and see if you’re right.</p>"
         }
     },
     "reminders": {
@@ -136,7 +141,7 @@
         },
         "playtutorial": {
             "title": "Try out the tutorial!",
-            "message": "You should do it.",
+            "message": "If you're a SyllaBits newbie, the tutorial is a good place to start. It's quick!",
             "cancelText": "I'm good"
         }
     },
