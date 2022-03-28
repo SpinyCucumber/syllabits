@@ -1,21 +1,35 @@
 {
-    "title": "Tutorial Poem",
-    "author": "Señor Syllabits",
+    "title": "A Sonnet Upon Sonnets",
+    "author": "Robert Burns",
     "key": [
-        ["i", "t", "t", "i", "i"],
-        ["t", "t", "t", "t", "t"]
+        ["i", "i", "i", "i", "i"],
+        ["i", "i", "i", "i", "i"],
+        ["i", "i", "i", "i", "i"],
+        ["i", "t", "t", "i", "i"]
     ],
     "lines": [
         {
             "order": 0,
             "id": 0,
-            "text": "Once upon a midnight dreary,",
+            "text": "Fourteen, a Sonneteer thy praises sings;",
             "numFeet": 5
         },
         {
             "order": 1,
             "id": 1,
-            "text": "while I pondered, weak and weary,",
+            "text": "What magic myst’ries in that number lie!",
+            "numFeet": 5
+        },
+        {
+            "order": 2,
+            "id": 2,
+            "text": "Your hen hath fourteen eggs beneath her wings",
+            "numFeet": 5
+        },
+        {
+            "order": 3,
+            "id": 3,
+            "text": "That fourteen chickens to the roost may fly.",
             "numFeet": 5
         }
     ]
