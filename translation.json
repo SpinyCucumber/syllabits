@@ -66,6 +66,15 @@
             "help": {
                 "title": "Help",
                 "message": "<p>Poems are made of lines</p><p>Lines are made of words</p>"
+            },
+            "error": {
+                "title": ["What, you egg!", "Something is rotten"],
+                "message": {
+                    "poemnotfound": "That poem doesn't seem to exist...",
+                    "collectionnotfound": "That collection doesn't seem to exist...",
+                    "invalidindex": "That poem is outside the collection...",
+                    "corruptlocation": "The server couldn't understand the request..."
+                }
             }
         },
         "tutorial": {

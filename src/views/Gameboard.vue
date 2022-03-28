@@ -67,7 +67,10 @@
                         </div>
                         
                         <transition name="fade">
-                            <div v-if="error" class="gameboard-error" v-html="$translation.get('message.poem.error')"/>
+                            <div v-if="error" class="gameboard-error">
+                                <h1 class="title">{{ $translation.get('dialog.poem.error.title') }}</h1>
+                                <h2 class="subtitle">{{ errorMessage }}</h2>
+                            </div>
                             <div v-else-if="poem" class="poem">
 
                                 <div class="title-box">
@@ -154,7 +157,7 @@ import {
 } from '@/components'
 import { Constants, Assets, Reminders } from '@/services'
 import { TrackChanges } from '@/mixins'
-import { PoemLocation, checkLine } from '@/utilities'
+import { PoemLocation, checkLine, toTranslationKey } from '@/utilities'
 import { Document, List, DocumentList } from '@/utilities/tracking'
 import NavbarView from './NavbarView'
 import tutorialPoem from '/tutorial-poem'
@@ -339,7 +342,7 @@ export default {
                     listeners: { click: () => {
                         this.$router.push({ name: 'Edit', params: { poemID: this.poem.id }});
                     } },
-                    shouldShow: () => this.mode === 'play' && store.getters.isAdmin
+                    shouldShow: () => this.mode === 'play' && store.getters.isAdmin && this.poem
                 },
                 {
                     key: 'play',
@@ -679,7 +682,10 @@ export default {
          */
         currentStep() {
             return tutorial.steps[this.tutorialProgress];
-        }
+        },
+        errorMessage() {
+            return this.$translation.get('dialog.poem.error.message.' + toTranslationKey(this.error));
+        },
     },
 
 }

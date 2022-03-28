@@ -266,6 +266,8 @@ body {
 
     @extend .scene-content;
     width: min(70em, 100vw);
+    display: flex;
+    flex-direction: column;
 
     .poem {
 
@@ -313,6 +315,13 @@ body {
         .taginput-container {
             @extend .borderless;
         }
+    }
+
+    .gameboard-error {
+        @extend .submenu, .is-centered;
+        font-family: var(--font-stylized);
+        margin-top: auto;
+        margin-bottom: auto;
     }
 
 }

@@ -92,6 +92,13 @@ class SerializableEnum extends Enum {
 }
 
 /**
+ * Converts an enum-like name to a lowercase translation key
+ */
+function toTranslationKey(name) {
+    return name.replace(/_|-/g, '').toLowerCase();
+}
+
+/**
  * Finds differences between a submitted answer and a key
  * Assumes the answer and the key are the same length
  * Returns a list of indicies of differences
@@ -118,4 +125,4 @@ function checkLine(key, answer) {
 }
 
 export { default as clone } from './clone'
-export { PoemLocation, BlockType, Enum, SerializableEnum, findConflicts, checkLine };
+export { PoemLocation, BlockType, Enum, SerializableEnum, toTranslationKey, findConflicts, checkLine };
