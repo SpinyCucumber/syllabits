@@ -1,4 +1,4 @@
-import { Translation, Notes } from '@/services'
+import { Translation, Hints } from '@/services'
 import { DialogProgrammatic as Dialog } from 'buefy'
 
 export default {
@@ -33,7 +33,7 @@ export default {
         },
         {
             start({advance}) {
-                const note = Notes.create({ message: Translation.get('message.tutorial.openpalette'), position: 'is-right'});
+                const note = Hints.create({ message: Translation.get('message.tutorial.openpalette'), position: 'is-right'});
                 const handle = document.querySelector('.block-dropdown .handle');
                 note.attach('.block-dropdown .handle-area');
                 // Attach listener to handle
@@ -45,7 +45,7 @@ export default {
         },
         {
             start({advance}) {
-                const note = Notes.create({ message: Translation.get('message.tutorial.dragblock'), position: 'is-right' });
+                const note = Hints.create({ message: Translation.get('message.tutorial.dragblock'), position: 'is-right' });
                 // Find Iamb slot
                 const picker = this.$refs.blockDropdown.$slots.default[0].componentInstance;
                 const slot = picker.$refs.buckets.find(bucket => (bucket.holding === 'i'));
@@ -62,7 +62,7 @@ export default {
         {
             help: 'dropblock',
             start({advance}) {
-                const note = Notes.create({ message: Translation.get('message.tutorial.dropblock'), position: 'is-top'});
+                const note = Hints.create({ message: Translation.get('message.tutorial.dropblock'), position: 'is-top'});
                 const slot = this.$refs.lines[0].$refs.slots[0];
                 // Attach note and listener
                 note.attach(slot.$el);
@@ -89,7 +89,7 @@ export default {
                 const line = this.$refs.lines[0];
                 const checkButton = line.$refs.checkButton;
                 // Attach note to check button
-                const note = Notes.create({ message: Translation.get('message.tutorial.check'), position: 'is-top'});
+                const note = Hints.create({ message: Translation.get('message.tutorial.check'), position: 'is-top'});
                 note.attach(checkButton.$el);
                 line.$once('correct', () => {
                     setTimeout(() => {

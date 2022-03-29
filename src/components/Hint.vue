@@ -1,8 +1,8 @@
 <template>
     <transition name="fade">
-        <div class="note" :class="classes" v-show="isActive">
+        <div class="hint" :class="classes" v-show="isActive">
             <slot>
-                <div class="note-content" v-html="message"/>
+                <div class="hint-content" v-html="message"/>
             </slot>
         </div>
     </transition>
@@ -11,7 +11,7 @@
 <script>
 export default {
 
-    name: 'Note',
+    name: 'Hint',
 
     props: {
         position: { default: 'is-top' },
@@ -44,7 +44,7 @@ export default {
                 document.querySelector(elementOrSelector) : elementOrSelector;
             // Create new element and attach to parent
             // We also add a class to the parent to mark it as a container
-            container.classList.add('note-container');
+            container.classList.add('hint-container');
             const el = document.createElement('div');
             container.appendChild(el);
             this.$mount(el);
