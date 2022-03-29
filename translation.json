@@ -65,7 +65,7 @@
             },
             "help": {
                 "title": "Help",
-                "message": "<p>Poems are made of lines</p><p>Lines are made of words</p>"
+                "message": "Poems are made of lines\nLines are made of words"
             },
             "error": {
                 "title": ["What, you egg!", "Something is rotten"],
@@ -127,18 +127,18 @@
             "savechangessuccess": "Changes saved successfully!"
         },
         "tutorial": {
-            "openpalette": "<p>First, let’s open the type case.</p>",
-            "dragblock": "<p>Click and drag an iamb block ( ˘ / ).</p>",
-            "dropblock": "<p>Drop the block here!</p><p>If you misplace the block, just grab another.</p>",
-            "check": "<p>Finished the line?</p><p>Click to \"check\" and see if you’re right.</p>"
+            "openpalette": "First, let’s open the type case.",
+            "dragblock": "Click and drag an iamb block.",
+            "dropblock": "Drop the block here!\nIf you misplace the block, just grab another.",
+            "check": "Finished the line?\nClick to \"check\" and see if you’re right."
         }
     },
     "reminders": {
         "playingasguest": {
-            "message": "<p>You are playing as a guest, so your progress will not be saved.</p><p>Create an account to automatically save your progress!</p>"
+            "message": "You are playing as a guest, so your progress will not be saved.\nCreate an account to automatically save your progress!"
         },
         "editmode": {
-            "message": "<p>Edit mode!</p><p>In edit mode, you can make changes to existing poems as well as create new poems.</p><p>Make sure to save your changes before exiting!</p>"
+            "message": "Edit mode!\nIn edit mode, you can make changes to existing poems as well as create new poems.\nMake sure to save your changes before exiting!"
         },
         "playtutorial": {
             "title": "Try out the tutorial!",

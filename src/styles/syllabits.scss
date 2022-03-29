@@ -767,6 +767,10 @@ input,
     font-size: var(--fs-10);
 }
 
+.notices {
+    white-space: pre-wrap;
+}
+
 .poem-card {
     
     display: flex;
