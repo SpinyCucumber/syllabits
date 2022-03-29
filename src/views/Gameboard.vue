@@ -218,10 +218,10 @@ export default {
 
     setup() {
         // Load sounds
-        const [ correct ] = useSound(Assets.getSound('Correct'));
-        const [ incorrect ] = useSound(Assets.getSound('Incorrect'));
-        const [ complete ] = useSound(Assets.getSound('Complete'));
-        return { sounds: { correct, incorrect, complete } };
+        const [ correct ] = useSound(Assets.getSound('correct'));
+        const [ incorrect ] = useSound(Assets.getSound('incorrect'));
+        const [ poemComplete ] = useSound(Assets.getSound('poemcomplete'));
+        return { sounds: { correct, incorrect, poemComplete } };
     },
 
     /**
@@ -622,7 +622,7 @@ export default {
         onComplete() {
             this.$emit('complete');
             // Play fun sound and show dialog if in play mode
-            this.sounds.complete();
+            this.sounds.poemComplete();
             if (this.mode === 'play') this.showComplete = true;
         },
 
