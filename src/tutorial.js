@@ -38,6 +38,7 @@ export default {
                 note.attach('.block-dropdown .handle-area');
                 // Attach listener to handle
                 handle.addEventListener('click', () => {
+                    this.sounds.stepComplete();
                     note.close();
                     setTimeout(advance, 1000);
                 }, {once: true});
@@ -80,6 +81,7 @@ export default {
         },
         {
             start({advance}) {
+                this.sounds.stepComplete();
                 Dialog.confirm({ ...Translation.get('dialog.tutorial.firstblock'), onConfirm: advance });
             },
         },
@@ -101,6 +103,7 @@ export default {
         },
         {
             start({advance}) {
+                this.sounds.stepComplete();
                 Dialog.confirm({ ...Translation.get('dialog.tutorial.firstline'), onConfirm: advance });
             }
         },
@@ -113,7 +116,7 @@ export default {
                 }
                 // Wait for poem completion
                 this.$once('complete', () => {
-                    setTimeout(advance, 2000);
+                    setTimeout(advance, 3000);
                 });
             }
         },

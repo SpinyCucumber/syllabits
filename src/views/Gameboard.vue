@@ -221,7 +221,8 @@ export default {
         const [ correct ] = useSound(Assets.getSound('correct'));
         const [ incorrect ] = useSound(Assets.getSound('incorrect'));
         const [ poemComplete ] = useSound(Assets.getSound('poemcomplete'));
-        return { sounds: { correct, incorrect, poemComplete } };
+        const [ stepComplete ] = useSound(Assets.getSound('stepcomplete'));
+        return { sounds: { correct, incorrect, poemComplete, stepComplete } };
     },
 
     /**
