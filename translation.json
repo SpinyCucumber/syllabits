@@ -65,7 +65,7 @@
             },
             "help": {
                 "title": "Help",
-                "message": "If you're new to scanning or want a refresher, check out <a href=\"/#/guide\" target=\"blank\">this page.</a> Or, you can play the <a href=\"/#/tutorial\" target=\"blank\">tutorial.</a>"
+                "message": "If you're new to scanning or want a refresher, check out <a href=\"/#/guide\" target=\"_blank\">this page.</a> Or, you can play the <a href=\"/#/tutorial\" target=\"_blank\">tutorial.</a>"
             },
             "error": {
                 "title": ["What, you egg!", "Something is rotten"],
@@ -98,7 +98,7 @@
             },
             "firstblock": {
                 "title": "First block complete!",
-                "message": "Congratulations on your first block! That’s it! Now see if you can complete the first line. (Need a refresher on the <a href=\"/#/guide\" target=\"blank\">guidelines for scansion?</a>)"
+                "message": "Congratulations on your first block! That’s it! Now see if you can complete the first line. (Need a refresher on the <a href=\"/#/guide\" target=\"_blank\">guidelines for scansion?</a>)"
             },
             "firstline": {
                 "title": "First line complete!",
