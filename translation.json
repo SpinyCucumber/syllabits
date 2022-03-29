@@ -65,7 +65,7 @@
             },
             "help": {
                 "title": "Help",
-                "message": "Poems are made of lines\nLines are made of words"
+                "message": "If you're new to scanning or want a refresher, check out <a href=\"/#/guide\">this page.</a> Or, you can play the <a href=\"/#/tutorial\">tutorial.</a>"
             },
             "error": {
                 "title": ["What, you egg!", "Something is rotten"],
@@ -98,7 +98,7 @@
             },
             "firstblock": {
                 "title": "First block complete!",
-                "message": "Congratulations on your first block! That’s it! Now see if you can complete the first line. (Need a refresher on the guidelines for scansion?)"
+                "message": "Congratulations on your first block! That’s it! Now see if you can complete the first line. (Need a refresher on the <a href=\"/#/guide\" target=\"blank\">guidelines for scansion?</a>)"
             },
             "firstline": {
                 "title": "First line complete!",
@@ -140,16 +140,16 @@
         "tutorial": {
             "openpalette": "First, let’s open the type case.",
             "dragblock": "Click and drag an iamb block.",
-            "dropblock": "Drop the block here!\nIf you misplace the block, just grab another.",
-            "check": "Finished the line?\nClick to \"check\" and see if you’re right."
+            "dropblock": "Drop the block here!<br>If you misplace the block, just grab another.",
+            "check": "Finished the line?<br>Click to \"check\" and see if you’re right."
         }
     },
     "reminders": {
         "playingasguest": {
-            "message": "You are playing as a guest, so your progress will not be saved.\nCreate an account to automatically save your progress!"
+            "message": "You are playing as a guest, so your progress will not be saved.<br>Create an account to automatically save your progress!"
         },
         "editmode": {
-            "message": "Edit mode!\nIn edit mode, you can make changes to existing poems as well as create new poems.\nMake sure to save your changes before exiting!"
+            "message": "Edit mode!<br>In edit mode, you can make changes to existing poems as well as create new poems.<br>Make sure to save your changes before exiting!"
         },
         "playtutorial": {
             "title": "Try out the tutorial!",

@@ -17,14 +17,14 @@ export default {
             start({advance}) {
                 const incorrectCallback = () => {
                     setTimeout(() => {  
-                        Dialog.confirm(Translation.get('dialog.tutorial.missedline'));
+                        Dialog.confirm({ ...Translation.get('dialog.tutorial.missedline'), container: '.gameboard-view' });
                     }, 2000);
                 }
                 // Set up tutorial, which involves attaching incorrect
                 // handler to each line. The first time the player gets a line
                 // incorrect, we show a dialog explaining the mechanics.
                 this.$once('lineIncorrect', incorrectCallback);
-                Dialog.confirm({ ...Translation.get('dialog.tutorial.welcome'), onConfirm: advance });
+                Dialog.confirm({ ...Translation.get('dialog.tutorial.welcome'), onConfirm: advance, container: '.gameboard-view' });
                 // Disable all lines except for first
                 for (let { id } of this.sortedLines.slice(1)) {
                     this.setLineOption(id, 'disabled', true);
@@ -82,7 +82,7 @@ export default {
         {
             start({advance}) {
                 this.sounds.stepComplete();
-                Dialog.confirm({ ...Translation.get('dialog.tutorial.firstblock'), onConfirm: advance });
+                Dialog.confirm({ ...Translation.get('dialog.tutorial.firstblock'), onConfirm: advance, container: '.gameboard-view' });
             },
         },
         {
@@ -104,7 +104,7 @@ export default {
         {
             start({advance}) {
                 this.sounds.stepComplete();
-                Dialog.confirm({ ...Translation.get('dialog.tutorial.firstline'), onConfirm: advance });
+                Dialog.confirm({ ...Translation.get('dialog.tutorial.firstline'), onConfirm: advance, container: '.gameboard-view' });
             }
         },
         {
@@ -124,6 +124,7 @@ export default {
             start() {
                 Dialog.confirm({
                     ...Translation.get('dialog.tutorial.complete'),
+                    container: '.gameboard-view',
                     onConfirm: () => this.$router.push({ name: 'RandomPoem' }),
                 });           
             }

@@ -531,12 +531,13 @@ export default {
         },
 
         showHelp() {
-            this.$buefy.dialog.alert(this.$translation.get('dialog.poem.help'));
+            this.$buefy.dialog.alert({...this.$translation.get('dialog.poem.help'), container: '.gameboard-view'});
         },
 
         showHelpTutorial() {
             this.$buefy.dialog.alert({
                 ...this.$translation.get('dialog.tutorial.help.' + this.currentStep.help),
+                container: '.gameboard-view',
             });
         },
 
