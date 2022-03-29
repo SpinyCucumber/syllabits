@@ -64,14 +64,13 @@
 - [ ] Contact Page
     - Dedicated SyllaBits Email?
 - [ ] IMPROVEMENT More generalized "reminders" system?
-- [ ] Tutorial (WIP)
+- [x] Tutorial (WIP)
     - [x] Automatically presented to guests
-    - [ ] Also accessible through help popup in Gameboard
+    - [x] IMPROVEMENT Also accessible through help popup in Gameboard
     - [x] One-time dialog when player gets line incorrect
     - [x] Optional help message for certain steps
     - [x] Disable all lines except for first during first couple steps
-    - [ ] Show dialog to new users as well as guests
-    - [ ] Use actual block images in notes
+    - [ ] IMPROVEMENT Show dialog to new users as well as guests
 - [x] Fix '/' route redirect
 - In-class demo
     - Groups of 3 (one for each poem)
