@@ -505,10 +505,13 @@ input,
 .note {
 
     position: absolute;
-    width: auto;
+    width: max-content;
+    display: inline-flex;
     z-index: $z-index-note;
-    white-space: nowrap;
+    white-space: pre-wrap;
+    text-align: start;
     padding: 0.35em 0.75em;
+    gap: 1em;
     border-radius: 0.4em;
     font-size: var(--fs-20);
     box-shadow: $heavy-shadow;
@@ -547,6 +550,10 @@ input,
             right: calc(100% - 5px); top: 50%; left: auto; bottom: auto;
             transform: translateY(-50%) rotate(45deg);
         }
+    }
+
+    &.is-horizontal {
+        align-items: center;
     }
 
     @each $name, $components in $colors {

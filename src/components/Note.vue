@@ -1,6 +1,9 @@
 <template>
     <transition name="fade">
-        <div class="note" :class="classes" v-show="isActive" v-html="message">
+        <div class="note" :class="classes" v-show="isActive">
+            <slot>
+                <div class="note-content" v-html="message"/>
+            </slot>
         </div>
     </transition>
 </template>
@@ -13,6 +16,7 @@ export default {
     props: {
         position: { default: 'is-top' },
         type: { default: 'is-info' },
+        direction: { default: 'is-horizontal' },
         message: { default: '' },
     },
 
@@ -24,7 +28,7 @@ export default {
 
     computed: {
         classes() {
-            return [this.position, this.type];
+            return [this.position, this.type, this.direction];
         },
     },
 
