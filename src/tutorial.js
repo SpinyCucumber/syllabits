@@ -1,13 +1,5 @@
 import { Translation, Notes } from '@/services'
-import { DialogProgrammatic } from 'buefy'
-
-function showDialog(key, options = {}) {
-    DialogProgrammatic.alert({
-        ...Translation.get('dialog.tutorial.' + key),
-        ...Translation.get('dialog.tutorial.all'),
-        ...options
-    });
-}
+import { DialogProgrammatic as Dialog } from 'buefy'
 
 export default {
     /**
@@ -24,22 +16,17 @@ export default {
      */
     steps: [
         {
-            start({advance, vm, store}) {
+            start({advance, vm}) {
                 const incorrectCallback = () => {
-                    if (!store.hasMissedLine) {
-                        setTimeout(() => {
-                            showDialog('missedline');
-                            store.hasMissedLine = true;
-                        }, 2000);
-                    }
+                    setTimeout(() => {  
+                        Dialog.confirm(Translation.get('dialog.tutorial.missedline'));
+                    }, 2000);
                 }
                 // Set up tutorial, which involves attaching incorrect
                 // handler to each line. The first time the player gets a line
                 // incorrect, we show a dialog explaining the mechanics.
-                for (const line of vm.$refs.lines) {
-                    line.$on('incorrect', incorrectCallback);
-                }
-                showDialog('welcome', { onConfirm: advance });
+                vm.$once('lineIncorrect', incorrectCallback);
+                Dialog.confirm({ ...Translation.get('dialog.tutorial.welcome'), onConfirm: advance });
                 // Disable all lines except for first
                 for (let { id } of vm.sortedLines.slice(1)) {
                     vm.setLineOption(id, 'disabled', true);
@@ -95,7 +82,7 @@ export default {
         },
         {
             start({advance}) {
-                showDialog('firstblock', { onConfirm: advance });
+                Dialog.confirm({ ...Translation.get('dialog.tutorial.firstblock'), onConfirm: advance });
             },
         },
         {
@@ -107,22 +94,36 @@ export default {
                 const note = Notes.create({ message: Translation.get('message.tutorial.check'), position: 'is-top'});
                 note.attach(checkButton.$el);
                 line.$once('correct', () => {
-                    note.close();
-                    advance();
+                    setTimeout(() => {
+                        note.close();
+                        advance();
+                    }, 2000);
                 })
             },
         },
         {
             start({advance}) {
-                showDialog('firstline', { onConfirm: advance });
+                Dialog.confirm({ ...Translation.get('dialog.tutorial.firstline'), onConfirm: advance });
+            }
+        },
+        {
+            start({vm, advance}) {
+                // Re-enable all lines
+                for (let { id } of vm.poem.lines) {
+                    vm.deleteLineOption(id, 'disabled');
+                }
+                // Wait for poem completion
+                vm.$once('complete', () => {
+                    setTimeout(advance, 2000);
+                });
             }
         },
         {
             start({vm}) {
-                // Re-enable all lines
-                for (let { id } of vm.sortedLines) {
-                    vm.deleteLineOption(id, 'disabled');
-                }
+                Dialog.confirm({
+                    ...Translation.get('dialog.tutorial.complete'),
+                    onConfirm: () => vm.$router.push({ name: 'RandomPoem' }),
+                });           
             }
         }
     ]

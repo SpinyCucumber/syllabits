@@ -100,7 +100,8 @@
             "complete": {
                 "title": "You did it!",
                 "message": "Ready to try some poems?",
-                "confirmText": "Yes"
+                "confirmText": "Yes!",
+                "cancelText": "Not now"
             }
         },
         "logout": {
