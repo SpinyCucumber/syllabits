@@ -283,7 +283,6 @@ export default {
         else if (this.mode === 'tutorial') {
             this.poem = tutorialPoem;
             this.setupProgress();
-            this.tutorialProgress = 0;
         }
         
         this.setupLineOptions();
@@ -300,15 +299,7 @@ export default {
         // We also send a quick message if edit mode is enabled
         else if (this.mode === 'edit') Reminders.showMessage('editmode');
         // If tutorial mode is enabled, start the tutorial
-        else if (this.mode === 'tutorial') {
-            const vm = this;
-            const store = {};
-            const advance = () => {
-                this.tutorialProgress += 1;
-                this.currentStep.start({advance, vm, store});
-            };
-            this.currentStep.start({advance, vm, store});
-        }
+        else if (this.mode === 'tutorial') this.advanceTutorial();
     },
 
     data() {
@@ -333,7 +324,7 @@ export default {
                     key: 'helptutorial',
                     options: { type: 'is-primary', 'icon-left': 'help', },
                     listeners: { click: this.showHelpTutorial, },
-                    shouldShow: () => this.mode === 'tutorial' && this.currentStep.help
+                    shouldShow: () => this.mode === 'tutorial' && this.currentStep?.help
                 },
                 {
                     key: 'edit',
@@ -639,6 +630,12 @@ export default {
         onLineIncorrect(line) {
             this.$emit('lineIncorrect', line);
             this.sounds.incorrect();
+        },
+
+        advanceTutorial() {
+            this.tutorialProgress = (this.tutorialProgress === null) ? 0 : this.tutorialProgress + 1;
+            let start = this.currentStep.start.bind(this);
+            start({advance: this.advanceTutorial});
         },
 
     },

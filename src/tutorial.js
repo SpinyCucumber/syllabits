@@ -9,14 +9,12 @@ export default {
      * displaying dialogs, hooking up event listeners, etc.
      * The start method can receive the following arguments:
      * 'advance', which is a function that advances the tutorial to the next step
-     * 'vm', which refers to the gameboard instance
-     * 'store', which is an object intended to store values that persist between steps
      * Each step can optionally specify a 'help' property, which is a translation key
      * that is used to show a help message to the user.
      */
     steps: [
         {
-            start({advance, vm}) {
+            start({advance}) {
                 const incorrectCallback = () => {
                     setTimeout(() => {  
                         Dialog.confirm(Translation.get('dialog.tutorial.missedline'));
@@ -25,11 +23,11 @@ export default {
                 // Set up tutorial, which involves attaching incorrect
                 // handler to each line. The first time the player gets a line
                 // incorrect, we show a dialog explaining the mechanics.
-                vm.$once('lineIncorrect', incorrectCallback);
+                this.$once('lineIncorrect', incorrectCallback);
                 Dialog.confirm({ ...Translation.get('dialog.tutorial.welcome'), onConfirm: advance });
                 // Disable all lines except for first
-                for (let { id } of vm.sortedLines.slice(1)) {
-                    vm.setLineOption(id, 'disabled', true);
+                for (let { id } of this.sortedLines.slice(1)) {
+                    this.setLineOption(id, 'disabled', true);
                 }
             },
         },
@@ -46,10 +44,10 @@ export default {
             },
         },
         {
-            start({advance, vm}) {
-                const note = Notes.create({ message: Translation.get('message.tutorial.dragblock'), position: 'is-right'});
+            start({advance}) {
+                const note = Notes.create({ message: Translation.get('message.tutorial.dragblock'), position: 'is-right' });
                 // Find Iamb slot
-                const picker = vm.$refs.blockDropdown.$slots.default[0].componentInstance;
+                const picker = this.$refs.blockDropdown.$slots.default[0].componentInstance;
                 const slot = picker.$refs.buckets.find(bucket => (bucket.holding === 'i'));
                 // Attach listener and note
                 note.attach(slot.$el);
@@ -63,9 +61,9 @@ export default {
         },
         {
             help: 'dropblock',
-            start({advance, vm}) {
+            start({advance}) {
                 const note = Notes.create({ message: Translation.get('message.tutorial.dropblock'), position: 'is-top'});
-                const slot = vm.$refs.lines[0].$refs.slots[0];
+                const slot = this.$refs.lines[0].$refs.slots[0];
                 // Attach note and listener
                 note.attach(slot.$el);
                 const callback = (value) => {
@@ -87,8 +85,8 @@ export default {
         },
         {
             help: 'firstline',
-            start({advance, vm}) {
-                const line = vm.$refs.lines[0];
+            start({advance}) {
+                const line = this.$refs.lines[0];
                 const checkButton = line.$refs.checkButton;
                 // Attach note to check button
                 const note = Notes.create({ message: Translation.get('message.tutorial.check'), position: 'is-top'});
@@ -107,22 +105,22 @@ export default {
             }
         },
         {
-            start({vm, advance}) {
+            start({advance}) {
                 // Re-enable all lines
-                for (let { id } of vm.poem.lines) {
-                    vm.deleteLineOption(id, 'disabled');
+                for (let { id } of this.poem.lines) {
+                    this.deleteLineOption(id, 'disabled');
                 }
                 // Wait for poem completion
-                vm.$once('complete', () => {
+                this.$once('complete', () => {
                     setTimeout(advance, 2000);
                 });
             }
         },
         {
-            start({vm}) {
+            start() {
                 Dialog.confirm({
                     ...Translation.get('dialog.tutorial.complete'),
-                    onConfirm: () => vm.$router.push({ name: 'RandomPoem' }),
+                    onConfirm: () => this.$router.push({ name: 'RandomPoem' }),
                 });           
             }
         }
