@@ -54,7 +54,7 @@
                                     <b-button
                                         type="is-primary"
                                         :label="$translation.get('button.oncorrect')"
-                                        @click="onCorrect"/>
+                                        @click="onLineCorrect"/>
                                 </div>
                             </transition>
                             <transition-group name="list" tag="div" class="toolbar-end">
@@ -114,8 +114,8 @@
                                         v-for="line in sortedLines"
                                         :key="line.id"
                                         v-bind="lineBindings(line)"
-                                        @correct="onCorrect"
-                                        @incorrect="onIncorrect"/>
+                                        @correct="onLineCorrect(line)"
+                                        @incorrect="onLineIncorrect(line)"/>
                                 </transition-group>
 
                             </div>
@@ -304,9 +304,8 @@ export default {
             const vm = this;
             const store = {};
             const advance = () => {
-                if ((this.tutorialProgress += 1) === tutorial.steps.length)
-                    this.onTutorialComplete();
-                else this.currentStep.start({advance, vm, store});
+                this.tutorialProgress += 1;
+                this.currentStep.start({advance, vm, store});
             };
             this.currentStep.start({advance, vm, store});
         }
@@ -516,6 +515,7 @@ export default {
                 });
                 this.$router.push({ name: 'Edit', params: { poemID: id }});
             }
+            this.$emit('saveSuccess');
         },
 
         /**
@@ -535,6 +535,7 @@ export default {
                 });
                 this.makeSnapshot();
             }
+            this.$emit('saveChangesSuccess');
         },
 
         showHelp() {
@@ -571,6 +572,7 @@ export default {
                 });
                 this.setupProgress();
             }
+            this.$emit('resetProgressSuccess');
         },
 
         async confirmDelete() {
@@ -597,6 +599,7 @@ export default {
                 });
                 this.$router.back();
             }
+            this.$emit('deleteSuccess');
         },
 
         setupLineOptions() {
@@ -618,29 +621,23 @@ export default {
             Vue.delete(options, key);
         },
 
-        onTutorialComplete() {
-            // TODO
-        },
-
-        onCorrect() {
+        onLineCorrect(line) {
+            this.$emit('lineCorrect', line);
             // Update numCorrect
             this.progress.numCorrect += 1;
-            if (this.progress.numCorrect === this.poem.lines.length) {
-                this.onComplete();
-            }
-            else {
-                // Play sound
-                this.sounds.correct();
-            }
+            if (this.progress.numCorrect === this.poem.lines.length) this.onComplete();
+            else this.sounds.correct();
         },
 
         onComplete() {
-            // Play fun sound and show dialog
+            this.$emit('complete');
+            // Play fun sound and show dialog if in play mode
             this.sounds.complete();
-            this.showComplete = true;
+            if (this.mode === 'play') this.showComplete = true;
         },
 
-        onIncorrect() {
+        onLineIncorrect(line) {
+            this.$emit('lineIncorrect', line);
             this.sounds.incorrect();
         },
 
