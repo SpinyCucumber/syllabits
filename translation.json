@@ -65,7 +65,7 @@
             },
             "help": {
                 "title": "Help",
-                "message": "If you're new to scanning or want a refresher, check out <a href=\"/#/guide\">this page.</a> Or, you can play the <a href=\"/#/tutorial\">tutorial.</a>"
+                "message": "If you're new to scanning or want a refresher, check out <a href=\"/#/guide\" target=\"blank\">this page.</a> Or, you can play the <a href=\"/#/tutorial\" target=\"blank\">tutorial.</a>"
             },
             "error": {
                 "title": ["What, you egg!", "Something is rotten"],
@@ -112,7 +112,7 @@
                 "title": "You did it!",
                 "message": "Ready to try some poems?",
                 "confirmText": "Yes!",
-                "cancelText": "Not now"
+                "cancelText": "Maybe later"
             }
         },
         "logout": {

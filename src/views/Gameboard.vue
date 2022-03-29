@@ -285,7 +285,7 @@ export default {
             this.poem = tutorialPoem;
             this.setupProgress();
         }
-        
+
         this.setupLineOptions();
 
     },
@@ -531,13 +531,12 @@ export default {
         },
 
         showHelp() {
-            this.$buefy.dialog.alert({...this.$translation.get('dialog.poem.help'), container: '.gameboard-view'});
+            this.$buefy.dialog.alert({...this.$translation.get('dialog.poem.help')});
         },
 
         showHelpTutorial() {
             this.$buefy.dialog.alert({
                 ...this.$translation.get('dialog.tutorial.help.' + this.currentStep.help),
-                container: '.gameboard-view',
             });
         },
 
