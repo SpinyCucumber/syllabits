@@ -78,8 +78,19 @@
             }
         },
         "tutorial": {
-            "all": {
-                "confirmText": "Continue"
+            "help": {
+                "dropblock": {
+                    "title": "Need Help?",
+                    "message": "You may have noticed that if you drop a block outside a slot, it's destroyed. This is a convenient way of clearing slots! You can also drag a block into an already-occupied slot to replace the old block."
+                },
+                "firstline": {
+                    "title": "Need Help?",
+                    "message": "If you're lost, you can review some scanning tips here. Keep in mind that most lines are iambic!"
+                },
+                "firststanza": {
+                    "title": "Need Help?",
+                    "message": "Although the first three lines are very similar, the last line has a slight change in rhythm. Watch out!"
+                }
             },
             "welcome": {
                 "title": "Tutorial Time",

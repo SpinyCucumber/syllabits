@@ -105,6 +105,7 @@ export default {
             }
         },
         {
+            help: 'firststanza',
             start({advance}) {
                 // Re-enable all lines
                 for (let { id } of this.poem.lines) {

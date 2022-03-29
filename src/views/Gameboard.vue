@@ -535,8 +535,7 @@ export default {
 
         showHelpTutorial() {
             this.$buefy.dialog.alert({
-                ...this.$translation.get('dialog.tutorial.help'),
-                message: this.$translation.get('message.help.' + this.currentStep.help),
+                ...this.$translation.get('dialog.tutorial.help.' + this.currentStep.help),
             });
         },
 
