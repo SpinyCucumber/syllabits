@@ -299,7 +299,7 @@ export default {
         // We also send a quick message if edit mode is enabled
         else if (this.mode === 'edit') Reminders.showMessage('editmode');
         // If tutorial mode is enabled, start the tutorial
-        else if (this.mode === 'tutorial') this.advanceTutorial();
+        else if (this.mode === 'tutorial') this.startTutorial();
     },
 
     data() {
@@ -632,10 +632,19 @@ export default {
             this.sounds.incorrect();
         },
 
-        advanceTutorial() {
-            this.tutorialProgress = (this.tutorialProgress === null) ? 0 : this.tutorialProgress + 1;
+        startStep() {
             let start = this.currentStep.start.bind(this);
             start({advance: this.advanceTutorial});
+        },
+
+        startTutorial() {
+            this.tutorialProgress = 0;
+            this.startStep();
+        },
+
+        advanceTutorial() {
+            this.tutorialProgress += 1;
+            this.startStep();
         },
 
     },
