@@ -326,6 +326,13 @@ body {
 
 }
 
+.guide {
+    @extend .scene-content;
+    width: min(70em, 100vw);
+    display: flex;
+    flex-direction: column;
+}
+
 /*
  * COMPONENTS
  */
