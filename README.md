@@ -31,7 +31,7 @@ These are the recommended steps for deploying on CPanel:
 3. Configure the repository to automatically build and deploy the app when a push is received. This can be accomplished using a .cpanel.yml file.
     * You might need to configure the repository to accept pushes to the current branch: this can be accomplished using
     ```
-    git config git config receive.denyCurrentBranch updateInstead
+    git config receive.denyCurrentBranch updateInstead
     ```
     * CPanel can be a pain in the ass; the auto-deploy feature feels almost unusable. An alternative is to use a post-receive Git hook, which can be a bash script that builds the project and copies files.
     * Another note: The 'yorkie' package made using "updateInstead" painful. It overrides all hooks in a way that breaks updateInstead. Considering the package hasn't been updated in 3 years, I should probably remove it.
