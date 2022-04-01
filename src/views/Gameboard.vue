@@ -288,6 +288,7 @@ export default {
         else if (this.mode === 'tutorial') {
             this.poem = tutorialPoem;
             this.setupProgress();
+            this.setupTutorial();
         }
 
         this.setupLineOptions();
@@ -317,6 +318,7 @@ export default {
             nextPoem: null, // For each 'play context', the server can specify a next and previous poem. (only in play mode)
             previousPoem: null,
             tutorialProgress: null, // Tracks current step (only in tutorial mode)
+            tutorial: null, // The tutorial instance
             lineOptions: null, // Additional line bindings which can be manually. specified
             error: null, // Can be set to indicate that the poem failed to load
             buttons: [
@@ -619,6 +621,19 @@ export default {
             });
         },
 
+        setupTutorial() {
+            console.log('setupTutorial');
+            let instance = {};
+            instance.steps = tutorial.steps.map((step) => {
+                let { start, ...options } = step;
+                let args = [{ vm: this, advance: this.advanceTutorial }];
+                return { start: start.bind(instance, args), ...options };
+            });
+            Object.assign(instance, tutorial.setup.bind(instance)({ vm: this }));
+            console.log(instance);
+            this.tutorial = instance;
+        },
+
         setupLineOptions() {
             this.lineOptions = Object.fromEntries(this.poem.lines.map(({id}) => [id, {}]));
         },
@@ -658,19 +673,14 @@ export default {
             this.sounds.incorrect();
         },
 
-        startStep() {
-            let start = this.currentStep.start.bind(this);
-            start({advance: this.advanceTutorial});
-        },
-
         startTutorial() {
             this.tutorialProgress = 0;
-            this.startStep();
+            this.currentStep.start();
         },
 
         advanceTutorial() {
             this.tutorialProgress += 1;
-            this.startStep();
+            this.currentStep.start();
         },
 
     },
@@ -710,7 +720,7 @@ export default {
          * Only applicable in tutorial mode
          */
         currentStep() {
-            return tutorial.steps[this.tutorialProgress];
+            return this.tutorial?.steps[this.tutorialProgress];
         },
         errorMessage() {
             return this.$translation.get('dialog.poem.error.message.' + toTranslationKey(this.error));
