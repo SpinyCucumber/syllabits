@@ -1,6 +1,10 @@
 import { Translation, Hints } from '@/services'
 import { DialogProgrammatic as Dialog } from 'buefy'
 
+// TODO Should probably go back to using 'vm'
+// 'this' should refer the 'tutorial instance,' which can
+// be used to store data
+
 export default {
     /**
      * The tutorial contains a list of steps.
