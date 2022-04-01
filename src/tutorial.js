@@ -5,17 +5,17 @@ import { DialogProgrammatic as Dialog } from 'buefy'
 // 'this' should refer the 'tutorial instance,' which can
 // be used to store data
 
+/**
+ * The tutorial contains a list of steps.
+ * Each step is an object, which at minimum specifies a 'start' method.
+ * This method should contain logic for setting up the step, including
+ * displaying dialogs, hooking up event listeners, etc.
+ * The start method can receive the following arguments:
+ * 'advance', which is a function that advances the tutorial to the next step
+ * Each step can optionally specify a 'help' property, which is a translation key
+ * that is used to show a help message to the user.
+ */
 export default {
-    /**
-     * The tutorial contains a list of steps.
-     * Each step is an object, which at minimum specifies a 'start' method.
-     * This method should contain logic for setting up the step, including
-     * displaying dialogs, hooking up event listeners, etc.
-     * The start method can receive the following arguments:
-     * 'advance', which is a function that advances the tutorial to the next step
-     * Each step can optionally specify a 'help' property, which is a translation key
-     * that is used to show a help message to the user.
-     */
     steps: [
         {
             start({ advance }) {
