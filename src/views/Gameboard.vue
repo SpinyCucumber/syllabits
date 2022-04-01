@@ -1,6 +1,8 @@
 <template>
     <navbar-view class="gameboard-view" :extra-links="extraLinks">
 
+        <b-loading v-model="isBusy" :can-cancel="false"/>
+
         <scene class="navbar-view-content" type="is-aligned has-scroll">
 
             <template #static-area>
@@ -121,9 +123,7 @@
                             </div>
                         </transition>
                         <!-- Poem complete dialog -->
-                        <b-modal
-                            v-model="showComplete"
-                            has-modal-card>
+                        <b-modal v-model="showComplete" has-modal-card>
                             <template v-slot="{ close }">
                                 <poem-complete @close="close"/>
                             </template>
@@ -310,6 +310,7 @@ export default {
             poem: null, // Loaded poem. Contains line text, numbers, title, etc.
             progress: null, // Used to track user progress in play mode
             showComplete: false, // Whether the 'poem complete' dialog is being shown
+            preparingCapture: false, // Whether a poem capture is currently being prepared
             saved: false, // Whether the poem actually exists on the server (only in edit mode)
             nextPoem: null, // For each 'play context', the server can specify a next and previous poem. (only in play mode)
             previousPoem: null,
@@ -606,8 +607,10 @@ export default {
          * This creates a way to show proof of completion and create teaching material
          */
         async capture() {
+            this.preparingCapture = true;
             let canvas = await html2canvas(this.$refs.gameboard);
             canvas.toBlob((blob) => {
+                this.preparingCapture = false;
                 saveAs(blob, 'poem-capture.png');
             });
         },
@@ -707,6 +710,9 @@ export default {
         },
         errorMessage() {
             return this.$translation.get('dialog.poem.error.message.' + toTranslationKey(this.error));
+        },
+        isBusy() {
+            return this.preparingCapture;
         },
     },
 
