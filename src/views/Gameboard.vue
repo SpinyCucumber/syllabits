@@ -62,6 +62,7 @@
                             <transition-group name="list" tag="div" class="toolbar-end">
                                 <b-button
                                     v-for="button in filteredButtons"
+                                    ref="buttons"
                                     :key="button.key"
                                     v-bind="button.options"
                                     v-on="button.listeners"/>
@@ -366,7 +367,7 @@ export default {
                     key: 'capture',
                     options: { type: 'is-info', 'icon-left': 'camera', },
                     listeners: { click: this.capture, },
-                    shouldShow: () => this.mode === 'play'
+                    shouldShow: () => this.mode !== 'edit'
                 },
             ],
             // A list of actions avaliable for each poem line in edit mode

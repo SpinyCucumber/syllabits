@@ -14,7 +14,7 @@ export default {
      */
     steps: [
         {
-            start({advance}) {
+            start({ advance }) {
                 const incorrectCallback = () => {
                     setTimeout(() => {  
                         Dialog.alert({ ...Translation.get('dialog.tutorial.missedline') });
@@ -29,10 +29,13 @@ export default {
                 for (let { id } of this.sortedLines.slice(1)) {
                     this.setLineOption(id, 'disabled', true);
                 }
+                // Hide capture button (until last step!)
+                const captureButton = this.buttons.find((button) => button.key === 'capture');
+                captureButton.shouldShow = () => false;
             },
         },
         {
-            start({advance}) {
+            start({ advance }) {
                 const note = Hints.create({ message: Translation.get('message.tutorial.openpalette'), position: 'is-right'});
                 const handle = document.querySelector('.block-dropdown .handle');
                 note.attach('.block-dropdown .handle-area');
@@ -45,7 +48,7 @@ export default {
             },
         },
         {
-            start({advance}) {
+            start({ advance }) {
                 const note = Hints.create({ message: Translation.get('message.tutorial.dragblock'), position: 'is-right' });
                 // Find Iamb slot
                 const picker = this.$refs.blockDropdown.$slots.default[0].componentInstance;
@@ -62,7 +65,7 @@ export default {
         },
         {
             help: 'dropblock',
-            start({advance}) {
+            start({ advance }) {
                 const note = Hints.create({ message: Translation.get('message.tutorial.dropblock'), position: 'is-top'});
                 const slot = this.$refs.lines[0].$refs.slots[0];
                 // Attach note and listener
@@ -80,14 +83,14 @@ export default {
             },
         },
         {
-            start({advance}) {
+            start({ advance }) {
                 this.sounds.stepComplete();
                 Dialog.alert({ ...Translation.get('dialog.tutorial.firstblock'), onConfirm: advance });
             },
         },
         {
             help: 'firstline',
-            start({advance}) {
+            start({ advance }) {
                 const line = this.$refs.lines[0];
                 const checkButton = line.$refs.checkButton;
                 // Attach note to check button
@@ -102,14 +105,14 @@ export default {
             },
         },
         {
-            start({advance}) {
+            start({ advance }) {
                 this.sounds.stepComplete();
                 Dialog.alert({ ...Translation.get('dialog.tutorial.firstline'), onConfirm: advance, });
             }
         },
         {
             help: 'firststanza',
-            start({advance}) {
+            start({ advance }) {
                 // Re-enable all lines
                 for (let { id } of this.poem.lines) {
                     this.deleteLineOption(id, 'disabled');
@@ -121,7 +124,29 @@ export default {
             }
         },
         {
+            start({ advance }) {
+                Dialog.alert({ ...Translation.get('dialog.tutorial.otherfeatures'), onConfirm: advance, });
+            },
+        },
+        {
+            start({ advance }) {
+                // Show capture button
+                const captureButton = this.buttons.find((button) => button.key === 'capture');
+                captureButton.shouldShow = () => true;
+                // Attach note to capture button
+                const captureButtonEl = this.$refs.buttons.find((button) => button.key === 'capture');
+                const note = Hints.create({ message: Translation.get('message.tutorial.capture'), position: 'is-bottom'});
+                note.attach(captureButtonEl);
+                // Wait for successful capture
+                this.$once('captureSuccess', () => {
+                    note.close();
+                    advance();
+                })
+            },
+        },
+        {
             start() {
+                this.sounds.stepComplete();
                 Dialog.confirm({
                     ...Translation.get('dialog.tutorial.complete'),
                     onConfirm: () => this.$router.push({ name: 'RandomPoem' }),
