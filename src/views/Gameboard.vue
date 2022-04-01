@@ -42,7 +42,7 @@
             <template #content-area>
 
                 <transition name="fade" mode="out-in">
-                    <div :class="classes">
+                    <div :class="classes" ref="gameboard">
                         <div class="toolbar">
                             <!-- "Cheat" utils -->
                             <transition name="fade">
@@ -159,6 +159,7 @@ import { Constants, Assets, Reminders } from '@/services'
 import { TrackChanges } from '@/mixins'
 import { PoemLocation, checkLine, toTranslationKey } from '@/utilities'
 import { Document, List, DocumentList } from '@/utilities/tracking'
+import { saveAs } from 'file-saver'
 import NavbarView from './NavbarView'
 import tutorialPoem from '/tutorial-poem'
 import tutorial from '@/tutorial'
@@ -166,6 +167,7 @@ import store from '@/store'
 import Vue from 'vue'
 import ObjectID from 'bson-objectid'
 import useSound from 'vue-use-sound'
+import html2canvas from 'html2canvas'
 
 const { LineState, LocationType } = Constants;
 
@@ -316,10 +318,10 @@ export default {
             error: null, // Can be set to indicate that the poem failed to load
             buttons: [
                 {
-                    key: 'help',
+                    key: 'helpplay',
                     options: { type: 'is-primary', 'icon-left': 'help', },
                     listeners: { click: this.showHelp, },
-                    shouldShow: () => this.mode !== 'tutorial',
+                    shouldShow: () => this.mode === 'play',
                 },
                 {
                     key: 'helptutorial',
@@ -357,7 +359,13 @@ export default {
                     options: { type: 'is-danger', 'icon-left': 'delete', },
                     listeners: { click: this.confirmDelete, },
                     shouldShow: () => this.mode === 'edit' && this.saved
-                }
+                },
+                {
+                    key: 'capture',
+                    options: { type: 'is-info', 'icon-left': 'camera', },
+                    listeners: { click: this.capture, },
+                    shouldShow: () => this.mode === 'play'
+                },
             ],
             // A list of actions avaliable for each poem line in edit mode
             lineActions: [
@@ -591,6 +599,17 @@ export default {
                 this.$router.back();
             }
             this.$emit('deleteSuccess');
+        },
+
+        /**
+         * Converts the gameboard to an image that the user can save
+         * This creates a way to show proof of completion and create teaching material
+         */
+        async capture() {
+            let canvas = await html2canvas(this.$refs.gameboard);
+            canvas.toBlob((blob) => {
+                saveAs(blob, 'poem-capture.png');
+            });
         },
 
         setupLineOptions() {
