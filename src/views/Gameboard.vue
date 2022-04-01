@@ -224,7 +224,8 @@ export default {
         const [ incorrect ] = useSound(Assets.getSound('incorrect'));
         const [ poemComplete ] = useSound(Assets.getSound('poemcomplete'));
         const [ stepComplete ] = useSound(Assets.getSound('stepcomplete'));
-        return { sounds: { correct, incorrect, poemComplete, stepComplete } };
+        const [ capture ] = useSound(Assets.getSound('capture'));
+        return { sounds: { correct, incorrect, poemComplete, stepComplete, capture, } };
     },
 
     /**
@@ -610,7 +611,9 @@ export default {
             this.preparingCapture = true;
             let canvas = await html2canvas(this.$refs.gameboard);
             canvas.toBlob((blob) => {
+                this.sounds.capture();
                 this.preparingCapture = false;
+                this.$emit('captureSuccess');
                 saveAs(blob, 'poem-capture.png');
             });
         },
