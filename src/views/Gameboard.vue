@@ -288,10 +288,10 @@ export default {
         else if (this.mode === 'tutorial') {
             this.poem = tutorialPoem;
             this.setupProgress();
-            this.setupTutorial();
         }
 
         this.setupLineOptions();
+        if (this.mode === 'tutorial') this.setupTutorial();
 
     },
 
@@ -622,15 +622,13 @@ export default {
         },
 
         setupTutorial() {
-            console.log('setupTutorial');
             let instance = {};
             instance.steps = tutorial.steps.map((step) => {
                 let { start, ...options } = step;
-                let args = [{ vm: this, advance: this.advanceTutorial }];
+                let args = { vm: this, advance: this.advanceTutorial };
                 return { start: start.bind(instance, args), ...options };
             });
             Object.assign(instance, tutorial.setup.bind(instance)({ vm: this }));
-            console.log(instance);
             this.tutorial = instance;
         },
 
@@ -674,7 +672,7 @@ export default {
         },
 
         startTutorial() {
-            this.tutorialProgress = 0;
+            this.tutorialProgress = 9;
             this.currentStep.start();
         },
 
