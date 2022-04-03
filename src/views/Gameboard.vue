@@ -410,7 +410,7 @@ export default {
                 },
                 {
                     key: 'capture',
-                    options: { type: 'is-info', 'icon-left': 'camera', },
+                    options: { type: 'is-warning', 'icon-left': 'camera', },
                     listeners: { click: this.capture, },
                     shouldShow: () => this.mode !== 'edit'
                 },

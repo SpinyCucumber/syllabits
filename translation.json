@@ -142,7 +142,8 @@
             "openpalette": "First, let’s open the type case.",
             "dragblock": "Click and drag an iamb block.",
             "dropblock": "Drop the block here!<br>If you misplace the block, just grab another.",
-            "check": "Finished the line?<br>Click to \"check\" and see if you’re right."
+            "check": "Finished the line?<br>Click to \"check\" and see if you’re right.",
+            "capture": "Try it out!"
         }
     },
     "reminders": {
