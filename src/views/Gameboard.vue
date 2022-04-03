@@ -163,7 +163,7 @@ import { Document, List, DocumentList } from '@/utilities/tracking'
 import { saveAs } from 'file-saver'
 import NavbarView from './NavbarView'
 import tutorialPoem from '/tutorial-poem'
-import tutorial from '@/tutorial'
+import tutorialOptions from '@/tutorial'
 import store from '@/store'
 import Vue from 'vue'
 import ObjectID from 'bson-objectid'
@@ -318,7 +318,7 @@ export default {
             nextPoem: null, // For each 'play context', the server can specify a next and previous poem. (only in play mode)
             previousPoem: null,
             tutorialProgress: null, // Tracks current step (only in tutorial mode)
-            tutorial: null, // The tutorial instance
+            tutorial: null, // The tutorial tutorial
             lineOptions: null, // Additional line bindings which can be manually. specified
             error: null, // Can be set to indicate that the poem failed to load
             buttons: [
@@ -622,14 +622,17 @@ export default {
         },
 
         setupTutorial() {
-            let instance = {};
-            instance.steps = tutorial.steps.map((step) => {
-                let { start, ...options } = step;
-                let args = { vm: this, advance: this.advanceTutorial };
-                return { start: start.bind(instance, args), ...options };
+            let tutorial = {};
+            Object.assign(tutorial, tutorial.setup.bind(tutorialOptions)({ vm: this }));
+            tutorial.steps = tutorial.steps.map((stepOptions) => {
+                let { start, close, setup, ...options } = stepOptions;
+                let scope = { vm: this, tutorial };
+                if (setup) Object.assign(step, setup(scope));
+                if (close) close = stepOptions.close.bind(step, scope);
+                start = stepOptions.start.bind(step, { ...scope, advance: this.advanceTutorial, });
+                return { start, close, ...options };
             });
-            Object.assign(instance, tutorial.setup.bind(instance)({ vm: this }));
-            this.tutorial = instance;
+            this.tutorial = tutorial;
         },
 
         setupLineOptions() {
@@ -672,11 +675,12 @@ export default {
         },
 
         startTutorial() {
-            this.tutorialProgress = 9;
+            this.tutorialProgress = 0;
             this.currentStep.start();
         },
 
         advanceTutorial() {
+            this.currentStep.close();
             this.tutorialProgress += 1;
             this.currentStep.start();
         },
