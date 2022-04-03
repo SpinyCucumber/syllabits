@@ -191,6 +191,26 @@ function makeLine() {
     }
 }
 
+// TODO Move this to 'Tutorial' class file
+function constructTutorial() {
+    let { created, mounted, setup, steps } = tutorialOptions;
+    let tutorial = {};
+    if (setup) Object.assign(tutorial, setup());
+    tutorial.created = created?.bind(tutorial);
+    tutorial.mounted = mounted?.bind(tutorial);
+    tutorial.steps = steps.map((stepOptions) => {
+        let { start, close, created, mounted, setup, ...options } = stepOptions;
+        let step = { ...options, tutorial };
+        if (setup) Object.assign(step, setup());
+        step.start = start?.bind(step);
+        step.close = close?.bind(step);
+        step.created = created?.bind(step);
+        step.mounted = mounted?.bind(step);
+        return step;
+    });
+    return tutorial;
+}
+
 export default {
 
     name: 'Gameboard',
@@ -226,14 +246,17 @@ export default {
         }),
     ],
 
-    setup() {
+    setup(props) {
         // Load sounds
         const [ correct ] = useSound(Assets.getSound('correct'));
         const [ incorrect ] = useSound(Assets.getSound('incorrect'));
         const [ poemComplete ] = useSound(Assets.getSound('poemcomplete'));
-        const [ stepComplete ] = useSound(Assets.getSound('stepcomplete'));
         const [ capture ] = useSound(Assets.getSound('capture'));
-        return { sounds: { correct, incorrect, poemComplete, stepComplete, capture, } };
+        let result = { sounds: { correct, incorrect, poemComplete, capture, } };
+        // Construct tutorial
+        if (props.mode === 'tutorial') result.tutorial = constructTutorial();
+        console.log({ props, result });
+        return result;
     },
 
     /**
@@ -298,12 +321,12 @@ export default {
         }
 
         this.setupLineOptions();
+        
+        // Call tutorial hooks
         if (this.mode === 'tutorial') {
-            this.setupTutorial();
-            // Call tutorial hooks and step hooks
-            if (this.tutorial.created) this.tutorial.created();
+            if (this.tutorial.created) this.tutorial.created({ vm: this });
             for (let step of this.tutorial.steps) {
-                if (step.created) step.created();
+                if (step.created) step.created({ vm: this });
             }
         }
 
@@ -321,9 +344,9 @@ export default {
         // If tutorial mode is enabled, start the tutorial
         else if (this.mode === 'tutorial') {
             // Call tutorial hooks and step hooks first
-            if (this.tutorial.mounted) this.tutorial.mounted();
+            if (this.tutorial.mounted) this.tutorial.mounted({ vm: this });
             for (let step of this.tutorial.steps) {
-                if (step.mounted) step.mounted();
+                if (step.mounted) step.mounted({ vm: this });
             }
             this.startTutorial();
         }
@@ -339,7 +362,6 @@ export default {
             nextPoem: null, // For each 'play context', the server can specify a next and previous poem. (only in play mode)
             previousPoem: null,
             tutorialProgress: null, // Tracks current step (only in tutorial mode)
-            tutorial: null, // The tutorial tutorial
             lineOptions: null, // Additional line bindings which can be manually. specified
             error: null, // Can be set to indicate that the poem failed to load
             buttons: [
@@ -642,24 +664,6 @@ export default {
             });
         },
 
-        setupTutorial() {
-            let tutorial = {};
-            let scope = { vm: this };
-            tutorial.created = tutorialOptions.created?.bind(tutorial, scope);
-            tutorial.mounted = tutorialOptions.mounted?.bind(tutorial, scope);
-            tutorial.steps = tutorialOptions.steps.map((stepOptions) => {
-                let { start, close, created, mounted, ...options } = stepOptions;
-                let scope = { vm: this, tutorial };
-                let step = { ...options };
-                step.start = start?.bind(step, { ...scope, advance: this.advanceTutorial, });
-                step.close = close?.bind(step, scope);
-                step.created = created?.bind(step, scope);
-                step.mounted = mounted?.bind(step, scope);
-                return step;
-            });
-            this.tutorial = tutorial;
-        },
-
         setupLineOptions() {
             this.lineOptions = Object.fromEntries(this.poem.lines.map(({id}) => [id, {}]));
         },
@@ -701,13 +705,13 @@ export default {
 
         startTutorial() {
             this.tutorialProgress = 0;
-            this.currentStep.start();
+            this.currentStep.start({ vm: this, advance: this.advanceTutorial });
         },
 
         advanceTutorial() {
-            this.currentStep.close();
+            this.currentStep.close({ vm: this });
             this.tutorialProgress += 1;
-            this.currentStep.start();
+            this.currentStep.start({ vm: this, advance: this.advanceTutorial });
         },
 
     },

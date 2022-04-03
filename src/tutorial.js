@@ -1,5 +1,6 @@
-import { Translation, Hints } from '@/services'
+import { Translation, Hints, Assets } from '@/services'
 import { DialogProgrammatic as Dialog } from 'buefy'
+import useSound from 'vue-use-sound'
 
 /**
  * The tutorial contains a list of steps.
@@ -23,6 +24,11 @@ import { DialogProgrammatic as Dialog } from 'buefy'
  * through the 'tutorial' argument.
  */
 export default {
+    setup() {
+        // Load sounds
+        const [ stepComplete ] = useSound(Assets.getSound('stepcomplete'));
+        return { sounds: { stepComplete, }, };
+    },
     created({ vm }) {
         const incorrectCallback = () => {
             setTimeout(() => {  
@@ -54,8 +60,8 @@ export default {
                 this.callback = advance;
                 this.handle.addEventListener('click', this.callback);
             },
-            close({ vm }) {
-                vm.sounds.stepComplete();
+            close() {
+                this.tutorial.sounds.stepComplete();
                 this.handle.removeEventListener('click', this.callback);
                 this.note.close();
             },
@@ -93,6 +99,7 @@ export default {
                 this.slot.$on('accept', this.callback);
             },
             close() {
+                this.tutorial.sounds.stepComplete();
                 this.slot.$off('accept', this.callback);
                 this.note.close();
             }
@@ -104,14 +111,14 @@ export default {
                 this.checkButton = this.line.$refs.checkButton;
                 this.note = Hints.create({ message: Translation.get('message.tutorial.check'), position: 'is-top'});
             },
-            async start({ vm, advance }) {
-                vm.sounds.stepComplete();
+            async start({ advance }) {
                 await Dialog.alert(Translation.get('dialog.tutorial.firstblock'));
                 this.note.attach(this.checkButton.$el);
                 this.callback = advance;
                 this.line.$on('correct', this.callback);
             },
             close() {
+                this.tutorial.sounds.stepComplete();
                 this.note.close();
                 this.line.$off('correct', this.callback);
             },
@@ -119,7 +126,6 @@ export default {
         {
             help: 'firststanza',
             async start({ advance, vm }) {
-                vm.sounds.stepComplete();
                 await Dialog.alert(Translation.get('dialog.tutorial.firstline'));
                 // Re-enable all lines
                 for (let { id } of vm.poem.lines) {
@@ -137,10 +143,10 @@ export default {
             mounted() {
                 this.note = Hints.create({ message: Translation.get('message.tutorial.capture'), position: 'is-bottom'});
             },
-            async start({ advance, tutorial, vm }) {
+            async start({ advance, vm }) {
                 await Dialog.alert(Translation.get('dialog.tutorial.otherfeatures'));
                 // Show capture button
-                tutorial.captureButton.shouldShow = () => true;
+                this.tutorial.captureButton.shouldShow = () => true;
                 // Attach note to capture button
                 await vm.$nextTick();
                 const captureButtonEl = vm.$refs.buttons.find((button) => button.$vnode.key === 'capture').$el;
@@ -150,16 +156,16 @@ export default {
                 vm.$on('captureSuccess', this.callback);
             },
             close({ vm }) {
+                this.tutorial.sounds.stepComplete();
                 vm.$off('captureSuccess', this.callback);
             },
         },
         {
             start({ vm }) {
-                vm.sounds.stepComplete();
                 Dialog.confirm({
                     ...Translation.get('dialog.tutorial.complete'),
                     onConfirm: () => vm.$router.push({ name: 'RandomPoem' }),
-                });           
+                });
             }
         }
     ]
