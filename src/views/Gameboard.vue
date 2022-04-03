@@ -645,8 +645,8 @@ export default {
         setupTutorial() {
             let tutorial = {};
             let scope = { vm: this };
-            tutorial.created = tutorialOptions?.created.bind(tutorial, scope);
-            tutorial.mounted = tutorialOptions?.mounted.bind(tutorial, scope);
+            tutorial.created = tutorialOptions.created?.bind(tutorial, scope);
+            tutorial.mounted = tutorialOptions.mounted?.bind(tutorial, scope);
             tutorial.steps = tutorialOptions.steps.map((stepOptions) => {
                 let { start, close, created, mounted, ...options } = stepOptions;
                 let scope = { vm: this, tutorial };
