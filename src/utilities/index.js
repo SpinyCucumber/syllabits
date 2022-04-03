@@ -124,5 +124,14 @@ function checkLine(key, answer) {
     return { correct: (conflicts.length === 0), conflicts };
 }
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function timeout(fn, ms, ...args) {
+    await sleep(ms);
+    return fn(...args);
+}
+
 export { default as clone } from './clone'
-export { PoemLocation, BlockType, Enum, SerializableEnum, toTranslationKey, findConflicts, checkLine };
+export { PoemLocation, BlockType, Enum, SerializableEnum, toTranslationKey, findConflicts, checkLine, sleep, timeout };

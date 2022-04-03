@@ -1,4 +1,5 @@
 import { Translation, Hints, Assets } from '@/services'
+import { sleep, timeout } from '@/utilities'
 import { DialogProgrammatic as Dialog } from 'buefy'
 import useSound from 'vue-use-sound'
 
@@ -30,10 +31,9 @@ export default {
         return { sounds: { stepComplete, }, };
     },
     created({ vm }) {
-        const incorrectCallback = () => {
-            setTimeout(() => {  
-                Dialog.alert({ ...Translation.get('dialog.tutorial.missedline') });
-            }, 2000);
+        const incorrectCallback = async () => {
+            await sleep(2000);
+            Dialog.alert(Translation.get('dialog.tutorial.missedline'));
         }
         // Set up tutorial, which involves attaching incorrect
         // handler to each line. The first time the player gets a line
@@ -73,10 +73,11 @@ export default {
                 let picker = vm.$refs.blockDropdown.$slots.default[0].componentInstance;
                 this.slot = picker.$refs.buckets.find(bucket => (bucket.holding === 'i'));
             },
-            start({ advance }) {
+            async start({ advance }) {
+                await sleep(1000);
                 // Attach listener and note
                 this.note.attach(this.slot.$el);
-                this.callback = advance;
+                this.callback = () => timeout(advance, 500);
                 this.slot.$on('move', this.callback);
             },
             close() {
@@ -90,7 +91,7 @@ export default {
                 this.note = Hints.create({ message: Translation.get('message.tutorial.dropblock'), position: 'is-top'});
                 this.slot = vm.$refs.lines[0].$refs.slots[0];
             },
-            start({ advance }) {
+            async start({ advance }) {
                 // Attach note and listener
                 this.note.attach(this.slot.$el);
                 this.callback = (value) => {
@@ -99,7 +100,6 @@ export default {
                 this.slot.$on('accept', this.callback);
             },
             close() {
-                this.tutorial.sounds.stepComplete();
                 this.slot.$off('accept', this.callback);
                 this.note.close();
             }
@@ -112,13 +112,14 @@ export default {
                 this.note = Hints.create({ message: Translation.get('message.tutorial.check'), position: 'is-top'});
             },
             async start({ advance }) {
+                await sleep(1000);
+                this.tutorial.sounds.stepComplete();
                 await Dialog.alert(Translation.get('dialog.tutorial.firstblock'));
                 this.note.attach(this.checkButton.$el);
                 this.callback = advance;
                 this.line.$on('correct', this.callback);
             },
             close() {
-                this.tutorial.sounds.stepComplete();
                 this.note.close();
                 this.line.$off('correct', this.callback);
             },
@@ -126,6 +127,8 @@ export default {
         {
             help: 'firststanza',
             async start({ advance, vm }) {
+                await sleep(2000);
+                this.tutorial.sounds.stepComplete();
                 await Dialog.alert(Translation.get('dialog.tutorial.firstline'));
                 // Re-enable all lines
                 for (let { id } of vm.poem.lines) {
@@ -145,6 +148,7 @@ export default {
                 this.note = Hints.create({ message: Translation.get('message.tutorial.capture'), position: 'is-bottom'});
             },
             async start({ advance, vm }) {
+                await sleep(3000);
                 await Dialog.alert(Translation.get('dialog.tutorial.otherfeatures'));
                 // Show capture button
                 this.tutorial.captureButton.shouldShow = () => true;
@@ -157,13 +161,14 @@ export default {
                 vm.$on('captureSuccess', this.callback);
             },
             close({ vm }) {
-                this.tutorial.sounds.stepComplete();
                 this.note.close();
                 vm.$off('captureSuccess', this.callback);
             },
         },
         {
-            start({ vm }) {
+            async start({ vm }) {
+                await sleep(3000);
+                this.tutorial.sounds.stepComplete();
                 Dialog.confirm({
                     ...Translation.get('dialog.tutorial.complete'),
                     onConfirm: () => vm.$router.push({ name: 'RandomPoem' }),
