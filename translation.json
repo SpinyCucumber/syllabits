@@ -21,6 +21,7 @@
         "find": "Find a Poem",
         "oncorrect": "onCorrect",
         "oncomplete": "onComplete",
+        "advancetutorial": "Advance",
         "poem": {
             "reset": "Reset",
             "play": "Play",

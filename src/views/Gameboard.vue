@@ -247,15 +247,15 @@ export default {
     ],
 
     setup(props) {
+        let result = {};
         // Load sounds
         const [ correct ] = useSound(Assets.getSound('correct'));
         const [ incorrect ] = useSound(Assets.getSound('incorrect'));
         const [ poemComplete ] = useSound(Assets.getSound('poemcomplete'));
         const [ capture ] = useSound(Assets.getSound('capture'));
-        let result = { sounds: { correct, incorrect, poemComplete, capture, } };
+        result.sounds = { correct, incorrect, poemComplete, capture, };
         // Construct tutorial
         if (props.mode === 'tutorial') result.tutorial = constructTutorial();
-        console.log({ props, result });
         return result;
     },
 
