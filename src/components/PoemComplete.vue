@@ -7,7 +7,8 @@
             <b-button v-for="button in buttons"
                 :key="button.key"
                 :label="$translation.get('button.' + button.key)"
-                v-bind="button"/>
+                v-bind="button.options"
+                v-on="button.listeners"/>
         </footer>
     </div>
 </template>
@@ -23,9 +24,26 @@ export default {
 
     computed: {
         buttons() {
-            let buttons = [{ key: 'anotherpoem', tag: 'router-link', type: 'is-primary', to: {name: 'RandomPoem'} }];
-            if (this.$store.getters.hasIdentity)
-                buttons.push({ key: 'dashboard', tag: 'router-link', type: 'is-primary', to: {name: 'Dashboard'} });
+            let buttons = [
+                {
+                    key: 'anotherpoem', 
+                    options: {
+                        tag: 'router-link',
+                        type: 'is-primary',
+                        to: { name: 'RandomPoem' },
+                        label: this.$translation.get('button.anotherpoem'),
+                    },
+                },
+            ];
+            if (this.$store.getters.hasIdentity) buttons = [...buttons, {
+                key: 'dashboard',
+                options: {
+                    tag: 'router-link',
+                    type: 'is-primary',
+                    to: { name: 'Dashboard' },
+                    label: this.$translation.get('button.dashboard'),
+                },
+            }];
             return buttons;
         },
     },

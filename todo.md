@@ -75,9 +75,9 @@
 - In-class demo
     - Groups of 3 (one for each poem)
     - Feedback for last part of class
-- [ ] Capture poem feature
+- [x] Capture poem feature
     - Option to exit back to poem from complete dialog
-    - Only captures poem div
+    - [x] Only captures poem div
 - [x] IMPROVEMENT Use promises in gameboard setup method
 - [x] "Play poem" error states
 - [x] Export block images
