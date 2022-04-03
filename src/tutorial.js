@@ -140,6 +140,7 @@ export default {
             },
         },
         {
+            help: 'otherfeatures',
             mounted() {
                 this.note = Hints.create({ message: Translation.get('message.tutorial.capture'), position: 'is-bottom'});
             },
@@ -157,6 +158,7 @@ export default {
             },
             close({ vm }) {
                 this.tutorial.sounds.stepComplete();
+                this.note.close();
                 vm.$off('captureSuccess', this.callback);
             },
         },

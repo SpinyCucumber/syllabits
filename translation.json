@@ -91,6 +91,10 @@
                 "firststanza": {
                     "title": "Need Help?",
                     "message": "Although the first three lines are very similar, the last line has a slight change in rhythm. Watch out!"
+                },
+                "otherfeatures": {
+                    "title": "There's more!",
+                    "message": "The capture button can be used to show proof of completion and create teaching material. Also: if you ever want to replay a poem you've completed, a 'reset' button is avaliable that can delete your progress."
                 }
             },
             "welcome": {
@@ -114,6 +118,10 @@
                 "message": "Ready to try some poems?",
                 "confirmText": "Yes!",
                 "cancelText": "Maybe later"
+            },
+            "otherfeatures": {
+                "title": "One more thing...",
+                "message": "Nice job! But before you go, there are some other features of the SyllaBits Gameboard you should probably know about. One of the most helpful is the 'capture button,' which allows you to take a screenshot of the Gameboard. Give it a go!"
             }
         },
         "logout": {
