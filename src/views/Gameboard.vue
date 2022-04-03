@@ -45,7 +45,7 @@
 
                 <transition name="fade" mode="out-in">
                     <div :class="classes" ref="gameboard">
-                        <div class="toolbar">
+                        <div class="toolbar" data-html2canvas-ignore="true">
                             <!-- "Cheat" utils -->
                             <transition name="fade">
                                 <div v-if="showCheats" class="toolbar-start">
@@ -191,7 +191,7 @@ function makeLine() {
     }
 }
 
-// TODO Move this to 'Tutorial' class file
+// TODO Move this to a 'Tutorial' class file
 function constructTutorial() {
     let { created, mounted, setup, steps } = tutorialOptions;
     let tutorial = {};
