@@ -298,7 +298,14 @@ export default {
         }
 
         this.setupLineOptions();
-        if (this.mode === 'tutorial') this.setupTutorial();
+        if (this.mode === 'tutorial') {
+            this.setupTutorial();
+            // Call tutorial hooks and step hooks
+            if (this.tutorial.created) this.tutorial.created();
+            for (let step of this.tutorial.steps) {
+                if (step.created) step.created();
+            }
+        }
 
     },
 
@@ -312,7 +319,14 @@ export default {
         // We also send a quick message if edit mode is enabled
         else if (this.mode === 'edit') Reminders.showMessage('editmode');
         // If tutorial mode is enabled, start the tutorial
-        else if (this.mode === 'tutorial') this.startTutorial();
+        else if (this.mode === 'tutorial') {
+            // Call tutorial hooks and step hooks first
+            if (this.tutorial.mounted) this.tutorial.mounted();
+            for (let step of this.tutorial.steps) {
+                if (step.mounted) step.mounted();
+            }
+            this.startTutorial();
+        }
     },
 
     data() {
@@ -630,14 +644,18 @@ export default {
 
         setupTutorial() {
             let tutorial = {};
-            Object.assign(tutorial, tutorial.setup.bind(tutorialOptions)({ vm: this }));
-            tutorial.steps = tutorial.steps.map((stepOptions) => {
-                let { start, close, setup, ...options } = stepOptions;
+            let scope = { vm: this };
+            tutorial.created = tutorialOptions?.created.bind(tutorial, scope);
+            tutorial.mounted = tutorialOptions?.mounted.bind(tutorial, scope);
+            tutorial.steps = tutorialOptions.steps.map((stepOptions) => {
+                let { start, close, created, mounted, ...options } = stepOptions;
                 let scope = { vm: this, tutorial };
-                if (setup) Object.assign(step, setup(scope));
-                if (close) close = stepOptions.close.bind(step, scope);
-                start = stepOptions.start.bind(step, { ...scope, advance: this.advanceTutorial, });
-                return { start, close, ...options };
+                let step = { ...options };
+                step.start = start?.bind(step, { ...scope, advance: this.advanceTutorial, });
+                step.close = close?.bind(step, scope);
+                step.created = created?.bind(step, scope);
+                step.mounted = mounted?.bind(step, scope);
+                return step;
             });
             this.tutorial = tutorial;
         },
