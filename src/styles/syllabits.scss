@@ -340,6 +340,12 @@ body {
 button,
 .button {
     font-size: var(--fs-10);
+    // Fix for buttons with hints attached
+    display: inline-flex;
+    .icon {
+        margin-left: calc(-0.5em - 1px) !important;
+        margin-right: calc(-0.5em - 1px) !important;
+    }
 }
 
 input,
