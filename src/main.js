@@ -11,7 +11,9 @@ import './styles/syllabits.scss'
 
 // Install Vue plugins!
 // Buefy bundle size is actually small
-Vue.use(Buefy);
+Vue.use(Buefy, {
+  defaultProgrammaticPromise: true,
+});
 Vue.use(Constants);
 Vue.use(Assets);
 Vue.use(Translation);
