@@ -48,15 +48,22 @@
                         <div class="toolbar">
                             <!-- "Cheat" utils -->
                             <transition name="fade">
-                                <div v-if="showCheats && mode === 'play'" class="toolbar-start">
+                                <div v-if="showCheats" class="toolbar-start">
                                     <b-button
+                                        v-if="mode === 'play'"
                                         type="is-primary"
                                         :label="$translation.get('button.oncomplete')"
                                         @click="onComplete"/>
                                     <b-button
+                                        v-if="mode === 'play'"
                                         type="is-primary"
                                         :label="$translation.get('button.oncorrect')"
                                         @click="onLineCorrect"/>
+                                    <b-button
+                                        v-if="mode === 'tutorial'"
+                                        type="is-primary"
+                                        :label="$translation.get('button.advancetutorial')"
+                                        @click="advanceTutorial"/>
                                 </div>
                             </transition>
                             <transition-group name="list" tag="div" class="toolbar-end">
