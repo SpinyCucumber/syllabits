@@ -9,15 +9,21 @@ import { DialogProgrammatic as Dialog } from 'buefy'
  * The start method can receive the following arguments:
  * 'advance', which is a function that advances the tutorial to the next step
  * 'vm', which refers to the Gameboard instance
+ * 'tutorial', which refers to the tutorial instance
+ * (Most) steps should also specify the 'close' method, which should tear down all everything created in the
+ * start method.
  * Each step can optionally specify a 'help' property, which is a translation key
  * that is used to show a help message to the user.
- * The tutorial also specifies a 'setup' method, which should return an object
- * whose values are bound to the 'tutorial instance,' which is accessible through 'this'
- * in each start method.
- * The 'setup' method can also receive the 'vm' argument.
+ * Steps can also specify 'created' and 'mounted' methods, which are hooks called by the Vue instance.
+ * These methods are bound to the step instance, so they can be used to store references to elements and
+ * perform other setup logic. The 'start' and 'close' methods are also bound to the step instance,
+ * so they can access properties assigned to 'this' in the hooks.
+ * The tutorial can also specify general 'created' and 'mounted' hooks, which function similarly to the hooks
+ * for individual steps. These methods are bound to the tutorial instance, which is accessible in each step method
+ * through the 'tutorial' argument.
  */
 export default {
-    setup({ vm }) {
+    created({ vm }) {
         const incorrectCallback = () => {
             setTimeout(() => {  
                 Dialog.alert({ ...Translation.get('dialog.tutorial.missedline') });
@@ -32,123 +38,119 @@ export default {
             vm.setLineOption(id, 'disabled', true);
         }
         // Hide capture button (until last step!) and store reference to button
-        const captureButton = vm.buttons.find((button) => button.key === 'capture');
-        captureButton.shouldShow = () => false;
-        return { captureButton };
+        this.captureButton = vm.buttons.find((button) => button.key === 'capture');
+        this.captureButton.shouldShow = () => false;
     },
     steps: [
         {
-            start({ advance }) {
-                Dialog.alert({ ...Translation.get('dialog.tutorial.welcome'), onConfirm: advance });
+            mounted() {
+                this.note = Hints.create({ message: Translation.get('message.tutorial.openpalette'), position: 'is-right'});
+                this.handle = document.querySelector('.block-dropdown .handle');
             },
-        },
-        {
-            start({ advance, vm }) {
-                const note = Hints.create({ message: Translation.get('message.tutorial.openpalette'), position: 'is-right'});
-                const handle = document.querySelector('.block-dropdown .handle');
-                note.attach('.block-dropdown .handle-area');
+            async start({ advance }) {
+                await Dialog.alert(Translation.get('dialog.tutorial.welcome'));
+                this.note.attach('.block-dropdown .handle-area');
                 // Attach listener to handle
-                handle.addEventListener('click', () => {
-                    vm.sounds.stepComplete();
-                    note.close();
-                    setTimeout(advance, 1000);
-                }, {once: true});
+                this.callback = advance;
+                this.handle.addEventListener('click', this.callback);
+            },
+            close({ vm }) {
+                vm.sounds.stepComplete();
+                this.handle.removeEventListener('click', this.callback);
+                this.note.close();
             },
         },
         {
-            start({ advance, vm }) {
-                const note = Hints.create({ message: Translation.get('message.tutorial.dragblock'), position: 'is-right' });
+            mounted({ vm }) {
+                this.note = Hints.create({ message: Translation.get('message.tutorial.dragblock'), position: 'is-right' });
                 // Find Iamb slot
-                const picker = vm.$refs.blockDropdown.$slots.default[0].componentInstance;
-                const slot = picker.$refs.buckets.find(bucket => (bucket.holding === 'i'));
+                let picker = vm.$refs.blockDropdown.$slots.default[0].componentInstance;
+                this.slot = picker.$refs.buckets.find(bucket => (bucket.holding === 'i'));
+            },
+            start({ advance }) {
                 // Attach listener and note
-                note.attach(slot.$el);
-                slot.$once('move', () => {
-                    setTimeout(() => {
-                        note.close();
-                        advance();
-                    }, 500);
-                });
+                this.note.attach(this.slot.$el);
+                this.callback = advance;
+                this.slot.$on('move', this.callback);
+            },
+            close() {
+                this.slot.$off('move', this.callback);
+                this.note.close();
             },
         },
         {
             help: 'dropblock',
-            start({ advance, vm }) {
-                const note = Hints.create({ message: Translation.get('message.tutorial.dropblock'), position: 'is-top'});
-                const slot = vm.$refs.lines[0].$refs.slots[0];
+            mounted({ vm }) {
+                this.note = Hints.create({ message: Translation.get('message.tutorial.dropblock'), position: 'is-top'});
+                this.slot = vm.$refs.lines[0].$refs.slots[0];
+            },
+            start({ advance }) {
                 // Attach note and listener
-                note.attach(slot.$el);
-                const callback = (value) => {
-                    if (value === 'i') {
-                        slot.$off('accept', callback);
-                        setTimeout(() => {
-                            note.close();
-                            advance();
-                        }, 500);
-                    }
+                this.note.attach(this.slot.$el);
+                this.callback = (value) => {
+                    if (value === 'i') advance();
                 }
-                slot.$on('accept', callback);
+                this.slot.$on('accept', this.callback);
             },
-        },
-        {
-            start({ advance, vm }) {
-                vm.sounds.stepComplete();
-                Dialog.alert({ ...Translation.get('dialog.tutorial.firstblock'), onConfirm: advance });
-            },
-        },
-        {
-            help: 'firstline',
-            start({ advance, vm }) {
-                const line = vm.$refs.lines[0];
-                const checkButton = line.$refs.checkButton;
-                // Attach note to check button
-                const note = Hints.create({ message: Translation.get('message.tutorial.check'), position: 'is-top'});
-                note.attach(checkButton.$el);
-                line.$once('correct', () => {
-                    setTimeout(() => {
-                        note.close();
-                        advance();
-                    }, 2000);
-                })
-            },
-        },
-        {
-            start({ advance, vm }) {
-                vm.sounds.stepComplete();
-                Dialog.alert({ ...Translation.get('dialog.tutorial.firstline'), onConfirm: advance, });
+            close() {
+                this.slot.$off('accept', this.callback);
+                this.note.close();
             }
         },
         {
+            help: 'firstline',
+            mounted({ vm }) {
+                this.line = vm.$refs.lines[0];
+                this.checkButton = this.line.$refs.checkButton;
+                this.note = Hints.create({ message: Translation.get('message.tutorial.check'), position: 'is-top'});
+            },
+            async start({ vm, advance }) {
+                vm.sounds.stepComplete();
+                await Dialog.alert(Translation.get('dialog.tutorial.firstblock'));
+                this.note.attach(this.checkButton.$el);
+                this.callback = advance;
+                this.line.$on('correct', this.callback);
+            },
+            close() {
+                this.note.close();
+                this.line.$off('correct', this.callback);
+            },
+        },
+        {
             help: 'firststanza',
-            start({ advance, vm }) {
+            async start({ advance, vm }) {
+                vm.sounds.stepComplete();
+                await Dialog.alert(Translation.get('dialog.tutorial.firstline'));
                 // Re-enable all lines
                 for (let { id } of vm.poem.lines) {
                     vm.deleteLineOption(id, 'disabled');
                 }
                 // Wait for poem completion
-                vm.$once('complete', () => {
-                    setTimeout(advance, 3000);
-                });
-            }
-        },
-        {
-            start({ advance }) {
-                Dialog.alert({ ...Translation.get('dialog.tutorial.otherfeatures'), onConfirm: advance, });
+                this.callback = advance;
+                vm.$on('complete', this.callback);
+            },
+            close({ vm }) {
+                vm.$off('complete', this.callback);
             },
         },
         {
-            start({ advance, vm }) {
+            mounted() {
+                this.note = Hints.create({ message: Translation.get('message.tutorial.capture'), position: 'is-bottom'});
+            },
+            async start({ advance, tutorial, vm }) {
+                await Dialog.alert(Translation.get('dialog.tutorial.otherfeatures'));
                 // Show capture button
-                this.captureButton.shouldShow = () => true;
+                tutorial.captureButton.shouldShow = () => true;
                 // Attach note to capture button
-                const captureButtonEl = vm.$refs.buttons.find((button) => button.key === 'capture');
-                const note = Hints.create({ message: Translation.get('message.tutorial.capture'), position: 'is-bottom'});
-                note.attach(captureButtonEl);
+                await vm.$nextTick();
+                const captureButtonEl = vm.$refs.buttons.find((button) => button.$vnode.key === 'capture').$el;
+                this.note.attach(captureButtonEl);
                 // Wait for successful capture
-                vm.$once('captureSuccess', () => {
-                    note.close();
-                    advance();
-                })
+                this.callback = advance;
+                vm.$on('captureSuccess', this.callback);
+            },
+            close({ vm }) {
+                vm.$off('captureSuccess', this.callback);
             },
         },
         {
