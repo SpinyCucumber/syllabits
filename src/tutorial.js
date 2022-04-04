@@ -49,9 +49,9 @@ export default {
     },
     steps: [
         {
-            mounted() {
+            mounted({ vm }) {
                 this.note = Hints.create({ message: Translation.get('message.tutorial.openpalette'), position: 'is-right'});
-                this.handle = document.querySelector('.block-dropdown .handle');
+                this.handle = vm.$el.querySelector('.block-dropdown .handle');
             },
             async start({ advance }) {
                 await Dialog.alert(Translation.get('dialog.tutorial.welcome'));
