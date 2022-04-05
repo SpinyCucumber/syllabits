@@ -1,7 +1,6 @@
-import { Translation, Hints, Assets } from '@/services'
+import { Translation, Hints } from '@/services'
 import { sleep, timeout } from '@/utilities'
 import { DialogProgrammatic as Dialog } from 'buefy'
-import useSound from 'vue-use-sound'
 
 /**
  * The tutorial contains a list of steps.
@@ -25,11 +24,6 @@ import useSound from 'vue-use-sound'
  * through the 'tutorial' argument.
  */
 export default {
-    setup() {
-        // Load sounds
-        const [ stepComplete ] = useSound(Assets.getSound('stepcomplete'));
-        return { sounds: { stepComplete, }, };
-    },
     created({ vm }) {
         const incorrectCallback = async () => {
             await sleep(2000);
@@ -60,8 +54,8 @@ export default {
                 this.callback = advance;
                 this.handle.addEventListener('click', this.callback);
             },
-            close() {
-                this.tutorial.sounds.stepComplete();
+            close({ vm }) {
+                vm.sounds.stepComplete();
                 this.handle.removeEventListener('click', this.callback);
                 this.note.close();
             },
@@ -111,9 +105,9 @@ export default {
                 this.checkButton = this.line.$refs.checkButton;
                 this.note = Hints.create({ message: Translation.get('message.tutorial.check'), position: 'is-top'});
             },
-            async start({ advance }) {
+            async start({ advance, vm }) {
                 await sleep(1000);
-                this.tutorial.sounds.stepComplete();
+                vm.sounds.stepComplete();
                 await Dialog.alert(Translation.get('dialog.tutorial.firstblock'));
                 this.note.attach(this.checkButton.$el);
                 this.callback = advance;
@@ -128,7 +122,7 @@ export default {
             help: 'firststanza',
             async start({ advance, vm }) {
                 await sleep(2000);
-                this.tutorial.sounds.stepComplete();
+                vm.sounds.stepComplete();
                 await Dialog.alert(Translation.get('dialog.tutorial.firstline'));
                 // Re-enable all lines
                 for (let { id } of vm.poem.lines) {
@@ -168,7 +162,7 @@ export default {
         {
             async start({ vm }) {
                 await sleep(3000);
-                this.tutorial.sounds.stepComplete();
+                vm.sounds.stepComplete();
                 Dialog.confirm({
                     ...Translation.get('dialog.tutorial.complete'),
                     onConfirm: () => vm.$router.push({ name: 'RandomPoem' }),
