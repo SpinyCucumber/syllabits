@@ -234,18 +234,6 @@ export default {
         poemID: { type: String }, // Used for edit mode
     },
 
-    mixins: [
-        // In edit mode, we track the changes made to the poem by comparing to an original copy
-        TrackChanges({
-            toTrack: 'poem',
-            handler: new Document({
-                categories: new List(),
-                lines: new DocumentList(new Document(), { idField: 'id' }),
-            }),
-            excludeFields: ['progress', '__typename', 'location']
-        }),
-    ],
-
     setup(props) {
         let result = {};
         // Load sounds
@@ -257,6 +245,20 @@ export default {
         // Construct tutorial
         if (props.mode === 'tutorial') result.tutorial = constructTutorial();
         return result;
+    },
+
+    beforeCreate() {
+        if (this.$options.propsData.mode === 'edit') {
+            // In edit mode, we track the changes made to the poem by comparing to an original copy
+            this.$options.mixins = [TrackChanges({
+                toTrack: 'poem',
+                handler: new Document({
+                    categories: new List(),
+                    lines: new DocumentList(new Document(), { idField: 'id' }),
+                }),
+                excludeFields: ['progress', '__typename', 'location']
+            })];
+        }
     },
 
     /**
