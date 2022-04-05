@@ -220,7 +220,11 @@ export default {
         const [ incorrect ] = useSound(Assets.getSound('incorrect'));
         const [ poemComplete ] = useSound(Assets.getSound('poemcomplete'));
         const [ capture ] = useSound(Assets.getSound('capture'));
-        return { sounds: { correct, incorrect, poemComplete, capture, } };
+        const [ stepComplete ] = useSound(Assets.getSound('stepcomplete'));
+        // It would be cool if we could load the stepComplete sound in the tutorial file, but the tutorial
+        // is implemented as a mixin and vue-use-sound uses the composition API... Mixing these two APIs
+        // is something that Vue really doesn't like.
+        return { sounds: { stepComplete, correct, incorrect, poemComplete, capture, } };
     },
 
     mixins: [
@@ -232,7 +236,10 @@ export default {
             }),
             excludeFields: ['progress', '__typename', 'location']
         }),
-        Tutorial(tutorialOptions),
+        Tutorial({
+            options: tutorialOptions,
+            active: 'tutorialActive',
+        }),
     ],
 
     /**
@@ -297,7 +304,7 @@ export default {
         }
 
         this.setupLineOptions();
-        this.$emit('poemReady');
+        this.$emit('ready');
 
     },
 
@@ -702,6 +709,9 @@ export default {
         },
         isBusy() {
             return this.preparingCapture;
+        },
+        tutorialActive() {
+            return this.mode === 'tutorial';
         },
     },
 

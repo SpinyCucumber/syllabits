@@ -25,7 +25,7 @@ import { DialogProgrammatic as Dialog } from 'buefy'
  */
 export default {
     created({ vm }) {
-        vm.$on('poemReady', async () => {
+        vm.$on('ready', async () => {
             await vm.$nextTick();
             // Disable all lines except for first
             for (let { id } of vm.sortedLines.slice(1)) {
@@ -44,9 +44,11 @@ export default {
     },
     steps: [
         {
-            mounted() {
+            created() {
                 this.note = Hints.create({ message: Translation.get('message.tutorial.openpalette'), position: 'is-right'});
-                this.handle = document.querySelector('.block-dropdown .handle');
+            },
+            mounted({ vm }) {
+                this.handle = vm.$el.querySelector('.block-dropdown .handle');
             },
             async start({ advance }) {
                 await Dialog.alert(Translation.get('dialog.tutorial.welcome'));
@@ -62,8 +64,10 @@ export default {
             },
         },
         {
-            mounted({ vm }) {
+            created() {
                 this.note = Hints.create({ message: Translation.get('message.tutorial.dragblock'), position: 'is-right' });
+            },
+            mounted({ vm }) {
                 // Find Iamb slot
                 let picker = vm.$refs.blockDropdown.$slots.default[0].componentInstance;
                 this.slot = picker.$refs.buckets.find(bucket => (bucket.holding === 'i'));
@@ -83,7 +87,7 @@ export default {
         {
             help: 'dropblock',
             created({ vm }) {
-                vm.$on('poemReady', async () => {
+                vm.$on('ready', async () => {
                     await vm.$nextTick();
                     this.slot = vm.$refs.lines[0].$refs.slots[0];
                 });
@@ -105,7 +109,7 @@ export default {
         {
             help: 'firstline',
             created({ vm }) {
-                vm.$on('poemReady', async () => {
+                vm.$on('ready', async () => {
                     await vm.$nextTick();
                     this.line = vm.$refs.lines[0];
                     this.checkButton = this.line.$refs.checkButton;
