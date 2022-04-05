@@ -25,18 +25,19 @@ import { DialogProgrammatic as Dialog } from 'buefy'
  */
 export default {
     created({ vm }) {
+        vm.$on('poemReady', async () => {
+            await vm.$nextTick();
+            // Disable all lines except for first
+            for (let { id } of vm.sortedLines.slice(1)) {
+                vm.setLineOption(id, 'disabled', true);
+            }
+        });
         const incorrectCallback = async () => {
             await sleep(2000);
             Dialog.alert(Translation.get('dialog.tutorial.missedline'));
         }
-        // Set up tutorial, which involves attaching incorrect
-        // handler to each line. The first time the player gets a line
-        // incorrect, we show a dialog explaining the mechanics.
+        // The first time the player gets a line incorrect, we show a dialog explaining the mechanics.
         vm.$once('lineIncorrect', incorrectCallback);
-        // Disable all lines except for first
-        for (let { id } of vm.sortedLines.slice(1)) {
-            vm.setLineOption(id, 'disabled', true);
-        }
         // Hide capture button (until last step!) and store reference to button
         this.captureButton = vm.buttons.find((button) => button.key === 'capture');
         this.captureButton.shouldShow = () => false;
@@ -81,9 +82,12 @@ export default {
         },
         {
             help: 'dropblock',
-            mounted({ vm }) {
+            created({ vm }) {
+                vm.$on('poemReady', async () => {
+                    await vm.$nextTick();
+                    this.slot = vm.$refs.lines[0].$refs.slots[0];
+                });
                 this.note = Hints.create({ message: Translation.get('message.tutorial.dropblock'), position: 'is-top'});
-                this.slot = vm.$refs.lines[0].$refs.slots[0];
             },
             async start({ advance }) {
                 // Attach note and listener
@@ -100,9 +104,12 @@ export default {
         },
         {
             help: 'firstline',
-            mounted({ vm }) {
-                this.line = vm.$refs.lines[0];
-                this.checkButton = this.line.$refs.checkButton;
+            created({ vm }) {
+                vm.$on('poemReady', async () => {
+                    await vm.$nextTick();
+                    this.line = vm.$refs.lines[0];
+                    this.checkButton = this.line.$refs.checkButton;
+                });
                 this.note = Hints.create({ message: Translation.get('message.tutorial.check'), position: 'is-top'});
             },
             async start({ advance, vm }) {
@@ -138,7 +145,7 @@ export default {
         },
         {
             help: 'otherfeatures',
-            mounted() {
+            created() {
                 this.note = Hints.create({ message: Translation.get('message.tutorial.capture'), position: 'is-bottom'});
             },
             async start({ advance, vm }) {
