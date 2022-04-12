@@ -49,6 +49,9 @@
     - [x] Field for title + author
     - [x] 5 feet, text box under?
 - [x] Edit button in the game interface as well
+- [ ] Mobile TLC
+    - [ ] Horizontal Block Drawer
+    - [ ] 
 - [ ] IMPROVEMENT Phase out vue-smooth-dnd... It is abysmal for performance 
 - [ ] Scratch pad?
 - [ ] User groups
@@ -56,12 +59,12 @@
         - Modify roles of others?
     - Admin
         - Add/edit poems (but not modify roles!)
-- [ ] About page
+- [ ] Scansion Guide Page
     - FAQ?
     - Include link in Navbar
-- [ ] Credits page?
+- [ ] Credits/Funders page
     - Include Folger stuff
-- [ ] Contact Page
+- [ ] Contact Page/"Learn More" Bibliography?
     - Dedicated SyllaBits Email?
 - [ ] IMPROVEMENT More generalized "reminders" system?
 - [x] Tutorial (WIP)
@@ -78,7 +81,9 @@
 - [x] Capture poem feature
     - Option to exit back to poem from complete dialog
     - [x] Only captures poem div
+    - [ ] IMPROVEMENT Add username, timestamp
 - [x] IMPROVEMENT Use promises in gameboard setup method
 - [x] "Play poem" error states
 - [x] Export block images
 - [ ] SyllaBits Admin Tutorial
+    - [ ] Avaliable in SyllaBits itself
