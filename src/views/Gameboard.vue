@@ -164,7 +164,7 @@ import {
     PoemComplete,
 } from '@/components'
 import { Constants, Assets, Reminders } from '@/services'
-import { TrackChanges } from '@/mixins'
+import { TrackChanges, Tutorial } from '@/mixins'
 import { PoemLocation, checkLine, toTranslationKey } from '@/utilities'
 import { Document, List, DocumentList } from '@/utilities/tracking'
 import { saveAs } from 'file-saver'
@@ -191,26 +191,6 @@ function makeLine() {
     }
 }
 
-// TODO Move this to a 'Tutorial' class file
-function constructTutorial() {
-    let { created, mounted, setup, steps } = tutorialOptions;
-    let tutorial = {};
-    if (setup) Object.assign(tutorial, setup());
-    tutorial.created = created?.bind(tutorial);
-    tutorial.mounted = mounted?.bind(tutorial);
-    tutorial.steps = steps.map((stepOptions) => {
-        let { start, close, created, mounted, setup, ...options } = stepOptions;
-        let step = { ...options, tutorial };
-        if (setup) Object.assign(step, setup());
-        step.start = start?.bind(step);
-        step.close = close?.bind(step);
-        step.created = created?.bind(step);
-        step.mounted = mounted?.bind(step);
-        return step;
-    });
-    return tutorial;
-}
-
 export default {
 
     name: 'Gameboard',
@@ -234,8 +214,20 @@ export default {
         poemID: { type: String }, // Used for edit mode
     },
 
+    setup() {
+        // Load sounds
+        const [ correct ] = useSound(Assets.getSound('correct'));
+        const [ incorrect ] = useSound(Assets.getSound('incorrect'));
+        const [ poemComplete ] = useSound(Assets.getSound('poemcomplete'));
+        const [ capture ] = useSound(Assets.getSound('capture'));
+        const [ stepComplete ] = useSound(Assets.getSound('stepcomplete'));
+        // It would be cool if we could load the stepComplete sound in the tutorial file, but the tutorial
+        // is implemented as a mixin and vue-use-sound uses the composition API... Mixing these two APIs
+        // is something that Vue really doesn't like.
+        return { sounds: { stepComplete, correct, incorrect, poemComplete, capture, } };
+    },
+
     mixins: [
-        // In edit mode, we track the changes made to the poem by comparing to an original copy
         TrackChanges({
             toTrack: 'poem',
             handler: new Document({
@@ -244,20 +236,11 @@ export default {
             }),
             excludeFields: ['progress', '__typename', 'location']
         }),
+        Tutorial({
+            options: tutorialOptions,
+            active: 'tutorialActive',
+        }),
     ],
-
-    setup(props) {
-        let result = {};
-        // Load sounds
-        const [ correct ] = useSound(Assets.getSound('correct'));
-        const [ incorrect ] = useSound(Assets.getSound('incorrect'));
-        const [ poemComplete ] = useSound(Assets.getSound('poemcomplete'));
-        const [ capture ] = useSound(Assets.getSound('capture'));
-        result.sounds = { correct, incorrect, poemComplete, capture, };
-        // Construct tutorial
-        if (props.mode === 'tutorial') result.tutorial = constructTutorial();
-        return result;
-    },
 
     /**
      * Performs all work necessary to start playing/editing,
@@ -321,14 +304,7 @@ export default {
         }
 
         this.setupLineOptions();
-        
-        // Call tutorial hooks
-        if (this.mode === 'tutorial') {
-            if (this.tutorial.created) this.tutorial.created({ vm: this });
-            for (let step of this.tutorial.steps) {
-                if (step.created) step.created({ vm: this });
-            }
-        }
+        this.$emit('ready');
 
     },
 
@@ -342,14 +318,7 @@ export default {
         // We also send a quick message if edit mode is enabled
         else if (this.mode === 'edit') Reminders.showMessage('editmode');
         // If tutorial mode is enabled, start the tutorial
-        else if (this.mode === 'tutorial') {
-            // Call tutorial hooks and step hooks first
-            if (this.tutorial.mounted) this.tutorial.mounted({ vm: this });
-            for (let step of this.tutorial.steps) {
-                if (step.mounted) step.mounted({ vm: this });
-            }
-            this.startTutorial();
-        }
+        else if (this.mode === 'tutorial') this.startTutorial();
     },
 
     data() {
@@ -361,7 +330,6 @@ export default {
             saved: false, // Whether the poem actually exists on the server (only in edit mode)
             nextPoem: null, // For each 'play context', the server can specify a next and previous poem. (only in play mode)
             previousPoem: null,
-            tutorialProgress: null, // Tracks current step (only in tutorial mode)
             lineOptions: null, // Additional line bindings which can be manually. specified
             error: null, // Can be set to indicate that the poem failed to load
             buttons: [
@@ -703,17 +671,6 @@ export default {
             this.sounds.incorrect();
         },
 
-        startTutorial() {
-            this.tutorialProgress = 0;
-            this.currentStep.start({ vm: this, advance: this.advanceTutorial });
-        },
-
-        advanceTutorial() {
-            this.currentStep.close({ vm: this });
-            this.tutorialProgress += 1;
-            this.currentStep.start({ vm: this, advance: this.advanceTutorial });
-        },
-
     },
 
     computed: {
@@ -747,17 +704,14 @@ export default {
             if (this.previousPoem) links.push({ key: 'previouspoem', to: { name: 'Play', params: { location: this.previousPoem } } });
             return links;
         },
-        /**
-         * Only applicable in tutorial mode
-         */
-        currentStep() {
-            return this.tutorial?.steps[this.tutorialProgress];
-        },
         errorMessage() {
             return this.$translation.get('dialog.poem.error.message.' + toTranslationKey(this.error));
         },
         isBusy() {
             return this.preparingCapture;
+        },
+        tutorialActive() {
+            return this.mode === 'tutorial';
         },
     },
 

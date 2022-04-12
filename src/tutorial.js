@@ -1,7 +1,6 @@
-import { Translation, Hints, Assets } from '@/services'
+import { Translation, Hints } from '@/services'
 import { sleep, timeout } from '@/utilities'
 import { DialogProgrammatic as Dialog } from 'buefy'
-import useSound from 'vue-use-sound'
 
 /**
  * The tutorial contains a list of steps.
@@ -25,32 +24,30 @@ import useSound from 'vue-use-sound'
  * through the 'tutorial' argument.
  */
 export default {
-    setup() {
-        // Load sounds
-        const [ stepComplete ] = useSound(Assets.getSound('stepcomplete'));
-        return { sounds: { stepComplete, }, };
-    },
     created({ vm }) {
+        vm.$on('ready', async () => {
+            await vm.$nextTick();
+            // Disable all lines except for first
+            for (let { id } of vm.sortedLines.slice(1)) {
+                vm.setLineOption(id, 'disabled', true);
+            }
+        });
         const incorrectCallback = async () => {
             await sleep(2000);
             Dialog.alert(Translation.get('dialog.tutorial.missedline'));
         }
-        // Set up tutorial, which involves attaching incorrect
-        // handler to each line. The first time the player gets a line
-        // incorrect, we show a dialog explaining the mechanics.
+        // The first time the player gets a line incorrect, we show a dialog explaining the mechanics.
         vm.$once('lineIncorrect', incorrectCallback);
-        // Disable all lines except for first
-        for (let { id } of vm.sortedLines.slice(1)) {
-            vm.setLineOption(id, 'disabled', true);
-        }
         // Hide capture button (until last step!) and store reference to button
         this.captureButton = vm.buttons.find((button) => button.key === 'capture');
         this.captureButton.shouldShow = () => false;
     },
     steps: [
         {
-            mounted({ vm }) {
+            created() {
                 this.note = Hints.create({ message: Translation.get('message.tutorial.openpalette'), position: 'is-right'});
+            },
+            mounted({ vm }) {
                 this.handle = vm.$el.querySelector('.block-dropdown .handle');
             },
             async start({ advance }) {
@@ -60,15 +57,17 @@ export default {
                 this.callback = advance;
                 this.handle.addEventListener('click', this.callback);
             },
-            close() {
-                this.tutorial.sounds.stepComplete();
+            close({ vm }) {
+                vm.sounds.stepComplete();
                 this.handle.removeEventListener('click', this.callback);
                 this.note.close();
             },
         },
         {
-            mounted({ vm }) {
+            created() {
                 this.note = Hints.create({ message: Translation.get('message.tutorial.dragblock'), position: 'is-right' });
+            },
+            mounted({ vm }) {
                 // Find Iamb slot
                 let picker = vm.$refs.blockDropdown.$slots.default[0].componentInstance;
                 this.slot = picker.$refs.buckets.find(bucket => (bucket.holding === 'i'));
@@ -87,9 +86,12 @@ export default {
         },
         {
             help: 'dropblock',
-            mounted({ vm }) {
+            created({ vm }) {
+                vm.$on('ready', async () => {
+                    await vm.$nextTick();
+                    this.slot = vm.$refs.lines[0].$refs.slots[0];
+                });
                 this.note = Hints.create({ message: Translation.get('message.tutorial.dropblock'), position: 'is-top'});
-                this.slot = vm.$refs.lines[0].$refs.slots[0];
             },
             async start({ advance }) {
                 // Attach note and listener
@@ -106,14 +108,17 @@ export default {
         },
         {
             help: 'firstline',
-            mounted({ vm }) {
-                this.line = vm.$refs.lines[0];
-                this.checkButton = this.line.$refs.checkButton;
+            created({ vm }) {
+                vm.$on('ready', async () => {
+                    await vm.$nextTick();
+                    this.line = vm.$refs.lines[0];
+                    this.checkButton = this.line.$refs.checkButton;
+                });
                 this.note = Hints.create({ message: Translation.get('message.tutorial.check'), position: 'is-top'});
             },
-            async start({ advance }) {
+            async start({ advance, vm }) {
                 await sleep(1000);
-                this.tutorial.sounds.stepComplete();
+                vm.sounds.stepComplete();
                 await Dialog.alert(Translation.get('dialog.tutorial.firstblock'));
                 this.note.attach(this.checkButton.$el);
                 this.callback = advance;
@@ -128,7 +133,7 @@ export default {
             help: 'firststanza',
             async start({ advance, vm }) {
                 await sleep(2000);
-                this.tutorial.sounds.stepComplete();
+                vm.sounds.stepComplete();
                 await Dialog.alert(Translation.get('dialog.tutorial.firstline'));
                 // Re-enable all lines
                 for (let { id } of vm.poem.lines) {
@@ -144,7 +149,7 @@ export default {
         },
         {
             help: 'otherfeatures',
-            mounted() {
+            created() {
                 this.note = Hints.create({ message: Translation.get('message.tutorial.capture'), position: 'is-bottom'});
             },
             async start({ advance, vm }) {
@@ -168,7 +173,7 @@ export default {
         {
             async start({ vm }) {
                 await sleep(3000);
-                this.tutorial.sounds.stepComplete();
+                vm.sounds.stepComplete();
                 Dialog.confirm({
                     ...Translation.get('dialog.tutorial.complete'),
                     onConfirm: () => vm.$router.push({ name: 'RandomPoem' }),
