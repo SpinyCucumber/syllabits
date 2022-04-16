@@ -19,7 +19,7 @@
                 </div>
             </template>
             <template #background-area>
-                <background-image :src="$assets.getTexture('books')" class="muted"/>
+                <background-image :src="$assets.getTexture('books')" :stretched="true" class="muted"/>
             </template>
         </scene>
     </navbar-view>

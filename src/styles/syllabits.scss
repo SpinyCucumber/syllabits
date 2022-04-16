@@ -359,6 +359,12 @@ input,
     }
 }
 
+.background-image {
+    &.stretched {
+        background-size: cover;
+    }
+}
+
 .game-block-shape {
     width: $block-width;
     height: $block-height;
