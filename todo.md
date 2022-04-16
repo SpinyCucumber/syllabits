@@ -20,10 +20,10 @@
     - [x] Line completion behavior?
     - [x] Stanzas? (related to dataset)
         - For W. Shakespeare dataset: 4 - 4 - 4 - 2
-- [ ] Dashboard view
+- [x] Dashboard view
     - [ ] Poem card list pagination ("more" button)
     - [ ] Links to browse by category
-- [ ] Register view
+- [x] Register view
     - [ ] Confirm password
 - [ ] Visual Element Redesign
     - [ ] Divider (fancier!)
@@ -33,7 +33,7 @@
 - [x] Buefy color scheme changes
 - [x] Sonnet 20 .-.
     - [x] Modify script to show problem poems
-- [ ] Keep track of copyright usage (Luna)
+- [x] Keep track of copyright usage (Luna)
 - [x] Poem collections?
 - [x] Find view
     - [ ] Collections tab
