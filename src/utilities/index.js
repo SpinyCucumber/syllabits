@@ -1,3 +1,5 @@
+import ObjectID from 'bson-objectid'
+
 /**
  * Handles encoding/decoding poem locations
  * Poem locations are BSON-encoded strings that identify a poem in a context
@@ -124,6 +126,18 @@ function checkLine(key, answer) {
     return { correct: (conflicts.length === 0), conflicts };
 }
 
+/**
+ * Creates an empty gameboard line
+ */
+ function makeLine() {
+    return {
+        id: ObjectID().toHexString(),
+        text: '',
+        key: new Array(5).fill(''),
+        stanzaBreak: false,
+    }
+}
+
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -134,4 +148,4 @@ async function timeout(fn, ms, ...args) {
 }
 
 export { default as clone } from './clone'
-export { PoemLocation, BlockType, Enum, SerializableEnum, toTranslationKey, findConflicts, checkLine, sleep, timeout };
+export { PoemLocation, BlockType, Enum, SerializableEnum, toTranslationKey, findConflicts, checkLine, makeLine, sleep, timeout };

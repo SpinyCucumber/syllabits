@@ -165,7 +165,7 @@ import {
 } from '@/components'
 import { Constants, Assets, Reminders } from '@/services'
 import { TrackChanges, Tutorial } from '@/mixins'
-import { PoemLocation, checkLine, toTranslationKey } from '@/utilities'
+import { PoemLocation, checkLine, makeLine, toTranslationKey } from '@/utilities'
 import { Document, List, DocumentList } from '@/utilities/tracking'
 import { saveAs } from 'file-saver'
 import NavbarView from './NavbarView'
@@ -173,23 +173,10 @@ import tutorialPoem from '/tutorial-poem'
 import tutorialOptions from '@/tutorial'
 import store from '@/store'
 import Vue from 'vue'
-import ObjectID from 'bson-objectid'
 import useSound from 'vue-use-sound'
 import html2canvas from 'html2canvas'
 
 const { LineState, LocationType } = Constants;
-
-/**
- * Creates an empty line
- */
-function makeLine() {
-    return {
-        id: ObjectID().toHexString(),
-        text: '',
-        key: new Array(5).fill(''),
-        stanzaBreak: false,
-    }
-}
 
 export default {
 
