@@ -611,6 +611,12 @@ export default {
         async capture() {
             this.preparingCapture = true;
             let canvas = await html2canvas(this.$refs.gameboard);
+            // Write timestamp to canvas
+            // TESTING, TEMPORARY
+            let ctx = canvas.getContext('2d');
+            ctx.fillText('Testing', 10, 10);
+            console.dir(canvas);
+            // Convert canvas to image and save
             canvas.toBlob((blob) => {
                 this.sounds.capture();
                 this.preparingCapture = false;
