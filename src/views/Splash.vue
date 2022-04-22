@@ -43,12 +43,23 @@
 <script>
 import { Scene, Carousel, PoemLine } from '@/components'
 import { Assets, Constants } from '@/services'
-import Vue from 'vue'
 
 const { LineState } = Constants
 
+function makeLineProgress() {
+    return { holding: Array(5).fill(null), state: LineState.Unchecked, attempts: 0 };
+}
+
 export default {
     components: { Scene, Carousel, PoemLine },
+    setup() {
+        return {
+            demoPoem: [
+                { text: "With building blocks to practice and refine" },
+                { text: "your scansion skills will grow with every line" },
+            ],
+        }
+    },
     data() {
         return {
             images: ['paper1', 'paper2', 'paper3', 'paper4'].map(Assets.getTexture),
@@ -57,18 +68,12 @@ export default {
                 { key: "login", to: { name: "Login" } },
                 { key: "register", to: { name: "Register" } },
             ],
-            demoPoem: [
-                { text: "With building blocks to practice and refine" },
-                { text: "your scansion skills will grow with every line" },
-            ],
-            demoProgress: []
+            demoProgress: null,
         }
     },
     created() {
         // Set up demo poem progress
-        for (let i in this.demoPoem) {
-            Vue.set(this.demoProgress, i, { holding: Array(5).fill(null), state: LineState.Unchecked, attempts: 0 });
-        }
+        this.demoProgress = Array.from(this.demoPoem, makeLineProgress);
     },
     methods: {
         checkLine(number, holding) {
