@@ -81,7 +81,7 @@
 - [x] Capture poem feature
     - Option to exit back to poem from complete dialog
     - [x] Only captures poem div
-    - [ ] IMPROVEMENT Add username, timestamp
+    - [x] IMPROVEMENT Add username, timestamp
 - [x] IMPROVEMENT Use promises in gameboard setup method
 - [x] "Play poem" error states
 - [x] Export block images

@@ -610,12 +610,28 @@ export default {
          */
         async capture() {
             this.preparingCapture = true;
-            let canvas = await html2canvas(this.$refs.gameboard);
-            // Write timestamp to canvas
-            // TESTING, TEMPORARY
-            let ctx = canvas.getContext('2d');
-            ctx.fillText('Testing', 10, 10);
-            console.dir(canvas);
+
+            let canvas = await html2canvas(this.$refs.gameboard, {
+                onclone(doc, elem) {
+                    // We attach the player's name and a timestamp
+                    // to the gameboard before capturing, for verification purposes.
+                    let text = [];
+                    if (store.getters.hasIdentity) text.push(store.getters.claims.email);
+                    text.push(new Date().toLocaleString());
+
+                    // Create a header element to contain the new text
+                    let headerElem = doc.createElement('div');
+                    for (const line of text) {
+                        let child = doc.createElement('p');
+                        child.appendChild(doc.createTextNode(line));
+                        headerElem.appendChild(child);
+                    }
+
+                    // Insert the header before the poem element
+                    let poemElem = elem.querySelector('.poem');
+                    elem.insertBefore(headerElem, poemElem);
+                }
+            });
             // Convert canvas to image and save
             canvas.toBlob((blob) => {
                 this.sounds.capture();
