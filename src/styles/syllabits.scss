@@ -179,7 +179,6 @@ body {
                 color: $gray;
             }
         }
-
     }
 
     .button-area {
@@ -205,10 +204,34 @@ body {
 }
 
 .find-view {
-    @extend .navbar-view-content;
+
     .tabs>ul {
         justify-content: center;
     }
+
+    .find-view-tabs {
+        min-height: 0;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        >.tab-content {
+            flex-grow: 1;
+            min-height: 0;
+        }
+    }
+
+    .find-view-tab-item {
+        min-height: 0;
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column;
+    }
+
+    .find-view-table {
+        min-height: 0;
+        flex-grow: 1;
+    }
+
 }
 
 .login-menu, .register-menu {
@@ -345,6 +368,27 @@ button,
     .icon {
         margin-left: calc(-0.5em - 1px) !important;
         margin-right: calc(-0.5em - 1px) !important;
+    }
+}
+
+.searchable-table {
+    display: flex;
+    flex-direction: column;
+    .result-count {
+        min-height: 1.5em;
+    }
+    .b-table {
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column;
+        min-height: 0;
+    }
+    .table-wrapper {
+        flex-grow: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        overflow-y: hidden;
     }
 }
 
