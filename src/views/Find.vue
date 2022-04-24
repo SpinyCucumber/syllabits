@@ -1,11 +1,12 @@
 <template>
-    <navbar-view>
-        <b-tabs class="find-view">
+    <navbar-view class="find-view">
+        <b-tabs class="find-view-tabs">
             <b-tab-item
+                class="find-view-tab-item"
                 v-for="tab in tabs"
                 :key="tab.key"
                 :label="$translation.get('tab.' + tab.key)">
-                <Table v-bind="tab.tableOptions"/>
+                <Table v-bind="tab.tableOptions" class="find-view-table"/>
             </b-tab-item>
         </b-tabs>
     </navbar-view>
@@ -88,7 +89,6 @@ export default {
                         orderByOptions: ['relevance', 'title', 'author'],
                         enableCategories: true,
                         entryComponent: PoemEntry,
-                        perPage: 8,
                     },
                 }
             ],
