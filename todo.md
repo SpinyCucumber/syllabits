@@ -53,7 +53,7 @@
     - [ ] Horizontal Block Drawer
     - [ ] 
 - [ ] IMPROVEMENT Phase out vue-smooth-dnd... It is abysmal for performance 
-- [ ] Scratch pad?
+- [ ] POSSIBLE FEATURE "Scratch pad"?
 - [ ] User groups
     - Owner
         - Modify roles of others?

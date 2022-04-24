@@ -365,7 +365,7 @@ export default {
                 },
                 {
                     key: 'capture',
-                    options: { type: 'is-warning', 'icon-left': 'camera', },
+                    options: { type: 'is-success', 'icon-left': 'camera', },
                     listeners: { click: this.capture, },
                     shouldShow: () => this.mode !== 'edit'
                 },
