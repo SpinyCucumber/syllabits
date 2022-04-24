@@ -144,7 +144,8 @@
             "resetsuccess": "Progress reset!",
             "deletesuccess": "Poem deleted!",
             "savesuccess": "Poem saved!",
-            "savechangessuccess": "Changes saved successfully!"
+            "savechangessuccess": "Changes saved successfully!",
+            "share": "Link copied to clipboard!"
         },
         "tutorial": {
             "openpalette": "First, let’s open the type case.",

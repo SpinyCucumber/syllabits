@@ -50,7 +50,15 @@ const PoemEntry = Vue.component('PoemEntry', {
             this.$router.push({name: 'Edit', params: {poemID: this.entry.id}});
         },
         share() {
-            // TODO
+            // Construct play URL and write to clipboard
+            const location = new PoemLocation({t: LocationType.Direct, p: this.entry.id}).encode();
+            const url = window.location.origin + '/#/play/' + location;
+            navigator.clipboard.writeText(url);
+            // Show success message
+            this.$buefy.toast.open({
+                message: this.$translation.get('message.poem.share'),
+                type: 'is-success',
+            })
         }
     },
     render() {
