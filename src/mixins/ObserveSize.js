@@ -10,13 +10,19 @@ export default function(options) {
                 [widthProp]: undefined,
             }
         },
-        mounted() {
-            const observer = new ResizeObserver(() => {
+        methods: {
+            updateSize() {
                 let el = this.$refs[ref];
                 this[heightProp] = el.clientHeight;
                 this[widthProp] = el.clientWidth;
-            });
-            observer.observe(this.$refs[ref]);
+            }
+        },
+        mounted() {
+            const observer = new ResizeObserver(this.updateSize);
+            this.$nextTick(() => {
+                this.updateSize();
+                observer.observe(this.$refs[ref]);
+            })
         },
     }
     
