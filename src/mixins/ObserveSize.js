@@ -13,8 +13,8 @@ export default function(options) {
         methods: {
             updateSize() {
                 let el = this.$refs[ref];
-                this[heightProp] = el.clientHeight;
-                this[widthProp] = el.clientWidth;
+                this[heightProp] = el?.clientHeight;
+                this[widthProp] = el?.clientWidth;
             }
         },
         mounted() {
