@@ -36,28 +36,31 @@ class BlockType extends String {
  * Constructed using an object where the keys are the name of the member,
  * and the values are the args used to initialize the member value.
  */
-class Enum {
+ class Enum {
 
-    constructor(values, initializer = ((x) => x)) {
+    constructor(values, initializer = (x => new Object(x))) {
         // We maintain an array to allow users to iterate over all members
-        // TODO
-        this.values = [];
-        this._map = new Map();
+        this._values = {};
 
-        for (let name in values) {
+        for (const [key, value] of Object.entries(values)) {
 
-            value = initializer(values[name]);
-            this.values.push(value);
-
-            value.name = name;
-            this[name] = value;
-            this._map.set(value, value);
+            let obj = initializer(value);
+            Object.defineProperty(obj, 'name', {
+                value: key,
+                writable: false,
+            });
+            this[key] = obj;
+            this._values[obj] = obj;
 
         }
     }
 
-    forValue(value) {
+    get values() {
+        return Object.values(this._values);
+    }
 
+    fromValue(value) {
+        return this._values[value];
     }
 
 }
