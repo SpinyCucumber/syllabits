@@ -18,10 +18,45 @@ const BlockType = new Enum({
         ANAPEST: ['a', [U, U, S]],
     },
     ([value, stresses]) => {
-        let obj = new String(value);
+        let obj = new Object(value);
         Object.defineProperty(obj, 'stresses', {
             value: stresses,
             writable: false,
+        });
+        return obj;
+    }
+);
+
+/**
+ * A simple role system for calculating permissions
+ * Permissions determine which parts of the app are visible.
+ * The user's role is retrieved from the server as part of the JWT.
+ */
+const Role = new Enum({
+        USER: [0, {}],
+        EDITOR: [1, {has: ['poem.edit'], inherits: ['USER']}],
+        ADMIN: [2, {has: ['user.manage'], inherits: ['EDITOR']}],
+    },
+    ([value, options]) => {
+        let obj = new Object(value);
+        let {has = [], inherits = []} = options;
+        // Define properties for new role
+        Object.defineProperty(obj, 'perms', {
+            get() {
+                if (this._perms !== undefined) return this._perms;
+                let perms = new Set(has);
+                for (const parent of inherits) {
+                    // Add permissions of parent to our perms
+                    for (const perm of Role[parent].perms) perms.add(perm);
+                }
+                this.perms = perms;
+                return perms;
+            }
+        });
+        Object.defineProperty(obj, 'hasPerm', {
+            value(perm) {
+                return this.perms.has(perm);
+            }
         });
         return obj;
     }
@@ -34,5 +69,5 @@ const LocationType = new Enum({ DIRECT: 0, COLLECTION: 1, });
 
 export default new Service({
     name: 'constants',
-    StressType, BlockType, LineState, SlotMode, FeedbackType, LocationType
+    StressType, BlockType, LineState, SlotMode, FeedbackType, LocationType, Role
 });
