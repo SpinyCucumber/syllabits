@@ -20,75 +20,44 @@ class PoemLocation {
 
 /**
  * Models a block type
- * Each block type has a single-character code to identify it,
+ * Each block type has a String value to identify it,
  * and a stress pattern defined by a sequence of StressTypes
  */
-class BlockType {
+class BlockType extends String {
 
-    constructor(code, stresses) {
-        this.code = code;
+    constructor(value, stresses) {
+        super(value);
         this.stresses = stresses;
     }
 
 }
 
 /**
- * Constructed using an object where the keys are the name of the value,
- * and the values are the args used to initiate the value.
+ * Constructed using an object where the keys are the name of the member,
+ * and the values are the args used to initialize the member value.
  */
 class Enum {
 
-    constructor(values, initializer) {
-        // We also maintain an array to allow users to iterate over all possible values
+    constructor(values, initializer = ((x) => x)) {
+        // We maintain an array to allow users to iterate over all members
+        // TODO
         this.values = [];
+        this._map = new Map();
 
-        const isArray = Array.isArray(values);
-        for (let key in values) {
+        for (let name in values) {
 
-            let name, value;
-            if (isArray) {
-                name = values[key];
-                value = initializer ? initializer() : {};
-            }
-            else {
-                name = key;
-                value = values[name];
-                if (initializer) value = initializer(value);
-            }
-            
+            value = initializer(values[name]);
             this.values.push(value);
 
             value.name = name;
-            const symbol = name[0].toUpperCase() + name.slice(1);
-            this[symbol] = value;
+            this[name] = value;
+            this._map.set(value, value);
 
         }
     }
 
-}
+    forValue(value) {
 
-/**
- * A specialized enum where values can be serialized/parsed.
- * The value type must expose a "code" property, which is a single character;
- * this code is used to construct a lookup table to parse enum values,
- * and is also used to serialize values.
- */
-class SerializableEnum extends Enum {
-
-    constructor(values, initializer) {
-        super(values, initializer);
-        // Create lookup table using code
-        this.lookup = {};
-        this.values.forEach(value => {
-            this.lookup[value.code] = value;
-        })
-    }
-
-    /**
-     * Finds the enum value corresponding to code
-     */
-    forCode(code) {
-        return this.lookup[code];
     }
 
 }
@@ -148,4 +117,4 @@ async function timeout(fn, ms, ...args) {
 }
 
 export { default as clone } from './clone'
-export { PoemLocation, BlockType, Enum, SerializableEnum, toTranslationKey, findConflicts, checkLine, makeLine, sleep, timeout };
+export { PoemLocation, BlockType, Enum, toTranslationKey, findConflicts, checkLine, makeLine, sleep, timeout };
