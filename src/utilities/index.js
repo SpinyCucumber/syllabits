@@ -19,20 +19,6 @@ class PoemLocation {
 }
 
 /**
- * Models a block type
- * Each block type has a String value to identify it,
- * and a stress pattern defined by a sequence of StressTypes
- */
-class BlockType extends String {
-
-    constructor(value, stresses) {
-        super(value);
-        this.stresses = stresses;
-    }
-
-}
-
-/**
  * Constructed using an object where the keys are the name of the member,
  * and the values are the args used to initialize the member value.
  */
@@ -120,4 +106,4 @@ async function timeout(fn, ms, ...args) {
 }
 
 export { default as clone } from './clone'
-export { PoemLocation, BlockType, Enum, toTranslationKey, findConflicts, checkLine, makeLine, sleep, timeout };
+export { PoemLocation, Enum, toTranslationKey, findConflicts, checkLine, makeLine, sleep, timeout };
