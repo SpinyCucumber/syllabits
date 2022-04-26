@@ -1,7 +1,9 @@
 import jwt_decode from 'jwt-decode'
 import { apolloClient } from '@/apollo'
 import { Refresh } from '@/queries'
+import { Constants } from '@/services'
 
+const { Role } = Constants;
 const PREEMPT = 60000;
 
 let refreshTimeout = null;
@@ -22,14 +24,20 @@ export default {
         },
     },
     getters: {
-        claims(state) {
-            if (state.token) return jwt_decode(state.token);
-        },
         hasIdentity(state) {
             return Boolean(state.token);
         },
-        isAdmin(state, getters) {
-            return getters.claims?.is_admin;
+        claims(state, getters) {
+            if (getters.hasIdentity) return jwt_decode(state.token);
+        },
+        role(state, getters) {
+            return Role[getters.claims?.role];
+        },
+        perms(state, getters) {
+            return getters.role.perms;
+        },
+        email(state, getters) {
+            return getters.claims?.email;
         }
     },
     actions: {

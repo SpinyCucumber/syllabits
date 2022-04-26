@@ -14,12 +14,10 @@
                         {{ $translation.get('navbar.' + link.key) }}
                     </b-navbar-item>
                 </transition-group>
-                <b-navbar-dropdown v-if="$store.getters.isAdmin" :label="$translation.get('navbar.admin')">
-                    <b-navbar-item tag="router-link" :to="{name: 'Edit'}">
-                        <!-- Could include a "my poems" view in the future to better manage creating/editing poems -->
-                        {{ $translation.get('navbar.edit') }}
-                    </b-navbar-item>
-                </b-navbar-dropdown>
+                <b-navbar-item v-if="$store.getters.perms.has('poem.edit')" tag="router-link" :to="{name: 'Edit'}">
+                    <!-- Could include a "my poems" view in the future to better manage creating/editing poems -->
+                    {{ $translation.get('navbar.edit') }}
+                </b-navbar-item>
             </template>
 
             <template #end>
@@ -29,7 +27,7 @@
                     <b-navbar-item tag="div">
                     <div class="submenu is-centered">
                         <b-icon icon="account-circle" size="is-large"/>
-                        <p class="subtitle">{{ $store.getters.claims.email }}</p>
+                        <p class="subtitle">{{ $store.getters.email }}</p>
                         <b-button type="is-danger" :label="$translation.get('button.logout')" @click="confirmLogout"/>
                     </div>
                     </b-navbar-item>

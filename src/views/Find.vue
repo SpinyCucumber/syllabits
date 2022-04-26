@@ -34,7 +34,7 @@ const PoemEntry = Vue.component('PoemEntry', {
                     {Translation.get('button.poem.share')}
                 </b-dropdown-item>
             ];
-            if (this.$store.getters.isAdmin) dropdownItems = [...dropdownItems, 
+            if (this.$store.getters.perms.has('poem.edit')) dropdownItems = [...dropdownItems, 
                 <b-dropdown-item onClick={this.edit}>
                     {Translation.get('button.poem.edit')}
                 </b-dropdown-item>

@@ -49,13 +49,8 @@ const Role = new Enum({
                     // Add permissions of parent to our perms
                     for (const perm of Role[parent].perms) perms.add(perm);
                 }
-                this.perms = perms;
+                this._perms = perms;
                 return perms;
-            }
-        });
-        Object.defineProperty(obj, 'hasPerm', {
-            value(perm) {
-                return this.perms.has(perm);
             }
         });
         return obj;
