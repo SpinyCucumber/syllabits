@@ -86,10 +86,10 @@ const { LineState, SlotMode, FeedbackType } = Constants;
 // Maps number of attempts to different feedback types.
 // For example, one attempt => perfect, two attempts => great, etc.
 // Four attempts and higher default to "okay"
-const FEEDBACK_LEVELS = [FeedbackType.Perfect, FeedbackType.Great, FeedbackType.Good];
+const FEEDBACK_LEVELS = [FeedbackType.PERFECT, FeedbackType.GREAT, FeedbackType.GOOD];
 
 function getFeedbackLevel(attempts) {
-    return FEEDBACK_LEVELS[attempts - 1] || FeedbackType.Okay;
+    return FEEDBACK_LEVELS[attempts - 1] || FeedbackType.OKAY;
 }
 
 export default {
@@ -128,7 +128,7 @@ export default {
             let classes = ['poem-line'];
             classes.push(`is-mode-${this.mode}`);
             // If line is in play mode, attach additional info
-            if(this.mode === 'play') classes.push(`is-state-${this.progress.state.name}`);
+            if(this.mode === 'play') classes.push(`is-state-${this.progress.state.name.toLowerCase()}`);
             if (this.line.stanzaBreak) classes.push('has-stanza-break');
             if (this.disabled) classes.push('is-disabled');
             return classes;
@@ -136,7 +136,7 @@ export default {
         // Whether the check button is visible
         canCheck() {
             if (this.automaticFeedback) return false;
-            if (this.progress.state === LineState.Unchecked) {
+            if (this.progress.state === LineState.UNCHECKED) {
                 return this.full;
             }
             return false;
@@ -145,20 +145,20 @@ export default {
         slotListeners() {
             // In play mode, we listen to slot changes to transition to unchecked if necessary
             let listeners = {}
-            if (this.mode === 'play' && this.progress.state === LineState.Incorrect) {
+            if (this.mode === 'play' && this.progress.state === LineState.INCORRECT) {
                 listeners = { ...listeners,
-                    'update:holding': () => { this.progress.state = LineState.Unchecked }
+                    'update:holding': () => { this.progress.state = LineState.UNCHECKED }
                 };
             }
             return listeners;
         },
         // How the slots should behave
         slotMode() {
-            if (this.mode === 'edit') return SlotMode.Slot;
+            if (this.mode === 'edit') return SlotMode.SLOT;
             else if (this.mode === 'play') {
                 // Slots are locked if line is correct
-                if (this.progress.state === LineState.Correct) return SlotMode.Locked;
-                return SlotMode.Slot;
+                if (this.progress.state === LineState.CORRECT) return SlotMode.LOCKED;
+                return SlotMode.SLOT;
             }
             return null;
         },
@@ -184,7 +184,7 @@ export default {
          */
         check() {
             // Transition state to "checking"
-            this.progress.state = LineState.Checking;
+            this.progress.state = LineState.CHECKING;
             // Increment attempts
             this.progress.attempts += 1;
             // Let component user handle check
@@ -192,7 +192,7 @@ export default {
                 .then(result => {
                     // Transition state
                     this.progress.state = result.correct ?
-                        LineState.Correct : LineState.Incorrect;
+                        LineState.CORRECT : LineState.INCORRECT;
                     // Trigger animations
                     // Animations are only triggered when we actually get a check result back.
                     // This is because we need the feedback to actually perform the incorrect
@@ -229,7 +229,7 @@ export default {
                 }
             }
             setTimeout(() => {
-                this.$refs.feedback.show(FeedbackType.Incorrect);
+                this.$refs.feedback.show(FeedbackType.INCORRECT);
             }, delay);
         },
 

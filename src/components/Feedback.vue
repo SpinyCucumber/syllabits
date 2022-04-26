@@ -32,12 +32,12 @@ export default
     computed: {
         classes() {
             let classes = ['game-feedback'];
-            if (this.showing) classes.push(`is-type-${this.showing.name}`);
+            if (this.showing) classes.push(`is-type-${this.showing.name.toLowerCase()}`);
             return classes;
         },
         display() {
             // Construct translation key using feedback type name
-            return this.$translation.get(`play.feedback.${this.showing.name}`);
+            return this.$translation.get(`play.feedback.${this.showing.name.toLowerCase()}`);
         },
     }
 }

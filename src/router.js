@@ -30,7 +30,7 @@ routes: [
       // Execute server query
       let { poem } = (await apolloClient.mutate({ mutation: RandomPoem })).data.randomPoem;
       // Transition to play page with the new poem ID
-      const location = new PoemLocation({t: LocationType.Direct, p: poem.id}).encode();
+      const location = new PoemLocation({t: LocationType.DIRECT, p: poem.id}).encode();
       next({ name: 'Play', params: {location}});
     },
   },

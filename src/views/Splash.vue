@@ -47,7 +47,7 @@ import { Assets, Constants } from '@/services'
 const { LineState } = Constants
 
 function makeLineProgress() {
-    return { holding: Array(5).fill(null), state: LineState.Unchecked, attempts: 0 };
+    return { holding: Array(5).fill(''), state: LineState.UNCHECKED, attempts: 0 };
 }
 
 export default {

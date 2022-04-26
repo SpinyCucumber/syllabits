@@ -2,10 +2,10 @@
     <div class="block-picker">
         <block-slot
             ref="buckets"
-            v-for="type in this.$constants.BlockTypes.values"
+            v-for="type in this.$constants.BlockType.values"
             :key="type.name"
-            :holding="type.code"
-            :mode="$constants.SlotMode.Bucket"/>
+            :holding="type"
+            :mode="$constants.SlotMode.BUCKET"/>
     </div>
 </template>
 

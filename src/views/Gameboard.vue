@@ -259,7 +259,7 @@ export default {
                     let localLine = this.progress.lines[key];
                     // Update holding and state
                     localLine.holding = value.answer;
-                    localLine.state = value.correct ? LineState.Correct : LineState.Incorrect;
+                    localLine.state = value.correct ? LineState.CORRECT : LineState.INCORRECT;
                 });
             }
         }
@@ -345,7 +345,7 @@ export default {
                     options: { type: 'is-dark', 'icon-left': 'controller-classic', },
                     listeners: { click: () => {
                         let location = this.poem.location ||
-                            new PoemLocation({t: LocationType.Direct, p: this.poem.id}).encode();
+                            new PoemLocation({t: LocationType.DIRECT, p: this.poem.id}).encode();
                         this.$router.push({ name: 'Play', params: { location: location }});
                     } },
                     // Poem must exist on server/be saved in order to play
@@ -494,7 +494,7 @@ export default {
                 lines: Object.fromEntries(this.poem.lines.map(({id, numFeet}) => ([
                     id,
                     {
-                        state: LineState.Unchecked,
+                        state: LineState.UNCHECKED,
                         holding: new Array(numFeet).fill(''),
                         attempts: 0,
                     }

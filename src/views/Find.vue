@@ -43,7 +43,7 @@ const PoemEntry = Vue.component('PoemEntry', {
         },
         play() {
             // When user selects a poem, navigate to the play menu
-            const location = new PoemLocation({t: LocationType.Direct, p: this.entry.id}).encode();
+            const location = new PoemLocation({t: LocationType.DIRECT, p: this.entry.id}).encode();
             this.$router.push({name: 'Play', params: {location}});
         },
         edit() {
@@ -51,7 +51,7 @@ const PoemEntry = Vue.component('PoemEntry', {
         },
         share() {
             // Construct play URL and write to clipboard
-            const location = new PoemLocation({t: LocationType.Direct, p: this.entry.id}).encode();
+            const location = new PoemLocation({t: LocationType.DIRECT, p: this.entry.id}).encode();
             const url = window.location.origin + '/#/play/' + location;
             navigator.clipboard.writeText(url);
             // Show success message

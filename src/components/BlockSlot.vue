@@ -39,7 +39,7 @@ import { Draggable, Container } from 'vue-smooth-dnd'
 import useSound from 'vue-use-sound'
 import { Constants, Assets } from '@/services'
 
-const { SlotMode, BlockTypes } = Constants;
+const { SlotMode, BlockType } = Constants;
 
 export default {
     
@@ -48,7 +48,7 @@ export default {
     mixins: [Animatable],
 
     props: {
-        mode: { default: SlotMode.Slot },
+        mode: { default: SlotMode.SLOT },
         disabled: { default: false, },
         // Using an foot type code (a short string) is preferable to using an enum type here.
         // A string is more easily mapped to/from JSON data, which makes querying the server easier.
@@ -76,10 +76,10 @@ export default {
             // Don't accept drops if disabled
             if (this.disabled) return false;
             // If the slot if locked, only accept drops from ourself
-            if (payload.source.mode === SlotMode.Locked) {
+            if (payload.source.mode === SlotMode.LOCKED) {
                 return this === payload.source;
             }
-            if (this.mode === SlotMode.Slot) return true;
+            if (this.mode === SlotMode.SLOT) return true;
             return false;
         },
 
@@ -111,7 +111,7 @@ export default {
             }
             else if (removedIndex !== null) {
                 // Only clear slot if we are in "slot" mode
-                if (this.mode === SlotMode.Slot) this.$emit('update:holding', '');
+                if (this.mode === SlotMode.SLOT) this.$emit('update:holding', '');
             }
             else {
                 this.$emit('accept', payload.source.holding);
@@ -133,15 +133,15 @@ export default {
 
     computed: {
         classes() {
-            let classes = ['game-slot', `is-mode-${this.mode.name}`];
+            let classes = ['game-slot', `is-mode-${this.mode.name.toLowerCase()}`];
             if (this.dropActive) classes.push('drop-active');
             if (this.dragActive) classes.push('drag-active');
-            if (this.holding) classes.push(`is-holding-${BlockTypes.forCode(this.holding).name}`);
+            if (this.holding) classes.push(`is-holding-${BlockType.fromValue(this.holding).name.toLowerCase()}`);
             if (this.disabled) classes.push('is-disabled');
             return classes;
         },
         removeOnDrop() {
-            if (this.mode === SlotMode.Locked) return false;
+            if (this.mode === SlotMode.LOCKED) return false;
             // Can add behavior for other modes here
             return true;
         },
