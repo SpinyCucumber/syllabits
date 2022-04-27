@@ -177,7 +177,7 @@ import Vue from 'vue'
 import useSound from 'vue-use-sound'
 import html2canvas from 'html2canvas'
 
-const { LineState, LocationType } = Constants;
+const { LineState, LocationType, BlockType } = Constants;
 
 export default {
 
@@ -482,7 +482,8 @@ export default {
          * Handles checking submitted line answers in tutorial mode
          */
         async checkTutorialLine(lineID, answer) {
-            return checkLine(tutorialPoem.key[lineID], answer);
+            const key = tutorialPoem.key[lineID].map(b => BlockType.fromValue(b));
+            return checkLine(key, answer);
         },
 
         /**

@@ -1,6 +1,7 @@
-import { Translation, Hints } from '@/services'
+import { Translation, Hints, Constants } from '@/services'
 import { sleep, timeout } from '@/utilities'
 import { DialogProgrammatic as Dialog } from 'buefy'
+const { BlockType } = Constants;
 
 /**
  * The tutorial contains a list of steps.
@@ -70,7 +71,7 @@ export default {
             mounted({ vm }) {
                 // Find Iamb slot
                 let picker = vm.$refs.blockDropdown.$slots.default[0].componentInstance;
-                this.slot = picker.$refs.buckets.find(bucket => (bucket.holding === 'i'));
+                this.slot = picker.$refs.buckets.find(bucket => (bucket.holding === BlockType.IAMB));
             },
             async start({ advance }) {
                 await sleep(1000);
@@ -97,7 +98,7 @@ export default {
                 // Attach note and listener
                 this.note.attach(this.slot.$el);
                 this.callback = (value) => {
-                    if (value === 'i') advance();
+                    if (value === BlockType.IAMB) advance();
                 }
                 this.slot.$on('accept', this.callback);
             },
