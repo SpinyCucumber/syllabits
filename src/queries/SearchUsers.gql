@@ -1,0 +1,12 @@
+query($first: Int, $last: Int, $search: String, $orderBy: String) {
+    users(first: $first, last: $last, search: $search, orderBy: $orderBy) {
+        totalCount
+        edges {
+            node {
+                email
+                role
+                id
+            }
+        }
+    }
+}
