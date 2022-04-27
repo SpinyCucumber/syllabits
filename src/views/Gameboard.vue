@@ -31,7 +31,7 @@
                             @click="save"
                             :label="$translation.get('button.poem.save')"/>
                         <b-button
-                            v-else-if="saved && transforms.length > 0"
+                            v-else-if="allowSaveChanges"
                             type="is-primary"
                             size="is-large"
                             @click="saveChanges"
@@ -361,7 +361,7 @@ export default {
                     key: 'delete',
                     options: { type: 'is-danger', 'icon-left': 'delete', },
                     listeners: { click: this.confirmDelete, },
-                    shouldShow: () => this.mode === 'edit' && this.saved
+                    shouldShow: () => this.mode === 'edit' && this.saved && store.getters.perms.has('poem.delete')
                 },
                 {
                     key: 'capture',
@@ -687,7 +687,10 @@ export default {
             return ['gameboard', 'is-mode-' + this.mode];
         },
         allowSave() {
-            return !this.saved && this.poem.title && this.poem.lines.length > 0;
+            return !this.saved && this.poem.title && this.poem.lines.length > 0 && store.getters.perms.has('poem.create');
+        },
+        allowSaveChanges() {
+            return this.saved && this.transforms.length > 0 && store.getters.perms.has('poem.edit');
         },
         allowEditing() {
             return this.mode === 'edit';

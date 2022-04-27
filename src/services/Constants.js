@@ -34,8 +34,8 @@ const BlockType = new Enum({
  */
 const Role = new Enum({
         USER: [0, {}],
-        EDITOR: [1, {has: ['poem.edit'], inherits: ['USER']}],
-        ADMIN: [2, {has: ['user.manage'], inherits: ['EDITOR']}],
+        EDITOR: [1, {has: ['poem.edit', 'poem.create'], inherits: ['USER']}],
+        ADMIN: [2, {has: ['user.manage', 'user.delete', 'poem.delete'], inherits: ['EDITOR']}],
     },
     ([value, options]) => {
         let obj = new Object(value);
