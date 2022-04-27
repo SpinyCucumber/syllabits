@@ -49,16 +49,6 @@
     - [x] Field for title + author
     - [x] 5 feet, text box under?
 - [x] Edit button in the game interface as well
-- [ ] Mobile TLC
-    - [ ] Horizontal Block Drawer
-    - [ ] 
-- [ ] IMPROVEMENT Phase out vue-smooth-dnd... It is abysmal for performance 
-- [ ] POSSIBLE FEATURE "Scratch pad"?
-- [x] User groups
-    - Admin
-        - Modify roles of others?
-    - Editor
-        - Add/edit poems (but not modify roles!)
 - [ ] Scansion Guide Page
     - FAQ?
     - Include link in Navbar
@@ -67,7 +57,6 @@
     - [ ] List of libraries
 - [ ] Contact Page/"Learn More" Bibliography?
     - Dedicated SyllaBits Email?
-- [ ] IMPROVEMENT More generalized "reminders" system?
 - [x] Tutorial (WIP)
     - [x] Automatically presented to guests
     - [x] IMPROVEMENT Also accessible through help popup in Gameboard
@@ -86,11 +75,23 @@
 - [x] IMPROVEMENT Use promises in gameboard setup method
 - [x] "Play poem" error states
 - [x] Export block images
+- [ ] Mobile TLC
+    - [ ] Horizontal Block Drawer
+- [x] User Roles
+    - Admin
+        - Modify roles of others?
+    - Editor
+        - Add/edit poems (but not modify roles!)
+    - Role Tags
+    - User Manager view for admins
 - [ ] Embeddable HTML Editor for static pages?
+    - [ ] Can create "pages" which are shown to all users and can contain arbitrary HTML
+        - Only admins can do this for obvious reasons
 - [ ] Editors should NOT be able to delete poems
 - [ ] List of Completed Features
 - [ ] SyllaBits Admin Tutorial
     - [ ] Avaliable in SyllaBits itself
+- [ ] IMPROVEMENT More generalized "reminders" system?
 - [ ] FUTURE (POSSIBLE) FEATURE "Poem completion stats"
     - Variety of stats (not just one number...)
     - Time/line, Attempts/line, Total time, (playthrough)
@@ -101,3 +102,5 @@
 - [ ] FUTURE FEATURE Rating Poem Difficulty
     - Can "crowdsource" difficulty
     - Can systematically determine difficulty?
+- [ ] IMPROVEMENT Phase out vue-smooth-dnd... It is abysmal for performance 
+- [ ] POSSIBLE FEATURE "Scratch pad"?
