@@ -27,8 +27,11 @@
                     <b-navbar-item tag="div">
                     <div class="submenu is-centered">
                         <b-icon icon="account-circle" size="is-large"/>
-                        <p class="subtitle">{{ $store.getters.email }}</p>
-                        <b-button type="is-danger" :label="$translation.get('button.logout')" @click="confirmLogout"/>
+                        <p class="has-text-grey">{{ $store.getters.email }}</p>
+                        <role-tag :role="$store.getters.role"/>
+                        <div class="submenu-footer">
+                            <b-button type="is-danger" :label="$translation.get('button.logout')" @click="confirmLogout"/>
+                        </div>
                     </div>
                     </b-navbar-item>
                 </b-navbar-dropdown>
@@ -55,7 +58,7 @@
 </template>
 
 <script>
-import { Settings } from '@/components'
+import { Settings, RoleTag } from '@/components'
 import { Logout } from '@/queries'
 
 /**
@@ -63,7 +66,7 @@ import { Logout } from '@/queries'
  */
 export default {
 
-    components: { Settings },
+    components: { Settings, RoleTag },
 
     props: {
         extraLinks: { default: () => [] },

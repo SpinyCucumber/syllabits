@@ -43,7 +43,7 @@ $gray: #808080;
 
 $heavy-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.4), 0 0px 0 1px rgba(10, 10, 10, 0.1);
 
-// Set your colors
+// Colors!
 $primary: #6786ef;
 $primary-light: findLightColor($primary);
 $primary-dark: findDarkColor($primary);
@@ -119,16 +119,22 @@ $block-colors: (
     "dactyl": #D55E00,
     "anapest": #CC79A7,
     "spondee": #000000,
-    "pyrrhic": #007555
+    "pyrrhic": #007555,
 );
 
 // Color of each feedback type
 $feedback-colors: (
     "perfect": $success,
-    "great": #7845ba,
-    "good": #c9a919,
+    "great": #9400ff,
+    "good": #ffbf00,
     "okay": #2e81e0,
-    "incorrect": $danger
+    "incorrect": $danger,
+);
+
+$role-colors: (
+    "user": $primary,
+    "editor": #007555,
+    "admin": #9400ff,
 );
 
 $block-height: 2.25em;

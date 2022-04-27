@@ -392,6 +392,15 @@ button,
     }
 }
 
+.role-tag {
+    color: $white !important;
+    @each $role, $color in $role-colors {
+        &.is-role-#{$role} {
+            background-color: $color;
+        }
+    }
+}
+
 input,
 .input {
     &.is-resizable {

@@ -193,5 +193,10 @@
             "incorrect": ["Try again!", "Not quite!"]
         },
         "complete": "Huzzah!"
+    },
+    "role": {
+        "user": "User",
+        "editor": "Editor",
+        "admin": "✨Admin✨"
     }
 }
