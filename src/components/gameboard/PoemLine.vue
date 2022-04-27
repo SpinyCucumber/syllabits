@@ -77,7 +77,7 @@
 // 4. Incorrect
 //  Can transition to Unchecked by changing slots.
 import BlockSlot from './BlockSlot'
-import Editable from './Editable'
+import Editable from '../Editable'
 import Feedback from './Feedback'
 import { Constants } from '@/services'
 

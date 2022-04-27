@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import GameProgress from './GameProgress'
+import GameProgress from './gameboard/GameProgress'
 
 export default {
     name: 'PoemCard',
