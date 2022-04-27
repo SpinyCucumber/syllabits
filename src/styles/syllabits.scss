@@ -467,6 +467,12 @@ input,
 
 }
 
+.user-entry {
+    .user-entry-role {
+        margin-right: auto;
+    }
+}
+
 .game-slot {
 
     @extend .game-block-shape;

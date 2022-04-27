@@ -9,16 +9,19 @@
 <script>
 import Vue from 'vue'
 import NavbarView from './NavbarView'
-import { Translation } from '@/services'
-import { Table } from '@/components'
+import { Translation, Constants } from '@/services'
+import { Table, RoleTag } from '@/components'
 import { SearchUsers } from '@/queries'
+const { Role } = Constants;
 
 const UserEntry = Vue.component('UserEntry', {
     props: { entry: Object },
+    components: { RoleTag },
     render() {
         return (
-            <tr>
+            <tr class="user-entry">
                 <td><span>{this.entry.email}</span></td>
+                <td class="user-entry-role"><RoleTag role={Role[this.entry.role]}/></td>
                 <td>
                     <b-dropdown position="is-bottom-left" scopedSlots={
                         {
