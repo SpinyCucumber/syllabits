@@ -1,15 +1,14 @@
 <template>
     <navbar-view class="manage-users-view">
-        <Table/>
+        <p>THIS IS A CONSTRUCTION ZONE, ENTER AT YOUR OWN RISK</p>
     </navbar-view>
 </template>
 
 <script>
 import NavbarView from './NavbarView'
-import { Table } from '@/components'
 
 export default {
     name: 'ManageUsers',
-    components: { NavbarView, Table },
+    components: { NavbarView },
 }
 </script>
