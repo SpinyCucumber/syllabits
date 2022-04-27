@@ -30,7 +30,7 @@
                         <p class="has-text-grey">{{ $store.getters.email }}</p>
                         <role-tag :role="$store.getters.role"/>
                         <div class="submenu-footer">
-                            <b-button type="is-danger" :label="$translation.get('button.logout')" @click="confirmLogout"/>
+                            <b-button type="is-danger" inverted :label="$translation.get('button.logout')" @click="confirmLogout"/>
                         </div>
                     </div>
                     </b-navbar-item>
