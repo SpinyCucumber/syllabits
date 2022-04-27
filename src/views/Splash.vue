@@ -42,13 +42,8 @@
 
 <script>
 import { Scene, Carousel, PoemLine } from '@/components'
-import { Assets, Constants } from '@/services'
-
-const { LineState } = Constants
-
-function makeLineProgress() {
-    return { holding: Array(5).fill(''), state: LineState.UNCHECKED, attempts: 0 };
-}
+import { Assets } from '@/services'
+import { makeLineProgress } from '@/utilities/gameboard'
 
 export default {
     components: { Scene, Carousel, PoemLine },
@@ -73,7 +68,7 @@ export default {
     },
     created() {
         // Set up demo poem progress
-        this.demoProgress = Array.from(this.demoPoem, makeLineProgress);
+        this.demoProgress = Array.from(this.demoPoem, () => makeLineProgress(5));
     },
     methods: {
         checkLine(number, holding) {

@@ -165,7 +165,8 @@ import {
 } from '@/components'
 import { Constants, Assets, Reminders } from '@/services'
 import { TrackChanges, Tutorial } from '@/mixins'
-import { PoemLocation, checkLine, makeLine, toTranslationKey } from '@/utilities'
+import { PoemLocation, toTranslationKey } from '@/utilities'
+import { checkLine, makeLine, makeLineProgress } from '@/utilities/gameboard'
 import { Document, List, DocumentList } from '@/utilities/tracking'
 import { saveAs } from 'file-saver'
 import NavbarView from './NavbarView'
@@ -492,12 +493,7 @@ export default {
                 numCorrect: 0,
                 saved: false, // Whether the user progress exists on the server
                 lines: Object.fromEntries(this.poem.lines.map(({id, numFeet}) => ([
-                    id,
-                    {
-                        state: LineState.UNCHECKED,
-                        holding: new Array(numFeet).fill(''),
-                        attempts: 0,
-                    }
+                    id, makeLineProgress(numFeet)
                 ]))),
             };
         },

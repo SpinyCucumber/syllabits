@@ -1,5 +1,3 @@
-import ObjectID from 'bson-objectid'
-
 /**
  * Handles encoding/decoding poem locations
  * Poem locations are BSON-encoded strings that identify a poem in a context
@@ -58,44 +56,6 @@ function toTranslationKey(name) {
     return name.replace(/_|-/g, '').toLowerCase();
 }
 
-/**
- * Finds differences between a submitted answer and a key
- * Assumes the answer and the key are the same length
- * Returns a list of indicies of differences
- */
-function findConflicts(key, answer) {
-    let conflicts = [];
-    for (let i = 0; i < key.length; i++) {
-        if (key[i] !== answer[i]) {
-            conflicts.push(i);
-        }
-    }
-    return conflicts;
-}
-
-/**
- * Compares a submitted line answer to an answer key, returning an object
- * The returned object contains a 'correct' property. If correct is false,
- * it optionally contains a 'conflicts' property which contains the indicies of conflicting feet.
- */
-function checkLine(key, answer) {
-    if (key.length !== answer.length) return { correct: false };
-    let conflicts = findConflicts(key, answer);
-    return { correct: (conflicts.length === 0), conflicts };
-}
-
-/**
- * Creates an empty gameboard line
- */
- function makeLine() {
-    return {
-        id: ObjectID().toHexString(),
-        text: '',
-        key: new Array(5).fill(''),
-        stanzaBreak: false,
-    }
-}
-
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -106,4 +66,4 @@ async function timeout(fn, ms, ...args) {
 }
 
 export { default as clone } from './clone'
-export { PoemLocation, Enum, toTranslationKey, findConflicts, checkLine, makeLine, sleep, timeout };
+export { PoemLocation, Enum, toTranslationKey, sleep, timeout };
