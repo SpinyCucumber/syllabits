@@ -34,7 +34,7 @@ export default {
             return Role[getters.claims?.role];
         },
         perms(state, getters) {
-            return getters.role.perms;
+            return getters.role?.perms || new Set();
         },
         email(state, getters) {
             return getters.claims?.email;
