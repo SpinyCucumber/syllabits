@@ -7,17 +7,13 @@
             <template #start>
                 <transition-group name="list" tag="div" class="is-flex">
                     <b-navbar-item
-                        v-for="link in allLinks"
+                        v-for="link in filteredLinks"
                         tag="router-link"
                         :key="link.key"
-                        :to="link.to">
+                        v-bind="link">
                         {{ $translation.get('navbar.' + link.key) }}
                     </b-navbar-item>
                 </transition-group>
-                <b-navbar-item v-if="$store.getters.perms.has('poem.edit')" tag="router-link" :to="{name: 'Edit'}">
-                    <!-- Could include a "my poems" view in the future to better manage creating/editing poems -->
-                    {{ $translation.get('navbar.edit') }}
-                </b-navbar-item>
             </template>
 
             <template #end>
@@ -77,6 +73,8 @@ export default {
             baseLinks: [
                 { to: { name: 'Find' }, key: 'find' },
                 { to: { name: 'RandomPoem' }, key: 'randompoem' },
+                { to: { name: 'Edit', }, key: 'edit', shouldShow: () => this.$store.getters.perms.has('poem.edit') },
+                { to: { name: 'ManageUsers', }, key: 'manageusers', shouldShow: () => this.$store.getters.perms.has('user.manage'), }
             ],
         }
     },
@@ -84,6 +82,9 @@ export default {
     computed: {
         allLinks() {
             return this.baseLinks.concat(this.extraLinks);
+        },
+        filteredLinks() {
+            return this.allLinks.filter(link => link.shouldShow ? link.shouldShow() : true);
         },
     },
 
