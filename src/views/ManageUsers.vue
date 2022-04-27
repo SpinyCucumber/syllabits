@@ -1,14 +1,50 @@
 <template>
     <navbar-view class="manage-users-view">
-        <p>THIS IS A CONSTRUCTION ZONE, ENTER AT YOUR OWN RISK</p>
+        <div class="p-4">
+            <Table v-bind="tableOptions"/>
+        </div>
     </navbar-view>
 </template>
 
 <script>
+import Vue from 'vue'
 import NavbarView from './NavbarView'
+import { Translation } from '@/services'
+import { Table } from '@/components'
+import { SearchUsers } from '@/queries'
+
+const UserEntry = Vue.component('UserEntry', {
+    props: { entry: Object },
+    render() {
+        return (
+            <tr>
+                <td><span>{this.entry.email}</span></td>
+                <td>
+                    <b-dropdown position="is-bottom-left" scopedSlots={
+                        {
+                            trigger() {
+                                return (<b-button class="borderless" icon-left="dots-horizontal"/>);
+                            }
+                        }}>
+                    </b-dropdown>
+                </td>
+            </tr>
+        )
+    },
+})
 
 export default {
     name: 'ManageUsers',
-    components: { NavbarView },
+    components: { NavbarView, Table, },
+    setup() {
+        return {
+            tableOptions: {
+                orderByOptions: ['relevance', 'email'],
+                connectionOptions: { query: SearchUsers, update: (data) => data.users, },
+                searchOptions: { placeholder: Translation.get('placeholder.user.search'), },
+                entryComponent: UserEntry,
+            }
+        }
+    }
 }
 </script>
