@@ -1,5 +1,5 @@
 <template>
-    <div class="navbar-view">
+    <div class="vertical-grow">
 
         <b-navbar>
 

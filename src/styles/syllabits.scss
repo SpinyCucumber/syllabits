@@ -210,51 +210,6 @@ body {
 
 }
 
-.find-view {
-
-    .tabs>ul {
-        justify-content: center;
-    }
-
-    .find-view-tabs {
-        min-height: 0;
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-        >.tab-content {
-            flex-grow: 1;
-            min-height: 0;
-        }
-    }
-
-    .find-view-tab-item {
-        min-height: 0;
-        display: flex;
-        flex-grow: 1;
-        flex-direction: column;
-    }
-
-    .find-view-table {
-        min-height: 0;
-        flex-grow: 1;
-    }
-
-}
-
-.manage-users-view {
-    .manage-users-content {
-        padding: 1em;
-        display: flex;
-        flex-grow: 1;
-        flex-direction: column;
-        min-height: 0;
-    }
-    .manage-users-table {
-        flex-grow: 1;
-        min-height: 0;
-    }
-}
-
 .login-menu, .register-menu {
     @extend .scene-content;
 
@@ -298,12 +253,6 @@ body {
         position: absolute;
         top: 0; left: 0; bottom: 0; right: 0;
     }
-}
-
-.navbar-view {
-    display: flex;
-    flex-direction: column;
-    .navbar-view-content { flex-grow: 1; }
 }
 
 .gameboard {
@@ -392,25 +341,20 @@ button,
     }
 }
 
+.b-tabs {
+    @extend .vertical-grow;
+    .tabs>ul { justify-content: center; }
+    .tab-content { @extend .vertical-grow; }
+}
+
 .searchable-table {
     display: flex;
     flex-direction: column;
     .result-count {
         min-height: 1.5em;
     }
-    .b-table {
-        display: flex;
-        flex-grow: 1;
-        flex-direction: column;
-        min-height: 0;
-    }
-    .table-wrapper {
-        flex-grow: 1;
-        min-height: 0;
-        display: flex;
-        flex-direction: column;
-        overflow-y: hidden;
-    }
+    .b-table { @extend .vertical-grow; }
+    .table-wrapper { @extend .vertical-grow; overflow-y: hidden; }
 }
 
 .role-tag {
@@ -953,6 +897,13 @@ input,
 
 .full-height {
     height: 100%;
+}
+
+.vertical-grow {
+    min-height: 0;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .non-interactive {

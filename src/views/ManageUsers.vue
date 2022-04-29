@@ -1,7 +1,7 @@
 <template>
-    <navbar-view class="manage-users-view">
-        <div class="manage-users-content">
-            <Table v-bind="tableOptions" class="manage-users-table"/>
+    <navbar-view>
+        <div class="vertical-grow p-4">
+            <Table v-bind="tableOptions" class="vertical-grow"/>
         </div>
     </navbar-view>
 </template>

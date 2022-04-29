@@ -1,12 +1,12 @@
 <template>
-    <navbar-view class="find-view">
-        <b-tabs class="find-view-tabs">
+    <navbar-view>
+        <b-tabs>
             <b-tab-item
-                class="find-view-tab-item"
+                class="vertical-grow"
                 v-for="tab in tabs"
                 :key="tab.key"
                 :label="$translation.get('tab.' + tab.key)">
-                <Table v-bind="tab.tableOptions" class="find-view-table"/>
+                <Table v-bind="tab.tableOptions" class="vertical-grow"/>
             </b-tab-item>
         </b-tabs>
     </navbar-view>
