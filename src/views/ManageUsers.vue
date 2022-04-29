@@ -15,8 +15,19 @@ import { SearchUsers } from '@/queries'
 const { Role } = Constants;
 
 const UserEntry = Vue.component('UserEntry', {
+
     props: { entry: Object },
     components: { RoleTag },
+
+    methods: {
+        changeRole() {
+            // TODO
+        },
+        delete() {
+            // TODO
+        },
+    },
+
     render() {
         let role = Role[this.entry.role];
         return (
@@ -30,11 +41,18 @@ const UserEntry = Vue.component('UserEntry', {
                                 return (<b-button class="borderless" icon-left="dots-horizontal"/>);
                             }
                         }}>
+                        <b-dropdown-item onClick={this.changeRole}>
+                            {Translation.get('button.user.changerole')}
+                        </b-dropdown-item>
+                        <b-dropdown-item onClick={this.delete} class="has-text-danger">
+                            {Translation.get('button.user.delete')}
+                        </b-dropdown-item>
                     </b-dropdown>
                 </td>
             </tr>
         )
     },
+
 })
 
 export default {
@@ -43,7 +61,7 @@ export default {
     setup() {
         return {
             tableOptions: {
-                orderByOptions: ['relevance', 'email'],
+                orderByOptions: ['relevance', 'email', 'role'],
                 connectionOptions: { query: SearchUsers, update: (data) => data.users, },
                 searchOptions: { placeholder: Translation.get('placeholder.user.search'), },
                 entryComponent: UserEntry,

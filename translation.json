@@ -37,6 +37,10 @@
             "movedown": "Move Down",
             "delete": "Delete Line",
             "insert": "Insert Line"
+        },
+        "user": {
+            "changerole": "Change Role",
+            "delete": "Delete User"
         }
     },
     "widget": {
@@ -175,6 +179,9 @@
             "author": "Enter author...",
             "text": "Enter line text..."
         },
+        "user": {
+            "search": "Search for email/username..."
+        },
         "categories": "Enter categories...", 
         "inprogress": "You haven't played any poems yet!",
         "completed": "No completed poems..."
@@ -182,7 +189,9 @@
     "option": {
         "relevance": "Relevance",
         "title": "Title",
-        "author": "Author"
+        "author": "Author",
+        "email": "Email",
+        "role": "Role"
     },
     "play": {
         "check": "Check!",
