@@ -46,8 +46,15 @@ body {
 }
 
 .table, table {
-    td { vertical-align: middle; text-align: left; }
-    tr td:last-child { text-align: right; }
+    td { vertical-align: middle; white-space: nowrap; }
+}
+
+.column-grow {
+    width: 100%;
+}
+
+.column-shrink {
+    width: 0.1%;
 }
 
 .scene {

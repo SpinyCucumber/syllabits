@@ -18,11 +18,12 @@ const UserEntry = Vue.component('UserEntry', {
     props: { entry: Object },
     components: { RoleTag },
     render() {
+        let role = Role[this.entry.role];
         return (
             <tr class="user-entry">
                 <td><span>{this.entry.email}</span></td>
-                <td class="user-entry-role"><RoleTag role={Role[this.entry.role]}/></td>
-                <td>
+                <td class="column-grow">{role !== Role.USER ? <RoleTag role={role}/> : null}</td>
+                <td class="column-shrink">
                     <b-dropdown position="is-bottom-left" scopedSlots={
                         {
                             trigger() {

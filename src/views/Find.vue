@@ -65,8 +65,8 @@ const PoemEntry = Vue.component('PoemEntry', {
         return (
             <tr onDblclick={this.play}>
                 <td><span>{this.entry.title}</span></td>
-                <td><span class="has-text-grey">{this.entry.author}</span></td>
-                <td>
+                <td class="column-grow"><span class="has-text-grey">{this.entry.author}</span></td>
+                <td class="column-shrink">
                     <b-dropdown position="is-bottom-left" scopedSlots={
                         {
                             trigger() {
