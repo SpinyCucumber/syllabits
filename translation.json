@@ -54,7 +54,10 @@
         "sortby": "Sort by",
         "title": "Title",
         "author": "Author",
-        "categories": "Categories"
+        "categories": "Categories",
+        "newrole": "New Role",
+        "cancel": "Cancel",
+        "submit": "Submit"
     },
     "dialog": {
         "poem": {
@@ -131,6 +134,11 @@
         "logout": {
             "title": "Logout",
             "message": "Are you sure you want to logout?"
+        },
+        "user": {
+            "changerole": {
+                "title": "Change Role"
+            }
         }
     },
     "message": {
