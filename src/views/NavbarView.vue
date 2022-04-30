@@ -21,14 +21,14 @@
                     v-if="$store.getters.hasIdentity">
                     <template #label><b-icon icon="account"/></template>
                     <b-navbar-item tag="div">
-                    <div class="submenu is-centered">
-                        <b-icon icon="account-circle" size="is-large"/>
-                        <p class="has-text-grey">{{ $store.getters.email }}</p>
-                        <role-tag :role="$store.getters.role"/>
-                        <div class="submenu-footer">
-                            <b-button type="is-danger" inverted :label="$translation.get('button.logout')" @click="confirmLogout"/>
+                        <div class="submenu is-centered">
+                            <b-icon icon="account-circle" size="is-large"/>
+                            <p class="has-text-grey">{{ $store.getters.email }}</p>
+                            <role-tag v-if="showRole" :role="$store.getters.role"/>
+                            <div class="submenu-footer">
+                                <b-button type="is-danger" inverted :label="$translation.get('button.logout')" @click="confirmLogout"/>
+                            </div>
                         </div>
-                    </div>
                     </b-navbar-item>
                 </b-navbar-dropdown>
                 <b-navbar-dropdown arrowless right boxed>
@@ -55,7 +55,9 @@
 
 <script>
 import { Settings, RoleTag } from '@/components'
+import { Constants } from '@/services'
 import { Logout } from '@/queries'
+const { Role } = Constants;
 
 /**
  * An abstract view that displays a navbar at the top of the page
@@ -85,6 +87,9 @@ export default {
         },
         filteredLinks() {
             return this.allLinks.filter(link => link.shouldShow ? link.shouldShow() : true);
+        },
+        showRole() {
+            return this.$store.getters.role !== Role.USER;
         },
     },
 
