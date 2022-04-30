@@ -188,7 +188,8 @@
             "text": "Enter line text..."
         },
         "user": {
-            "search": "Search for email/username..."
+            "search": "Search for email/username...",
+            "role": "Select role..."
         },
         "categories": "Enter categories...", 
         "inprogress": "You haven't played any poems yet!",
