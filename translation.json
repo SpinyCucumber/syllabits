@@ -138,6 +138,9 @@
         "user": {
             "changerole": {
                 "title": "Change Role"
+            },
+            "delete": {
+                "title": "Delete User"
             }
         }
     },
@@ -160,7 +163,8 @@
             "share": "Link copied to clipboard!"
         },
         "user": {
-            "changerolesuccess": "Role changed successfully!"
+            "changerolesuccess": "Role changed successfully!",
+            "deletesuccess": "User deleted!"
         },
         "tutorial": {
             "openpalette": "First, let’s open the type case.",

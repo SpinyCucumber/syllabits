@@ -590,7 +590,7 @@ export default {
         async delete() {
             const variables = { id: this.poem.id };
             let { ok } = (await this.$apollo.mutate({ mutation: DeletePoem, variables })).data.deletePoem;
-            // If we've successfully reset progress, show a nice message and navigate backwards
+            // If we've successfully deleted the poem, show a nice message and navigate backwards
             if (ok) {
                 this.$buefy.toast.open({
                     message: this.$translation.get('message.poem.deletesuccess'),

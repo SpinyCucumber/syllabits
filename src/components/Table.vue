@@ -50,7 +50,8 @@
                             v-for="entry in entries"
                             :key="entry.id"
                             :is="entryComponent"
-                            :entry="entry"/>
+                            :entry="entry"
+                            @refresh="refresh"/>
                     </tbody>
                 </table>
                 <!-- Limit to container -->
@@ -145,6 +146,12 @@ export default {
             return Math.floor(this.tableHeight / this.entryHeight);
         }
     },
+
+    methods: {
+        refresh() {
+            this.$apollo.queries.connection.refresh();
+        }
+    }
 
 }
 </script>
