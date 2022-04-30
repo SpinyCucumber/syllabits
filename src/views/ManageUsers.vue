@@ -7,15 +7,15 @@
 </template>
 
 <script>
-import Vue from 'vue'
 import NavbarView from './NavbarView'
 import { Translation, Constants } from '@/services'
 import { Table, RoleTag } from '@/components'
 import { SearchUsers } from '@/queries'
 const { Role } = Constants;
 
-const ChangeRole = Vue.component('ChangeRole', {
-    props: ['user'],
+
+const ChangeRole = {
+    props: { user: Object },
     render() {
         return (
             <form action="">
@@ -37,7 +37,7 @@ const ChangeRole = Vue.component('ChangeRole', {
                     <footer class="modal-card-foot">
                         <b-button
                             label={Translation.get('label.cancel')}
-                            onClick={this.$emit('close')}/>
+                            onClick={() => this.$emit('close')}/>
                         <b-button
                             label={Translation.get('label.submit')}
                             type="is-primary" />
@@ -46,9 +46,9 @@ const ChangeRole = Vue.component('ChangeRole', {
             </form>
         )
     }
-})
+}
 
-const UserEntry = Vue.component('UserEntry', {
+const UserEntry = {
 
     props: { entry: Object },
     components: { RoleTag },
@@ -59,8 +59,8 @@ const UserEntry = Vue.component('UserEntry', {
                 parent: this,
                 component: ChangeRole,
                 hasModalCard: true,
-                trapFocus: true,
                 props: { user: this.entry },
+                trapFocus: true,
             })
         },
         delete() {
@@ -93,7 +93,7 @@ const UserEntry = Vue.component('UserEntry', {
         )
     },
 
-})
+}
 
 export default {
     name: 'ManageUsers',
@@ -107,6 +107,6 @@ export default {
                 entryComponent: UserEntry,
             }
         }
-    }
+    },
 }
 </script>
