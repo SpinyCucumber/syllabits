@@ -39,6 +39,7 @@
 
 <script>
 import { Constants } from '@/services'
+import { UpdateUser } from '@/queries'
 const { Role } = Constants;
 
 export default {
@@ -53,8 +54,20 @@ export default {
         }
     },
     methods: {
-        submit() {
-            // TODO
+        async submit() {
+            // Update user role on server using transforms
+            let transforms = [{ op: 'set', field: 'role', value: this.newRole.valueOf() }]
+            let variables = { id: this.user.id, transforms: transforms.map(JSON.stringify) };
+            let { ok }  = (await this.$apollo.mutate({ mutation: UpdateUser, variables })).data.updateUser;
+            // If query was successful, show success message and update user role locally
+            if (ok) {
+                this.$buefy.toast.open({
+                    message: this.$translation.get('message.user.changerolesuccess'),
+                    type: 'is-success'
+                });
+                this.user.role = this.newRole.name;
+            }
+            this.$emit('close');
         },
     },
     computed: {

@@ -159,6 +159,9 @@
             "savechangessuccess": "Changes saved successfully!",
             "share": "Link copied to clipboard!"
         },
+        "user": {
+            "changerolesuccess": "Role changed successfully!"
+        },
         "tutorial": {
             "openpalette": "First, let’s open the type case.",
             "dragblock": "Click and drag an iamb block.",

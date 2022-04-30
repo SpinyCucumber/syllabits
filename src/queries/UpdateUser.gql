@@ -1,0 +1,5 @@
+mutation($id: ID!, $transforms: [JSONString]) {
+    updateUser(id: $id, transforms: $transforms) {
+        ok
+    }
+}
