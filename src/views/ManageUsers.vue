@@ -14,6 +14,40 @@ import { Table, RoleTag } from '@/components'
 import { SearchUsers } from '@/queries'
 const { Role } = Constants;
 
+const ChangeRole = Vue.component('ChangeRole', {
+    props: ['user'],
+    render() {
+        return (
+            <form action="">
+                <div class="modal-card" style="width: auto;">
+                    <header class="modal-card-head">
+                        <p class="modal-card-title">{Translation.get('dialog.user.changerole.title')}</p>
+                    </header>
+                    <section class="modal-card-body">
+                        <b-field label={Translation.get('label.newrole')}>
+                            <b-select placeholder={Translation.get('placeholder.user.role')}>
+                                {Role.values.map(role => (
+                                    <option key={role.valueOf()} value={role.name}>
+                                        {Translation.get('role.' + role.name.toLowerCase())}
+                                    </option>
+                                ))}
+                            </b-select>
+                        </b-field>
+                    </section>
+                    <footer class="modal-card-foot">
+                        <b-button
+                            label={Translation.get('label.cancel')}
+                            onClick={this.$emit('close')}/>
+                        <b-button
+                            label={Translation.get('label.submit')}
+                            type="is-primary" />
+                    </footer>
+                </div>
+            </form>
+        )
+    }
+})
+
 const UserEntry = Vue.component('UserEntry', {
 
     props: { entry: Object },
@@ -21,7 +55,13 @@ const UserEntry = Vue.component('UserEntry', {
 
     methods: {
         changeRole() {
-            // TODO
+            this.$buefy.modal.open({
+                parent: this,
+                component: ChangeRole,
+                hasModalCard: true,
+                trapFocus: true,
+                props: { user: this.entry },
+            })
         },
         delete() {
             // TODO
