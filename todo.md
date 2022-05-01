@@ -83,7 +83,7 @@
     - Editor
         - Add/edit poems (but not modify roles!)
     - Role Tags
-    - User Manager view for admins
+    - [x] User Manager view for admins
 - [ ] Embeddable HTML Editor for static pages?
     - [ ] Can create "pages" which are shown to all users and can contain arbitrary HTML
         - Only admins can do this for obvious reasons
