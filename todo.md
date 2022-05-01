@@ -82,12 +82,12 @@
         - Modify roles of others?
     - Editor
         - Add/edit poems (but not modify roles!)
-    - Role Tags
+    - [x] Role Tags
     - [x] User Manager view for admins
 - [ ] Embeddable HTML Editor for static pages?
     - [ ] Can create "pages" which are shown to all users and can contain arbitrary HTML
         - Only admins can do this for obvious reasons
-- [ ] Editors should NOT be able to delete poems
+- [x] Editors should NOT be able to delete poems
 - [ ] List of Completed Features
 - [ ] SyllaBits Admin Tutorial
     - [ ] Avaliable in SyllaBits itself
