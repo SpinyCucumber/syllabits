@@ -347,16 +347,6 @@ button,
     .tab-content { @extend .vertical-grow; }
 }
 
-.searchable-table {
-    display: flex;
-    flex-direction: column;
-    .result-count {
-        min-height: 1.5em;
-    }
-    .b-table { @extend .vertical-grow; }
-    .table-wrapper { @extend .vertical-grow; overflow-y: hidden; }
-}
-
 .role-tag {
     color: $white !important;
     @each $role, $color in $role-colors {
@@ -919,6 +909,14 @@ input,
     background-color: transparent !important;
     border-color: transparent !important;
     box-shadow: none !important;
+}
+
+.no-overflow {
+    overflow-y: hidden;
+}
+
+.extended-input {
+    width: min(100vw, 20em);
 }
 
 html {

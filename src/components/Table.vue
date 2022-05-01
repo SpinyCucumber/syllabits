@@ -1,24 +1,26 @@
 <template>
-    <div class="searchable-table">
+    <div class="vertical-grow">
 
-        <b-field grouped>
+        <b-field grouped group-multiline>
 
-            <b-field expanded>
+            <b-field>
                 <b-input
                     v-bind="searchOptions"
                     v-model="search"
+                    class="extended-input"
                     type="search"
                     icon="magnify"
                     rounded/>
             </b-field>
 
-            <b-field expanded v-if="enableCategories">
+            <b-field v-if="enableCategories">
                 <category-input v-model="categories"/>
             </b-field>
 
             <b-field
                 label-position="on-border"
                 type="is-primary"
+                class="ml-auto"
                 :label="$translation.get('label.sortby')">
                 <b-select v-model="orderBy">
                     <option
@@ -32,18 +34,17 @@
 
         </b-field>
 
-        <div class="b-table">
+        <div class="b-table vertical-grow my-2">
 
             <transition name="fade" mode="out-in">
                 <p
-                    v-if="connection"
-                    class="has-text-grey result-count"
+                    class="has-text-grey"
                     :key="totalCount">
                         {{totalCount}} results
                 </p>
             </transition>
 
-            <div class="table-wrapper" ref="table">
+            <div class="vertical-grow no-overflow" ref="table">
                 <table class="table is-hoverable">
                     <tbody>
                         <component
@@ -137,7 +138,7 @@ export default {
             return this.connection?.edges.map(edge => edge.node);
         },
         totalCount() {
-            return this.connection?.totalCount;
+            return this.connection?.totalCount || 0;
         },
         loading() {
             return this.$apollo.queries.connection.loading;
