@@ -54,7 +54,7 @@ class Document extends Handler {
                 yield* fieldHandler.findTransforms(newFieldValue, oldFieldValue, fieldContext);
             }
             else {
-                if (!deepEqual(newFieldValue, oldFieldValue, {strict: true})) {
+                if (!deepEqual(newFieldValue, oldFieldValue)) {
                     yield context.makeTransform('set', {field: fieldName, value: newFieldValue});
                 }
             }

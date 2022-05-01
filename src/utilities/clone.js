@@ -3,11 +3,14 @@
  * Can optionally 'sanitize' data to omit metadata
  */
  export default function clone(value, options = {metaFields: new Set(), sanitize: false}) {
+     // Check for null values first
     if (value === null) return value;
 
     const { metaFields, sanitize } = options;
     let result;
-    if (typeof value !== 'object') {
+    // Don't deep clone wrapper objects.
+    // We detect wrapper objects by converting to value before checking type.
+    if (typeof value.valueOf() !== 'object') {
         result = value;
     }
     else if (Array.isArray(value)) {
