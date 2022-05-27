@@ -44,10 +44,10 @@ const PoemEntry = Vue.component('PoemEntry', {
         play() {
             // When user selects a poem, navigate to the play menu
             const location = new PoemLocation({t: LocationType.DIRECT, p: this.entry.id}).encode();
-            this.$router.push({name: 'Play', params: {location}});
+            this.$router.push({name: 'Gameboard', query: { location }});
         },
         edit() {
-            this.$router.push({name: 'Edit', params: {poemID: this.entry.id}});
+            this.$router.push({name: 'Gameboard', query: { mode: 'edit', poemID: this.entry.id }});
         },
         share() {
             // Construct play URL and write to clipboard

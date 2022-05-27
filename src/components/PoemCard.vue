@@ -1,7 +1,7 @@
 <template>
     <div
         class="poem-card"
-        @click="$router.push({name: 'Play', params: {location: poem.location}})">
+        @click="$router.push({name: 'Gameboard', query: {location: poem.location}})">
         <div class="poem-card-content">
             <p class="title">
                 <span class="mdi mdi-text"/>

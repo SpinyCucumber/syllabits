@@ -75,7 +75,11 @@ export default {
             baseLinks: [
                 { to: { name: 'Find' }, key: 'find' },
                 { to: { name: 'RandomPoem' }, key: 'randompoem' },
-                { to: { name: 'Edit', }, key: 'edit', shouldShow: () => this.$store.getters.perms.has('poem.edit') },
+                {
+                    to: { name: 'Gameboard', query: { mode: 'edit', }},
+                    key: 'edit',
+                    shouldShow: () => this.$store.getters.perms.has('poem.edit')
+                },
                 { to: { name: 'ManageUsers', }, key: 'manageusers', shouldShow: () => this.$store.getters.perms.has('user.manage'), }
             ],
         }

@@ -31,7 +31,7 @@ routes: [
       let { poem } = (await apolloClient.mutate({ mutation: RandomPoem })).data.randomPoem;
       // Transition to play page with the new poem ID
       const location = new PoemLocation({t: LocationType.DIRECT, p: poem.id}).encode();
-      next({ name: 'Play', params: {location}});
+      next({ name: 'Gameboard', query: {location}});
     },
   },
   {
@@ -58,22 +58,10 @@ routes: [
     component: Dashboard,
   },
   {
-    path: '/play/:location',
-    name: 'Play',
+    path: '/gameboard',
+    name: 'Gameboard',
     component: Gameboard,
-    props: route => ({ mode: 'play', ...route.params }),
-  },
-  {
-    path: '/edit/:poemID?',
-    name: 'Edit',
-    component: Gameboard,
-    props: route => ({ mode: 'edit', ...route.params }),
-  },
-  {
-    path: '/tutorial',
-    name: 'Tutorial',
-    component: Gameboard,
-    props: { mode: 'tutorial' },
+    props: route => (route.query)
   },
   {
     path: '/find',

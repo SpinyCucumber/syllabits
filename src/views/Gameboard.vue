@@ -300,7 +300,7 @@ export default {
         if (this.mode === 'play') {
             // If user is not logged in (playing as guest), offer to play the tutorial
             if (!store.getters.hasIdentity) Reminders.showDialog('playtutorial', {
-                onConfirm: () => { this.$router.push({name: 'Tutorial'}); }
+                onConfirm: () => { this.$router.push({name: 'Gameboard', query: {mode: 'tutorial'}}); }
             });
         }
         // We also send a quick message if edit mode is enabled
@@ -337,7 +337,7 @@ export default {
                     key: 'edit',
                     options: { type: 'is-dark', 'icon-left': 'hammer-wrench', },
                     listeners: { click: () => {
-                        this.$router.push({ name: 'Edit', params: { poemID: this.poem.id }});
+                        this.$router.push({ name: 'Gameboard', query: { mode: 'edit', poemID: this.poem.id }});
                     } },
                     shouldShow: () => this.mode === 'play' && store.getters.perms.has('poem.edit') && this.poem
                 },
@@ -347,7 +347,7 @@ export default {
                     listeners: { click: () => {
                         let location = this.poem.location ||
                             new PoemLocation({t: LocationType.DIRECT, p: this.poem.id}).encode();
-                        this.$router.push({ name: 'Play', params: { location: location }});
+                        this.$router.push({ name: 'Gameboard', query: { location }});
                     } },
                     // Poem must exist on server/be saved in order to play
                     shouldShow: () => this.mode === 'edit' && this.saved
@@ -513,7 +513,7 @@ export default {
                     message: this.$translation.get('message.poem.savesuccess'),
                     type: 'is-success'
                 });
-                this.$router.push({ name: 'Edit', params: { poemID: id }});
+                this.$router.push({ name: 'Gameboard', query: { mode: 'edit', poemID: id }});
             }
             this.$emit('saveSuccess');
         },
@@ -709,8 +709,8 @@ export default {
         },
         extraLinks() {
             let links = [];
-            if (this.nextPoem) links.push({ key: 'nextpoem', to: { name: 'Play', params: { location: this.nextPoem } } });
-            if (this.previousPoem) links.push({ key: 'previouspoem', to: { name: 'Play', params: { location: this.previousPoem } } });
+            if (this.nextPoem) links.push({ key: 'nextpoem', to: { name: 'Gameboard', query: { location: this.nextPoem } } });
+            if (this.previousPoem) links.push({ key: 'previouspoem', to: { name: 'Gameboard', query: { location: this.previousPoem } } });
             return links;
         },
         errorMessage() {
