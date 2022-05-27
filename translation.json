@@ -73,7 +73,7 @@
             },
             "help": {
                 "title": "Help",
-                "message": "If you're new to scanning or want a refresher, check out <a href=\"/#/guide\" target=\"_blank\">the scansion guide.</a> Or, you can play the <a href=\"/#/gameboard?mode=tutorial\" target=\"_blank\">tutorial.</a>"
+                "message": "If you're new to scanning or want a refresher, check out <a href=\"/#/page/guide\" target=\"_blank\">the scansion guide.</a> Or, you can play the <a href=\"/#/gameboard?mode=tutorial\" target=\"_blank\">tutorial.</a>"
             },
             "error": {
                 "title": ["What, you egg!", "Something is rotten"],
@@ -93,7 +93,7 @@
                 },
                 "firstline": {
                     "title": "Need Help?",
-                    "message": "If you're lost, you can review some scanning tips here. Keep in mind that most lines are iambic!"
+                    "message": "If you're lost, you can review <a href=\"/#/page/guide\" target=\"_blank\">the scansion guide.</a>. Keep in mind that most lines are iambic!"
                 },
                 "firststanza": {
                     "title": "Need Help?",
