@@ -48,7 +48,8 @@
         "repeat": "Practice It Again"
     },
     "tab": {
-        "poems": "Poems"
+        "poems": "Poems",
+        "users": "Users"
     },
     "label": {
         "sortby": "Sort by",

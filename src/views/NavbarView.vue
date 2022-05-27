@@ -80,7 +80,11 @@ export default {
                     key: 'edit',
                     shouldShow: () => this.$store.getters.perms.has('poem.edit')
                 },
-                { to: { name: 'ManageUsers', }, key: 'manageusers', shouldShow: () => this.$store.getters.perms.has('user.manage'), }
+                {
+                    to: { name: 'Browse', query: { tab: 'users' }},
+                    key: 'manageusers',
+                    shouldShow: () => this.$store.getters.perms.has('user.manage'),
+                }
             ],
         }
     },

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '@/store'
-import { Splash, Login, Register, Dashboard, Gameboard, Browse, Guide, ManageUsers } from '@/views'
+import { Splash, Login, Register, Dashboard, Gameboard, Browse, Guide } from '@/views'
 import { RandomPoem } from '@/queries'
 import { Constants } from '@/services'
 import { PoemLocation } from '@/utilities'
@@ -74,11 +74,6 @@ routes: [
     name: 'Guide',
     component: Guide,
   },
-  {
-    path: '/users',
-    name: 'ManageUsers',
-    component: ManageUsers,
-  }
 ]});
 
 router.beforeEach((to, from, next) => {
