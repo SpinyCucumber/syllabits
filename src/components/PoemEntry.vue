@@ -33,7 +33,7 @@ export default {
         play() {
             // When user selects a poem, navigate to the gameboard
             const location = new PoemLocation({t: LocationType.DIRECT, p: this.entry.id}).encode();
-            this.$router.push({name: 'Gameboard', query: { location: location }});
+            this.$router.push({name: 'Gameboard', query: { location }});
         },
         edit() {
             this.$router.push({name: 'Gameboard', query: { mode: 'edit', poemID: this.entry.id }});

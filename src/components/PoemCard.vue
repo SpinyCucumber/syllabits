@@ -1,7 +1,7 @@
 <template>
     <div
         class="poem-card"
-        @click="$router.push({name: 'Gameboard', query: {location: poem.location}})">
+        @click="play">
         <div class="poem-card-content">
             <p class="title">
                 <span class="mdi mdi-text"/>
@@ -18,6 +18,10 @@
 
 <script>
 import GameProgress from './gameboard/GameProgress'
+import { PoemLocation } from '@/utilities'
+import { Constants } from '@/services'
+
+const { LocationType } = Constants
 
 export default {
     name: 'PoemCard',
@@ -29,6 +33,14 @@ export default {
          * Valid values are null, 'is-completed' or 'is-saved'
          */
         type: { default: null },
+    },
+    methods: {
+        play() {
+            // If we know the location most recently used to access a poem, use that location.
+            // Otherwise, use a direct poem location.
+            const location = this.poem.location || new PoemLocation({t: LocationType.DIRECT, p: this.poem.id}).encode();
+            this.$router.push({name: 'Gameboard', query: { location }});
+        }
     },
     computed: {
         progressClasses() {
