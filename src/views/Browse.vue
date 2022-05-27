@@ -1,11 +1,12 @@
 <template>
     <navbar-view>
-        <b-tabs>
+        <b-tabs :value="tab">
             <b-tab-item
                 class="vertical-grow"
                 v-for="tab in tabs"
-                :key="tab.key"
-                :label="$translation.get('tab.' + tab.key)">
+                :key="tab.value"
+                :label="$translation.get('tab.' + tab.value)"
+                v-bind="tab">
                 <Table v-bind="tab.tableOptions" class="vertical-grow"/>
             </b-tab-item>
         </b-tabs>
@@ -85,12 +86,13 @@ export default {
 
     name: 'Find',
     components: { NavbarView, Table },
+    props: { tab: String },
     
     data() {
         return {
             tabs: [
                 {
-                    key: 'poems',
+                    value: 'poems',
                     tableOptions: {
                         connectionOptions: { query: SearchPoems, update: data => data.poems },
                         searchOptions: { placeholder: Translation.get('placeholder.poem.search') },

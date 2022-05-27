@@ -73,7 +73,7 @@ export default {
     data() {
         return {
             baseLinks: [
-                { to: { name: 'Find' }, key: 'find' },
+                { to: { name: 'Browse', query: { tab: 'poems' } }, key: 'findpoem' },
                 { to: { name: 'RandomPoem' }, key: 'randompoem' },
                 {
                     to: { name: 'Gameboard', query: { mode: 'edit', }},

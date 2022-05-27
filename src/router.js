@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '@/store'
-import { Splash, Login, Register, Dashboard, Gameboard, Find, Guide, ManageUsers } from '@/views'
+import { Splash, Login, Register, Dashboard, Gameboard, Browse, Guide, ManageUsers } from '@/views'
 import { RandomPoem } from '@/queries'
 import { Constants } from '@/services'
 import { PoemLocation } from '@/utilities'
@@ -64,9 +64,10 @@ routes: [
     props: route => (route.query)
   },
   {
-    path: '/find',
-    name: 'Find',
-    component: Find,
+    path: '/browse',
+    name: 'Browse',
+    component: Browse,
+    props: route => (route.query)
   },
   {
     path: '/guide',
