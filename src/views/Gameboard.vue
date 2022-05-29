@@ -177,6 +177,120 @@ import html2canvas from 'html2canvas'
 
 const { LineState, LocationType, BlockType } = Constants;
 
+
+// A list of actions avaliable for each poem line in edit mode
+const lineActions = [
+    {
+        key: 'addstanzabreak',
+        apply: (line) => { line.stanzaBreak = true; },
+        shouldShow: (line) => line.stanzaBreak === false,
+    },
+    {
+        key: 'removestanzabreak',
+        apply: (line) => { line.stanzaBreak = false; },
+        shouldShow: (line) => line.stanzaBreak === true,
+    },
+    {
+        key: 'moveup',
+        icon: 'arrow-up',
+        apply: (line) => {
+            let predecessor = this.sortedLines[line.order - 1];
+            predecessor.order += 1;
+            line.order -= 1;
+        },
+        shouldShow: (line) => line.order > 0,
+    },
+    {
+        key: 'movedown',
+        icon: 'arrow-down',
+        apply: (line) => {
+            let successor = this.sortedLines[line.order + 1];
+            successor.order -= 1;
+            line.order += 1;
+        },
+        shouldShow: (line) => line.order < (this.poem.lines.length - 1),
+    },
+    {
+        key: 'insert',
+        icon: 'plus',
+        options: { class: 'has-text-success' },
+        apply: (line) => {
+            // Create a new line below this one
+            let newLine = makeLine();
+            newLine.order = line.order + 1;
+            // Move all successive lines down
+            for (let successor of this.sortedLines.slice(line.order + 1)) {
+                successor.order += 1;
+            }
+            this.poem.lines.push(newLine);
+        }
+    },
+    {
+        key: 'delete',
+        icon: 'delete',
+        options: { class: 'has-text-danger' },
+        apply: (line) => {
+            let {lines} = this.poem;
+            lines.splice(lines.indexOf(line), 1);
+            for (let successor of this.sortedLines.slice(line.order)) {
+                successor.order -= 1;
+            }
+        },
+    },
+]
+
+const buttons = [
+    {
+        key: 'helpplay',
+        options: { type: 'is-primary', 'icon-left': 'help', },
+        listeners: { click: this.showHelp, },
+        shouldShow: () => this.mode === 'play',
+    },
+    {
+        key: 'helptutorial',
+        options: { type: 'is-primary', 'icon-left': 'help', },
+        listeners: { click: this.showHelpTutorial, },
+        shouldShow: () => this.mode === 'tutorial' && this.currentStep?.help
+    },
+    {
+        key: 'edit',
+        options: { type: 'is-dark', 'icon-left': 'hammer-wrench', },
+        listeners: { click: () => {
+            this.$router.push({ name: 'Gameboard', query: { mode: 'edit', poemID: this.poem.id }});
+        } },
+        shouldShow: () => this.mode === 'play' && store.getters.perms.has('poem.edit') && this.poem
+    },
+    {
+        key: 'play',
+        options: { type: 'is-dark', 'icon-left': 'controller-classic', },
+        listeners: { click: () => {
+            let location = this.poem.location ||
+                new PoemLocation({t: LocationType.DIRECT, p: this.poem.id}).encode();
+            this.$router.push({ name: 'Gameboard', query: { location }});
+        } },
+        // Poem must exist on server/be saved in order to play
+        shouldShow: () => this.mode === 'edit' && this.saved
+    },
+    {
+        key: 'reset',
+        options: { type: 'is-danger', 'icon-left': 'restart', },
+        listeners: { click: this.confirmResetProgress, },
+        shouldShow: () => this.progress?.saved,
+    },
+    {
+        key: 'delete',
+        options: { type: 'is-danger', 'icon-left': 'delete', },
+        listeners: { click: this.confirmDelete, },
+        shouldShow: () => this.mode === 'edit' && this.saved && store.getters.perms.has('poem.delete')
+    },
+    {
+        key: 'capture',
+        options: { type: 'is-success', 'icon-left': 'camera', },
+        listeners: { click: this.capture, },
+        shouldShow: () => this.mode !== 'edit'
+    },
+]
+
 export default {
 
     name: 'Gameboard',
@@ -318,117 +432,6 @@ export default {
             previousPoem: null,
             lineOptions: null, // Additional line bindings which can be manually. specified
             error: null, // Can be set to indicate that the poem failed to load
-            buttons: [
-                {
-                    key: 'helpplay',
-                    options: { type: 'is-primary', 'icon-left': 'help', },
-                    listeners: { click: this.showHelp, },
-                    shouldShow: () => this.mode === 'play',
-                },
-                {
-                    key: 'helptutorial',
-                    options: { type: 'is-primary', 'icon-left': 'help', },
-                    listeners: { click: this.showHelpTutorial, },
-                    shouldShow: () => this.mode === 'tutorial' && this.currentStep?.help
-                },
-                {
-                    key: 'edit',
-                    options: { type: 'is-dark', 'icon-left': 'hammer-wrench', },
-                    listeners: { click: () => {
-                        this.$router.push({ name: 'Gameboard', query: { mode: 'edit', poemID: this.poem.id }});
-                    } },
-                    shouldShow: () => this.mode === 'play' && store.getters.perms.has('poem.edit') && this.poem
-                },
-                {
-                    key: 'play',
-                    options: { type: 'is-dark', 'icon-left': 'controller-classic', },
-                    listeners: { click: () => {
-                        let location = this.poem.location ||
-                            new PoemLocation({t: LocationType.DIRECT, p: this.poem.id}).encode();
-                        this.$router.push({ name: 'Gameboard', query: { location }});
-                    } },
-                    // Poem must exist on server/be saved in order to play
-                    shouldShow: () => this.mode === 'edit' && this.saved
-                },
-                {
-                    key: 'reset',
-                    options: { type: 'is-danger', 'icon-left': 'restart', },
-                    listeners: { click: this.confirmResetProgress, },
-                    shouldShow: () => this.progress?.saved,
-                },
-                {
-                    key: 'delete',
-                    options: { type: 'is-danger', 'icon-left': 'delete', },
-                    listeners: { click: this.confirmDelete, },
-                    shouldShow: () => this.mode === 'edit' && this.saved && store.getters.perms.has('poem.delete')
-                },
-                {
-                    key: 'capture',
-                    options: { type: 'is-success', 'icon-left': 'camera', },
-                    listeners: { click: this.capture, },
-                    shouldShow: () => this.mode !== 'edit'
-                },
-            ],
-            // A list of actions avaliable for each poem line in edit mode
-            lineActions: [
-                {
-                    key: 'addstanzabreak',
-                    apply: (line) => { line.stanzaBreak = true; },
-                    shouldShow: (line) => line.stanzaBreak === false,
-                },
-                {
-                    key: 'removestanzabreak',
-                    apply: (line) => { line.stanzaBreak = false; },
-                    shouldShow: (line) => line.stanzaBreak === true,
-                },
-                {
-                    key: 'moveup',
-                    icon: 'arrow-up',
-                    apply: (line) => {
-                        let predecessor = this.sortedLines[line.order - 1];
-                        predecessor.order += 1;
-                        line.order -= 1;
-                    },
-                    shouldShow: (line) => line.order > 0,
-                },
-                {
-                    key: 'movedown',
-                    icon: 'arrow-down',
-                    apply: (line) => {
-                        let successor = this.sortedLines[line.order + 1];
-                        successor.order -= 1;
-                        line.order += 1;
-                    },
-                    shouldShow: (line) => line.order < (this.poem.lines.length - 1),
-                },
-                {
-                    key: 'insert',
-                    icon: 'plus',
-                    options: { class: 'has-text-success' },
-                    apply: (line) => {
-                        // Create a new line below this one
-                        let newLine = makeLine();
-                        newLine.order = line.order + 1;
-                        // Move all successive lines down
-                        for (let successor of this.sortedLines.slice(line.order + 1)) {
-                            successor.order += 1;
-                        }
-                        this.poem.lines.push(newLine);
-                    }
-                },
-                {
-                    key: 'delete',
-                    icon: 'delete',
-                    options: { class: 'has-text-danger' },
-                    apply: (line) => {
-                        let {lines} = this.poem;
-                        lines.splice(lines.indexOf(line), 1);
-                        for (let successor of this.sortedLines.slice(line.order)) {
-                            successor.order -= 1;
-                        }
-                    },
-                },
-            ],
         }
     },
 
@@ -449,7 +452,7 @@ export default {
             // Tutorial mode and play mode use different line check handlers
             if (this.mode === 'edit') bindings = {
                 ...bindings,
-                actions: this.lineActions.filter((action) => action.shouldShow ? action.shouldShow(line) : true)
+                actions: lineActions.filter((action) => action.shouldShow ? action.shouldShow(line) : true)
             }
             else bindings = {
                 ...bindings,
@@ -694,7 +697,7 @@ export default {
             return process.env.VUE_APP_SYLLABITS_CHEATS;
         },
         filteredButtons() {
-            return this.buttons.filter(button => button.shouldShow ? button.shouldShow() : true);
+            return buttons.filter(button => button.shouldShow ? button.shouldShow() : true);
         },
         /**
          * Poem lines use a "virtual ordering" to change the order in which they appear without
