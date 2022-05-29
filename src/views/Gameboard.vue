@@ -366,7 +366,7 @@ export default {
                     key: 'capture',
                     options: { type: 'is-success', 'icon-left': 'camera', },
                     listeners: { click: this.capture, },
-                    shouldShow: () => this.mode !== 'edit'
+                    shouldShow: () => this.mode !== 'edit' && this.poem
                 },
             ],
             // A list of actions avaliable for each poem line in edit mode
