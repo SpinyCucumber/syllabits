@@ -3,7 +3,7 @@
         <scene type="is-aligned">
 
             <template #content-area>
-                <div class="page">
+                <div class="page-view">
                     <div class="toolbar">
                         <transition-group name="list" tag="div" class="toolbar-end">
                             <b-button
@@ -14,7 +14,25 @@
                         </transition-group>
                     </div>
                     <transition name="fade">
-                        <div class="page-content" v-if="page" v-html="page.content"/>
+                        <div class="submenu gap-1" v-if="page">
+                            <b-field grouped group-multiline>
+                                <b-field
+                                    :label="$translation.get('label.name')"
+                                    :message="$translation.get('hint.page.name')"
+                                    label-position="on-border">
+                                    <b-input
+                                        v-model="page.name"/>
+                                </b-field>
+                                <b-field
+                                    :label="$translation.get('label.path')"
+                                    :message="$translation.get('hint.page.path')"
+                                    label-position="on-border">
+                                    <b-input
+                                        v-model="page.path"/>
+                                </b-field>
+                            </b-field>
+                            <div v-html="page.content"/>
+                        </div>
                     </transition>
                 </div>
             </template>

@@ -58,7 +58,9 @@
         "categories": "Categories",
         "newrole": "New Role",
         "cancel": "Cancel",
-        "submit": "Submit"
+        "submit": "Submit",
+        "name": "Name",
+        "path": "Path"
     },
     "dialog": {
         "poem": {
@@ -209,6 +211,12 @@
         "author": "Author",
         "email": "Email",
         "role": "Role"
+    },
+    "hint": {
+        "page": {
+            "name": "The name displayed to users. May contain spaces.",
+            "path": "Used to contruct the page URL. Shouldn't contain spaces!"
+        }
     },
     "play": {
         "check": "Check!",
