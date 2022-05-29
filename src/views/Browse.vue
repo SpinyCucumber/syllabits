@@ -21,7 +21,7 @@ import NavbarView from './NavbarView'
 
 export default {
 
-    name: 'Find',
+    name: 'Browse',
     components: { NavbarView, Table },
     props: { tab: String },
 

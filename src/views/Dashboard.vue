@@ -53,7 +53,7 @@ function PoemListWidget({connectionOptions, cardOptions = {}, placeholder}) {
 // Construct components used by widgets
 const placeholderButtons = [
     { to: {name: 'RandomPoem'}, key: 'jumpin'},
-    { to: {name: 'Find'}, key: 'find'},
+    { to: {name: 'Browse'}, key: 'find'},
 ];
 const InProgressList = PoemListWidget({
     connectionOptions: {
