@@ -49,7 +49,7 @@
     - [x] Field for title + author
     - [x] 5 feet, text box under?
 - [x] Edit button in the game interface as well
-- [ ] Splash CSS Cleanup
+- [x] Splash CSS Cleanup
 - [ ] Scansion Guide Page
     - FAQ?
     - Include link in Navbar

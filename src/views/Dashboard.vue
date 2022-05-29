@@ -7,13 +7,11 @@
                         v-for="widget in widgets"
                         :key="widget.key"
                         class="widget-container">
-                        <div class="widget">
-                            <h3 class="widget-title">
+                        <div class="scene-content submenu gap-1">
+                            <h3 class="has-text-grey">
                                 {{ $translation.get('widget.' + widget.key) }}
                             </h3>
-                            <component
-                                :is="widget.component"
-                                class="inner"/>
+                            <component :is="widget.component"/>
                         </div>
                     </div>
                 </div>
@@ -30,10 +28,9 @@ import { Scene, BackgroundImage, PoemCard } from '@/components'
 import { InProgress, Completed } from '@/queries'
 import { Translation } from '@/services'
 import NavbarView from './NavbarView'
-import Vue from 'vue'
 
-function PoemListWidget({name, connectionOptions, cardOptions = {}, placeholder}) {
-    return Vue.component(name, {
+function PoemListWidget({connectionOptions, cardOptions = {}, placeholder}) {
+    return {
         apollo: { connection: connectionOptions }, 
         methods: { placeholder },
         computed: {
@@ -44,13 +41,13 @@ function PoemListWidget({name, connectionOptions, cardOptions = {}, placeholder}
         render(h) {
             if (!this.poems) return;
             if (this.poems.length) return (
-                <div class="poem-card-list">
+                <div class="submenu gap-1">
                     {this.poems.map(poem => h(PoemCard, { props: {poem, ...cardOptions}}))}
                 </div>
             )
             else return this.placeholder();
         }
-    })
+    }
 }
 
 // Construct components used by widgets
@@ -59,7 +56,6 @@ const placeholderButtons = [
     { to: {name: 'Find'}, key: 'find'},
 ];
 const InProgressList = PoemListWidget({
-    name: 'InProgressList',
     connectionOptions: {
         query: InProgress,
         update: data => data.me.inProgress,
@@ -85,7 +81,6 @@ const InProgressList = PoemListWidget({
 })
 
 const CompletedList = PoemListWidget({
-    name: 'CompletedList',
     connectionOptions: {
         query: Completed,
         update: data => data.me.completed,

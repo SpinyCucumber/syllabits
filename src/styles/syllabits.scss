@@ -25,15 +25,18 @@ body {
 }
 
 .title {
+    font-family: var(--font-stylized);
     font-size: var(--fs-30);
 }
 
 .subtitle {
+    font-family: var(--font-stylized);
     color: $gray;
     font-size: var(--fs-10);
 }
 
 .branding {
+    font-family: var(--font-stylized);
     font-size: var(--fs-50);
 }
 
@@ -138,7 +141,7 @@ body {
 
 }
 
-.splash-view {
+.splash {
     @extend .scene-content;
 
     min-width: 65vw;
@@ -148,51 +151,15 @@ body {
     align-items: center;
 
     .splash-pane {
-        max-height: 50em;
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 2em;
+        flex-grow: 1;
     }
 
-    .text-area {
-        display: flex;
-        flex-direction: column;
-        gap: 2em;
+    .splash-buttons {
+        @extend .submenu;
+        min-width: 15vw;
     }
 
-    .title-box {
-        font-family: var(--font-stylized);
-        display: flex;
-        flex-direction: column;
-    }
-
-    .demo-poem {
-        display: flex;
-        flex-direction: column;
-        font-size: var(--fs-10);
-        gap: 1em;
-
-        .poem-line {
-            .poem-text {
-                font-style: italic;
-                color: $gray;
-            }
-        }
-    }
-
-    .button-area {
-        width: min(100vw, 20em);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        gap: 2em;
-        margin-bottom: auto;
-    }
-
-    .logo {
+    .splash-logo {
         width: 16em;
         margin-top: auto;
         margin-bottom: auto;
@@ -203,6 +170,18 @@ body {
         flex-direction: column;
     }
 
+}
+
+.demo-poem {
+    display: flex;
+    flex-direction: column;
+    font-size: var(--fs-10);
+    gap: 1em;
+
+    .poem-text {
+        font-style: italic;
+        color: $gray;
+    }
 }
 
 .login-menu, .register-menu {
@@ -257,31 +236,10 @@ body {
     display: flex;
     flex-direction: column;
 
-    .poem {
-
+    .poem-body {
+        min-width: 80%;
         display: flex;
-        flex-grow: 1;
         flex-direction: column;
-        align-items: center;
-        gap: 3em;
-        padding-left: 1em;
-        padding-right: 1em;
-        padding-top: 3em;
-        padding-bottom: 3em;
-
-        .title, .subtitle {
-            font-family: var(--font-stylized);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .body {
-            min-width: 80%;
-            display: flex;
-            flex-direction: column;
-        }
-
     }
 
     // We insert space between each line using margin-top.
@@ -292,9 +250,7 @@ body {
         &.has-stanza-break { margin-top: 6em; }
         transition: all 1s ease;
 
-        .text-box {
-            font-size: var(--fs-20);
-        }
+        font-size: var(--fs-20);
     
     }
 
@@ -678,7 +634,6 @@ input,
 .toolbar {
     display: flex;
     align-items: center;
-    min-height: 3em;
     .toolbar-start { margin-right: auto; }
     .toolbar-end { margin-left: auto; }
     &>* {
@@ -721,19 +676,6 @@ input,
         color: $danger-invert;
     }
 
-    // This element contains the slot container as well as the line text.
-    .text-box {
-        display: flex;
-        justify-self: start;
-        flex-direction: column;
-        gap: 0.5em;
-    }
-
-    .slot-container {
-        display: flex;
-        justify-content: space-between;
-    }
-
     .poem-text {
         font-family: var(--font-stylized);
         letter-spacing: 0.04em;
@@ -772,22 +714,6 @@ input,
         animation: pulse 2s infinite;
     }
 
-}
-
-.widget {
-    @extend .scene-content;
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-    .widget-title {
-        color: $gray;
-    }
-}
-
-.poem-card-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
 }
 
 .number {
@@ -853,9 +779,11 @@ input,
     &.is-centered {
         align-items: center;
     }
-    .submenu-title {
-        font-size: var(--fs-20);
-        font-family: var(--font-stylized);
+    &.is-aligned-start {
+        align-items: flex-start;
+    }
+    &.is-aligned-end {
+        align-items: flex-end;
     }
     .submenu-footer {
         margin-top: 1em;
@@ -889,6 +817,12 @@ input,
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+}
+
+@for $n from 0 to 6 {
+    .gap-#{$n} {
+        gap: #{$n}rem;
+    }
 }
 
 .non-interactive {

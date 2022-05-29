@@ -1,28 +1,26 @@
 <template>
     <scene type="is-centered is-aligned">
         <template #content-area>
-            <div class="splash-view">
-                <div class="splash-pane">
-                    <div class="text-area">
-                        <div class="title-box">
-                            <h1 class="branding">SyllaBits</h1>
-                            <img :src="$assets.getIcon('divider')" class="divider"/>
-                        </div>
-                        <div class="demo-poem">
-                            <poem-line
-                                v-for="(line, i) in demoPoem"
-                                :has-number="false"
-                                :key="i"
-                                :line="line"
-                                :automatic-feedback="true"
-                                :progress="demoProgress[i]"
-                                :check-handler="(holding) => checkLine(i, holding)"/>
-                        </div>
+            <div class="splash">
+                <div class="splash-pane submenu is-aligned-start gap-2">
+                    <div class="submenu">
+                        <h1 class="branding">SyllaBits</h1>
+                        <img :src="$assets.getIcon('divider')" class="divider"/>
+                    </div>
+                    <div class="demo-poem">
+                        <poem-line
+                            v-for="(line, i) in demoPoem"
+                            :has-number="false"
+                            :key="i"
+                            :line="line"
+                            :automatic-feedback="true"
+                            :progress="demoProgress[i]"
+                            :check-handler="(holding) => checkLine(i, holding)"/>
                     </div>
                 </div>
-                <div class="splash-pane">
-                    <img :src="$assets.getTexture('logo')" class="logo"/>
-                    <div class="button-area">
+                <div class="splash-pane submenu is-centered gap-2">
+                    <img :src="$assets.getTexture('logo')" class="splash-logo"/>
+                    <div class="splash-buttons">
                         <b-button
                             v-for="button of buttons"
                             tag="router-link"

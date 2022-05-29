@@ -80,9 +80,9 @@
                             <h1 class="title">{{ $translation.get('dialog.poem.error.title') }}</h1>
                             <h2 class="subtitle">{{ errorMessage }}</h2>
                         </div>
-                        <div v-else-if="poem" class="poem">
+                        <div v-else-if="poem" class="submenu is-centered gap-3 p-1">
 
-                            <div class="title-box">
+                            <div class="submenu is-centered">
                                 <editable v-model="poem.title"
                                     tag="h1"
                                     custom-class="title"
@@ -117,7 +117,7 @@
                             </b-field>
 
                             <!-- Poem lines -->
-                            <transition-group tag="div" class="body" name="list">
+                            <transition-group tag="div" class="pome-body" name="list">
                                 <poem-line
                                     ref="lines"
                                     v-for="line in sortedLines"
@@ -367,6 +367,66 @@ export default {
                     options: { type: 'is-success', 'icon-left': 'camera', },
                     listeners: { click: this.capture, },
                     shouldShow: () => this.mode !== 'edit'
+                },
+            ],
+            // A list of actions avaliable for each poem line in edit mode
+            lineActions: [
+                {
+                    key: 'addstanzabreak',
+                    apply: (line) => { line.stanzaBreak = true; },
+                    shouldShow: (line) => line.stanzaBreak === false,
+                },
+                {
+                    key: 'removestanzabreak',
+                    apply: (line) => { line.stanzaBreak = false; },
+                    shouldShow: (line) => line.stanzaBreak === true,
+                },
+                {
+                    key: 'moveup',
+                    icon: 'arrow-up',
+                    apply: (line) => {
+                        let predecessor = this.sortedLines[line.order - 1];
+                        predecessor.order += 1;
+                        line.order -= 1;
+                    },
+                    shouldShow: (line) => line.order > 0,
+                },
+                {
+                    key: 'movedown',
+                    icon: 'arrow-down',
+                    apply: (line) => {
+                        let successor = this.sortedLines[line.order + 1];
+                        successor.order -= 1;
+                        line.order += 1;
+                    },
+                    shouldShow: (line) => line.order < (this.poem.lines.length - 1),
+                },
+                {
+                    key: 'insert',
+                    icon: 'plus',
+                    options: { class: 'has-text-success' },
+                    apply: (line) => {
+                        // Create a new line below this one
+                        let newLine = makeLine();
+                        newLine.order = line.order + 1;
+                        // Move all successive lines down
+                        for (let successor of this.sortedLines.slice(line.order + 1)) {
+                            successor.order += 1;
+                        }
+                        this.poem.lines.push(newLine);
+                    }
+                },
+                {
+                    key: 'delete',
+                    icon: 'delete',
+                    options: { class: 'has-text-danger' },
+                    apply: (line) => {
+                        let {lines} = this.poem;
+                        lines.splice(lines.indexOf(line), 1);
+                        for (let successor of this.sortedLines.slice(line.order)) {
+                            successor.order -= 1;
+                        }
+                    },
                 },
             ],
         }

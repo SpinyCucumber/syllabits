@@ -4,9 +4,9 @@
         <!-- Add 1 because computers are weird -->
         <div v-if="hasNumber" class="number">{{ line.order + 1 }}</div>
 
-        <div class="text-box">
+        <div class="submenu">
             <!-- Block slots -->
-            <div class="slot-container">
+            <div class="is-flex is-justify-content-space-between">
                 <block-slot v-for="n in holding.length"
                     ref="slots"
                     :key="n"
