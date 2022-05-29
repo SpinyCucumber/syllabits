@@ -147,7 +147,7 @@ body {
     flex-direction: row;
     align-items: center;
 
-    &>.page {
+    .splash-pane {
         max-height: 50em;
         flex: 1;
         display: flex;
@@ -155,11 +155,6 @@ body {
         justify-content: center;
         align-items: center;
         gap: 2em;
-    }
-
-    &>.divider {
-        max-height: 20em;
-        align-self: center;
     }
 
     .text-area {

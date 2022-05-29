@@ -2,7 +2,7 @@
     <scene type="is-centered is-aligned">
         <template #content-area>
             <div class="splash-view">
-                <div class="page">
+                <div class="splash-pane">
                     <div class="text-area">
                         <div class="title-box">
                             <h1 class="branding">SyllaBits</h1>
@@ -20,7 +20,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="page">
+                <div class="splash-pane">
                     <img :src="$assets.getTexture('logo')" class="logo"/>
                     <div class="button-area">
                         <b-button
