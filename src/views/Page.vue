@@ -2,8 +2,9 @@
     <navbar-view>
         <scene type="is-aligned">
             <template #content-area>
-                <div class="guide">
+                <div class="page">
                     This page is a work in progress!
+                    {{ path }}
                 </div>
             </template>
         </scene>
@@ -15,7 +16,10 @@ import { Scene } from '@/components'
 import NavbarView from './NavbarView'
 
 export default {
-    name: 'Guide',
+    name: 'Page',
     components: { Scene, NavbarView, },
+    props: {
+        path: String // May be a page path (such as 'about', 'guide', etc.) or a page ID
+    }
 }
 </script>
