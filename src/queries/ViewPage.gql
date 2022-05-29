@@ -1,0 +1,8 @@
+query($path: String!) {
+    page(path: $path) {
+        id
+        name
+        path
+        content
+    }
+}
