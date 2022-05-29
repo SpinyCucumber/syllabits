@@ -111,7 +111,7 @@
             },
             "firstblock": {
                 "title": "First block complete!",
-                "message": "Congratulations on your first block! That’s it! Now see if you can complete the first line. (Need a refresher on the <a href=\"/#/guide\" target=\"_blank\">guidelines for scansion?</a>)"
+                "message": "Congratulations on your first block! That’s it! Now see if you can complete the first line. (Need a refresher on the <a href=\"/#/page/guide\" target=\"_blank\">guidelines for scansion?</a>)"
             },
             "firstline": {
                 "title": "First line complete!",
