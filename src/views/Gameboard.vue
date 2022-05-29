@@ -333,7 +333,7 @@ export default {
                 },
                 {
                     key: 'edit',
-                    options: { type: 'is-dark', 'icon-left': 'hammer-wrench', },
+                    options: { type: 'is-dark', 'icon-left': 'pencil', },
                     listeners: { click: () => {
                         this.$router.push({ name: 'Gameboard', query: { mode: 'edit', poemID: this.poem.id }});
                     } },
