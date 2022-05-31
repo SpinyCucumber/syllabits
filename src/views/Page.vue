@@ -14,7 +14,10 @@
                         </transition-group>
                     </div>
                     <transition name="fade">
-                        <div class="vertical-grow" v-if="page">
+                        <div class="submenu gap-1" v-if="page">
+                            <transition name="fade" mode="out-in">
+                                <h1 class="title" :key="page.name">{{ page.name }}</h1>
+                            </transition>
                             <div v-html="page.content" v-if="mode === 'view'"/>
                             <div v-else-if="mode === 'edit'" class="submenu gap-1">
                                 <b-field grouped group-multiline>
@@ -23,6 +26,7 @@
                                         :message="$translation.get('hint.page.name')"
                                         label-position="on-border">
                                         <b-input
+                                            :lazy="true"
                                             v-model="page.name"/>
                                     </b-field>
                                     <b-field
@@ -30,6 +34,7 @@
                                         :message="$translation.get('hint.page.path')"
                                         label-position="on-border">
                                         <b-input
+                                            :lazy="true"
                                             v-model="page.path"/>
                                     </b-field>
                                 </b-field>
