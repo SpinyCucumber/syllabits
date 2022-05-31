@@ -79,7 +79,7 @@ import Editor from '@tinymce/tinymce-vue'
 import { Scene, BackgroundImage } from '@/components'
 import { TrackChanges } from '@/mixins'
 import { Document } from '@/utilities/tracking'
-import { ViewPage } from '@/queries'
+import { CreatePage, ViewPage, UpdatePage } from '@/queries'
 import NavbarView from './NavbarView'
 import store from '@/store'
 
@@ -159,13 +159,53 @@ export default {
     },
 
     methods: {
+
         edit() {
             // Use ID to reference page in edit mode
             this.$router.push({ name: 'Page', params: { path: this.page.id }, query: { mode: 'edit' }});
         },
+
         view() {
             this.$router.push({ name: 'Page', params: { path: this.page.path }});
-        }
+        },
+
+        /**
+         * If the page doesn't exist on the server,
+         * creates a new page on the server and initializes its data
+         */
+        async save() {
+            // Serialize data and send to server
+            let variables = { data: JSON.stringify(this.page) };
+            let { ok, id } = (await this.$apollo.mutate({ mutation: CreatePage, variables })).data.createPage;
+            // If page was saved successfully, show message and reload view
+            if (ok) {
+                this.$buefy.toast.open({
+                    message: this.$translation.get('message.page.savesuccess'),
+                    type: 'is-success'
+                });
+                this.$router.push({ name: 'Page', params: { path: id }, query: { mode: 'edit', }});
+            }
+        },
+
+        /**
+         * If the page already exists on the server,
+         * updates the page on the server by sending transforms
+         */
+        async saveChanges() {
+            // Update page on server
+            let variables = { id: this.page.id, transforms: this.transforms.map(JSON.stringify) };
+            let { ok }  = (await this.$apollo.mutate({ mutation: UpdatePage, variables })).data.updatePage;
+            // If changes were accepted successfully, show a nice message
+            // and save current state
+            if (ok) {
+                this.$buefy.toast.open({
+                    message: this.$translation.get('message.page.savechangessuccess'),
+                    type: 'is-success'
+                });
+                this.makeSnapshot();
+            }
+        },
+
     },
 
     computed: {
