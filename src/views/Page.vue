@@ -14,24 +14,27 @@
                         </transition-group>
                     </div>
                     <transition name="fade">
-                        <div class="submenu gap-1" v-if="page">
-                            <b-field grouped group-multiline>
-                                <b-field
-                                    :label="$translation.get('label.name')"
-                                    :message="$translation.get('hint.page.name')"
-                                    label-position="on-border">
-                                    <b-input
-                                        v-model="page.name"/>
+                        <div class="vertical-grow" v-if="page">
+                            <div v-html="page.content" v-if="mode === 'view'"/>
+                            <div v-else-if="mode === 'edit'" class="submenu gap-1">
+                                <b-field grouped group-multiline>
+                                    <b-field
+                                        :label="$translation.get('label.name')"
+                                        :message="$translation.get('hint.page.name')"
+                                        label-position="on-border">
+                                        <b-input
+                                            v-model="page.name"/>
+                                    </b-field>
+                                    <b-field
+                                        :label="$translation.get('label.path')"
+                                        :message="$translation.get('hint.page.path')"
+                                        label-position="on-border">
+                                        <b-input
+                                            v-model="page.path"/>
+                                    </b-field>
                                 </b-field>
-                                <b-field
-                                    :label="$translation.get('label.path')"
-                                    :message="$translation.get('hint.page.path')"
-                                    label-position="on-border">
-                                    <b-input
-                                        v-model="page.path"/>
-                                </b-field>
-                            </b-field>
-                            <div v-html="page.content"/>
+                                <editor :init="editorOptions" v-model="page.content"/>
+                            </div>
                         </div>
                     </transition>
                 </div>
@@ -46,6 +49,7 @@
 </template>
 
 <script>
+import Editor from '@tinymce/tinymce-vue'
 import { Scene, BackgroundImage } from '@/components'
 import { ViewPage } from '@/queries'
 import NavbarView from './NavbarView'
@@ -54,11 +58,29 @@ import store from '@/store'
 export default {
 
     name: 'Page',
-    components: { Scene, NavbarView, BackgroundImage, },
+    components: { Scene, NavbarView, BackgroundImage, Editor, },
 
     props: {
         mode: { type: String, default: 'view' }, // May be 'view' or 'edit'
         path: String // May be a page path (such as 'about', 'guide', etc.) or a page ID
+    },
+
+    setup() {
+        return {
+            editorOptions: {
+                menubar: false,
+                height: 600,
+                plugins: [
+                    'advlist autolink lists link image charmap print preview anchor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table paste code help wordcount'
+                ],
+                toolbar:
+                    'undo redo | formatselect | bold italic backcolor | \
+                    alignleft aligncenter alignright alignjustify | \
+                    bullist numlist outdent indent | removeformat | help'
+            },
+        }
     },
 
     data() {

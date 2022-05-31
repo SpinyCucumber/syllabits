@@ -50,6 +50,7 @@
     - [x] 5 feet, text box under?
 - [x] Edit button in the game interface as well
 - [x] Splash CSS Cleanup
+- [ ] TODO Generalize "submenu" to vbox and include vertical-grow support
 - [ ] Scansion Guide Page
     - FAQ?
     - Include link in Navbar
