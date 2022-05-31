@@ -2,6 +2,27 @@
     <navbar-view>
         <scene type="is-aligned">
 
+            <template #static-area>
+
+                <div class="save-dropdown" v-if="mode === 'edit' && page">
+                    <transition name="dropdown">
+                        <b-button
+                            v-if="allowSave"
+                            type="is-primary"
+                            size="is-large"
+                            @click="save"
+                            :label="$translation.get('button.poem.save')"/>
+                        <b-button
+                            v-else-if="allowSaveChanges"
+                            type="is-primary"
+                            size="is-large"
+                            @click="saveChanges"
+                            :label="$translation.get('button.poem.savechanges')"/>
+                    </transition>
+                </div>
+
+            </template>
+
             <template #content-area>
                 <div class="page-view">
                     <div class="toolbar">
@@ -150,6 +171,12 @@ export default {
     computed: {
         filteredButtons() {
             return this.buttons.filter(button => button.shouldShow ? button.shouldShow() : true);
+        },
+        allowSave() {
+            return !this.saved && this.page.name && store.getters.perms.has('page.create');
+        },
+        allowSaveChanges() {
+            return this.saved && this.transforms.length > 0 && store.getters.perms.has('page.edit');
         },
     },
 
