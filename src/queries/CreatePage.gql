@@ -1,0 +1,6 @@
+mutation($data: JSONString) {
+    createPage(data: $data) {
+        ok
+        id
+    }
+}

@@ -1,0 +1,5 @@
+mutation($id: ID!, $transforms: [JSONString]) {
+    updatePage(id: $id, transforms: $transforms) {
+        ok
+    }
+}
