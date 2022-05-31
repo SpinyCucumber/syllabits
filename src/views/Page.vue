@@ -56,6 +56,8 @@
 <script>
 import Editor from '@tinymce/tinymce-vue'
 import { Scene, BackgroundImage } from '@/components'
+import { TrackChanges } from '@/mixins'
+import { Document } from '@/utilities/tracking'
 import { ViewPage } from '@/queries'
 import NavbarView from './NavbarView'
 import store from '@/store'
@@ -69,6 +71,14 @@ export default {
         mode: { type: String, default: 'view' }, // May be 'view' or 'edit'
         path: String // May be a page path (such as 'about', 'guide', etc.) or a page ID
     },
+
+    mixins: [
+        TrackChanges({
+            toTrack: 'page',
+            handler: new Document(),
+            excludeFields: ['__typename'],
+        }),
+    ],
 
     setup() {
         return {
@@ -91,6 +101,7 @@ export default {
     data() {
         return {
             page: null,
+            saved: false,
             buttons: [
                 {
                     key: 'edit',
@@ -109,10 +120,21 @@ export default {
     },
 
     async created() {
-        // Load page from server
-        this.page = (await this.$apollo.query({
-            query: ViewPage, variables: { path: this.path }
-        })).data.page;
+        // If path is specified, load page from server
+        if (this.path) {
+            this.page = (await this.$apollo.query({
+                query: ViewPage, variables: { path: this.path }
+            })).data.page;
+            // If we're editing, start tracking changes and mark poem as saved
+            if (this.mode === 'edit') {
+                this.saved = true;
+                this.makeSnapshot();
+            }
+        }
+        else if (this.mode === 'edit') {
+            this.page = {};
+            this.saved = false;
+        }
     },
 
     methods: {
