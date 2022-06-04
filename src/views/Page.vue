@@ -11,13 +11,13 @@
                             type="is-primary"
                             size="is-large"
                             @click="save"
-                            :label="$translation.get('button.poem.save')"/>
+                            :label="$translation.get('button.page.save')"/>
                         <b-button
                             v-else-if="allowSaveChanges"
                             type="is-primary"
                             size="is-large"
                             @click="saveChanges"
-                            :label="$translation.get('button.poem.savechanges')"/>
+                            :label="$translation.get('button.page.savechanges')"/>
                     </transition>
                 </div>
 

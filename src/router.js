@@ -70,7 +70,7 @@ routes: [
     props: route => (route.query)
   },
   {
-    path: '/page/:path',
+    path: '/page/:path?',
     name: 'Page',
     component: Page,
     props: route => ({...route.params, ...route.query})
