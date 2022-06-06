@@ -1,0 +1,6 @@
+query {
+    publicPages {
+        name
+        path
+    }
+}

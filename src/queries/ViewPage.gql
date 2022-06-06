@@ -3,6 +3,7 @@ query($path: String!) {
         id
         name
         path
+        public
         content
     }
 }
