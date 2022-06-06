@@ -138,7 +138,7 @@ export default {
                     key: 'view',
                     options: { type: 'is-dark', 'icon-left': 'eye', },
                     listeners: { click: this.view },
-                    shouldShow: () => this.mode === 'edit' && this.page
+                    shouldShow: () => this.mode === 'edit' && this.saved
                 }
             ]
         }
