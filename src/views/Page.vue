@@ -58,6 +58,10 @@
                                         :lazy="true"
                                         v-model="page.path"/>
                                 </b-field>
+                                <b-field
+                                    :message="$translation.get('hint.page.public')">
+                                    <b-switch v-model="page.public">{{ $translation.get('label.public') }}</b-switch>
+                                </b-field>
                             </b-field>
                             <editor :init="editorOptions" v-model="page.content" v-if="mode === 'edit'"/>
                             <div v-html="page.content" v-else-if="mode === 'view'"/>

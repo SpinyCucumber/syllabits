@@ -60,7 +60,8 @@
         "cancel": "Cancel",
         "submit": "Submit",
         "name": "Name",
-        "path": "Path"
+        "path": "Path",
+        "public": "Public"
     },
     "dialog": {
         "poem": {
@@ -215,7 +216,8 @@
     "hint": {
         "page": {
             "name": "The name displayed to users. May contain spaces.",
-            "path": "Used to contruct the page URL. Shouldn't contain spaces!"
+            "path": "Used to contruct the page URL. Shouldn't contain spaces!",
+            "public": "Should page be accessible via the Navbar?"
         }
     },
     "play": {
