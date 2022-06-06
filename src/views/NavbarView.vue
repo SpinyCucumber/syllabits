@@ -5,15 +5,40 @@
 
             <!-- Items rendered at beginning of navbar -->
             <template #start>
+
+                <!-- Static Links -->
+                <b-navbar-item tag="router-link" :to="{ name: 'Browse', query: { tab: 'poems' } }">
+                    {{ $translation.get('navbar.findpoem') }}
+                </b-navbar-item>
+                <b-navbar-item tag="router-link" :to="{ name: 'RandomPoem' }">
+                    {{ $translation.get('navbar.randompoem') }}
+                </b-navbar-item>
+                <b-navbar-item v-if="$store.getters.perms.has('poem.edit')"
+                    tag="router-link" :to="{ name: 'Gameboard', query: { mode: 'edit', }}">
+                    {{ $translation.get('navbar.editpoem') }}
+                </b-navbar-item>
+                <b-navbar-dropdown v-if="showAdminTools" :label="$translation.get('navbar.admin')" boxed>
+                    <b-navbar-item tag="router-link" :to="{ name: 'Browse', query: { tab: 'users' }}">
+                        {{ $translation.get('navbar.manageusers') }}
+                    </b-navbar-item>
+                    <b-navbar-item tag="router-link" :to="{ name: 'Browse', query: { tab: 'pages' }}">
+                        {{ $translation.get('navbar.managepages') }}
+                    </b-navbar-item>
+                    <b-navbar-item tag="router-link" :to="{ name: 'Page', query: { mode: 'edit', }}">
+                        {{ $translation.get('navbar.editpage') }}
+                    </b-navbar-item>
+                </b-navbar-dropdown>
+
+                <!-- Dynamic Links -->
                 <transition-group name="list" tag="div" class="is-flex">
                     <b-navbar-item
-                        v-for="link in filteredLinks"
-                        tag="router-link"
+                        v-for="link in dynamicLinks"
                         :key="link.key"
                         v-bind="link">
                         {{ link.name || $translation.get('navbar.' + link.key) }}
                     </b-navbar-item>
                 </transition-group>
+
             </template>
 
             <template #end>
@@ -70,25 +95,6 @@ export default {
         extraLinks: { default: () => [] },
     },
 
-    data() {
-        return {
-            baseLinks: [
-                { to: { name: 'Browse', query: { tab: 'poems' } }, key: 'findpoem' },
-                { to: { name: 'RandomPoem' }, key: 'randompoem' },
-                {
-                    to: { name: 'Gameboard', query: { mode: 'edit', }},
-                    key: 'edit',
-                    shouldShow: () => this.$store.getters.perms.has('poem.edit')
-                },
-                {
-                    to: { name: 'Browse', query: { tab: 'users' }},
-                    key: 'manageusers',
-                    shouldShow: () => this.$store.getters.perms.has('user.manage'),
-                }
-            ],
-        }
-    },
-
     apollo: {
         publicPages: {
             query: PublicPages,
@@ -99,20 +105,21 @@ export default {
         pageLinks() {
             return this.publicPages.map(page => ({
                 to: { name: 'Page', params: { path: page.path } },
+                tag: 'router-link',
                 key: page.path,
                 name: page.name,
             }));
         },
-        allLinks() {
-            let links = [...this.baseLinks, ...this.extraLinks];
+        dynamicLinks() {
+            let links = this.extraLinks;
             if (this.publicPages) links = [...links, ...this.pageLinks];
             return links;
         },
-        filteredLinks() {
-            return this.allLinks.filter(link => link.shouldShow ? link.shouldShow() : true);
-        },
         showRole() {
             return this.$store.getters.role !== Role.USER;
+        },
+        showAdminTools() {
+            return this.$store.getters.role === Role.ADMIN;
         },
     },
 

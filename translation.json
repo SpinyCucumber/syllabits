@@ -4,8 +4,11 @@
         "randompoem": "Play a Poem",
         "nextpoem": "Next Poem",
         "previouspoem": "Previous Poem",
-        "edit": "Poem Editor",
-        "manageusers": "Manage Users"
+        "editpoem": "Poem Editor",
+        "manageusers": "Manage Users",
+        "admin": "Admin Tools",
+        "editpage": "Page Editor",
+        "managepages": "Manage Pages"
     },
     "setting": {
         "hints": "Enable Hints",
