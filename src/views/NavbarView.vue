@@ -11,7 +11,7 @@
                         tag="router-link"
                         :key="link.key"
                         v-bind="link">
-                        {{ $translation.get('navbar.' + link.key) }}
+                        {{ link.name || $translation.get('navbar.' + link.key) }}
                     </b-navbar-item>
                 </transition-group>
             </template>
@@ -56,7 +56,7 @@
 <script>
 import { Settings, RoleTag } from '@/components'
 import { Constants } from '@/services'
-import { Logout } from '@/queries'
+import { Logout, PublicPages } from '@/queries'
 const { Role } = Constants;
 
 /**
@@ -89,9 +89,24 @@ export default {
         }
     },
 
+    apollo: {
+        publicPages: {
+            query: PublicPages,
+        },
+    },
+
     computed: {
+        pageLinks() {
+            return this.publicPages.map(page => ({
+                to: { name: 'Page', params: { path: page.path } },
+                key: page.path,
+                name: page.name,
+            }));
+        },
         allLinks() {
-            return this.baseLinks.concat(this.extraLinks);
+            let links = [...this.baseLinks, ...this.extraLinks];
+            if (this.publicPages) links = [...links, ...this.pageLinks];
+            return links;
         },
         filteredLinks() {
             return this.allLinks.filter(link => link.shouldShow ? link.shouldShow() : true);
