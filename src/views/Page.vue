@@ -55,6 +55,7 @@
                                     :message="$translation.get('hint.page.path')"
                                     label-position="on-border">
                                     <b-input
+                                        :placeholder="$translation.get('placeholder.page.path')"
                                         :lazy="true"
                                         v-model="page.path"/>
                                 </b-field>
