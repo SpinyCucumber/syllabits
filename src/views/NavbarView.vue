@@ -17,6 +17,18 @@
                     tag="router-link" :to="{ name: 'Gameboard', query: { mode: 'edit', }}">
                     {{ $translation.get('navbar.editpoem') }}
                 </b-navbar-item>
+
+                <!-- Dynamic Links -->
+                <transition-group name="list" tag="div" class="is-flex">
+                    <b-navbar-item
+                        v-for="link in dynamicLinks"
+                        :key="link.key"
+                        v-bind="link">
+                        {{ link.name || $translation.get('navbar.' + link.key) }}
+                    </b-navbar-item>
+                </transition-group>
+
+                <!-- Admin Tools -->
                 <b-navbar-dropdown v-if="showAdminTools" :label="$translation.get('navbar.admin')" boxed>
                     <b-navbar-item tag="router-link" :to="{ name: 'Browse', query: { tab: 'users' }}">
                         {{ $translation.get('navbar.manageusers') }}
@@ -28,16 +40,6 @@
                         {{ $translation.get('navbar.editpage') }}
                     </b-navbar-item>
                 </b-navbar-dropdown>
-
-                <!-- Dynamic Links -->
-                <transition-group name="list" tag="div" class="is-flex">
-                    <b-navbar-item
-                        v-for="link in dynamicLinks"
-                        :key="link.key"
-                        v-bind="link">
-                        {{ link.name || $translation.get('navbar.' + link.key) }}
-                    </b-navbar-item>
-                </transition-group>
 
             </template>
 
