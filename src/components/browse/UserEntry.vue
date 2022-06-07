@@ -21,7 +21,8 @@
 <script>
 import { DeleteUser } from '@/queries'
 import { Constants } from '@/services'
-import { RoleTag, ChangeRole } from '@/components'
+import ChangeRole from './ChangeRole'
+import RoleTag from '../RoleTag'
 
 const { Role } = Constants;
 
