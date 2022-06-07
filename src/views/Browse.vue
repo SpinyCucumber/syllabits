@@ -14,9 +14,9 @@
 </template>
 
 <script>
-import { SearchPoems, SearchUsers } from '@/queries'
+import { SearchPoems, SearchUsers, SearchPages } from '@/queries'
 import { Translation } from '@/services'
-import { Table, PoemEntry, UserEntry } from '@/components'
+import { Table, PoemEntry, UserEntry, PageEntry } from '@/components'
 import NavbarView from './NavbarView'
 
 export default {
@@ -47,6 +47,16 @@ export default {
                         entryComponent: UserEntry,
                     },
                     shouldShow: () => this.$store.getters.perms.has('user.manage'),
+                },
+                {
+                    value: 'pages',
+                    tableOptions: {
+                        orderByOptions: ['relevance', 'name', 'path'],
+                        connectionOptions: { query: SearchPages, update: (data) => data.pages, },
+                        searchOptions: { placeholder: Translation.get('placeholder.page.search'), },
+                        entryComponent: PageEntry,
+                    },
+                    shouldShow: () => this.$store.getters.perms.has('page.manage'),
                 }
             ],
         }

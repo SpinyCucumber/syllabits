@@ -43,7 +43,9 @@
         },
         "page": {
             "save": "Save Page",
-            "savechanges": "Save Changes"
+            "savechanges": "Save Changes",
+            "view": "View",
+            "edit": "Edit"
         },
         "user": {
             "changerole": "Change Role",
@@ -56,7 +58,8 @@
     },
     "tab": {
         "poems": "Poems",
-        "users": "Users"
+        "users": "Users",
+        "pages": "Pages"
     },
     "label": {
         "sortby": "Sort by",
@@ -211,7 +214,8 @@
         },
         "page": {
             "name": "Enter page name...",
-            "path": "Enter page path..."
+            "path": "Enter page path...",
+            "search": "Search for name/path..."
         },
         "categories": "Enter categories...", 
         "inprogress": "You haven't played any poems yet!",
@@ -222,13 +226,16 @@
         "title": "Title",
         "author": "Author",
         "email": "Email",
-        "role": "Role"
+        "role": "Role",
+        "name": "Name",
+        "path": "Path"
     },
     "hint": {
         "page": {
             "name": "The name displayed to users. May contain spaces.",
             "path": "Used to contruct the page URL. Shouldn't contain spaces!",
-            "public": "Whether page should be accessible via the Navbar"
+            "public": "Whether page should be accessible via the Navbar",
+            "notpublic": "This page isn't public, which means it doesn't appear in the Navbar."
         }
     },
     "play": {
