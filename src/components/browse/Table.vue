@@ -119,7 +119,7 @@ export default {
             fetchPolicy: 'cache-and-network',
             skip() {
                 // Page size must be defined to run query
-                return this.pageSize === undefined;
+                return !this.pageSize;
             },
             variables() {
                 return {

@@ -36,7 +36,7 @@ export default {
     },
     computed: {
         displayPath() {
-            return `/pages/${this.entry.path}`
+            return `/page/${this.entry.path}`
         }
     }
 }
