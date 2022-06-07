@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import CategoryInput from './CategoryInput'
+import CategoryInput from '../CategoryInput'
 import { ObserveSize } from '@/mixins'
 
 /**
