@@ -176,6 +176,11 @@
             "savechangessuccess": "Changes saved successfully!",
             "share": "Link copied to clipboard!"
         },
+        "page": {
+            "savesuccess": "Page saved!",
+            "deletesuccess": "Page deleted!",
+            "savechangessuccess": "Changes saved successfully!"
+        },
         "user": {
             "changerolesuccess": "Role changed successfully!",
             "deletesuccess": "User deleted!"
