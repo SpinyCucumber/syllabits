@@ -145,6 +145,13 @@
                 "message": "Nice job! But before you go, there are some other features of the SyllaBits Gameboard you should probably know about. One of the most helpful is the 'capture button,' which allows you to take a screenshot of the Gameboard. Give it a go!"
             }
         },
+        "page": {
+            "delete": {
+                "title": "Delete Page",
+                "message": "Are you sure you want to delete this page? It will be gone forever!",
+                "confirmText": "Delete"
+            }
+        },
         "logout": {
             "title": "Logout",
             "message": "Are you sure you want to logout?"

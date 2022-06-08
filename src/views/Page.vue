@@ -84,7 +84,7 @@ import Editor from '@tinymce/tinymce-vue'
 import { Scene, BackgroundImage } from '@/components'
 import { TrackChanges } from '@/mixins'
 import { Document } from '@/utilities/tracking'
-import { CreatePage, ViewPage, UpdatePage } from '@/queries'
+import { CreatePage, ViewPage, UpdatePage, DeletePage } from '@/queries'
 import NavbarView from './NavbarView'
 import store from '@/store'
 
@@ -140,7 +140,13 @@ export default {
                     options: { type: 'is-dark', 'icon-left': 'eye', },
                     listeners: { click: this.view },
                     shouldShow: () => this.mode === 'edit' && this.saved
-                }
+                },
+                {
+                    key: 'delete',
+                    options: { type: 'is-danger', 'icon-left': 'delete', },
+                    listeners: { click: this.confirmDelete, },
+                    shouldShow: () => this.mode === 'edit' && this.saved && store.getters.perms.has('page.delete')
+                },
             ]
         }
     },
@@ -211,6 +217,31 @@ export default {
             }
         },
 
+        async confirmDelete() {
+            this.$buefy.dialog.confirm({
+                ...this.$translation.get('dialog.page.delete'),
+                type: 'is-danger',
+                hasIcon: true,
+                onConfirm: this.delete,
+            });
+        },
+
+        /**
+         * Deletes a saved page from the server
+         */
+        async delete() {
+            const variables = { id: this.page.id };
+            let { ok } = (await this.$apollo.mutate({ mutation: DeletePage, variables })).data.deletePage;
+            // If we've successfully deleted the page, show a nice message and navigate back
+            if (ok) {
+                this.$buefy.toast.open({
+                    message: this.$translation.get('message.page.deletesuccess'),
+                    type: 'is-danger'
+                });
+                this.$router.back();
+            }
+        },
+
     },
 
     computed: {
@@ -218,7 +249,7 @@ export default {
             return this.buttons.filter(button => button.shouldShow ? button.shouldShow() : true);
         },
         allowSave() {
-            return !this.saved && this.page.name && store.getters.perms.has('page.create');
+            return !this.saved && this.page.name && this.page.path && store.getters.perms.has('page.create');
         },
         allowSaveChanges() {
             return this.saved && this.transforms.length > 0 && store.getters.perms.has('page.edit');
