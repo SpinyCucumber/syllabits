@@ -71,7 +71,8 @@
             </template>
 
             <template #background-area>
-                <background-image v-if="mode === 'edit'" :src="$assets.getTexture('relief1')" class="muted"/>
+                <background-image v-if="mode === 'view'" :src="$assets.getTexture('paper4')" class="muted"/>
+                <background-image v-else-if="mode === 'edit'" :src="$assets.getTexture('relief1')" class="muted"/>
             </template>
 
         </scene>
