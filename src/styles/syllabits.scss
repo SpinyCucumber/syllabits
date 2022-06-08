@@ -792,15 +792,14 @@ input,
  */
 
 // Filter
-.warm {
-    filter: saturate(450%) hue-rotate(-15deg) contrast(30%) blur(2px);
-    // We have to add margin so we don't get awkward edge blurring
-    margin: -5px;
-}
-// Filter
 .muted {
     filter: contrast(70%) blur(6px);
     margin: -15px;
+}
+
+.semi-muted {
+    filter: contrast(50%) blur(3px);
+    margin: -8px;
 }
 
 .full-height {
