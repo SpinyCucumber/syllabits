@@ -76,7 +76,7 @@
                     </div>
                     
                     <transition name="fade">
-                        <div v-if="error" class="gameboard-error">
+                        <div v-if="error" class="submenu is-centered mt-auto mb-auto">
                             <h1 class="title">{{ $translation.get('dialog.poem.error.title') }}</h1>
                             <h2 class="subtitle">{{ errorMessage }}</h2>
                         </div>

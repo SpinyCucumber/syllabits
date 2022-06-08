@@ -35,7 +35,10 @@
                         </transition-group>
                     </div>
                     <transition name="fade">
-                        <div class="submenu gap-1" v-if="page">
+                        <div v-if="error" class="submenu is-centered mt-auto mb-auto">
+                            <h1 class="subtitle"> {{ $translation.get('message.page.error') }} </h1>
+                        </div>
+                        <div class="submenu gap-1" v-else-if="page">
                             <transition name="fade" mode="out-in">
                                 <h1 class="title" :key="page.name"> {{ page.name }} </h1>
                             </transition>
@@ -128,6 +131,7 @@ export default {
         return {
             page: null,
             saved: false,
+            error: null, // Whether an error was encountered while loading
             buttons: [
                 {
                     key: 'edit',
@@ -157,12 +161,15 @@ export default {
             this.page = (await this.$apollo.query({
                 query: ViewPage, variables: { path: this.path }
             })).data.page;
+            // If page doesn't exist, set error status
+            if (!this.page) this.error = true;
             // If we're editing, start tracking changes and mark poem as saved
-            if (this.mode === 'edit') {
+            else if (this.mode === 'edit') {
                 this.saved = true;
                 this.makeSnapshot();
             }
         }
+        // If path is NOT specified in edit mode, create a blank page
         else if (this.mode === 'edit') {
             this.page = {};
             this.saved = false;

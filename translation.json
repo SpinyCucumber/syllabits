@@ -186,7 +186,8 @@
         "page": {
             "savesuccess": "Page saved!",
             "deletesuccess": "Page deleted!",
-            "savechangessuccess": "Changes saved successfully!"
+            "savechangessuccess": "Changes saved successfully!",
+            "error": "If there was a page here, it no longer exists..."
         },
         "user": {
             "changerolesuccess": "Role changed successfully!",

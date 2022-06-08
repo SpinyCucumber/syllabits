@@ -262,13 +262,6 @@ body {
         }
     }
 
-    .gameboard-error {
-        @extend .submenu, .is-centered;
-        font-family: var(--font-stylized);
-        margin-top: auto;
-        margin-bottom: auto;
-    }
-
 }
 
 .page-view {
