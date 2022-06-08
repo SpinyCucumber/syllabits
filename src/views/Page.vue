@@ -68,7 +68,7 @@
                             </b-field>
                             <editor :init="editorOptions" v-model="page.content" v-if="mode === 'edit'"
                                 api-key="tcgckj94qvvzs3olch539gh9ijvs3r9e9vb67ye318p67g3p"/>
-                            <div v-html="page.content" v-else-if="mode === 'view'"/>
+                            <div v-html="page.content" v-else-if="mode === 'view'" class="content"/>
                         </div>
                     </transition>
                 </div>
@@ -113,7 +113,6 @@ export default {
     setup() {
         return {
             editorOptions: {
-                menubar: false,
                 height: 600,
                 plugins: [
                     'advlist autolink lists link image charmap print preview anchor',
@@ -123,7 +122,7 @@ export default {
                 toolbar:
                     'undo redo | formatselect | bold italic backcolor | \
                     alignleft aligncenter alignright alignjustify | \
-                    bullist numlist outdent indent | image media | removeformat | help'
+                    bullist numlist outdent indent | removeformat | help',
             },
         }
     },
