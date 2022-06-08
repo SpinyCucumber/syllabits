@@ -4,11 +4,12 @@ import { ToastProgrammatic, DialogProgrammatic } from 'buefy'
 
 const toastOptions = {
     type: 'is-info',
-    duration: 8000,
+    duration: 4000,
 }
 
 let shown = new Set();
 
+// TODO Deprecate this
 export default new Service({
     
     name: 'reminders',
