@@ -1,6 +1,6 @@
 <template>
     <navbar-view>
-        <scene type="is-aligned">
+        <scene type="is-aligned has-scroll">
 
             <template #static-area>
 
