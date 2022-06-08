@@ -267,6 +267,7 @@ body {
 .page-view {
     @extend .scene-content;
     width: min(70em, 100vw);
+    padding: 3em !important;
     display: flex;
     flex-direction: column;
 }
