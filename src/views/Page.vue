@@ -40,7 +40,9 @@
                         </div>
                         <div class="submenu gap-1" v-else-if="page">
                             <transition name="fade" mode="out-in">
-                                <h1 class="title" :key="page.name"> {{ page.name }} </h1>
+                                <h1 :class="nameClasses" :key="page.name">
+                                    {{ page.name || $translation.get('placeholder.page.bigname') }}
+                                </h1>
                             </transition>
                             <b-field grouped group-multiline v-if="mode === 'edit'">
                                 <b-field
@@ -261,8 +263,8 @@ export default {
         allowSaveChanges() {
             return this.saved && this.transforms.length > 0 && store.getters.perms.has('page.edit');
         },
-        allowEditing() {
-            return this.mode === 'edit';
+        nameClasses() {
+            return { title: true, 'has-text-light': !this.page.name }
         },
     },
 

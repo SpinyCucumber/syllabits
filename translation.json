@@ -228,7 +228,8 @@
         "page": {
             "name": "Enter page name...",
             "path": "Enter page path...",
-            "search": "Search for name/path..."
+            "search": "Search for name/path...",
+            "bigname": ["Tentative Title!", "Page in progress...", "Insert {title}"]
         },
         "categories": "Enter categories...", 
         "inprogress": "You haven't played any poems yet!",
