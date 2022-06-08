@@ -36,20 +36,19 @@
                     </div>
                     <transition name="fade">
                         <div class="submenu gap-1" v-if="page">
-                            <editable v-model="page.name"
-                                class="align-self-start"
-                                tag="h1"
-                                custom-class="title"
-                                label-key="name"
-                                :control-options="{
-                                    size: 'is-large',
-                                    placeholder: $translation.get('placeholder.page.name'),
-                                    lazy: true,
-                                }"
-                                v-slot="{value}">
-                                {{ value }}
-                            </editable>
+                            <transition name="fade" mode="out-in">
+                                <h1 class="title" :key="page.name"> {{ page.name }} </h1>
+                            </transition>
                             <b-field grouped group-multiline v-if="mode === 'edit'">
+                                <b-field
+                                    :label="$translation.get('label.name')"
+                                    :message="$translation.get('hint.page.name')"
+                                    label-position="on-border">
+                                    <b-input
+                                        :placeholder="$translation.get('placeholder.page.name')"
+                                        :lazy="true"
+                                        v-model="page.name"/>
+                                </b-field>
                                 <b-field
                                     :label="$translation.get('label.path')"
                                     :message="$translation.get('hint.page.path')"
@@ -81,7 +80,7 @@
 
 <script>
 import Editor from '@tinymce/tinymce-vue'
-import { Scene, BackgroundImage, Editable } from '@/components'
+import { Scene, BackgroundImage } from '@/components'
 import { TrackChanges } from '@/mixins'
 import { Document } from '@/utilities/tracking'
 import { CreatePage, ViewPage, UpdatePage } from '@/queries'
@@ -91,7 +90,7 @@ import store from '@/store'
 export default {
 
     name: 'Page',
-    components: { Scene, NavbarView, BackgroundImage, Editor, Editable, },
+    components: { Scene, NavbarView, BackgroundImage, Editor, },
 
     props: {
         mode: { type: String, default: 'view' }, // May be 'view' or 'edit'

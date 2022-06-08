@@ -237,7 +237,7 @@
     },
     "hint": {
         "page": {
-            "name": "The name displayed to users. May contain spaces.",
+            "name": "The name displayed to users. May contain spaces",
             "path": "Used to contruct the page URL. Shouldn't contain spaces!",
             "public": "Whether page should be accessible via the Navbar",
             "notpublic": "This page isn't public, which means it doesn't appear in the Navbar."

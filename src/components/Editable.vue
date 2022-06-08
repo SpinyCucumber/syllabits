@@ -1,5 +1,5 @@
 <template>
-  <b-field v-if="allowEditing" label-position="on-border" v-bind="{label}">
+  <b-field v-if="allowEditing" label-position="on-border" v-bind="{label, ...$attrs}">
     <component :is="control"
       v-bind="{...controlOptions, value}"
       v-on="$listeners"/>
