@@ -20,7 +20,7 @@
                 </div>
                 <div class="splash-pane submenu is-centered gap-2">
                     <img :src="$assets.getTexture('logo')" class="splash-logo"/>
-                    <div class="splash-buttons">
+                    <div class="splash-buttons submenu gap-1">
                         <b-button
                             v-for="button of buttons"
                             tag="router-link"

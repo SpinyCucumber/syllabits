@@ -150,13 +150,13 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
+    padding: 4em !important;
 
     .splash-pane {
         flex-grow: 1;
     }
 
     .splash-buttons {
-        @extend .submenu;
         min-width: 15vw;
     }
 
