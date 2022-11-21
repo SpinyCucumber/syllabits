@@ -145,12 +145,13 @@ body {
 .splash {
     @extend .scene-content;
 
+    position: relative;
     min-width: 65vw;
     min-height: 65vh;
     display: flex;
     flex-direction: row;
-    align-items: center;
-    padding: 4em !important;
+    padding-top: 4em !important; padding-right: 4em !important; padding-left: 4em !important;
+    padding-bottom: 6em !important;
 
     .splash-pane {
         flex-grow: 1;
@@ -164,6 +165,14 @@ body {
         width: 16em;
         margin-top: auto;
         margin-bottom: auto;
+    }
+
+    .splash-logo-footer {
+        margin: 1em;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 3em;
     }
 
     // With small screens, present pages in column orientation

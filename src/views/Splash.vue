@@ -30,6 +30,7 @@
                             type="is-primary"/>
                     </div>
                 </div>
+                <img :src="$assets.getTexture('cari')" class="splash-logo-footer"/>
             </div>
         </template>
         <template #background-area>
