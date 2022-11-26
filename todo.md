@@ -1,3 +1,7 @@
+# SyllaBits Dev Roadmap #
+
+## Features ##
+
 - [x] Account submenu
 - [x] Progress bar in play view
 - [x] Sound effects
@@ -14,7 +18,7 @@
         - [x] Reset button
         - [x] Help Button
         - [x] Random poem -> next, previous poem
-    - [ ] IMPROVEMENT "Fun Fact" in feedback area once line is complete?
+    - [ ] "Fun Fact" in feedback area once line is complete?
     - [x] Poem Complete! Dialog
     - [x] Resolve Dataset issues
     - [x] Line completion behavior?
@@ -23,24 +27,14 @@
 - [x] Dashboard view
     - [ ] Poem card list pagination ("more" button)
     - [ ] Links to browse by category
+- [x] Embeddable HTML Editor for static pages
+    - [x] Can create "pages" which are shown to all users and can contain arbitrary HTML
+        - Only admins can do this for obvious reasons
 - [x] Register view
     - [ ] Confirm password
-- [ ] Visual Element Redesign
-    - [ ] Divider (fancier!)
-    - [ ] "Drawer" handle
-    - [ ] Progress bar head
-    - [ ] Poem completion dialog art
-- [x] Buefy color scheme changes
-- [x] Sonnet 20 .-.
-    - [x] Modify script to show problem poems
-- [x] Keep track of copyright usage (Luna)
-- [x] Poem collections?
 - [x] Find view
     - [ ] Collections tab
     - [x] Ability to search
-- [x] Message for guest players
-    - Appears when playing poem for first time in session
-- [x] Push to server
 - [x] Add Poem Interface
     - [x] Initial screen to upload text, enter author, title
         - Stanza information also comes from here?
@@ -48,37 +42,6 @@
     - [x] Stanza break switch?
     - [x] Field for title + author
     - [x] 5 feet, text box under?
-- [x] Edit button in the game interface as well
-- [x] Splash CSS Cleanup
-- [ ] TODO Generalize "submenu" to vbox and include vertical-grow support
-- [ ] Scansion Guide Page
-    - FAQ?
-    - Include link in Navbar
-- [ ] Credits/Funders page
-    - Include Folger stuff
-    - [ ] List of libraries
-- [ ] Contact Page/"Learn More" Bibliography?
-    - Dedicated SyllaBits Email?
-- [x] Tutorial (WIP)
-    - [x] Automatically presented to guests
-    - [x] IMPROVEMENT Also accessible through help popup in Gameboard
-    - [x] One-time dialog when player gets line incorrect
-    - [x] Optional help message for certain steps
-    - [x] Disable all lines except for first during first couple steps
-    - [ ] IMPROVEMENT Show dialog to new users as well as guests
-- [x] Fix '/' route redirect
-- In-class demo
-    - Groups of 3 (one for each poem)
-    - Feedback for last part of class
-- [x] Capture poem feature
-    - Option to exit back to poem from complete dialog
-    - [x] Only captures poem div
-    - [x] IMPROVEMENT Add username, timestamp
-- [x] IMPROVEMENT Use promises in gameboard setup method
-- [x] "Play poem" error states
-- [x] Export block images
-- [ ] Mobile TLC
-    - [ ] Horizontal Block Drawer
 - [x] User Roles
     - Admin
         - Modify roles of others?
@@ -86,23 +49,60 @@
         - Add/edit poems (but not modify roles!)
     - [x] Role Tags
     - [x] User Manager view for admins
-- [ ] Embeddable HTML Editor for static pages?
-    - [ ] Can create "pages" which are shown to all users and can contain arbitrary HTML
-        - Only admins can do this for obvious reasons
-- [x] Editors should NOT be able to delete poems
-- [ ] List of Completed Features
-- [ ] SyllaBits Admin Tutorial
-    - [ ] Avaliable in SyllaBits itself
-- [ ] IMPROVEMENT More generalized "reminders" system?
-- [ ] FUTURE (POSSIBLE) FEATURE "Poem completion stats"
+- [x] Tutorial
+    - [x] Automatically presented to guests
+    - [x] IMPROVEMENT Also accessible through help popup in Gameboard
+    - [x] One-time dialog when player gets line incorrect
+    - [x] Optional help message for certain steps
+    - [x] Disable all lines except for first during first couple steps
+    - [ ] IMPROVEMENT Show dialog to new users as well as guests
+- [x] Capture Poem Button
+    - Option to exit back to poem from complete dialog
+    - [x] Only captures poem div
+    - [x] IMPROVEMENT Add username, timestamp
+- [x] Scansion Guide Page
+    - [x] FAQ?
+    - [x] Include link in Navbar
+- [x] Credits/Funders page
+    - Include Folger stuff
+    - [x] List of libraries
+- [ ] "Poem completion stats"
     - Variety of stats (not just one number...)
     - Time/line, Attempts/line, Total time, (playthrough)
     - Number of completions, and types of poems completed (poem)
     - Number of poems completed (user)
-- [ ] "Smarter" "random" poem
-    - Affected by categories, average difficulty, etc.
-- [ ] FUTURE FEATURE Rating Poem Difficulty
+- [ ] Rating Poem Difficulty
     - Can "crowdsource" difficulty
     - Can systematically determine difficulty?
-- [ ] IMPROVEMENT Phase out vue-smooth-dnd... It is abysmal for performance 
-- [ ] POSSIBLE FEATURE "Scratch pad"?
+- [ ] "Scratch pad"?
+
+## Improvements ##
+
+- [x] Buefy color scheme changes
+- [x] Message for guest players
+    - Appears when playing poem for first time in session
+- [x] Edit button in game interface
+- [x] Use promises in gameboard setup method
+- [x] "Play poem" error states
+- [ ] More generalized "reminders" system?
+- [ ] Smarter "random" poem
+    - Affected by categories, average difficulty, etc.
+- [ ] Phase out vue-smooth-dnd... It is abysmal for performance
+- [ ] Visual Element Redesign
+    - [ ] Divider (fancier!)
+    - [ ] "Drawer" handle
+    - [ ] Progress bar head
+    - [ ] Poem completion dialog art
+- [ ] CSS Cleanup
+    - [ ] Use per-component CSS structure to reduce CSS clutter.
+        - This would necessitate having separate folders for each component
+    - [ ] Mobile TLC
+        - Horizontal Block Drawer?
+    - [ ] Generalize "submenu" to vbox and include vertical-grow support
+
+## Tasks ##
+- [x] Export block images
+- [x] List of completed features
+- [x] In-class demo
+    - Groups of 3 (one for each poem)
+    - Feedback for last part of class
