@@ -146,16 +146,13 @@ body {
     @extend .scene-content;
 
     position: relative;
-    min-width: 65vw;
-    min-height: 65vh;
+    flex-grow: 1;
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    gap: 4em;
     padding-top: 4em !important; padding-right: 4em !important; padding-left: 4em !important;
     padding-bottom: 6em !important;
-
-    .splash-pane {
-        flex-grow: 1;
-    }
 
     .splash-buttons {
         min-width: 15vw;
@@ -177,7 +174,13 @@ body {
 
     // With small screens, present pages in column orientation
     @include touch {
+        align-self: stretch;
         flex-direction: column;
+    }
+
+    // With larger screens, limit splash size
+    @include desktop {
+        max-height: 35em;
     }
 
 }
